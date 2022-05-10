@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author votru
+ * @author votr
  */
 public class MainController extends HttpServlet {
 
