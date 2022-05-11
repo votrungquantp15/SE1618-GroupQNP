@@ -1,0 +1,32 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 11-May-2022, 08:25:39
+    Author     : votru
+*/
+html, body {
+    height: 100%;
+    margin: 0;
+    
+}
+.login-page {
+  width: 380px;
+  height: 350px; 
+  flex-direction: column;
+  display: flex;
+  align-items: center;
+  justify-content:center;
+  border: solid 1px;
+  border-color: #f7f7f2;
+  border-radius: 20px;
+  }
+  .container-body { 
+      height: 100%;
+      background-image :linear-gradient(#4287f5,#32a897,#aaf2e8);
+      display: flex;
+      align-items: center;
+      justify-content:center;
+  }
