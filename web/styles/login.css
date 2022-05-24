@@ -7,7 +7,7 @@ and open the template in the editor.
     Created on : 11-May-2022, 08:25:39
     Author     : votru
 */
-html, body {
+/* html, body {
     height: 100%;
     margin: 0;
     
@@ -29,4 +29,39 @@ html, body {
       display: flex;
       align-items: center;
       justify-content:center;
-  }
+  } */
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+body {
+  background: rgb(219, 226, 226);
+}
+.row {
+  background: white;
+  border-radius: 30px;
+}
+img {
+  border-top-left-radius: 30px;
+  border-bottom-left-radius: 30px;
+}
+.img-fluid {
+  width: 100%;
+  height: 600px;
+}
+.btn1 {
+  border: none;
+  outline: none;
+  height: 50px;
+  width: 100%;
+  background-color: black;
+  color: white;
+  border-radius: 4px;
+  font-weight: bold;
+}
+.btn1:hover {
+  background: white;
+  border: 1px solid;
+  color: black;
+}
