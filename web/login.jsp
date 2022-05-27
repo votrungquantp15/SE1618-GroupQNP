@@ -64,7 +64,7 @@
                 </div>
               </div>
               <a href="#"> Forget Password</a>
-              <p>Don't have an account? <a href="#">Register here</a></p>
+              <p>Don't have an account? <a href="create.jsp">Register here</a></p>
             </form>
           </div>
         </div>
