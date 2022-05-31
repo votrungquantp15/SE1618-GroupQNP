@@ -32,6 +32,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_CONTROLLER = "UpdateController";
     private static final String CREATE = "Create";
     private static final String CREATE_CONTROLLER = "CreateController";
+    private static final String RESET = "ResetPassword";
+    private static final String RESET_PASSWORD = "ResetPasswordController";
 
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
@@ -56,9 +58,10 @@ public class MainController extends HttpServlet {
                 url = UPDATE_CONTROLLER;
             } else if (CREATE.equals(action)) {
                 url = CREATE_CONTROLLER;
-
             } else if (SEARCH_PRODUCT.equals(action)) {
                 url = SEARCH_PRODUCT_CONTROLLER;
+            } else if (RESET.equals(action)) {
+                url = RESET_PASSWORD;
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
