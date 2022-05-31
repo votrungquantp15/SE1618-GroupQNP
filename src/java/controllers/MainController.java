@@ -44,24 +44,6 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-<<<<<<< HEAD
-            switch(action){
-                case LOGIN:
-                    url = LOGIN_CONTROLLER;
-                    break;
-                case SEARCH_HISTORY:
-                    url = SEARCH_HISTORY_CONTROLLER;
-                    break;
-                case LOGOUT:
-                    url = LOGOUT_CONTROLLER;
-                    break;
-                case CREATE:
-                    url = CREATE_CONTROLLER;
-                    break;
-                case RESET:
-                    url = RESET_PASSWORD;
-                    break;
-=======
             if (LOGIN.equals(action)) {
                 url = LOGIN_CONTROLLER;
             } else if (HOME.equals(action)) {
@@ -80,7 +62,6 @@ public class MainController extends HttpServlet {
                 url = SEARCH_PRODUCT_CONTROLLER;
             } else if (RESET.equals(action)) {
                 url = RESET_PASSWORD;
->>>>>>> e5e48c6e05ccfc8ef627a9e0590dc58cac0e2b77
             }
 //            if (LOGIN.equals(action)) {
 //                url = LOGIN_CONTROLLER;
