@@ -5,7 +5,7 @@
  */
 package dao;
 
-import dto.Customer;
+import dto.UserDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public class CustomerDAO {
         return check;
     }
     
-    public boolean insert(Customer cus) throws SQLException{
+    public boolean insert(UserDTO cus) throws SQLException{
         boolean check = false;
         Connection conn= null;
         PreparedStatement stm = null;
@@ -67,8 +67,8 @@ public class CustomerDAO {
         return check;
     }
     
-    public Customer checkLogin(String email, String password) throws SQLException{
-        Customer customer = null;
+    public UserDTO checkLogin(String email, String password) throws SQLException{
+        UserDTO customer = null;
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs= null;
@@ -87,7 +87,7 @@ public class CustomerDAO {
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
                 String birthday = rs.getString("birthday");
-                customer = new Customer(roleID, fullName, address, birthday, phone, email, accName, "", roleID, status);
+                customer = new UserDTO(roleID, fullName, address, birthday, phone, email, accName, "", roleID, status);
             }
         } catch (Exception e) {
         }finally{

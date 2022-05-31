@@ -20,8 +20,8 @@ public class MainController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH = "Search";
-    private static final String SEARCH_CONTROLLER = "SearchController";
+    private static final String SEARCH_HISTORY = "Search";
+    private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
     private static final String LOGOUT = "Logout";
@@ -44,25 +44,42 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            } else if (HOME.equals(action)) {
-                url = HOME_CONTROLLER;
-            } else if (SEARCH.equals(action)) {
-                url = SEARCH_CONTROLLER;
-            } else if (LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            } else if (DELETE.equals(action)) {
-                url = DELETE_CONTROLLER;
-            } else if (UPDATE.equals(action)) {
-                url = UPDATE_CONTROLLER;
-            } else if (CREATE.equals(action)) {
-                url = CREATE_CONTROLLER;
-            } else if (SEARCH_PRODUCT.equals(action)) {
-                url = SEARCH_PRODUCT_CONTROLLER;
-            } else if (RESET.equals(action)) {
-                url = RESET_PASSWORD;
+            switch(action){
+                case LOGIN:
+                    url = LOGIN_CONTROLLER;
+                    break;
+                case SEARCH_HISTORY:
+                    url = SEARCH_HISTORY_CONTROLLER;
+                    break;
+                case LOGOUT:
+                    url = LOGOUT_CONTROLLER;
+                    break;
+                case CREATE:
+                    url = CREATE_CONTROLLER;
+                    break;
+                case RESET:
+                    url = RESET_PASSWORD;
+                    break;
             }
+//            if (LOGIN.equals(action)) {
+//                url = LOGIN_CONTROLLER;
+//            } else if (HOME.equals(action)) {
+//                url = HOME_CONTROLLER;
+//            } else if (SEARCH.equals(action)) {
+//                url = SEARCH_CONTROLLER;
+//            } else if (LOGOUT.equals(action)) {
+//                url = LOGOUT_CONTROLLER;
+//            } else if (DELETE.equals(action)) {
+//                url = DELETE_CONTROLLER;
+//            } else if (UPDATE.equals(action)) {
+//                url = UPDATE_CONTROLLER;
+//            } else if (CREATE.equals(action)) {
+//                url = CREATE_CONTROLLER;
+//            } else if (SEARCH_PRODUCT.equals(action)) {
+//                url = SEARCH_PRODUCT_CONTROLLER;
+//            } else if (RESET.equals(action)) {
+//                url = RESET_PASSWORD;
+//            }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
         } finally {

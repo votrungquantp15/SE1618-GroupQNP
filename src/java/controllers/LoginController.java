@@ -6,7 +6,7 @@
 package controllers;
 
 import dao.CustomerDAO;
-import dto.Customer;
+import dto.UserDTO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -44,7 +44,7 @@ public class LoginController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             CustomerDAO dao = new CustomerDAO();
-            Customer cus = dao.checkLogin(email, password);
+            UserDTO cus = dao.checkLogin(email, password);
             if(cus!=null){
                 session.setAttribute("LOGIN_USER", cus);
                 String roleID = cus.getRoleID();

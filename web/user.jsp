@@ -12,7 +12,18 @@
         <title>User Page</title>
     </head>
     <body>
-        <h1>Heelllo</h1>
+        <h1>Hello</h1>
+        <form action="MainController">
+            <input type="text" name="search" readonly="Field Name">
+            <select name="address">
+                <option value="HCM">Hồ Chí Minh</option>
+                <option value="HN">Hà Nội</option>
+                <option value="DN">Đà Nẵng</option>
+                <option value="NT">Nha Trang</option>
+            </select>
+            <input type="submit" name="action" value="Search">
+        </form>
+
         <form action="MainController">
             <input type="submit" name="action" value="Logout"/>
         </form>
