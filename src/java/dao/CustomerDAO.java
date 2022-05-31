@@ -142,4 +142,13 @@ public class CustomerDAO {
         }
         return check;
     }
+    public  String handleUserID () {
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min); 
+        
+        String s=String.valueOf(random_double);
+        return "CU"+ s;
+    }
+
 }

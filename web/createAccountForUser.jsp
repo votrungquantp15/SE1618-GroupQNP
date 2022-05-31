@@ -24,7 +24,7 @@
             Email<input type="email" name="email"/></br>
 <!--            Role<input type="text" name="roleID"/></br>
             status<input type="number" name="status" min="0" max="1"/></br>-->
-            <input type="submit" name="action" value="Create"/>
+            <input type="submit" name="action" value="CreateAccountForUser"/>
             <input type="reset" value="Reset"/>
         </form>
     </body>
