@@ -30,7 +30,7 @@ public class MainController extends HttpServlet {
     private static final String DELETE_CONTROLLER = "DeleteController";
     private static final String UPDATE = "Update";
     private static final String UPDATE_CONTROLLER = "UpdateController";
-    private static final String CREATE = "Create";
+    private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
     private static final String CREATE_CONTROLLER = "CreateController";
     private static final String RESET = "ResetPassword";
     private static final String RESET_PASSWORD = "ResetPasswordController";
@@ -44,6 +44,7 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
+<<<<<<< HEAD
             switch(action){
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
@@ -60,6 +61,26 @@ public class MainController extends HttpServlet {
                 case RESET:
                     url = RESET_PASSWORD;
                     break;
+=======
+            if (LOGIN.equals(action)) {
+                url = LOGIN_CONTROLLER;
+            } else if (HOME.equals(action)) {
+                url = HOME_CONTROLLER;
+            } else if (SEARCH.equals(action)) {
+                url = SEARCH_CONTROLLER;
+            } else if (LOGOUT.equals(action)) {
+                url = LOGOUT_CONTROLLER;
+            } else if (DELETE.equals(action)) {
+                url = DELETE_CONTROLLER;
+            } else if (UPDATE.equals(action)) {
+                url = UPDATE_CONTROLLER;
+            } else if (CREATE_ACCOUNT_FOR_USER.equals(action)) {
+                url = CREATE_CONTROLLER;
+            } else if (SEARCH_PRODUCT.equals(action)) {
+                url = SEARCH_PRODUCT_CONTROLLER;
+            } else if (RESET.equals(action)) {
+                url = RESET_PASSWORD;
+>>>>>>> e5e48c6e05ccfc8ef627a9e0590dc58cac0e2b77
             }
 //            if (LOGIN.equals(action)) {
 //                url = LOGIN_CONTROLLER;

@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <a href="#"> Forget Password</a>
-                            <p>Don't have an account? <a href="create.jsp">Create User</a></p>
+                            <p>Don't have an account? <a href="createAccountForUser.jsp">Create User</a></p>
                         </form>
                         <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/sg-booking-management/login-google&response_type=code
     &client_id=156929057174-2giaf3dbm4itufvgf7ks8hb820l765s1.apps.googleusercontent.com&approval_prompt=force">Login With Google</a> 
