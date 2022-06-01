@@ -64,4 +64,7 @@ nbdist/
 
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,java,visualstudiocode
 
+src/java/utils/DBUtils.java
+
+quan
 
