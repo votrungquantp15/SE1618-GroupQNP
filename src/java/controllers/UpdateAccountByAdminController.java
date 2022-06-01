@@ -8,49 +8,56 @@ package controllers;
 import dao.UserDAO;
 import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author ROG STRIX
+ * @author predator
  */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/ResetPasswordController"})
-public class ResetPasswordController extends HttpServlet {
+@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
+public class UpdateAccountByAdminController extends HttpServlet {
 
-    public static final String ERROR = "resetPassword.jsp";
-    public static final String SUCCESS = "user.jsp";
+    public static final String ERROR = "SearchAccountByAdminController";
+    public static final String SUCCESS = "SearchAccountByAdminController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-
+            String userID = request.getParameter("userID");
+            String fullName = request.getParameter("fullname");
+            String address = request.getParameter("address");
+            String birthday = request.getParameter("birthday");
+            String phone = request.getParameter("quantity");
             String email = request.getParameter("email");
-            String currentPassword = request.getParameter("password");
-            String newPassword = request.getParameter("newPassword");
-            String confirm = request.getParameter("confirm");
+            String accName = request.getParameter("accName");
+            String password = request.getParameter("password");
+            String roleID = request.getParameter("roleID");
+            String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
-            boolean checkPass = dao.checkPass(email, currentPassword);
-            UserDTO cus = new UserDTO();
-            if (checkPass) {
-                boolean check = dao.UpdatePass(email, currentPassword, newPassword);
-                if (check) {
-                    url = SUCCESS;
-                } else {
-                    url = ERROR;
+            UserDTO user = new UserDTO(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
+            boolean checkUpdate = dao.update(user);
+            if (checkUpdate) {
+                UserDTO listUser = (UserDTO) request.getAttribute("userList");
+                if (listUser != null) {
+                    if (listUser.getUserID().equals(userID)) {
+                        if (!listUser.getFullName().equals(fullName)) {
+                            listUser.setFullName(fullName);
+                            request.setAttribute("userList", listUser);
+                        }
+                    }
                 }
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at ResetController");
+            log("Error at UpdateController: " + e.toString());
         } finally {
-            response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

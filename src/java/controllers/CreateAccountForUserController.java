@@ -5,8 +5,8 @@
  */
 package controllers;
 
-import dao.CustomerDAO;
-import dto.Customer;
+import dao.UserDAO;
+import dto.UserDTO;
 import dto.CustomerError;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -32,7 +32,7 @@ public class CreateAccountForUserController extends HttpServlet {
         String url=ERROR;
         try {
 //          String userID= request.getParameter("userID");
-            CustomerDAO dao = new CustomerDAO();
+            UserDAO dao = new UserDAO();
             String userID = dao.userIDForCustomer();                     
             String fullName= request.getParameter("fullName");
             String pass=request.getParameter("password");
@@ -66,7 +66,8 @@ public class CreateAccountForUserController extends HttpServlet {
                 check=false;
             }
             if(check){              
-                Customer cus = new Customer(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
+                UserDTO cus = new UserDTO(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
+
                         boolean checkInsert = dao.insert(cus);
                         if(checkInsert){
                              url = SUCCESS;

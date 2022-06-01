@@ -5,10 +5,9 @@
  */
 package controllers;
 
-import dao.CustomerDAO;
-import dto.Customer;
+import dao.UserDAO;
+import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,7 +21,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
     public static final String ERROR = "login.jsp";
     public static final String USER_PAGE = "user.jsp";
-    public static final String ADMIN_PAGE = "admin.jsp";
+    public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
     
     
@@ -43,8 +42,8 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            CustomerDAO dao = new CustomerDAO();
-            Customer cus = dao.checkLogin(email, password);
+            UserDAO dao = new UserDAO();
+            UserDTO cus = dao.checkLogin(email, password);
             if(cus!=null){
                 session.setAttribute("LOGIN_USER", cus);
                 String roleID = cus.getRoleID();
@@ -61,7 +60,7 @@ public class LoginController extends HttpServlet {
         } catch (Exception e) {
             log("Error at LoginController");
         }finally{
-            response.sendRedirect(url);
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

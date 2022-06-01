@@ -11,7 +11,8 @@ import java.sql.Date;
  *
  * @author votru
  */
-public class Customer {
+public class UserDTO {
+
     private String userID;
     private String fullName;
     private String address;
@@ -23,10 +24,20 @@ public class Customer {
     private String roleID;
     private String status;
 
-    public Customer() {
+    public UserDTO() {
+        this.userID = "";
+        this.fullName = "";
+        this.address = "";
+        this.birth = "";
+        this.phone = "";
+        this.email = "";
+        this.accName = "";
+        this.password = "";
+        this.roleID = "";
+        this.status = "";
     }
 
-    public Customer(String userID, String fullName, String address, String birth, String phone, String email, String accName, String password, String roleID, String status) {
+    public UserDTO(String userID, String fullName, String address, String birth, String phone, String email, String accName, String password, String roleID, String status) {
         this.userID = userID;
         this.fullName = fullName;
         this.address = address;
@@ -118,6 +129,5 @@ public class Customer {
     public void setStatus(String status) {
         this.status = status;
     }
-    
-    
+
 }

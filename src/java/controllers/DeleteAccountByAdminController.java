@@ -5,53 +5,38 @@
  */
 package controllers;
 
-import dao.UserDAO;
-import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 /**
  *
- * @author ROG STRIX
+ * @author predator
  */
-@WebServlet(name = "ResetPasswordController", urlPatterns = {"/ResetPasswordController"})
-public class ResetPasswordController extends HttpServlet {
+@WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
+public class DeleteAccountByAdminController extends HttpServlet {
 
-    public static final String ERROR = "resetPassword.jsp";
-    public static final String SUCCESS = "user.jsp";
-
+    private static final String ERROR = "SearchAccountByAdminController";
+    private static final String SUCCESS = "SearchAccountByAdminController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
-        try {
-
-            String email = request.getParameter("email");
-            String currentPassword = request.getParameter("password");
-            String newPassword = request.getParameter("newPassword");
-            String confirm = request.getParameter("confirm");
-            UserDAO dao = new UserDAO();
-            boolean checkPass = dao.checkPass(email, currentPassword);
-            UserDTO cus = new UserDTO();
-            if (checkPass) {
-                boolean check = dao.UpdatePass(email, currentPassword, newPassword);
-                if (check) {
-                    url = SUCCESS;
-                } else {
-                    url = ERROR;
-                }
-            }
-        } catch (Exception e) {
-            log("Error at ResetController");
-        } finally {
-            response.sendRedirect(url);
-        }
+//        String url = ERROR;
+//        try {
+//            String productID = request.getParameter("userID");
+//            UserDAO dao = new UserDAO();
+//            boolean check = dao.deleteUser(userID);
+//            if (check) {
+//                url = SUCCESS;
+//
+//            }
+//        } catch (Exception e) {
+//            log("Error at DeleteController: " + e.toString());
+//        } finally {
+//            request.getRequestDispatcher(url).forward(request, response);
+//        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
