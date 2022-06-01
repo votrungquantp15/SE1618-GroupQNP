@@ -47,6 +47,7 @@
         <link href="dashboard.css" rel="stylesheet" />
     </head>
     <body>
+<<<<<<< HEAD
         <nav
             class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
             >
@@ -82,123 +83,35 @@
                 </select>
                 <input class="col-md-2 w-100" type="submit" name="action" value="SearchHistory">
             </form>
+=======
+        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="layoutAdmin.jsp"></jsp:include>
+>>>>>>> 485726483d8aa1b8fc811b16454928eb283a11d7
 
-            <ul class="navbar-nav px-3">
-                <li class="nav-item text-nowrap">
-                    <a class="nav-link" href="login.html">Sign out</a>
-                </li>
-            </ul>
-        </nav>
-
-        <div class="container-fluid">
-            <div class="row">
-                <nav
-                    id="sidebarMenu"
-                    class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse"
-                    >
-                    <div class="sidebar-sticky pt-3">
-                        <ul class="nav flex-column">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="home"></span>
-                                    Profile <span class="sr-only">(current)</span>
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file"></span>
-                                    Orders
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="shopping-cart"></span>
-                                    Products
-                                </a>
-                            </li>
-                            <li class="nav-item active">
-                                <a class="nav-link" href="bookingHistory.jsp">
-                                    <span data-feather="users"></span>
-                                    History
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="bar-chart-2"></span>
-                                    Reports
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="layers"></span>
-                                    Integrations
-                                </a>
-                            </li>
-                        </ul>
-
-                        <h6
-                            class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted"
+                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                        <div
+                            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
                             >
-                            <span>Saved reports</span>
-                            <a
-                                class="d-flex align-items-center text-muted"
-                                href="#"
-                                aria-label="Add a new report"
-                                >
-                                <span data-feather="plus-circle"></span>
-                            </a>
-                        </h6>
-                        <ul class="nav flex-column mb-2">
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Current month
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Last quarter
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Social engagement
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a class="nav-link" href="#">
-                                    <span data-feather="file-text"></span>
-                                    Year-end sale
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                </nav>
-
-                <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                    <div
-                        class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-                        >
-                        <h1 class="h2">Dashboard</h1>
-                        <div class="btn-toolbar mb-2 mb-md-0">
-                            <div class="btn-group mr-2">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">
-                                    Share
-                                </button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">
-                                    Export
+                            <h1 class="h2">Dashboard</h1>
+                            <div class="btn-toolbar mb-2 mb-md-0">
+                                <div class="btn-group mr-2">
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        Share
+                                    </button>
+                                    <button type="button" class="btn btn-sm btn-outline-secondary">
+                                        Export
+                                    </button>
+                                </div>
+                                <button
+                                    type="button"
+                                    class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                                    >
+                                    <span data-feather="calendar"></span>
+                                    This week
                                 </button>
                             </div>
-                            <button
-                                type="button"
-                                class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                >
-                                <span data-feather="calendar"></span>
-                                This week
-                            </button>
                         </div>
+<<<<<<< HEAD
                     </div>
                     <h2>Section title</h2>
                     <div class="table-responsive">
@@ -212,6 +125,33 @@
                                     <th>Price</th>
                                 </tr>
                             </thead>
+=======
+                        <h2>Section title</h2>
+
+
+                        <form action="MainController">
+                            <input type="text" name="search" placeholder="search">
+                            <select name="address">
+                                <option>tinh/thanh</option>
+                                <option value="HCM">HCM</option>
+                                <option value="HN">HN</option>
+                                <option value="DN">DN</option>
+                                <option value="NT">NT</option>
+                            </select>
+                            <input type="submit" name="action" value="Search"> 
+                        </form>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-sm">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>BookingID</th>
+                                        <th>Date</th>
+                                        <th>Field</th>
+                                        <th>Price</th>
+                                    </tr>
+                                </thead>
+>>>>>>> 485726483d8aa1b8fc811b16454928eb283a11d7
                             <%
                                 List<BookingHistoryDTO> list = (List<BookingHistoryDTO>) request.getAttribute("LIST_BOOKING_HISTORY");
                                 if (list != null) {
@@ -239,8 +179,6 @@
                         </table>
                     </div>
                 </main>
-            </div>
-        </div>
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

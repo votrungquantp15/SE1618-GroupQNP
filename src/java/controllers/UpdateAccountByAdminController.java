@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author predator
  */
 @WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
-public class UpdateController extends HttpServlet {
+public class UpdateAccountByAdminController extends HttpServlet {
 
     public static final String ERROR = "SearchAccountByAdminController";
     public static final String SUCCESS = "SearchAccountByAdminController";

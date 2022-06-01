@@ -17,31 +17,31 @@
               <li class="nav-item">
                 <a class="nav-link active" href="#">
                   <span data-feather="home"></span>
-                  Dashboard <span class="sr-only">(current)</span>
+                  Admin Dashboard <span class="sr-only"></span>
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="file"></span>
-                  Orders
+                  
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="bookingHistory.jsp">
                   <span data-feather="shopping-cart"></span>
-                  Products
+                  Accounts Management
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="users"></span>
-                  Customers
+                  Fields Management
                 </a>
               </li>
               <li class="nav-item">
                 <a class="nav-link" href="#">
                   <span data-feather="bar-chart-2"></span>
-                  Reports
+                  Booking Report
                 </a>
               </li>
               <li class="nav-item">

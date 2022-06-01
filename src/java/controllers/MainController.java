@@ -24,14 +24,14 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
-    private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchProduct";
-    private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchProductController";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchAccountByAdmin";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchAccountByAdminController";
     private static final String LOGOUT = "Logout";
     private static final String LOGOUT_CONTROLLER = "LogoutController";
-    private static final String DELETE = "Delete";
-    private static final String DELETE_CONTROLLER = "DeleteController";
-    private static final String UPDATE = "Update";
-    private static final String UPDATE_CONTROLLER = "UpdateController";
+    private static final String DELETE_ACCOUNT_BY_ADMIN = "DeleteAccountByAdmin";
+    private static final String DELETE_ACCOUNT_BY_ADMIN_CONTROLLER = "DeleteAccountByAdminController";
+    private static final String UPDATE_ACCOUNT_BY_ADMIN = "UpdateAccountByAdmin";
+    private static final String UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER = "UpdateAccountByAdminController";
     private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
     private static final String CREATE_CONTROLLER = "CreateController";
     private static final String RESET = "ResetPassword";
@@ -56,10 +56,10 @@ public class MainController extends HttpServlet {
                 url = LOGOUT_CONTROLLER;
             } else if (SEARCH_ACCOUNT_BY_ADMIN.equals(action)) {
                 url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
-            } else if (DELETE.equals(action)) {
-                url = DELETE_CONTROLLER;
-            } else if (UPDATE.equals(action)) {
-                url = UPDATE_CONTROLLER;
+            } else if (DELETE_ACCOUNT_BY_ADMIN.equals(action)) {
+                url = DELETE_ACCOUNT_BY_ADMIN_CONTROLLER;
+            } else if (UPDATE_ACCOUNT_BY_ADMIN.equals(action)) {
+                url = UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER;
             } else if (CREATE_ACCOUNT_FOR_USER.equals(action)) {
                 url = CREATE_CONTROLLER;
             } else if (SEARCH_PRODUCT.equals(action)) {
