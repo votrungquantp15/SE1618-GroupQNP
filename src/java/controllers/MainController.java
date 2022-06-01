@@ -31,7 +31,7 @@ public class MainController extends HttpServlet {
     private static final String UPDATE = "Update";
     private static final String UPDATE_CONTROLLER = "UpdateController";
     private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
-    private static final String CREATE_CONTROLLER = "CreateController";
+    private static final String CREATE_CONTROLLER = "CreateAccountForUserController";
     private static final String RESET = "ResetPassword";
     private static final String RESET_PASSWORD = "ResetPasswordController";
 

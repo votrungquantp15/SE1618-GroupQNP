@@ -21,9 +21,9 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ROG STRIX
  */
-@WebServlet(name = "CreateController", urlPatterns = {"/CreateController"})
-public class CreateController extends HttpServlet {
-    public static final String ERROR="create.jsp";
+@WebServlet(name = "CreateController", urlPatterns = {"/CreateAccountForUserController"})
+public class CreateAccountForUserController extends HttpServlet {
+    public static final String ERROR="createAccountForUser.jsp";
     public static final String SUCCESS="login.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -31,7 +31,9 @@ public class CreateController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url=ERROR;
         try {
-            String userID= request.getParameter("userID");
+//          String userID= request.getParameter("userID");
+            CustomerDAO dao = new CustomerDAO();
+            String userID = dao.userIDForCustomer();                     
             String fullName= request.getParameter("fullName");
             String pass=request.getParameter("password");
             String confrim=request.getParameter("comfirm");
@@ -41,23 +43,30 @@ public class CreateController extends HttpServlet {
             String phone =request.getParameter("phone");
             String email=request.getParameter("email");
             boolean check = true;
-            CustomerError cusError = new CustomerError();
-            if(userID.length()<1 || userID.length()>10){
-                cusError.setUserIDError("Sai UserID");
-                check = false;
-            }
+            
+            CustomerError cusError = new CustomerError();            
             if(fullName.length()<2||fullName.length()>30){
-                cusError.setFullNameError("Ten qua ngan hoac qua dai");
+                cusError.setFullNameError("Name from 5 to 20 characters!!");
                 check=false;
             }
-            if(check){
-                CustomerDAO dao = new CustomerDAO();
+            if(pass.length()<5){
+                cusError.setPasswordError("Password must be least 5 characters!!");
+                check=false;
+            }
+            if(!pass.equals(confrim)){
+                cusError.setConfirmError("Two Password not Similar!!");
+                check=false;
+            }
+            if(accName.length()<5 || accName.length()>20){
+                cusError.setAccNameError("Acc Name from 5 to 20 character!!");
+                check=false;
+            }
+            if(phone.length()<9 || phone.length()>11){
+                cusError.setPhoneError("Phone Is Not Accept!!");
+                check=false;
+            }
+            if(check){              
                 Customer cus = new Customer(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
-                boolean checkDup = dao.checkDuplicate(userID);
-                    if(checkDup){
-                        cusError.setUserIDError("Trung ID roi kia!!");
-                        request.setAttribute("CUSTOMER_ERROR", cusError);
-                    }else{
                         boolean checkInsert = dao.insert(cus);
                         if(checkInsert){
                              url = SUCCESS;
@@ -65,11 +74,10 @@ public class CreateController extends HttpServlet {
                             cusError.setMessageError("Khong the insert duoc!!");
                             request.setAttribute("CUSTOMER_ERROR", cusError);
                         }
-                    }
+//                    }
             }else{
                 request.setAttribute("CUSTOMER_ERROR", cusError);
-            }
-            
+            }           
         } catch (Exception e) {
             log("Error at CreateController");
         }finally{

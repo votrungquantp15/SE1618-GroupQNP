@@ -13,7 +13,7 @@
     </head>
     <body>
         <form action="MainController" method="POST">
-            User ID<input type="text" name="userID"/></br>
+<!--            User ID<input type="text" name="userID"/></br>-->
             Full Name<input type="text" name="fullName"/></br>
             Password<input type="password" name="password"/></br>
             Confirm password<input type="password" name="confirm"/></br>

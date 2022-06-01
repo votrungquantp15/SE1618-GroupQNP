@@ -142,13 +142,25 @@ public class CustomerDAO {
         }
         return check;
     }
+    
     public  String handleUserID () {
         int max = 999999;
         int min = 1;
-        int random_double = (int) (Math.random() * (max - min + 1) + min); 
-        
+        int random_double = (int) (Math.random() * (max - min + 1) + min);        
         String s=String.valueOf(random_double);
         return "CU"+ s;
     }
-
+//    public static void main(String[] args) {
+//        handleUserID();
+//        System.out.println(handleUserID());
+//    }
+    
+    public String userIDForCustomer() throws SQLException{
+        String userID = handleUserID();//ramdom userID
+        boolean check = false;
+        do{
+            check = checkDuplicate(userID);//check trùng ID
+        }while(check);           
+        return userID;     
+    }
 }
