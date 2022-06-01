@@ -12,6 +12,10 @@
         <servlet-name>MainController</servlet-name>
         <servlet-class>controllers.MainController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchHistoryController</servlet-name>
+        <servlet-class>controllers.SearchHistoryController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -23,6 +27,10 @@
     <servlet-mapping>
         <servlet-name>MainController</servlet-name>
         <url-pattern>/MainController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchHistoryController</servlet-name>
+        <url-pattern>/SearchHistoryController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

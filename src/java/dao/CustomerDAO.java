@@ -5,7 +5,7 @@
  */
 package dao;
 
-import dto.Customer;
+import dto.UserDTO;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -40,7 +40,7 @@ public class CustomerDAO {
         return check;
     }
     
-    public boolean insert(Customer cus) throws SQLException{
+    public boolean insert(UserDTO cus) throws SQLException{
         boolean check = false;
         Connection conn= null;
         PreparedStatement stm = null;
@@ -67,8 +67,8 @@ public class CustomerDAO {
         return check;
     }
     
-    public Customer checkLogin(String email, String password) throws SQLException{
-        Customer customer = null;
+    public UserDTO checkLogin(String email, String password) throws SQLException{
+        UserDTO customer = null;
         Connection conn = null;
         PreparedStatement stm = null;
         ResultSet rs= null;
@@ -80,6 +80,7 @@ public class CustomerDAO {
             stm.setString(2, password);
             rs=stm.executeQuery();
             if(rs.next()){
+                String userID = rs.getString("UserID");
                 String fullName = rs.getString("fullName");
                 String roleID = rs.getString("roleID");
                 String address = rs.getString("address");
@@ -87,7 +88,7 @@ public class CustomerDAO {
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
                 String birthday = rs.getString("birthday");
-                customer = new Customer(roleID, fullName, address, birthday, phone, email, accName, "", roleID, status);
+                customer = new UserDTO(userID, fullName, address, birthday, phone, email, accName, "", roleID, status);
             }
         } catch (Exception e) {
         }finally{
@@ -142,4 +143,13 @@ public class CustomerDAO {
         }
         return check;
     }
+    public  String handleUserID () {
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min); 
+        
+        String s=String.valueOf(random_double);
+        return "CU"+ s;
+    }
+
 }

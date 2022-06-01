@@ -24,7 +24,7 @@
             />
         <link rel="stylesheet" href="styles/login.css" />
 
-        <title>take</title>
+        <title>Login Page</title>
     </head>
     <body>
         <section class="Form my-5">
@@ -66,7 +66,7 @@
                                 </div>
                             </div>
                             <a href="#"> Forget Password</a>
-                            <p>Don't have an account? <a href="create.jsp">Create User</a></p>
+                            <p>Don't have an account? <a href="createAccountForUser.jsp">Create User</a></p>
                         </form>
                         <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/sg-booking-management/login-google&response_type=code
     &client_id=156929057174-2giaf3dbm4itufvgf7ks8hb820l765s1.apps.googleusercontent.com&approval_prompt=force">Login With Google</a> 
@@ -74,23 +74,7 @@
                 </div>
             </div>
         </section>
-        <!-- test -->
 
-        <!-- Optional JavaScript; choose one of the two! -->
-
-        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
-        <!-- <script
-          src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-          integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-          crossorigin="anonymous"
-        ></script>
-        <script
-          src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-          integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-          crossorigin="anonymous"
-        ></script> -->
-
-        <!-- Option 2: Separate Popper and Bootstrap JS -->
 
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

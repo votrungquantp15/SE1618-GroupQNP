@@ -6,7 +6,7 @@
 package controllers;
 
 import dao.CustomerDAO;
-import dto.Customer;
+import dto.UserDTO;
 import dto.CustomerError;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -52,7 +52,7 @@ public class CreateController extends HttpServlet {
             }
             if(check){
                 CustomerDAO dao = new CustomerDAO();
-                Customer cus = new Customer(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
+                UserDTO cus = new UserDTO(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
                 boolean checkDup = dao.checkDuplicate(userID);
                     if(checkDup){
                         cusError.setUserIDError("Trung ID roi kia!!");
