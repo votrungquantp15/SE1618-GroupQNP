@@ -47,43 +47,7 @@
         <link href="dashboard.css" rel="stylesheet" />
     </head>
     <body>
-<<<<<<< HEAD
-        <nav
-            class="navbar navbar-dark sticky-top bg-dark flex-md-nowrap p-0 shadow"
-            >
-            <a class="navbar-brand col-md-3 col-lg-2 mr-0 px-3" href="user.jsp"
-               >Company name</a
-            >
-            <button
-                class="navbar-toggler position-absolute d-md-none collapsed"
-                type="button"
-                data-toggle="collapse"
-                data-target="#sidebarMenu"
-                aria-controls="sidebarMenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                >
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <%
-                String search = request.getParameter("search");
-                if (search == null) {
-                    search = "";
-                }
-            %>
-            <form class="col-md-8 row" action="MainController">
-                <input class="form-control form-control-dark w-100 col-md-6" name="search" type="text" placeholder="Search" value="<%=search%>">
-                <select class="col-md-2 w-100" id="branche" name="address">
-                    <option value="CT">tỉnh/thành</option>
-                    <option value="CT1">Hồ Chí Minh</option>
-                    <option value="CT2">Hà Nội</option>
-                    <option value="CT3">Đà Nẵng</option>
-                    <option value="CT4">Cần Thơ</option>
-                    <option value="CT5">Thủ Đức</option>
-                </select>
-                <input class="col-md-2 w-100" type="submit" name="action" value="SearchHistory">
-            </form>
-=======
+
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
 >>>>>>> 485726483d8aa1b8fc811b16454928eb283a11d7
