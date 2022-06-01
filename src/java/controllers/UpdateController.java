@@ -11,8 +11,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.shopping.ProductDAO;
-import sample.shopping.ProductDTO;
 
 /**
  *
@@ -21,33 +19,34 @@ import sample.shopping.ProductDTO;
 @WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
 public class UpdateController extends HttpServlet {
 
-    public static final String ERROR = "ShowAllByAdminController";
-    public static final String SUCCESS = "ShowAllByAdminController";
+    public static final String ERROR = "SearchAccountByAdminController";
+    public static final String SUCCESS = "SearchAccountByAdminController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String productID = request.getParameter("productID");
-            String productName = request.getParameter("productName");
-            String image = request.getParameter("image");
-            double price = Double.parseDouble(request.getParameter("price"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
-            String categoryID = request.getParameter("category");
-            String importDate = request.getParameter("importDate");
-            String usingDate = request.getParameter("usingDate");
-            int status = Integer.parseInt(request.getParameter("status"));
-            ProductDAO dao = new ProductDAO();
-            ProductDTO product = new ProductDTO(productID, productName, image, price, quantity, categoryID, importDate, usingDate, status);
-            boolean checkUpdate = dao.update(product);
+            String userID = request.getParameter("userID");
+            String fullname = request.getParameter("fullname");
+            String address = request.getParameter("address");
+            String birthday = request.getParameter("birthday");
+            String phone = request.getParameter("quantity");
+            String email = request.getParameter("email");
+            String accName = request.getParameter("accName");
+            String password = request.getParameter("password");
+            String roleID = request.getParameter("roleID");
+            String status = request.getParameter("status");
+            UserDAO dao = new UserDAO();
+            UserDTO user = new UserDTO(userID, fullname, address, birthday, phone, email, accName, password, roleID, status);
+            boolean checkUpdate = dao.update(user);
             if (checkUpdate) {
-                ProductDTO listProduct = (ProductDTO) request.getAttribute("productList");
-                if (listProduct != null) {
-                    if (listProduct.getProductID().equals(productID)) {
-                        if (!listProduct.getProductName().equals(productName)) {
-                            listProduct.setProductName(productName);
-                            request.setAttribute("productList", listProduct);
+                UserDTO listProduct = (UserDTO) request.getAttribute("userList");
+                if (listUser != null) {
+                    if (listUser.getUserID().equals(UserID)) {
+                        if (!listUser.getUserName().equals(UserName)) {
+                            listUser.setUserName(userName);
+                            request.setAttribute("userList", listUser);
                         }
                     }
                 }

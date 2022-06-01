@@ -5,19 +5,26 @@
  */
 package controllers;
 
+import dao.CustomerDAO;
+import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author votru
  */
 public class LoginController extends HttpServlet {
+    public static final String ERROR = "login.jsp";
+    public static final String USER_PAGE = "user.jsp";
+    public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
+    
+    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -30,17 +37,30 @@ public class LoginController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet LoginController</title>");            
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet LoginController at " + request.getContextPath() + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
+        String url = ERROR;
+        try {
+            HttpSession session = request.getSession();
+            String email = request.getParameter("email");
+            String password = request.getParameter("password");
+            CustomerDAO dao = new CustomerDAO();
+            UserDTO cus = dao.checkLogin(email, password);
+            if(cus!=null){
+                session.setAttribute("LOGIN_USER", cus);
+                String roleID = cus.getRoleID();
+                if(roleID.equals("US")){
+                    url = USER_PAGE;
+                }else if(roleID.equals("AD")){
+                    url = ADMIN_PAGE;
+                }else{
+                    session.setAttribute("ERROR_MESSAGE", "Wrong Role!!");
+                }
+            }else{
+                session.setAttribute("ERROR_MESSAGE", "Wrong ID or Password!!");
+            }
+        } catch (Exception e) {
+            log("Error at LoginController");
+        }finally{
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -6,34 +6,34 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import sample.shopping.ProductDAO;
-import sample.shopping.ProductDTO;
+/**
+ *
+ * @author predator
+ */
+@WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
+public class DeleteController extends HttpServlet {
 
-
-public class SearchController extends HttpServlet {
-
-    private static final String ERROR = "admin.jsp";
-    private static final String SUCCESS = "admin.jsp";
-
+    private static final String ERROR = "SearchAccountByAdminController";
+    private static final String SUCCESS = "SearchAccountByAdminController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
-            ProductDAO dao = new ProductDAO();
-            List<AccountDTO> listAccount = dao.getAccountByName(search);
-            if (listAccount.size() > 0) {
-                request.setAttribute("accountList", listAccount);
+            String productID = request.getParameter("userID");
+            UserDAO dao = new UserDAO();
+            boolean check = dao.deleteUser(userID);
+            if (check) {
                 url = SUCCESS;
+
             }
         } catch (Exception e) {
-            log("Error at SearchController" + e.toString());
+            log("Error at DeleteController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

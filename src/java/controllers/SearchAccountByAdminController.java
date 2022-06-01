@@ -6,35 +6,34 @@
 package controllers;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author votru
- */
-public class LogoutController extends HttpServlet {
-    private static final String ERROR="login.jsp";
-    private static final String SUCCESS="login.jsp";
-    
+
+public class SearchAccountByAdminController extends HttpServlet {
+
+    private static final String ERROR = "admin.jsp";
+    private static final String SUCCESS = "admin.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession(false);
-            if(session!=null){
-                session.invalidate();
-                url=SUCCESS;
+            String search = request.getParameter("search");
+            UserDAO dao = new UserDAO();
+            List<UserDTO> listUser = dao.getUserByName(search);
+            if (listUser.size() > 0) {
+                request.setAttribute("accountList", listUser);
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at Logout");
-        }finally{
-            response.sendRedirect(url);//hủy param
+            log("Error at SearchController" + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

@@ -20,18 +20,22 @@ public class MainController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH = "Search";
-    private static final String SEARCH_CONTROLLER = "SearchController";
+    private static final String SEARCH_HISTORY = "SearchHistory";
+    private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchProduct";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchProductController";
     private static final String LOGOUT = "Logout";
     private static final String LOGOUT_CONTROLLER = "LogoutController";
     private static final String DELETE = "Delete";
     private static final String DELETE_CONTROLLER = "DeleteController";
     private static final String UPDATE = "Update";
     private static final String UPDATE_CONTROLLER = "UpdateController";
-    private static final String CREATE = "Create";
+    private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
     private static final String CREATE_CONTROLLER = "CreateController";
+    private static final String RESET = "ResetPassword";
+    private static final String RESET_PASSWORD = "ResetPasswordController";
 
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
@@ -46,19 +50,22 @@ public class MainController extends HttpServlet {
                 url = LOGIN_CONTROLLER;
             } else if (HOME.equals(action)) {
                 url = HOME_CONTROLLER;
-            } else if (SEARCH.equals(action)) {
-                url = SEARCH_CONTROLLER;
+            } else if (SEARCH_HISTORY.equals(action)) {
+                url = SEARCH_HISTORY_CONTROLLER;
             } else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
+            } else if (SEARCH_ACCOUNT_BY_ADMIN.equals(action)) {
+                url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
             } else if (DELETE.equals(action)) {
                 url = DELETE_CONTROLLER;
             } else if (UPDATE.equals(action)) {
                 url = UPDATE_CONTROLLER;
-            } else if (CREATE.equals(action)) {
+            } else if (CREATE_ACCOUNT_FOR_USER.equals(action)) {
                 url = CREATE_CONTROLLER;
-
             } else if (SEARCH_PRODUCT.equals(action)) {
                 url = SEARCH_PRODUCT_CONTROLLER;
+            } else if (RESET.equals(action)) {
+                url = RESET_PASSWORD;
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
