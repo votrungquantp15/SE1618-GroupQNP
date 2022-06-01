@@ -17,8 +17,8 @@ import utils.DBUtils;
 public class BookingHistoryDAO {
 
     private static final String SEARCH_BOOKING_HISTORY = "SELECT A.bookingID, A.bookingDate, C.fieldName, B.fieldPrice "
-            + "FROM tblBooking A, tblBookingDetail B, tblFields C, tblLocation D "
-            + "WHERE A.bookingId=B.bookingId AND B.fieldId=C.fieldId AND C.locationId=D.locationId AND A.UserID like ? AND C.fieldName like ? AND D.locationName like ?";
+            + "FROM tblBooking A, tblBookingDetail B, tblFields C "
+            + "WHERE A.bookingId=B.bookingId AND B.fieldId=C.fieldId AND A.UserID like ? AND C.fieldName like ? AND C.cityId like ? ";
 
     public List<BookingHistoryDTO> bookingHistory(String userID, String search, String address) throws SQLException {
         List<BookingHistoryDTO> list = new ArrayList<>();

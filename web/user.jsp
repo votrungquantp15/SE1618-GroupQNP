@@ -14,8 +14,8 @@
     <body>
         <h1>Hello</h1>
         <form action="MainController" method="POST">
-            <input type="hidden" name="search" value=" ">
-            <input type="hidden" name="address" value=" ">
+            <input type="hidden" name="search" value="">
+            <input type="hidden" name="address" value="CT">
             <button type="submit" value="SearchHistory" name="action">Go to history</button>
         </form>
         <form action="MainController">  

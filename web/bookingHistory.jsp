@@ -1,7 +1,7 @@
 <%@page import="java.util.List"%>
 <%@page import="dto.BookingHistoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
- 
+
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -64,10 +64,16 @@
                 >
                 <span class="navbar-toggler-icon"></span>
             </button>
+            <%
+                String search = request.getParameter("search");
+                if (search == null) {
+                    search = "";
+                }
+            %>
             <form class="col-md-8 row" action="MainController">
-                <input class="form-control form-control-dark w-100 col-md-6" name="search" type="text" placeholder="Search" aria-label="Search">
-                <select class="col-md-2 w-100" name="address">
-                    <option>tỉnh/thành</option>
+                <input class="form-control form-control-dark w-100 col-md-6" name="search" type="text" placeholder="Search" value="<%=search%>">
+                <select class="col-md-2 w-100" id="branche" name="address">
+                    <option value="CT">tỉnh/thành</option>
                     <option value="CT1">Hồ Chí Minh</option>
                     <option value="CT2">Hà Nội</option>
                     <option value="CT3">Đà Nẵng</option>
@@ -195,20 +201,6 @@
                         </div>
                     </div>
                     <h2>Section title</h2>
-<<<<<<< HEAD
-=======
-                    <form action="MainController">
-                        <input type="text" name="search" placeholder="search">
-                        <select name="address">
-                            <option>tinh/thanh</option>
-                            <option value="HCM">HCM</option>
-                            <option value="HN">HN</option>
-                            <option value="DN">DN</option>
-                            <option value="NT">NT</option>
-                        </select>
-                        <input type="submit" name="action" value="Search"> 
-                    </form>
->>>>>>> 5e3fac34804245d3f3fc211d9d91c9bc8b583154
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
@@ -274,5 +266,14 @@
         <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
         <script src="dashboard.js"></script>
+        <script type="text/javascript">
+                    document.getElementById('branche').onchange = function () {
+                        localStorage.setItem('selectedtem', document.getElementById('branche').value);
+                    };
+
+                    if (localStorage.getItem('selectedtem')) {
+                        document.getElementById(localStorage.getItem('selectedtem')).selected = true;
+                    }
+        </script>
     </body>
 </html>
