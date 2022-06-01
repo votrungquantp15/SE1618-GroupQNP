@@ -168,7 +168,7 @@ public class UserDAO {
         return userID;     
     }
     
-    public List<UserDTO> SearchAccountForAdmin() throws SQLException {
+    public List<UserDTO> searchAccountByAdmin(String search) throws SQLException {
         List<UserDTO> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -178,6 +178,7 @@ public class UserDAO {
             if (conn != null) {
                 String sql = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
                 ptm = conn.prepareStatement(sql);
+                ptm.setString(1, "%" + search + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("userID");
@@ -226,6 +227,9 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
+            if (rs != null) {
+                rs.close();
+            }
             if (ptm != null) {
                 ptm.close();
             }

@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import dao.UserDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,20 +24,20 @@ public class DeleteAccountByAdminController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        String url = ERROR;
-//        try {
-//            String productID = request.getParameter("userID");
-//            UserDAO dao = new UserDAO();
-//            boolean check = dao.deleteUser(userID);
-//            if (check) {
-//                url = SUCCESS;
-//
-//            }
-//        } catch (Exception e) {
-//            log("Error at DeleteController: " + e.toString());
-//        } finally {
-//            request.getRequestDispatcher(url).forward(request, response);
-//        }
+        String url = ERROR;
+        try {
+            String userID = request.getParameter("userID");
+            UserDAO dao = new UserDAO();
+            boolean check = dao.deleteUser(userID);
+            if (check) {
+                url = SUCCESS;
+
+            }
+        } catch (Exception e) {
+            log("Error at DeleteController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
