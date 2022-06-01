@@ -195,6 +195,20 @@
                         </div>
                     </div>
                     <h2>Section title</h2>
+<<<<<<< HEAD
+=======
+                    <form action="MainController">
+                        <input type="text" name="search" placeholder="search">
+                        <select name="address">
+                            <option>tinh/thanh</option>
+                            <option value="HCM">HCM</option>
+                            <option value="HN">HN</option>
+                            <option value="DN">DN</option>
+                            <option value="NT">NT</option>
+                        </select>
+                        <input type="submit" name="action" value="Search"> 
+                    </form>
+>>>>>>> 5e3fac34804245d3f3fc211d9d91c9bc8b583154
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>

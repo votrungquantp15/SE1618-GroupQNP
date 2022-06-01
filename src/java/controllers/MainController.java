@@ -24,6 +24,8 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchProduct";
+    private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchProductController";
     private static final String LOGOUT = "Logout";
     private static final String LOGOUT_CONTROLLER = "LogoutController";
     private static final String DELETE = "Delete";
@@ -52,6 +54,8 @@ public class MainController extends HttpServlet {
                 url = SEARCH_HISTORY_CONTROLLER;
             } else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
+            } else if (SEARCH_ACCOUNT_BY_ADMIN.equals(action)) {
+                url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
             } else if (DELETE.equals(action)) {
                 url = DELETE_CONTROLLER;
             } else if (UPDATE.equals(action)) {

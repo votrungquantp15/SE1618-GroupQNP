@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.DBUtils;
 
 /**
@@ -151,5 +153,102 @@ public class CustomerDAO {
         String s=String.valueOf(random_double);
         return "CU"+ s;
     }
+    
+    public List<UserDTO> SearchAccountForAdmin() throws SQLException {
+        List<UserDTO> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
+                ptm = conn.prepareStatement(sql);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
+                    String address = rs.getString("address");
+                    String birthday = rs.getString("birthday");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String accName = rs.getString("accName");
+                    String password = rs.getString("password");
+                    String status = rs.getString("status");
+                    String roleID = rs.getString("roleID");
+                    list.add(new UserDTO(userID, fullName, address, birthday, phone, email, accName, password, status, roleID));
+                }
+            }
 
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public boolean deleteUser(String userID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, userID);
+                rs = ptm.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
+    public boolean update(UserDTO user) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                String sql = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
+                ptm = conn.prepareStatement(sql);
+                ptm.setString(1, user.getFullName());
+                ptm.setString(2, user.getAddress());
+                ptm.setString(3, user.getBirth());
+                ptm.setString(3, user.getPhone());
+                ptm.setString(3, user.getEmail());
+                ptm.setString(3, user.getStatus());
+                
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }
