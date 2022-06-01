@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
  * @author predator
  */
 @WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
-public class DeleteController extends HttpServlet {
+public class DeleteAccountByAdminController extends HttpServlet {
 
     private static final String ERROR = "SearchAccountByAdminController";
     private static final String SUCCESS = "SearchAccountByAdminController";
