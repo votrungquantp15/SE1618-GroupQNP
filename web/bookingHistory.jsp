@@ -195,7 +195,7 @@
                             <option value="DN">DN</option>
                             <option value="NT">NT</option>
                         </select>
-                        <input type="submit" name="action" value="Search">
+                        <input type="submit" name="action" value="Search"> 
                     </form>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
