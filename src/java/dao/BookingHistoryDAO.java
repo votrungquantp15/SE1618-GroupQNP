@@ -7,7 +7,6 @@ package dao;
 
 import dto.BookingHistoryDTO;
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -17,11 +16,11 @@ import utils.DBUtils;
 
 public class BookingHistoryDAO {
 
-    private static final String SEARCH_BOOKING_HISTORY = "SELECT A.bookingID, A.bookingDate, C.fieldName, B.price "
-            + "FROM tblBooking A, tblBookingDetail B, tblFields C "
-            + "WHERE A.bookingId=B.bookingId AND B.fieldId=C.fieldId AND A.UserID like ? AND C.fieldName like ?";
+    private static final String SEARCH_BOOKING_HISTORY = "SELECT A.bookingID, A.bookingDate, C.fieldName, B.fieldPrice "
+            + "FROM tblBooking A, tblBookingDetail B, tblFields C, tblLocation D "
+            + "WHERE A.bookingId=B.bookingId AND B.fieldId=C.fieldId AND C.locationId=D.locationId AND A.UserID like ? AND C.fieldName like ? AND D.locationName like ?";
 
-    public List<BookingHistoryDTO> bookingHistory(String userID, String search) throws SQLException {
+    public List<BookingHistoryDTO> bookingHistory(String userID, String search, String address) throws SQLException {
         List<BookingHistoryDTO> list = new ArrayList<>();
         Connection connect = null;
         PreparedStatement ptm = null;
@@ -31,11 +30,12 @@ public class BookingHistoryDAO {
             if(connect!=null){
                 ptm = connect.prepareStatement(SEARCH_BOOKING_HISTORY);
                 ptm.setString(1, userID);
-                ptm.setString(2, search);
+                ptm.setString(2,"%" + search + "%");
+                ptm.setString(3,"%" + address + "%");
                 rs = ptm.executeQuery();
                 while(rs.next()){
                     String bookingID = rs.getString("bookingId");
-                    Date bookingDate = rs.getDate("bookingDate");
+                    String bookingDate = rs.getString("bookingDate");
                     String fieldName = rs.getString("fieldName");
                     double price = rs.getDouble("price");
                     list.add(new BookingHistoryDTO(bookingID, bookingDate, fieldName, price, true));

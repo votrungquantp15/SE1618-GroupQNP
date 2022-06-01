@@ -24,7 +24,7 @@
             />
         <link rel="stylesheet" href="styles/login.css" />
 
-        <title>take</title>
+        <title>Login Page</title>
     </head>
     <body>
         <section class="Form my-5">

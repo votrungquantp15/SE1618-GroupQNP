@@ -4,30 +4,26 @@
  * and open the template in the editor.
  */
 package dto;
-
-import java.sql.Date;
-
 /**
  *
  * @author NITRO 5
  */
 public class BookingHistoryDTO {
-
     private String bookingID;
-    private Date bookingDate;
+    private String bookingDate;
     private String fieldName;
     private double price;
     private boolean status;
 
     public BookingHistoryDTO() {
         this.bookingID = "";
-        this.bookingDate = null;
+        this.bookingDate = "";
         this.fieldName = "";
         this.price = 0.0;
         this.status = false;
     }
 
-    public BookingHistoryDTO(String bookingID, Date bookingDate, String fieldName, double price, boolean status) {
+    public BookingHistoryDTO(String bookingID, String bookingDate, String fieldName, double price, boolean status) {
         this.bookingID = bookingID;
         this.bookingDate = bookingDate;
         this.fieldName = fieldName;
@@ -43,11 +39,11 @@ public class BookingHistoryDTO {
         this.bookingID = bookingID;
     }
 
-    public Date getBookingDate() {
+    public String getBookingDate() {
         return bookingDate;
     }
 
-    public void setBookingDate(Date bookingDate) {
+    public void setBookingDate(String bookingDate) {
         this.bookingDate = bookingDate;
     }
 
@@ -67,7 +63,7 @@ public class BookingHistoryDTO {
         this.price = price;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
