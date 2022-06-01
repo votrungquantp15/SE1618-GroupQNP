@@ -80,6 +80,7 @@ public class CustomerDAO {
             stm.setString(2, password);
             rs=stm.executeQuery();
             if(rs.next()){
+                String userID = rs.getString("UserID");
                 String fullName = rs.getString("fullName");
                 String roleID = rs.getString("roleID");
                 String address = rs.getString("address");
@@ -87,7 +88,7 @@ public class CustomerDAO {
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
                 String birthday = rs.getString("birthday");
-                customer = new UserDTO(roleID, fullName, address, birthday, phone, email, accName, "", roleID, status);
+                customer = new UserDTO(userID, fullName, address, birthday, phone, email, accName, "", roleID, status);
             }
         } catch (Exception e) {
         }finally{

@@ -20,7 +20,7 @@ public class MainController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_HISTORY = "Search";
+    private static final String SEARCH_HISTORY = "SearchHistory";
     private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
@@ -48,8 +48,8 @@ public class MainController extends HttpServlet {
                 url = LOGIN_CONTROLLER;
             } else if (HOME.equals(action)) {
                 url = HOME_CONTROLLER;
-//            } else if (SEARCH.equals(action)) {
-//                url = SEARCH_CONTROLLER;
+            } else if (SEARCH_HISTORY.equals(action)) {
+                url = SEARCH_HISTORY_CONTROLLER;
             } else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
             } else if (DELETE.equals(action)) {
@@ -63,25 +63,6 @@ public class MainController extends HttpServlet {
             } else if (RESET.equals(action)) {
                 url = RESET_PASSWORD;
             }
-//            if (LOGIN.equals(action)) {
-//                url = LOGIN_CONTROLLER;
-//            } else if (HOME.equals(action)) {
-//                url = HOME_CONTROLLER;
-//            } else if (SEARCH.equals(action)) {
-//                url = SEARCH_CONTROLLER;
-//            } else if (LOGOUT.equals(action)) {
-//                url = LOGOUT_CONTROLLER;
-//            } else if (DELETE.equals(action)) {
-//                url = DELETE_CONTROLLER;
-//            } else if (UPDATE.equals(action)) {
-//                url = UPDATE_CONTROLLER;
-//            } else if (CREATE.equals(action)) {
-//                url = CREATE_CONTROLLER;
-//            } else if (SEARCH_PRODUCT.equals(action)) {
-//                url = SEARCH_PRODUCT_CONTROLLER;
-//            } else if (RESET.equals(action)) {
-//                url = RESET_PASSWORD;
-//            }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
         } finally {

@@ -9,7 +9,6 @@ import dao.BookingHistoryDAO;
 import dto.BookingHistoryDTO;
 import dto.UserDTO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -35,12 +34,11 @@ public class SearchHistoryController extends HttpServlet {
         String url = ERROR;
         try {
             String search = request.getParameter("search");
-
+            String address = request.getParameter("address");
                 BookingHistoryDAO dao = new BookingHistoryDAO();
-                List<BookingHistoryDTO> list = dao.bookingHistory(UserID, search);
-                session.setAttribute("LIST_BOOKING_HISTORY", list);
+                List<BookingHistoryDTO> list = dao.bookingHistory(UserID, search, address);
+                request.setAttribute("LIST_BOOKING_HISTORY", list);
                 url = SUCCESS;
-
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {
