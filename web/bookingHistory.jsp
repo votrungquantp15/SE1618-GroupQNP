@@ -1,9 +1,11 @@
 <%@page import="java.util.List"%>
 <%@page import="dto.BookingHistoryDTO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+ 
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta
             name="viewport"
             content="width=device-width, initial-scale=1, shrink-to-fit=no"
@@ -62,12 +64,19 @@
                 >
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <input
-                class="form-control form-control-dark w-100"
-                type="text"
-                placeholder="Search"
-                aria-label="Search"
-                />
+            <form class="col-md-8 row" action="MainController">
+                <input class="form-control form-control-dark w-100 col-md-6" name="search" type="text" placeholder="Search" aria-label="Search">
+                <select class="col-md-2 w-100" name="address">
+                    <option>tỉnh/thành</option>
+                    <option value="CT1">Hồ Chí Minh</option>
+                    <option value="CT2">Hà Nội</option>
+                    <option value="CT3">Đà Nẵng</option>
+                    <option value="CT4">Cần Thơ</option>
+                    <option value="CT5">Thủ Đức</option>
+                </select>
+                <input class="col-md-2 w-100" type="submit" name="action" value="SearchHistory">
+            </form>
+
             <ul class="navbar-nav px-3">
                 <li class="nav-item text-nowrap">
                     <a class="nav-link" href="login.html">Sign out</a>
@@ -186,17 +195,6 @@
                         </div>
                     </div>
                     <h2>Section title</h2>
-                    <form action="MainController">
-                        <input type="text" name="search" placeholder="search">
-                        <select name="address">
-                            <option>tinh/thanh</option>
-                            <option value="HCM">HCM</option>
-                            <option value="HN">HN</option>
-                            <option value="DN">DN</option>
-                            <option value="NT">NT</option>
-                        </select>
-                        <input type="submit" name="action" value="Search">
-                    </form>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm">
                             <thead>
@@ -209,7 +207,7 @@
                                 </tr>
                             </thead>
                             <%
-                                List<BookingHistoryDTO> list = (List<BookingHistoryDTO>) session.getAttribute("LIST_BOOKING_HISTORY");
+                                List<BookingHistoryDTO> list = (List<BookingHistoryDTO>) request.getAttribute("LIST_BOOKING_HISTORY");
                                 if (list != null) {
                                     if (list.size() > 0) {
                                         int count = 0;
@@ -231,13 +229,6 @@
                                         }
                                     }
                                 %>
-                                <tr>
-                                    <td>1,002</td>
-                                    <td>placeholder</td>
-                                    <td>irrelevant</td>
-                                    <td>visual</td>
-                                    <td>layout</td>
-                                </tr>
                             </tbody>
                         </table>
                     </div>

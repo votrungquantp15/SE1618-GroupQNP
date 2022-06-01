@@ -13,15 +13,12 @@
     </head>
     <body>
         <h1>Hello</h1>
-        <a href="MainController?action=SearchHistory&search=S&address=20">go to history</a>
-        
         <form action="MainController" method="POST">
-            <input type="hidden" name="search" value="S">
-            <input type="hidden" name="address" value="20">
-            <input type="submit" name="action" value="SearchHistory">
+            <input type="hidden" name="search" value=" ">
+            <input type="hidden" name="address" value=" ">
+            <button type="submit" value="SearchHistory" name="action">Go to history</button>
         </form>
-
-        <form action="MainController">
+        <form action="MainController">  
             <input type="submit" name="action" value="Logout"/>
         </form>
         <a href="resetPassword.jsp">Change your password here</a>

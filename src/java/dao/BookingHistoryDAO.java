@@ -37,7 +37,7 @@ public class BookingHistoryDAO {
                     String bookingID = rs.getString("bookingId");
                     String bookingDate = rs.getString("bookingDate");
                     String fieldName = rs.getString("fieldName");
-                    double price = rs.getDouble("price");
+                    double price = rs.getDouble("fieldPrice");
                     list.add(new BookingHistoryDTO(bookingID, bookingDate, fieldName, price, true));
                 }
             }
