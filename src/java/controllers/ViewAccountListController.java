@@ -15,28 +15,31 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-@WebServlet(name = "SearchAccountByAdminController", urlPatterns = {"/SearchAccountByAdminController"})
-public class SearchAccountByAdminController extends HttpServlet {
+/**
+ *
+ * @author predator
+ */
+@WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
+public class ViewAccountListController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "fieldManagement.jsp";
-
+    private static final String ERROR = "adminDashboard.jsp";
+    private static final String SUCCESS = "adminDashboard.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        
         try {
-            String search = request.getParameter("search");
-            UserDAO dao = new UserDAO();
-            List<User> listUser = dao.searchAccountByAdmin(search);
-                
-            if (listUser.size() > 0) {
-                request.setAttribute("accountList", listUser);
-                url = SUCCESS;
-            }
+            String viewAll = request.getParameter("viewAccountList");
+            UserDAO userDao = new UserDAO();
+            List<User> list = userDao.viewAccountList();
+            request.setAttribute("accountList", list);
+            url = SUCCESS;
+            
         } catch (Exception e) {
-            log("Error at SearchAccountByAdminController" + e.toString());
+            log("Error at ViewAccountListController: " + e.toString());
         } finally {
+
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

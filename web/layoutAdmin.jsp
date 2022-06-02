@@ -27,7 +27,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="bookingHistory.jsp">
+                <a class="nav-link" href="accountManagement.jsp">
                   <span data-feather="shopping-cart"></span>
                   Accounts Management
                 </a>

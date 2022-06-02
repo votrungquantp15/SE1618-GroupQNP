@@ -5,7 +5,9 @@
  */
 package controllers;
 
+import dao.RoleDAO;
 import dao.UserDAO;
+import dto.Role;
 import dto.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -18,7 +20,7 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author predator
  */
-@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
+@WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
 public class UpdateAccountByAdminController extends HttpServlet {
 
     public static final String ERROR = "SearchAccountByAdminController";
@@ -37,11 +39,14 @@ public class UpdateAccountByAdminController extends HttpServlet {
             String email = request.getParameter("email");
             String accName = request.getParameter("accName");
             String password = request.getParameter("password");
-            String roleID = request.getParameter("roleID");
+            
+            String id_of_role = request.getParameter("roleID");
+            RoleDAO role = new RoleDAO();
+            Role roleID = role.getRole(id_of_role);
             String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
             User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.update(user);
+            boolean checkUpdate = dao.updateUser(user);
             if (checkUpdate) {
                 User listUser = (User) request.getAttribute("userList");
                 if (listUser != null) {
@@ -55,7 +60,7 @@ public class UpdateAccountByAdminController extends HttpServlet {
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            log("Error at UpdateAccountByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

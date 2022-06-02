@@ -32,6 +32,8 @@ public class MainController extends HttpServlet {
     private static final String DELETE_ACCOUNT_BY_ADMIN_CONTROLLER = "DeleteAccountByAdminController";
     private static final String UPDATE_ACCOUNT_BY_ADMIN = "UpdateAccountByAdmin";
     private static final String UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER = "UpdateAccountByAdminController";
+    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
+    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
     private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
     private static final String CREATE_CONTROLLER = "CreateAccountForUserController";
     private static final String RESET = "ResetPassword";
@@ -64,6 +66,8 @@ public class MainController extends HttpServlet {
                 url = CREATE_CONTROLLER;
             } else if (SEARCH_PRODUCT.equals(action)) {
                 url = SEARCH_PRODUCT_CONTROLLER;
+            } else if (VIEW_ACCOUNT_LIST.equals(action)) {
+                url = VIEW_ACCOUNT_LIST_CONTROLLER;
             } else if (RESET.equals(action)) {
                 url = RESET_PASSWORD;
             }

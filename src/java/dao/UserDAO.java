@@ -19,7 +19,8 @@ public class UserDAO {
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
     private static final String SEARCH_ACCOUNT_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
-    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
+    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, roleID = ?, status = ?  WHERE userID = ?";
+    private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
 
     public boolean checkDuplicate(String userID) throws SQLException {
         boolean check = false;
@@ -195,7 +196,7 @@ public class UserDAO {
         return userID;
     }
 
-    public List<User> SearchAccountForAdmin() throws SQLException {
+    public List<User> searchAccountByAdmin(String search) throws SQLException {
         List<User> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -216,10 +217,10 @@ public class UserDAO {
                     String password = rs.getString("password");
                     String id_of_role = rs.getString("roleID");
                     RoleDAO role = new RoleDAO();
-                    Role roleId = role.getRole(id_of_role);
+                    Role roleID = role.getRole(id_of_role);
                     String status = rs.getString("status");
 
-                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleId, status));
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
                 }
             }
 
@@ -275,9 +276,10 @@ public class UserDAO {
                 ptm.setString(1, user.getFullName());
                 ptm.setString(2, user.getAddress());
                 ptm.setString(3, user.getBirth());
-                ptm.setString(3, user.getPhone());
-                ptm.setString(3, user.getEmail());
-                ptm.setString(3, user.getStatus());
+                ptm.setString(4, user.getPhone());
+                ptm.setString(5, user.getEmail());
+                ptm.setString(6, user.getRole().getRoleId());
+                ptm.setString(6, user.getStatus());
 
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
@@ -291,5 +293,49 @@ public class UserDAO {
             }
         }
         return check;
+    }
+
+    public List<User> viewAccountList() throws SQLException {
+        List<User> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_ACCOUNT_LIST);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
+                    String address = rs.getString("address");                   
+                    String birthday = rs.getString("birthday");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String accName = rs.getString("accName");
+                    String password = rs.getString("password");
+                    String id_of_role = rs.getString("roleID");
+                    RoleDAO role = new RoleDAO();
+                    Role roleID = role.getRole(id_of_role);
+                    String status = rs.getString("status");
+                   
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                }
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }
