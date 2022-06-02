@@ -1,67 +1,40 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.UserDAO;
-import dto.User;
+import dao.FieldDAO;
+import dto.Field;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author votru
- */
-public class LoginController extends HttpServlet {
-    public static final String ERROR = "login.jsp";
-    public static final String USER_PAGE = "user.jsp";
-    public static final String ADMIN_PAGE = "adminDashboard.jsp";
+public class PrintFieldController extends HttpServlet {
 
-    
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String ERROR = "fieldsManagement.jsp";
+    private static final String SUCCESS = "fieldsManagement.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+
         try {
-            HttpSession session = request.getSession();
-            String email = request.getParameter("email");
-            String password = request.getParameter("password");
-            UserDAO dao = new UserDAO();
-            User cus = dao.checkLogin(email, password);
-            
-            if(cus!=null){
-                session.setAttribute("LOGIN_USER", cus);
-                String roleID = cus.getRole().getRoleId();
-                if(roleID.equals("US")){
-                    url = USER_PAGE;
-                }else if(roleID.equals("AD")){
-                    url = ADMIN_PAGE;
-                }else{
-                    session.setAttribute("ERROR_MESSAGE", "Wrong Role!!");
-                }
-            }else{
-                session.setAttribute("ERROR_MESSAGE", "Wrong ID or Password!!");
+            FieldDAO dao = new FieldDAO();
+            List<Field> listUser = dao.getListProduct();
+            if (listUser.size() > 0) {
+                request.setAttribute("LIST_FIELD", listUser);
+                url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
-        }finally{
-            request.getRequestDispatcher(url).forward(request, response);
+            log("Error at SearchController: " + e.toString());
+        } finally {
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+            } catch (Exception e) {
+                log("Error at SearchController: " + e.toString());
+            }
         }
     }
 

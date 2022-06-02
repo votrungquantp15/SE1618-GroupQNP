@@ -1,41 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
-import dto.Role;
+import dto.FieldCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import utils.DBUtils;
 
-/**
- *
- * @author ACER
- */
-public class RoleDAO {
+public class FieldCategoryDAO {
 
-    private static final String GET_ROLE = "SELECT roleID FROM tblRoles WHERE roleID = ?";
+    private static final String GET_FIELD_CATE = "SELECT categoryFieldId FROM tblFieldCategory WHERE categoryFieldId = ?";
 
-    public Role getRole(String roleID) throws SQLException {
-        Role role = null;
+    public FieldCategory getFieldCategoryId(String categoryFieldId) throws SQLException {
+        FieldCategory fieldCate = null;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ROLE);
-                ptm.setString(1, roleID);
+                ptm = conn.prepareStatement(GET_FIELD_CATE);
+                ptm.setString(1, categoryFieldId);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String id_of_role = rs.getString("roleID");
-                    role = new Role(id_of_role, "", "");
+                    String id_of_field_cate = rs.getString("categoryFieldId");;
+                    fieldCate = new FieldCategory(id_of_field_cate, "", "");
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -49,7 +41,6 @@ public class RoleDAO {
                 conn.close();
             }
         }
-        return role;
+        return fieldCate;
     }
-
 }

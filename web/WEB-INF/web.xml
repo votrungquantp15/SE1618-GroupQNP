@@ -16,6 +16,14 @@
         <servlet-name>SearchHistoryController</servlet-name>
         <servlet-class>controllers.SearchBookingController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintFieldController</servlet-name>
+        <servlet-class>controllers.PrintFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -31,6 +39,14 @@
     <servlet-mapping>
         <servlet-name>SearchHistoryController</servlet-name>
         <url-pattern>/SearchHistoryController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldController</servlet-name>
+        <url-pattern>/PrintFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <url-pattern>/UpdateFieldByAdminController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

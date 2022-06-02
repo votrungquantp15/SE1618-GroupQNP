@@ -21,6 +21,7 @@ public class UserDAO {
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
     private static final String GET_ALL_INFO = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID like ?";
+    private static final String GET_USERID = "SELECT userId FROM tblUsers WHERE userId = ?";
 
     public User getAllInfo(String userID) throws SQLException {
         User customer = null;
@@ -150,7 +151,6 @@ public class UserDAO {
                 String status = rs.getString("status");
 
                 customer = new User(userID, fullName, address, birthday, phone, email, accName, "", roleId, status);
-                System.out.println(customer.toString());
             }
         } catch (Exception e) {
         } finally {
@@ -333,5 +333,42 @@ public class UserDAO {
             }
         }
         return check;
+    }
+    
+    public User getUserId(String userID) throws SQLException {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                ptm = conn.prepareStatement(GET_USERID);
+                ptm.setString(1, userID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String id_of_user = rs.getString("userID");
+                    user = new User(id_of_user, "", "", "", "", "", "", "", null, "");
+                }
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
     }
 }
