@@ -6,7 +6,7 @@
 package controllers;
 
 import dao.UserDAO;
-import dto.UserDTO;
+import dto.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -43,10 +43,10 @@ public class LoginController extends HttpServlet {
             String email = request.getParameter("email");
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
-            UserDTO cus = dao.checkLogin(email, password);
+            User cus = dao.checkLogin(email, password);
             if(cus!=null){
                 session.setAttribute("LOGIN_USER", cus);
-                String roleID = cus.getRoleID();
+                String roleID = cus.getRole().getRoleId();
                 if(roleID.equals("US")){
                     url = USER_PAGE;
                 }else if(roleID.equals("AD")){
