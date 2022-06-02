@@ -5,7 +5,7 @@
  */
 package dao;
 
-import dto.BookingHistory;
+import dto.BookingDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,14 +14,10 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
-public class BookingHistoryDAO {
+public class BookingDetailDAO {
 
-    private static final String SEARCH_BOOKING_HISTORY = "SELECT A.bookingID, A.bookingDate, C.fieldName, B.fieldPrice "
-            + "FROM tblBooking A, tblBookingDetail B, tblFields C "
-            + "WHERE A.bookingId=B.bookingId AND B.fieldId=C.fieldId AND A.UserID like ? AND C.fieldName like ? AND C.cityId like ? ";
-
-    public List<BookingHistory> bookingHistory(String userID, String search, String address) throws SQLException {
-        List<BookingHistory> list = new ArrayList<>();
+    public List<BookingDetail> bookingHistory(String userID, String search, String address) throws SQLException {
+        List<BookingDetail> list = new ArrayList<>();
         Connection connect = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -38,7 +34,7 @@ public class BookingHistoryDAO {
                     String bookingDate = rs.getString("bookingDate");
                     String fieldName = rs.getString("fieldName");
                     double price = rs.getDouble("fieldPrice");
-                    list.add(new BookingHistory(bookingID, bookingDate, fieldName, price, true));
+                    list.add(new BookingDetail(bookingID, bookingDate, fieldName, price, true));
                 }
             }
         } catch (Exception e) {
