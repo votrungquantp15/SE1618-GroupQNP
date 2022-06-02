@@ -39,12 +39,12 @@ public class BookingDAO {
                     String getBookingDate = rs.getString("bookingDate");
                     
                     String getUserID = rs.getString("userID");
-                    UserDAO user = new UserDAO();
-                    User UserID = user.getAllInfo(getUserID);
+                    UserDAO userDAO = new UserDAO();
+                    User User = userDAO.getAllInfo(getUserID);
                     double getTotalPrice = rs.getDouble("totalPrice");
                     String getCreatingDate = rs.getString("creatingDate");
                     String status = rs.getString("status");
-                    booking.add(new Booking(getBookingID, getBookingDate, UserID, getTotalPrice, getCreatingDate, status));
+                    booking.add(new Booking(getBookingID, getBookingDate, User, getTotalPrice, getCreatingDate, status));
                 }
             }
         } catch (Exception e) {

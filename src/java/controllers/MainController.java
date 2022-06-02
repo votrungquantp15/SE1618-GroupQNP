@@ -21,7 +21,7 @@ public class MainController extends HttpServlet {
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
     private static final String SEARCH_HISTORY = "SearchHistory";
-    private static final String SEARCH_HISTORY_CONTROLLER = "SearchHistoryController";
+    private static final String SEARCH_HISTORY_CONTROLLER = "SearchBookingController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
     private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchAccountByAdmin";

@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
  *
  * @author NITRO 5
  */
-public class SearchHistoryController extends HttpServlet {
+public class SearchBookingController extends HttpServlet {
 
     private static final String SUCCESS = "bookingHistory.jsp";
     private static final String ERROR = "error.jsp";

@@ -20,7 +20,7 @@ public class FieldDAO {
 
     private static final String GET_FIELD = "SELECT fieldName FROM tblFields WHERE fieldID like ? ";
 
-    public Field getField(String fieldID) throws SQLException {
+    public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();
         Connection conn = null;
         PreparedStatement ptm = null;

@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
-public class BookingHistoryDAO {
+public class BookingDetailDAO {
 
     public List<BookingDetail> bookingHistory(String userID, String search, String address) throws SQLException {
         List<BookingDetail> list = new ArrayList<>();
