@@ -1,21 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dto;
-/**
- *
- * @author NITRO 5
- */
-public class BookingHistoryDTO {
+
+public class BookingHistory {
     private String bookingID;
     private String bookingDate;
     private String fieldName;
     private double price;
     private boolean status;
 
-    public BookingHistoryDTO() {
+    public BookingHistory() {
         this.bookingID = "";
         this.bookingDate = "";
         this.fieldName = "";
@@ -23,7 +15,7 @@ public class BookingHistoryDTO {
         this.status = false;
     }
 
-    public BookingHistoryDTO(String bookingID, String bookingDate, String fieldName, double price, boolean status) {
+    public BookingHistory(String bookingID, String bookingDate, String fieldName, double price, boolean status) {
         this.bookingID = bookingID;
         this.bookingDate = bookingDate;
         this.fieldName = fieldName;

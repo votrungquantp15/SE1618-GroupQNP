@@ -6,7 +6,7 @@
 package controllers;
 
 import dao.UserDAO;
-import dto.UserDTO;
+import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
@@ -38,7 +38,7 @@ public class ResetPasswordController extends HttpServlet {
             String confirm = request.getParameter("confirm");
             UserDAO dao = new UserDAO();
             boolean checkPass = dao.checkPass(email, currentPassword);
-            UserDTO cus = new UserDTO();
+            User cus = new User();
             if (checkPass) {
                 boolean check = dao.UpdatePass(email, currentPassword, newPassword);
                 if (check) {

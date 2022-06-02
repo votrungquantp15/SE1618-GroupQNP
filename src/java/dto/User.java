@@ -1,17 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dto;
 
-import java.sql.Date;
-
-/**
- *
- * @author votru
- */
-public class UserDTO {
+public class User {
 
     private String userID;
     private String fullName;
@@ -21,10 +10,10 @@ public class UserDTO {
     private String email;
     private String accName;
     private String password;
-    private String roleID;
+    private Role role;
     private String status;
 
-    public UserDTO() {
+    public User() {
         this.userID = "";
         this.fullName = "";
         this.address = "";
@@ -33,11 +22,11 @@ public class UserDTO {
         this.email = "";
         this.accName = "";
         this.password = "";
-        this.roleID = "";
+        this.role = null;
         this.status = "";
     }
 
-    public UserDTO(String userID, String fullName, String address, String birth, String phone, String email, String accName, String password, String roleID, String status) {
+    public User(String userID, String fullName, String address, String birth, String phone, String email, String accName, String password, Role role, String status) {
         this.userID = userID;
         this.fullName = fullName;
         this.address = address;
@@ -46,7 +35,7 @@ public class UserDTO {
         this.email = email;
         this.accName = accName;
         this.password = password;
-        this.roleID = roleID;
+        this.role = role;
         this.status = status;
     }
 
@@ -114,12 +103,12 @@ public class UserDTO {
         this.password = password;
     }
 
-    public String getRoleID() {
-        return roleID;
+    public Role getRole() {
+        return role;
     }
 
-    public void setRoleID(String roleID) {
-        this.roleID = roleID;
+    public void setRole(Role role) {
+        this.role = role;
     }
 
     public String getStatus() {
@@ -129,5 +118,4 @@ public class UserDTO {
     public void setStatus(String status) {
         this.status = status;
     }
-
 }

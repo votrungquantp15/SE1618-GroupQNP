@@ -6,7 +6,7 @@
 package controllers;
 
 import dao.UserDAO;
-import dto.UserDTO;
+import dto.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -40,10 +40,10 @@ public class UpdateAccountByAdminController extends HttpServlet {
             String roleID = request.getParameter("roleID");
             String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
-            UserDTO user = new UserDTO(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
+            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.update(user);
             if (checkUpdate) {
-                UserDTO listUser = (UserDTO) request.getAttribute("userList");
+                User listUser = (User) request.getAttribute("userList");
                 if (listUser != null) {
                     if (listUser.getUserID().equals(userID)) {
                         if (!listUser.getFullName().equals(fullName)) {

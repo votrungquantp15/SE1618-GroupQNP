@@ -6,11 +6,9 @@
 package controllers;
 
 import dao.UserDAO;
-import dto.UserDTO;
+import dto.User;
 import dto.CustomerError;
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -66,8 +64,7 @@ public class CreateAccountForUserController extends HttpServlet {
                 check=false;
             }
             if(check){              
-                UserDTO cus = new UserDTO(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
-
+                User cus = new User(userID, fullName, address, birthDay, phone, email, accName, pass, "US", "1");
                         boolean checkInsert = dao.insert(cus);
                         if(checkInsert){
                              url = SUCCESS;

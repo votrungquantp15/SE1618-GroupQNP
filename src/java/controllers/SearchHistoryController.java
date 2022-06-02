@@ -6,8 +6,8 @@
 package controllers;
 
 import dao.BookingHistoryDAO;
-import dto.BookingHistoryDTO;
-import dto.UserDTO;
+import dto.BookingHistory;
+import dto.User;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -29,14 +29,14 @@ public class SearchHistoryController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
-        UserDTO loginUser = (UserDTO) session.getAttribute("LOGIN_USER");
+        User loginUser = (User) session.getAttribute("LOGIN_USER");
         String UserID = loginUser.getUserID();
         String url = ERROR;
         try {
             String search = request.getParameter("search");
             String address = request.getParameter("address");
                 BookingHistoryDAO dao = new BookingHistoryDAO();
-                List<BookingHistoryDTO> list = dao.bookingHistory(UserID, search, address);
+                List<BookingHistory> list = dao.bookingHistory(UserID, search, address);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 url = SUCCESS;
         } catch (Exception e) {
