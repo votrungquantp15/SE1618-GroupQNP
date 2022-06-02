@@ -20,6 +20,48 @@ public class UserDAO {
     private static final String SEARCH_ACCOUNT_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
+    private static final String GET_ALL_INFO = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID like ?";
+
+    public User getAllInfo(String userID) throws SQLException {
+        User customer = null;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            stm = conn.prepareStatement(GET_ALL_INFO);
+            stm.setString(1, userID);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                String getUserID = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String id_of_role = rs.getString("roleID");
+                RoleDAO role = new RoleDAO();
+                Role roleId = role.getRole(id_of_role);
+                String address = rs.getString("address");
+                String birthday = rs.getString("birthday");
+                String phone = rs.getString("phone");
+                String accName = rs.getString("accName");
+                String email = rs.getString("email");
+                String status = rs.getString("status");
+                customer = new User(getUserID, fullName, address, birthday, phone, email, accName, "", roleId, status);
+                System.out.println(customer.toString());
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return customer;
+
+    }
 
     public boolean checkDuplicate(String userID) throws SQLException {
         boolean check = false;

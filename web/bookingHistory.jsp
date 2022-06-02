@@ -1,5 +1,5 @@
+<%@page import="dto.Booking"%>
 <%@page import="java.util.List"%>
-<%@page import="dto.BookingHistoryDTO"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <!DOCTYPE html>
@@ -50,99 +50,68 @@
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
->>>>>>> 485726483d8aa1b8fc811b16454928eb283a11d7
-
-                    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                        <div
-                            class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-                            >
-                            <h1 class="h2">Dashboard</h1>
-                            <div class="btn-toolbar mb-2 mb-md-0">
-                                <div class="btn-group mr-2">
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        Share
-                                    </button>
-                                    <button type="button" class="btn btn-sm btn-outline-secondary">
-                                        Export
-                                    </button>
-                                </div>
-                                <button
-                                    type="button"
-                                    class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                                    >
-                                    <span data-feather="calendar"></span>
-                                    This week
-                                </button>
-                            </div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div
+                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
+                    >
+                    <h1 class="h2">Dashboard</h1>
+                    <div class="btn-toolbar mb-2 mb-md-0">
+                        <div class="btn-group mr-2">
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Share
+                            </button>
+                            <button type="button" class="btn btn-sm btn-outline-secondary">
+                                Export
+                            </button>
                         </div>
-<<<<<<< HEAD
+                        <button
+                            type="button"
+                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
+                            >
+                            <span data-feather="calendar"></span>
+                            This week
+                        </button>
                     </div>
-                    <h2>Section title</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>BookingID</th>
-                                    <th>Date</th>
-                                    <th>Field</th>
-                                    <th>Price</th>
-                                </tr>
-                            </thead>
-=======
-                        <h2>Section title</h2>
+                </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Số</th>
+                                <th>Mã Đơn</th>
+                                <th>Ngày chơi</th>
+                                <th>Người đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Ngày tạo đơn</th>
+                            </tr>
+                        </thead>
+                    <%
+                        List<Booking> list = (List<Booking>) request.getAttribute("LIST_BOOKING_HISTORY");
+                        if (list != null) {
+                            if (list.size() > 0) {
+                                int count = 0;
+                                for (Booking listBooking : list) {
+                                    count++;
+                    %>
+                    <tbody>
+                        <tr>
+                            <td><%= count%></td>
+                            <td><%= listBooking.getBookingId()%></td>
+                            <td><%= listBooking.getBookingDate()%></td>
+                            <td><%= listBooking.getUser().getFullName() %></td>
+                            <td><%= listBooking.getTotalPrice()%></td>
+                            <td><%= listBooking.getCreatingDate()%></td>
+                        </tr>
+                        <%
 
-
-                        <form action="MainController">
-                            <input type="text" name="search" placeholder="search">
-                            <select name="address">
-                                <option>tinh/thanh</option>
-                                <option value="HCM">HCM</option>
-                                <option value="HN">HN</option>
-                                <option value="DN">DN</option>
-                                <option value="NT">NT</option>
-                            </select>
-                            <input type="submit" name="action" value="Search"> 
-                        </form>
-                        <div class="table-responsive">
-                            <table class="table table-striped table-sm">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>BookingID</th>
-                                        <th>Date</th>
-                                        <th>Field</th>
-                                        <th>Price</th>
-                                    </tr>
-                                </thead>
->>>>>>> 485726483d8aa1b8fc811b16454928eb283a11d7
-                            <%
-                                List<BookingHistoryDTO> list = (List<BookingHistoryDTO>) request.getAttribute("LIST_BOOKING_HISTORY");
-                                if (list != null) {
-                                    if (list.size() > 0) {
-                                        int count = 0;
-                                        for (BookingHistoryDTO listBooking : list) {
-                                            if (listBooking.getStatus() == true) {
-                                                count++;
-                            %>
-                            <tbody>
-                                <tr>
-                                    <td><%= count%></td>
-                                    <td><%= listBooking.getBookingID()%></td>
-                                    <td><%= listBooking.getBookingDate()%></td>
-                                    <td><%= listBooking.getFieldName()%></td>
-                                    <td><%= listBooking.getPrice()%></td>
-                                </tr>
-                                <%
-                                                }
-                                            }
-                                        }
                                     }
-                                %>
-                            </tbody>
-                        </table>
-                    </div>
-                </main>
+                                }
+                            }
+                        %>
+                    </tbody>
+                </table>
+            </div>
+        </main>
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
@@ -169,13 +138,13 @@
         <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
         <script src="dashboard.js"></script>
         <script type="text/javascript">
-                    document.getElementById('branche').onchange = function () {
-                        localStorage.setItem('selectedtem', document.getElementById('branche').value);
-                    };
+            document.getElementById('branche').onchange = function () {
+                localStorage.setItem('selectedtem', document.getElementById('branche').value);
+            };
 
-                    if (localStorage.getItem('selectedtem')) {
-                        document.getElementById(localStorage.getItem('selectedtem')).selected = true;
-                    }
+            if (localStorage.getItem('selectedtem')) {
+                document.getElementById(localStorage.getItem('selectedtem')).selected = true;
+            }
         </script>
     </body>
 </html>
