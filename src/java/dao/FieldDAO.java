@@ -23,17 +23,14 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class FieldDAO {
-
-<<<<<<< HEAD
     private static final String GET_ALL_INFO = "SELECT fieldID, fieldName, description, image, categoryFieldID, UserID, LocationID, cityID, status "
             + "FROM tblFields WHERE fieldID like ? ";
-=======
+
     private static final String GET_FIELD = "SELECT fieldName FROM tblFields WHERE fieldID like ? ";
     private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, userId, locationId, cityId, status FROM tblFields";
     private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, userId, locationId, cityId, status FROM tblFields WHERE fieldId like ?";
     private static final String UPDATE_STATUS_FIELD_BY_ADMIN = "UPDATE tblFields SET fieldName = ?, [description] = ?, [image] = ?, categoryFieldId = ?, userId = ?, locationId = ?, cityId = ?, [status] = ? WHERE fieldId = ?";
     private static final String DELETE_FIELD_BY_ADMIN = "UPDATE tblFields SET [status] = 'false' WHERE fieldId = ?";
->>>>>>> f336a49bfbe094c35e54db9e896ab46969f93695
 
     public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();
@@ -70,7 +67,7 @@ public class FieldDAO {
                     
                     String status = rs.getString("status");
                     
-                    field = new Field(fieldID, fieldName, description, image, fieldCategory, user, location, city, status);
+                    field = new Field(getFieldID, fieldName, description, image, fieldCategory, user, location, city, status);
                 }
             }
         } catch (Exception e) {
@@ -106,16 +103,16 @@ public class FieldDAO {
                     String image = rs.getString("image");
                     String id_of_field_category = rs.getString("categoryFieldId");
                     FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryId(id_of_field_category);
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
                     String id_of_user = rs.getString("userId");
                     UserDAO user = new UserDAO();
                     User userID = user.getUserId(id_of_user);
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
-                    Location locationID = location.getLocationId(id_of_location);
+                    Location locationID = location.getLocationByID(id_of_location);
                     String id_of_city = rs.getString("cityId");
                     CityDAO city = new CityDAO();
-                    City cityID = city.getCityId(id_of_city);
+                    City cityID = city.getCityByID(id_of_city);
                     String status = rs.getString("status");
                     listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status));
                 }
@@ -153,16 +150,16 @@ public class FieldDAO {
                     String image = rs.getString("image");
                     String id_of_field_category = rs.getString("categoryFieldId");
                     FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryId(id_of_field_category);
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
                     String id_of_user = rs.getString("userId");
                     UserDAO user = new UserDAO();
                     User userID = user.getUserId(id_of_user);
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
-                    Location locationID = location.getLocationId(id_of_location);
+                    Location locationID = location.getLocationByID(id_of_location);
                     String id_of_city = rs.getString("cityId");
                     CityDAO city = new CityDAO();
-                    City cityID = city.getCityId(id_of_city);
+                    City cityID = city.getCityByID(id_of_city);
                     String status = rs.getString("status");
                     listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status));
                 }
