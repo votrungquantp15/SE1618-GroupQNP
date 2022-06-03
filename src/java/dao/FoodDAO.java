@@ -5,24 +5,24 @@
  */
 package dao;
 
-import dto.FieldCategory;
+import dto.Food;
+import dto.FoodCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Locale;
 import utils.DBUtils;
 
 /**
  *
  * @author NITRO 5
  */
-public class FieldCategoryDAO {
-    private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
-            + "FROM tblFieldCategory WHERE categoryID like ?";
+public class FoodDAO {
+    private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodID, status "
+            + "FROM tblFoods WHERE foodID like ?";
     
-        public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
-        FieldCategory fieldCategory = new FieldCategory();
+    public Food getFoodByID(String foodID) throws SQLException{
+        Food food = new Food();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -30,13 +30,19 @@ public class FieldCategoryDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_ALL_INFO);
-                ptm.setString(1, categoryFieldID);
+                ptm.setString(1, foodID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String getCategoryFieldID = rs.getString("categoryFieldID");
-                    String categoryFieldName = rs.getString("categoryFieldName");
+                    String getFoodID = rs.getString("foodID");
+                    String foodName = rs.getString("foodName");
+                    String image = rs.getString("image");
+                    
+                    String categoryFoodID = rs.getString("categoryFoodID");
+                    FoodCategoryDAO foodCategoryDAO = new FoodCategoryDAO();
+                    FoodCategory foodCategory = foodCategoryDAO.getFoodCategoryByID(categoryFoodID);
+                    
                     String status = rs.getString("status");
-                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
+                    food = new Food(getFoodID, foodName, image, foodCategory, status);
                 }
             }
         } catch (Exception e) {
@@ -52,6 +58,6 @@ public class FieldCategoryDAO {
                 conn.close();
             }
         }
-        return fieldCategory;
+        return food;
     }
 }

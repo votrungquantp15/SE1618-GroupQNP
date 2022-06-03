@@ -18,30 +18,46 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
+    //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_HISTORY = "SearchHistory";
-    private static final String SEARCH_HISTORY_CONTROLLER = "SearchBookingController";
+    //Search Booking Order History
+    private static final String SEARCH_BOOKING = "SearchHistory";
+    private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
+    //Show Booking Order Detail
+    private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
+    private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
+    //Search Product
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
+    //Search Account (ADMIN)
     private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchAccountByAdmin";
     private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchAccountByAdminController";
+    //Log Out
     private static final String LOGOUT = "Logout";
     private static final String LOGOUT_CONTROLLER = "LogoutController";
+    //Delete Account (ADMIN)
     private static final String DELETE_ACCOUNT_BY_ADMIN = "DeleteAccountByAdmin";
     private static final String DELETE_ACCOUNT_BY_ADMIN_CONTROLLER = "DeleteAccountByAdminController";
+    //Update Account (ADMIN)
     private static final String UPDATE_ACCOUNT_BY_ADMIN = "UpdateAccountByAdmin";
     private static final String UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER = "UpdateAccountByAdminController";
+    //Create Account
     private static final String CREATE_ACCOUNT_FOR_USER = "CreateAccountForUser";
     private static final String CREATE_CONTROLLER = "CreateAccountForUserController";
-    private static final String RESET = "ResetPassword";
-    private static final String RESET_PASSWORD = "ResetPasswordController";
+    //Change Password
+    private static final String RESET_PASSWORD = "ResetPassword";
+    private static final String RESET_PASSWORD_CONTROLLER = "ResetPasswordController";
+    //
     private static final String PRINT_LIST_FIELD = "Print";
     private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
+    //
     private static final String PRINT_DETAIL_FIELD = "PrintDetail";
     private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
+    //
     private static final String DELETE_LIST_FIELD = "DeleteField";
     private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
+    //
     private static final String UPDATE_FIELD = "UpdateField";
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
     //Profile User Page
@@ -50,6 +66,7 @@ public class MainController extends HttpServlet {
    //Update Profile User 
     private static final String UPDATE_PROFILE_USER = "UpdateProfileUser";
     private static final String UPDATE_PROFILE_USER_CONTROLLER = "UpdateProfileUserController";
+    //Home page
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
 
@@ -59,42 +76,61 @@ public class MainController extends HttpServlet {
         String url = ERROR;
         try {
             String action = request.getParameter("action");
-            if (LOGIN.equals(action)) {
-                url = LOGIN_CONTROLLER;
-            } else if (HOME.equals(action)) {
-                url = HOME_CONTROLLER;
-            } else if (SEARCH_HISTORY.equals(action)) {
-                url = SEARCH_HISTORY_CONTROLLER;
-            } else if (LOGOUT.equals(action)) {
-                url = LOGOUT_CONTROLLER;
-            } else if (SEARCH_ACCOUNT_BY_ADMIN.equals(action)) {
-                url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
-            } else if (DELETE_ACCOUNT_BY_ADMIN.equals(action)) {
-                url = DELETE_ACCOUNT_BY_ADMIN_CONTROLLER;
-            } else if (UPDATE_ACCOUNT_BY_ADMIN.equals(action)) {
-                url = UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER;
-            } else if (CREATE_ACCOUNT_FOR_USER.equals(action)) {
-                url = CREATE_CONTROLLER;
-            } else if (SEARCH_PRODUCT.equals(action)) {
-                url = SEARCH_PRODUCT_CONTROLLER;
-            } else if (RESET.equals(action)) {
-                url = RESET_PASSWORD;
-            } else if (PRINT_LIST_FIELD.equals(action)) {
-                url = PRINT_LIST_FIELD_CONTROLLER;
-            } else if (UPDATE_FIELD.equals(action)) {
-                url = UPDATE_FIELD_CONTROLLER;
-            } else if (DELETE_LIST_FIELD.equals(action)) {
-                url = DELETE_LIST_FIELD_CONTROLLER;
-            } else if (PRINT_DETAIL_FIELD.equals(action)) {
-                url = PRINT_DETAIL_FIELD_CONTROLLER;
-                url = UPDATE_FIELD_CONTROLLER;            
-            } else if (PROFILE_USER.equals(action)) {
-                url = PROFILE_USER_CONTROLLER;
+            
+            switch(action){
+                case LOGIN:
+                    url = LOGIN_CONTROLLER;
+                    break;
+                case HOME:
+                    url = HOME_CONTROLLER;
+                    break;
+                case SEARCH_BOOKING:
+                    url = SEARCH_BOOKING_CONTROLLER;
+                    break;
+                case SEARCH_BOOKING_DETAIL:
+                    url = SEARCH_BOOKING_DETAIL_CONTROLLER;
+                    break;
+                case LOGOUT:
+                    url = LOGOUT_CONTROLLER;
+                    break;
+                case SEARCH_ACCOUNT_BY_ADMIN:
+                    url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_ACCOUNT_BY_ADMIN:
+                    url = DELETE_ACCOUNT_BY_ADMIN_CONTROLLER;
+                    break;
+                case UPDATE_ACCOUNT_BY_ADMIN:
+                    url = UPDATE_ACCOUNT_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_ACCOUNT_FOR_USER:
+                    url = CREATE_CONTROLLER;
+                    break;
+                case SEARCH_PRODUCT:
+                    url = SEARCH_PRODUCT_CONTROLLER;
+                    break;
+                case RESET_PASSWORD:
+                    url = RESET_PASSWORD_CONTROLLER;
+                    break;
+                case PRINT_LIST_FIELD:
+                    url = PRINT_LIST_FIELD_CONTROLLER;
+                    break;
+                case UPDATE_FIELD:
+                    url = UPDATE_FIELD_CONTROLLER;
+                    break;
+                case DELETE_LIST_FIELD:
+                    url = DELETE_LIST_FIELD_CONTROLLER;
+                    break;
+                case PRINT_DETAIL_FIELD:
+                    url = PRINT_DETAIL_FIELD_CONTROLLER;
+                    break;
+                case PROFILE_USER:
+                    url = PROFILE_USER_CONTROLLER;
+                    break;
+                case UPDATE_PROFILE_USER:
+                    url = UPDATE_PROFILE_USER_CONTROLLER;
+                    break;
             }
-            else if (UPDATE_PROFILE_USER.equals(action)) {
-                url = UPDATE_PROFILE_USER_CONTROLLER;
-            }
-           
+        
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
         } finally {

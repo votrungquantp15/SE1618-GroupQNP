@@ -13,10 +13,12 @@
         <servlet-class>controllers.MainController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchHistoryController</servlet-name>
+        <servlet-name>SearchBookingController</servlet-name>
         <servlet-class>controllers.SearchBookingController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SearchBookingDetailController</servlet-name>
+        <servlet-class>controllers.SearchBookingDetailController</servlet-class>
         <servlet-name>PrintFieldController</servlet-name>
         <servlet-class>controllers.PrintFieldController</servlet-class>
     </servlet>
@@ -51,8 +53,12 @@
         <url-pattern>/MainController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchHistoryController</servlet-name>
-        <url-pattern>/SearchHistoryController</url-pattern>
+        <servlet-name>SearchBookingController</servlet-name>
+        <url-pattern>/SearchBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBookingDetailController</servlet-name>
+        <url-pattern>/SearchBookingDetailController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrintFieldController</servlet-name>

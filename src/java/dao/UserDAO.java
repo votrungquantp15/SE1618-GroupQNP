@@ -21,13 +21,8 @@ public class UserDAO {
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
     private static final String GET_ALL_INFO = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID like ?";
-    private static final String GET_USERID = "SELECT userId FROM tblUsers WHERE userId = ?";
-    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID FROM tblUsers WHERE userID = ?";
-    
-   // Update Profile User
-    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
-                                                                                       
-    public User getAllInfo(String userID) throws SQLException {
+
+    public User getUserByID(String userID) throws SQLException {
         User customer = null;
         Connection conn = null;
         PreparedStatement stm = null;

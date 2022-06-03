@@ -5,24 +5,22 @@
  */
 package dao;
 
-import dto.FieldCategory;
+import dto.FoodCategory;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Locale;
 import utils.DBUtils;
 
 /**
  *
  * @author NITRO 5
  */
-public class FieldCategoryDAO {
-    private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
-            + "FROM tblFieldCategory WHERE categoryID like ?";
-    
-        public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
-        FieldCategory fieldCategory = new FieldCategory();
+public class FoodCategoryDAO {
+    private static final String GET_ALL_INFO = "SELECT categoryFoodID, categoryFoodName, status FROM tblFoodCategory WHERE categoryFoodID like ?";
+
+    public FoodCategory getFoodCategoryByID(String categoryFoodID) throws SQLException {
+        FoodCategory foodCategory = new FoodCategory();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -30,13 +28,13 @@ public class FieldCategoryDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_ALL_INFO);
-                ptm.setString(1, categoryFieldID);
+                ptm.setString(1, categoryFoodID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String getCategoryFieldID = rs.getString("categoryFieldID");
-                    String categoryFieldName = rs.getString("categoryFieldName");
+                    String getCategoryFoodID = rs.getString("categoryFoodID");
+                    String categoryFoodName = rs.getString("categoryFoodName");
                     String status = rs.getString("status");
-                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
+                    foodCategory = new FoodCategory(getCategoryFoodID, categoryFoodName, status);
                 }
             }
         } catch (Exception e) {
@@ -52,6 +50,6 @@ public class FieldCategoryDAO {
                 conn.close();
             }
         }
-        return fieldCategory;
+        return foodCategory;
     }
 }
