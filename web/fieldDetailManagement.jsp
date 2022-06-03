@@ -53,7 +53,7 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
                 <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
                     <h1 class="h2">Field Detail</h1>
-                    </div>
+                </div>
                 <div class="table-responsive">
                     <table class="table table-striped table-sm" border="1">
                         <thead>
@@ -68,6 +68,8 @@
                                 <th>LocationID</th>
                                 <th>CityId</th>
                                 <th>Status</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -84,20 +86,28 @@
                                 <td><input type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
                                 <td><input type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
                                 <td><input type="text" name="status" value="${field.status}" required=""/></td>
+                                <td>
+                                    <c:url var="delete" value="MainController">
+                                        <c:param name="action" value="DeleteField"></c:param>
+                                        <c:param name="fieldId" value="${field.fieldId}"></c:param>
+                                    </c:url>
+                                    <a href="${delete}">Delete</a>
+                                </td>
+                                <td>
+                                    <input type="submit" name="action" value="UpdateField"/>
+                                    <input type="hidden" name="fieldId" value="${field.fieldId}"/>
+                                </td>
                             </tr>
                         </form>
                     </c:forEach>
                     </tbody>
                 </table>
             </div>
-            <c:url var="delete" value="MainController">
-                <c:param name="action" value="DeleteField"></c:param>
-                <c:param name="fieldId" value="${field.fieldId}"></c:param>
-            </c:url>
-            <a href="${delete}">Delete</a>
 
-            <input type="submit" name="action" value="UpdateField"/>
-            <input type="hidden" name="fieldId" value="${field.fieldId}"/>
+
+
+
+
         </main>
 
         <script
