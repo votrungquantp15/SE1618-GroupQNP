@@ -21,8 +21,12 @@ public class UserDAO {
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
     private static final String GET_ALL_INFO = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID like ?";
+    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID FROM tblUsers WHERE userID = ?";
+    
+   // Update Profile User
+    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";                                                                              
+    public User getAllInfo(String userID) throws SQLException {
 
-    public User getUserByID(String userID) throws SQLException {
         User customer = null;
         Connection conn = null;
         PreparedStatement stm = null;
@@ -150,7 +154,6 @@ public class UserDAO {
                 String status = rs.getString("status");
 
                 customer = new User(userID, fullName, address, birthday, phone, email, accName, "", roleId, status);
-                System.out.println(customer.toString());
             }
         } catch (Exception e) {
         } finally {
@@ -334,4 +337,129 @@ public class UserDAO {
         }
         return check;
     }
+
+    public User getUserId(String userID) throws SQLException {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                    ptm = conn.prepareStatement(GET_USERID);
+                    ptm.setString(1, userID);
+                    rs = ptm.executeQuery();
+                    if (rs.next()) {
+                        String id_of_user = rs.getString("userID");
+                        user = new User(id_of_user, "", "", "", "", "", "", "", null, "");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+
+    public User getUserByID(String userID) throws SQLException {
+        User user = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                    ptm = conn.prepareStatement(GET_USER_BY_ID);
+                    ptm.setString(1, userID);
+                    rs = ptm.executeQuery();
+                    if (rs.next()) {
+                        String id = rs.getString("userID");
+                        String fullName = rs.getString("fullName");
+                        String address = rs.getString("address");
+                        String birthday = rs.getString("birthday");
+                        String phone = rs.getString("phone");
+                        String email = rs.getString("email");
+                        String accName = rs.getString("accName");
+                        String roleID = rs.getString("roleID");
+                        
+                        RoleDAO roleDAO = new RoleDAO();
+                        Role role = roleDAO.getRoleByID(roleID);
+                                                        
+                        user = new User(id, fullName, address, birthday, phone, email, accName, "", role, "");
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+    
+    public boolean updateProfileUser (String fullName, String birthday,String userID, String phone, String email, String address) throws SQLException{
+        boolean check =false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                    ptm = conn.prepareStatement(UPDATE_PROFILE_USER);
+                    ptm.setString(1, fullName);
+                    ptm.setString(2, birthday);
+                    ptm.setString(3, phone);
+                    ptm.setString(4, email);
+                    ptm.setString(5, address);
+                    ptm.setString(6, userID);
+                    
+                    check = ptm.executeUpdate() > 0;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+             
 }

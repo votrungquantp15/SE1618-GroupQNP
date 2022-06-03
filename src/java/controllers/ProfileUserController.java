@@ -5,61 +5,65 @@
  */
 package controllers;
 
+import dao.FieldDAO;
 import dao.UserDAO;
+import dto.Field;
 import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author predator
+ * @author votru
  */
-@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
-public class UpdateAccountByAdminController extends HttpServlet {
-
-    public static final String ERROR = "SearchAccountByAdminController";
-    public static final String SUCCESS = "SearchAccountByAdminController";
-
+public class ProfileUserController extends HttpServlet {
+    private static final String PROFILE_USER_SUCCESS = "profileUser.jsp";
+    private static final String ERROR = "";
+    
+            
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+
+       
+       String url = ERROR;
+
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullname");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("quantity");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
-            String roleID = request.getParameter("roleID");
-            String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {
-                User listUser = (User) request.getAttribute("userList");
-                if (listUser != null) {
-                    if (listUser.getUserID().equals(userID)) {
-                        if (!listUser.getFullName().equals(fullName)) {
-                            listUser.setFullName(fullName);
-                            request.setAttribute("userList", listUser);
-                        }
-                    }
-                }
-                url = SUCCESS;
+            UserDAO userDAO = new UserDAO();
+            User user = null;
+            user = userDAO.getUserByID(request.getParameter("id"));
+            if (user != null) {
+                request.setAttribute("PROFILE_USER", user);
+                url = PROFILE_USER_SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+            } catch (Exception e) {
+                log("Error at SearchController: " + e.toString());
+            }
         }
+              request.getRequestDispatcher(url).forward(request, response);
+    
     }
+       
+ 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
