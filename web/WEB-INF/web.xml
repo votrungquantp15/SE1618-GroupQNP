@@ -25,6 +25,12 @@
         <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <servlet-class>controllers.DeleteFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.PrintFieldDetailController</servlet-class>
         <servlet-name>ProfileUserController</servlet-name>
         <servlet-class>controllers.ProfileUserController</servlet-class>
     </servlet>
@@ -57,12 +63,21 @@
         <url-pattern>/UpdateFieldByAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+<<<<<<< HEAD
+        <servlet-name>DeleteFieldController</servlet-name>
+        <url-pattern>/DeleteFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <url-pattern>/PrintFieldDetailController</url-pattern>
+=======
         <servlet-name>ProfileUserController</servlet-name>
         <url-pattern>/ProfileUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateProfileUserController</servlet-name>
         <url-pattern>/UpdateProfileUserController</url-pattern>
+>>>>>>> develop
     </servlet-mapping>
     <session-config>
         <session-timeout>

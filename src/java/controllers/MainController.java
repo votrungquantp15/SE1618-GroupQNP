@@ -38,6 +38,10 @@ public class MainController extends HttpServlet {
     private static final String RESET_PASSWORD = "ResetPasswordController";
     private static final String PRINT_LIST_FIELD = "Print";
     private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
+    private static final String PRINT_DETAIL_FIELD = "PrintDetail";
+    private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
+    private static final String DELETE_LIST_FIELD = "DeleteField";
+    private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
     private static final String UPDATE_FIELD = "UpdateField";
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
     //Profile User Page
@@ -78,6 +82,11 @@ public class MainController extends HttpServlet {
             } else if (PRINT_LIST_FIELD.equals(action)) {
                 url = PRINT_LIST_FIELD_CONTROLLER;
             } else if (UPDATE_FIELD.equals(action)) {
+                url = UPDATE_FIELD_CONTROLLER;
+            } else if (DELETE_LIST_FIELD.equals(action)) {
+                url = DELETE_LIST_FIELD_CONTROLLER;
+            } else if (PRINT_DETAIL_FIELD.equals(action)) {
+                url = PRINT_DETAIL_FIELD_CONTROLLER;
                 url = UPDATE_FIELD_CONTROLLER;            
             } else if (PROFILE_USER.equals(action)) {
                 url = PROFILE_USER_CONTROLLER;

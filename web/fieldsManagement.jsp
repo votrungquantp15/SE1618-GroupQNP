@@ -53,7 +53,9 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <c:if test="${requestScope.LIST_FIELD != null}">
                 <c:if test="${not empty requestScope.LIST_FIELD}">
-                    <h2>List of Field</h2>
+                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">List of Field</h1>
+                    </div>
                     <div class="table-responsive">
                         <table class="table table-striped table-sm" border="1">
                             <thead>
@@ -68,8 +70,6 @@
                                     <th>LocationID</th>
                                     <th>CityId</th>
                                     <th>Status</th>
-                                    <th>Delete</th>
-                                    <th>Update</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -78,25 +78,14 @@
                                     <tr>
                                         <td>${counter.count}</td>
                                         <td>${field.fieldId}</td>
-                                        <td><input type="text" name="fieldName" value="${field.fieldName}" required="/>"</td>
-                                        <td><input type="text" name="description" value="${field.description}" required=""/></td>
-                                        <td><input type="text" name="image" value="${field.image}" required=""/></td>
-                                        <td><input type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
-                                        <td><input type="text" name="userId" value="${field.user.userID}" required=""/></td>
-                                        <td><input type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
-                                        <td><input type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
-                                        <td><input type="text" name="status" value="${field.status}" required=""/></td>
-                                        <td>
-                                            <c:url var="delete" value="MainController">
-                                                <c:param name="action" value="Delete"></c:param>
-                                                <c:param name="productID" value="${field.fieldId}"></c:param>
-                                            </c:url>
-                                            <a href="${delete}">Delete</a>
-                                        </td>
-                                        <td>
-                                            <input type="submit" name="action" value="UpdateField"/>
-                                            <input type="hidden" name="productID" value="${field.fieldId}"/>
-                                        </td>
+                                        <td><a class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
+                                        <td>${field.description}</td>
+                                        <td>${field.image}</td>
+                                        <td>${field.fieldCate.fieldCateId}</td>
+                                        <td>${field.user.userID}</td>
+                                        <td>${field.location.locationId}</td>
+                                        <td>${field.city.cityId}</td>
+                                        <td>${field.status}</td>
                                     </tr>
                                 </form>
                             </c:forEach>
