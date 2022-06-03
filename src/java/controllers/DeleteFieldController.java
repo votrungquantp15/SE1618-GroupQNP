@@ -1,56 +1,31 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
 import dao.FieldDAO;
-import dao.LocationDAO;
-import dao.UserDAO;
-import dto.City;
-import dto.Field;
-import dto.FieldCategory;
-import dto.Location;
-import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateFieldByAdminController extends HttpServlet {
+public class DeleteFieldController extends HttpServlet {
 
-    public static final String ERROR = "PrintFieldController";
-    public static final String SUCCESS = "PrintFieldController";
-
+    private static final String ERROR = "PrintFieldController";
+    private static final String SUCCESS = "PrintFieldController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String fieldID = request.getParameter("fieldId");
-            String fieldName = request.getParameter("fieldName");
-            String description = request.getParameter("description");
-            String image = request.getParameter("image");
-            String id_of_field_category = request.getParameter("categoryFieldId");
-            FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-            FieldCategory categoryFieldID = fieldCate.getFieldCategoryId(id_of_field_category);
-            String id_of_user = request.getParameter("userId");
-            UserDAO user = new UserDAO();
-            User userID = user.getUserId(id_of_user);
-            String id_of_location = request.getParameter("locationId");
-            LocationDAO location = new LocationDAO();
-            Location locationID = location.getLocationId(id_of_location);
-            String id_of_city = request.getParameter("cityId");
-            CityDAO city = new CityDAO();
-            City cityID = city.getCityId(id_of_city);
-            String status = request.getParameter("status");
             FieldDAO dao = new FieldDAO();
-            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status);
-            boolean checkUpdate = dao.updateStatusField(field);
-            if (checkUpdate) {
+            boolean check = dao.deleteField(fieldID);
+            if (check) {
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at UpdateFieldByAdminController: " + e.toString());
+            log("Error at DeleteFieldController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

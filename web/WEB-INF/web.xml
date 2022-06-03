@@ -24,6 +24,14 @@
         <servlet-name>UpdateFieldByAdminController</servlet-name>
         <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <servlet-class>controllers.DeleteFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.PrintFieldDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -47,6 +55,14 @@
     <servlet-mapping>
         <servlet-name>UpdateFieldByAdminController</servlet-name>
         <url-pattern>/UpdateFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <url-pattern>/DeleteFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <url-pattern>/PrintFieldDetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -22,9 +22,9 @@ public class PrintFieldController extends HttpServlet {
 
         try {
             FieldDAO dao = new FieldDAO();
-            List<Field> listUser = dao.getListProduct();
-            if (listUser.size() > 0) {
-                request.setAttribute("LIST_FIELD", listUser);
+            List<Field> listField = dao.getListProduct();
+            if (listField.size() > 0) {
+                request.setAttribute("LIST_FIELD", listField);
                 url = SUCCESS;
             }
         } catch (Exception e) {
@@ -33,7 +33,7 @@ public class PrintFieldController extends HttpServlet {
             try {
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
-                log("Error at SearchController: " + e.toString());
+                log("Error at PrintFieldController: " + e.toString());
             }
         }
     }

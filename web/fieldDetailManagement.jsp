@@ -14,7 +14,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Field Management</title>
+        <title>Field Detail Management</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -51,49 +51,53 @@
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <c:if test="${requestScope.LIST_FIELD != null}">
-                <c:if test="${not empty requestScope.LIST_FIELD}">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">List of Field</h1>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Field Detail</h1>
                     </div>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm" border="1">
-                            <thead>
-                                <tr>
-                                    <th>No</th>
-                                    <th>Field ID</th>
-                                    <th>Field Name</th>
-                                    <th>Description</th>
-                                    <th>Image</th>
-                                    <th>CategoryFieldID</th>
-                                    <th>UserID</th>
-                                    <th>LocationID</th>
-                                    <th>CityId</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
-                                <form action="MainController">
-                                    <tr>
-                                        <td>${counter.count}</td>
-                                        <td>${field.fieldId}</td>
-                                        <td><a class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
-                                        <td>${field.description}</td>
-                                        <td>${field.image}</td>
-                                        <td>${field.fieldCate.fieldCateId}</td>
-                                        <td>${field.user.userID}</td>
-                                        <td>${field.location.locationId}</td>
-                                        <td>${field.city.cityId}</td>
-                                        <td>${field.status}</td>
-                                    </tr>
-                                </form>
-                            </c:forEach>
-                            </tbody>
-                        </table>
-                    </c:if>
-                </c:if>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" border="1">
+                        <thead>
+                            <tr>
+                                <th>No</th>
+                                <th>Field ID</th>
+                                <th>Field Name</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>CategoryFieldID</th>
+                                <th>UserID</th>
+                                <th>LocationID</th>
+                                <th>CityId</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="field" items="${requestScope.FIELD_DETAIL}" varStatus="counter">
+                        <form action="MainController">
+                            <tr>
+                                <td>${counter.count}</td>
+                                <td>${field.fieldId}</td>
+                                <td><input type="text" name="fieldName" value="${field.fieldName}" required="/>"</td>
+                                <td><input type="text" name="description" value="${field.description}" required=""/></td>
+                                <td><input type="text" name="image" value="${field.image}" required=""/></td>
+                                <td><input type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
+                                <td><input type="text" name="userId" value="${field.user.userID}" required=""/></td>
+                                <td><input type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
+                                <td><input type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
+                                <td><input type="text" name="status" value="${field.status}" required=""/></td>
+                            </tr>
+                        </form>
+                    </c:forEach>
+                    </tbody>
+                </table>
             </div>
+            <c:url var="delete" value="MainController">
+                <c:param name="action" value="DeleteField"></c:param>
+                <c:param name="fieldId" value="${field.fieldId}"></c:param>
+            </c:url>
+            <a href="${delete}">Delete</a>
+
+            <input type="submit" name="action" value="UpdateField"/>
+            <input type="hidden" name="fieldId" value="${field.fieldId}"/>
         </main>
 
         <script
