@@ -15,7 +15,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Dashboard Template Â· Bootstrap v4.6</title>
+        <title>Admin Dashboard</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -48,7 +48,6 @@
     <body>
 
 
-<<<<<<< HEAD
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
 
@@ -111,30 +110,6 @@
                         </tr>
                     </tbody>
                 </table>
-=======
-        <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-          <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-            <h1 class="h2">Dashboard</h1>
-            <div class="btn-toolbar mb-2 mb-md-0">
-              <div class="btn-group mr-2">
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Share
-                </button>
-                <button type="button" class="btn btn-sm btn-outline-secondary">
-                  Export
-                </button>
-              </div>
-              <button
-                type="button"
-                class="btn btn-sm btn-outline-secondary dropdown-toggle"
-              >
-                <span data-feather="calendar"></span>
-                This week
-              </button>
->>>>>>> f336a49bfbe094c35e54db9e896ab46969f93695
-            </div>
-        </main>
-
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -106,7 +106,7 @@ public class FieldDAO {
                     FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
                     String id_of_user = rs.getString("userId");
                     UserDAO user = new UserDAO();
-                    User userID = user.getUserId(id_of_user);
+                    User userID = user.getUserByID(id_of_user);
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
@@ -153,7 +153,7 @@ public class FieldDAO {
                     FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
                     String id_of_user = rs.getString("userId");
                     UserDAO user = new UserDAO();
-                    User userID = user.getUserId(id_of_user);
+                    User userID = user.getUserByID(id_of_user);
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);

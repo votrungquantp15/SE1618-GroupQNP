@@ -10,7 +10,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Locale;
 import utils.DBUtils;
 
 /**
@@ -19,7 +18,7 @@ import utils.DBUtils;
  */
 public class FieldCategoryDAO {
     private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
-            + "FROM tblFieldCategory WHERE categoryID like ?";
+            + "FROM tblFieldCategory WHERE categoryFieldId like ?";
     
         public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
         FieldCategory fieldCategory = new FieldCategory();
