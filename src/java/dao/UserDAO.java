@@ -17,7 +17,8 @@ public class UserDAO {
     private static final String LOGIN = "SELECT userID, fullName, address, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
     private static final String CHECK_PASS = "SELECT email, password FROM tblUsers WHERE email = ? AND password = ?";
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
-    private static final String SEARCH_ACCOUNT_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
+    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
+    private static final String SEARCH_ACCOUNT_BY_ADDRESS_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE address LIKE ? ";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, roleID = ?, status = ?  WHERE userID = ?";
     private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
@@ -196,15 +197,68 @@ public class UserDAO {
         return userID;
     }
 
-    public List<User> searchAccountByAdmin(String search) throws SQLException {
+    public List<User> searchAccountByNameForAdmin(String search) throws SQLException {
         List<User> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN);
+                ptm.setString(1, "%" +search+ "%");
+                rs = ptm.executeQuery();
+                
+                while (rs.next()) {
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
+                    String address = rs.getString("address");
+                    String birthday = rs.getString("birthday");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String accName = rs.getString("accName");
+                    String password = rs.getString("password");
+                    String id_of_role = rs.getString("roleID");
+                    RoleDAO role = new RoleDAO();
+                    Role roleID = role.getRole(id_of_role);
+                    String status = rs.getString("status");
+
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                }
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
             if (conn != null) {
-                ptm = conn.prepareStatement(SEARCH_ACCOUNT_FOR_ADMIN);
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<User> searchAccountByAddressForAdmin(String search) throws SQLException {
+        List<User> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_ADDRESS_FOR_ADMIN);
+                ptm.setString(1, "%" +search+ "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String userID = rs.getString("userID");
@@ -223,6 +277,10 @@ public class UserDAO {
                     list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
                 }
             }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -22,8 +22,8 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
 public class ViewAccountListController extends HttpServlet {
 
-    private static final String ERROR = "adminDashboard.jsp";
-    private static final String SUCCESS = "adminDashboard.jsp";
+    private static final String ERROR = "accountManagement.jsp";
+    private static final String SUCCESS = "accountManagement.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,7 +33,7 @@ public class ViewAccountListController extends HttpServlet {
             String viewAll = request.getParameter("viewAccountList");
             UserDAO userDao = new UserDAO();
             List<User> list = userDao.viewAccountList();
-            request.setAttribute("accountList", list);
+            request.setAttribute("VIEW_ACCOUNT", list);
             url = SUCCESS;
             
         } catch (Exception e) {

@@ -19,19 +19,28 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchAccountByAdminController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
-    private static final String SUCCESS = "fieldManagement.jsp";
+    private static final String SUCCESS = "accountManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
+            String search = request.getParameter("searchAccountByAdmin");
             UserDAO dao = new UserDAO();
-            List<User> listUser = dao.searchAccountByAdmin(search);
-                
-            if (listUser.size() > 0) {
-                request.setAttribute("accountList", listUser);
+            List<User> listUserByName = dao.searchAccountByNameForAdmin(search);
+            List<User> listUserByAddress = dao.searchAccountByAddressForAdmin(search);
+            boolean checkValid = true;
+
+            if (listUserByName.size() > 0) {
+                request.setAttribute("VIEW_ACCOUNT", listUserByName);
+                checkValid = true;
+            } else if (listUserByAddress.size() > 0) {
+
+                request.setAttribute("VIEW_ACCOUNT", listUserByAddress);
+                checkValid = true;
+            }
+            if (checkValid) {
                 url = SUCCESS;
             }
         } catch (Exception e) {
