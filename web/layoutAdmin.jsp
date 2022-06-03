@@ -27,7 +27,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="bookingHistory.jsp">
+                <a class="nav-link" href="#">
                   <span data-feather="shopping-cart"></span>
                   Accounts Management
                 </a>
@@ -39,9 +39,9 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="MainController?action=SearchHistory&UserID=">
                   <span data-feather="bar-chart-2"></span>
-                  Booking Report
+                  Booking History
                 </a>
               </li>
               <li class="nav-item">

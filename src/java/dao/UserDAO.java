@@ -22,7 +22,7 @@ public class UserDAO {
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
     private static final String GET_ALL_INFO = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID like ?";
 
-    public User getAllInfo(String userID) throws SQLException {
+    public User getUserByID(String userID) throws SQLException {
         User customer = null;
         Connection conn = null;
         PreparedStatement stm = null;

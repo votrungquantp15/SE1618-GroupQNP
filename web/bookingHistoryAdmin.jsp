@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="dto.Booking"%>
 <%@page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
@@ -73,44 +74,37 @@
                         </button>
                     </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm">
-                        <thead>
-                            <tr>
-                                <th>Số</th>
-                                <th>Mã Đơn</th>
-                                <th>Ngày chơi</th>
-                                <th>Người đặt</th>
-                                <th>Tổng tiền</th>
-                                <th>Ngày tạo đơn</th>
-                            </tr>
-                        </thead>
-                    <%
-                        List<Booking> list = (List<Booking>) request.getAttribute("LIST_BOOKING_HISTORY");
-                        if (list != null) {
-                            if (list.size() > 0) {
-                                int count = 0;
-                                for (Booking listBooking : list) {
-                                    count++;
-                    %>
-                    <tbody>
-                        <tr>
-                            <td><%= count%></td>
-                            <td><%= listBooking.getBookingId()%></td>
-                            <td><%= listBooking.getBookingDate()%></td>
-                            <td><%= listBooking.getUser().getFullName() %></td>
-                            <td><%= listBooking.getTotalPrice()%></td>
-                            <td><%= listBooking.getCreatingDate()%></td>
-                        </tr>
-                        <%
-
-                                    }
-                                }
-                            }
-                        %>
-                    </tbody>
-                </table>
-            </div>
+            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                    <h2>Booking History Table</h2>
+                    <div class="table-responsive">
+                        <table class="table table-striped table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Số</th>
+                                    <th>Mã Đơn</th>
+                                    <th>Người đặt</th>
+                                    <th>Tổng tiền</th>
+                                    <th>Ngày tạo đơn</th>
+                                    <th>UserID</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach var="list" items="${requestScope.LIST_BOOKING_HISTORY}" varStatus="counter">
+                                    <tr>
+                                        <td>${counter.count}</td>
+                                        <td>${list.bookingId}</td>
+                                        <td>${list.user.fullName}</td>
+                                        <td>${list.totalPrice}</td>
+                                        <td>${list.bookingDate}</td>
+                                        <td>${list.user.userID}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </c:if>
+            </c:if>
         </main>
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"

@@ -5,8 +5,8 @@
  */
 package controllers;
 
-import dao.BookingDAO;
-import dto.Booking;
+import dao.BookingDetailDAO;
+import dto.BookingDetail;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -16,38 +16,32 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author NITRO 5
- */
-public class SearchBookingController extends HttpServlet {
+public class SearchBookingDetailController extends HttpServlet {
 
     private static final String ADMIN = "AD";
     private static final String USER = "US";
 
-    private static final String SUCCESS_ADMIN = "bookingHistoryAdmin.jsp";
-    private static final String SUCCESS_USER = "bookingHistoryUser.jsp";
+    private static final String SUCCESS_ADMIN = "SearchBookingController";
+    private static final String SUCCESS_USER = "SearchBookingController";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("LOGIN_USER");
         String roleID = loginUser.getRole().getRoleId();
         String url = ERROR;
         try {
+            String bookingID = request.getParameter("bookingID");
             if (ADMIN.equals(roleID)) {
-                String UserID = request.getParameter("UserID");
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
-                request.setAttribute("LIST_BOOKING_HISTORY", list);
+                BookingDetailDAO dao = new BookingDetailDAO();
+                List<BookingDetail> list = dao.getBookingDetailByID(bookingID);
+                request.setAttribute("LIST_BOOKING_DETAIL", list);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
-                String UserID = loginUser.getUserID();
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
-                request.setAttribute("LIST_BOOKING_HISTORY", list);
+                BookingDetailDAO dao = new BookingDetailDAO();
+                List<BookingDetail> list = dao.getBookingDetailByID(bookingID);
+                request.setAttribute("LIST_BOOKING_DETAIL", list);
                 url = SUCCESS_USER;
             }
         } catch (Exception e) {

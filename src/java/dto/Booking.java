@@ -5,7 +5,6 @@ public class Booking {
     private String bookingDate;
     private User user;
     private double totalPrice;
-    private String creatingDate;
     private String status;
 
     public Booking() {
@@ -13,16 +12,14 @@ public class Booking {
         this.bookingDate = "";
         this.user = null;
         this.totalPrice = 0;
-        this.creatingDate = "";
         this.status = "";
     }
 
-    public Booking(String bookingId, String bookingDate, User user, double totalPrice, String creatingDate, String status) {
+    public Booking(String bookingId, String bookingDate, User user, double totalPrice, String status) {
         this.bookingId = bookingId;
         this.bookingDate = bookingDate;
         this.user = user;
         this.totalPrice = totalPrice;
-        this.creatingDate = creatingDate;
         this.status = status;
     }
 
@@ -56,14 +53,6 @@ public class Booking {
 
     public void setTotalPrice(double totalPrice) {
         this.totalPrice = totalPrice;
-    }
-
-    public String getCreatingDate() {
-        return creatingDate;
-    }
-
-    public void setCreatingDate(String creatingDate) {
-        this.creatingDate = creatingDate;
     }
 
     public String getStatus() {

@@ -20,8 +20,10 @@ public class MainController extends HttpServlet {
     private static final String ERROR = "error.jsp";
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
-    private static final String SEARCH_HISTORY = "SearchHistory";
-    private static final String SEARCH_HISTORY_CONTROLLER = "SearchBookingController";
+    private static final String SEARCH_BOOKING = "SearchHistory";
+    private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
+    private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
+    private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
     private static final String SEARCH_PRODUCT = "SearchProduct";
     private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
     private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchAccountByAdmin";
@@ -50,9 +52,11 @@ public class MainController extends HttpServlet {
                 url = LOGIN_CONTROLLER;
             } else if (HOME.equals(action)) {
                 url = HOME_CONTROLLER;
-            } else if (SEARCH_HISTORY.equals(action)) {
-                url = SEARCH_HISTORY_CONTROLLER;
-            } else if (LOGOUT.equals(action)) {
+            } else if (SEARCH_BOOKING.equals(action)) {
+                url = SEARCH_BOOKING_CONTROLLER;
+            } else if (SEARCH_BOOKING_DETAIL.equals(action)) {
+                url = SEARCH_BOOKING_DETAIL_CONTROLLER;
+            }else if (LOGOUT.equals(action)) {
                 url = LOGOUT_CONTROLLER;
             } else if (SEARCH_ACCOUNT_BY_ADMIN.equals(action)) {
                 url = SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER;
