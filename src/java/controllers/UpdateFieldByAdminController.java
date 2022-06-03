@@ -1,57 +1,52 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
+import dao.FieldDAO;
+import dao.LocationDAO;
 import dao.UserDAO;
+import dto.City;
+import dto.Field;
+import dto.FieldCategory;
+import dto.Location;
 import dto.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author predator
- */
-@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
-public class UpdateAccountByAdminController extends HttpServlet {
+public class UpdateFieldByAdminController extends HttpServlet {
 
-    public static final String ERROR = "SearchAccountByAdminController";
-    public static final String SUCCESS = "SearchAccountByAdminController";
+    public static final String ERROR = "PrintFieldController";
+    public static final String SUCCESS = "PrintFieldController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullname");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("quantity");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
-            String roleID = request.getParameter("roleID");
+            String fieldID = request.getParameter("fieldID");
+            String fieldName = request.getParameter("fieldName");
+            String description = request.getParameter("description");
+            String image = request.getParameter("image");
+            String id_of_field_category = request.getParameter("categoryFieldId");
+            FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+            FieldCategory categoryFieldID = fieldCate.getFieldCategoryId(id_of_field_category);
+            String id_of_user = request.getParameter("userId");
+            UserDAO user = new UserDAO();
+            User userID = user.getUserId(id_of_user);
+            String id_of_location = request.getParameter("locationId");
+            LocationDAO location = new LocationDAO();
+            Location locationID = location.getLocationId(id_of_location);
+            String id_of_city = request.getParameter("cityId");
+            CityDAO city = new CityDAO();
+            City cityID = city.getCityId(id_of_city);
             String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
+            FieldDAO dao = new FieldDAO();
+            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status);
+            boolean checkUpdate = dao.updateStatusField(field);
             if (checkUpdate) {
-                User listUser = (User) request.getAttribute("userList");
-                if (listUser != null) {
-                    if (listUser.getUserID().equals(userID)) {
-                        if (!listUser.getFullName().equals(fullName)) {
-                            listUser.setFullName(fullName);
-                            request.setAttribute("userList", listUser);
-                        }
-                    }
-                }
                 url = SUCCESS;
             }
         } catch (Exception e) {

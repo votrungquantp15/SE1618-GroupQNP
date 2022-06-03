@@ -33,7 +33,7 @@
                 </a>
               </li>
               <li class="nav-item">
-                <a class="nav-link" href="#">
+                <a class="nav-link" href="MainController?action=Print">
                   <span data-feather="users"></span>
                   Fields Management
                 </a>

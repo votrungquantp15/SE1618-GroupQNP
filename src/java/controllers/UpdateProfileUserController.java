@@ -8,57 +8,62 @@ package controllers;
 import dao.UserDAO;
 import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author predator
+ * @author votru
  */
-@WebServlet(name = "UpdateController", urlPatterns = {"/UpdateController"})
-public class UpdateAccountByAdminController extends HttpServlet {
+public class UpdateProfileUserController extends HttpServlet {
+    
+    private final static String UPDATE_PROFILE_USER_SUCCESS = "profileUser.jsp";
+    private final static String UPDATE_PROFILE_USER_ERROR = "profileUser.jsp";
 
-    public static final String ERROR = "SearchAccountByAdminController";
-    public static final String SUCCESS = "SearchAccountByAdminController";
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = UPDATE_PROFILE_USER_ERROR;
+
         try {
+            UserDAO userDAO = new UserDAO();
+            boolean check = false;
+            User user = null;
+            
+            String name = request.getParameter("name");
+            String birth = request.getParameter("birth");
             String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullname");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("quantity");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
-            String roleID = request.getParameter("roleID");
-            String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {
-                User listUser = (User) request.getAttribute("userList");
-                if (listUser != null) {
-                    if (listUser.getUserID().equals(userID)) {
-                        if (!listUser.getFullName().equals(fullName)) {
-                            listUser.setFullName(fullName);
-                            request.setAttribute("userList", listUser);
-                        }
-                    }
-                }
-                url = SUCCESS;
+            String phone = request.getParameter("phone");
+            String email =  request.getParameter("email");
+            String address = request.getParameter("address");            
+            check = userDAO.updateProfileUser(name, birth, userID, phone, email, address);
+            user = userDAO.getUserByID(userID);
+            if (check == true) {
+                request.setAttribute("PROFILE_USER", user);
+                url = UPDATE_PROFILE_USER_SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            log("Error at SearchController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+            } catch (Exception e) {
+                log("Error at SearchController: " + e.toString());
+            }
         }
+              request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

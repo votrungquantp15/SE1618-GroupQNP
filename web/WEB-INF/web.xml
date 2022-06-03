@@ -19,6 +19,20 @@
     <servlet>
         <servlet-name>SearchBookingDetailController</servlet-name>
         <servlet-class>controllers.SearchBookingDetailController</servlet-class>
+        <servlet-name>PrintFieldController</servlet-name>
+        <servlet-class>controllers.PrintFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileUserController</servlet-name>
+        <servlet-class>controllers.ProfileUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileUserController</servlet-name>
+        <servlet-class>controllers.UpdateProfileUserController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -39,6 +53,22 @@
     <servlet-mapping>
         <servlet-name>SearchBookingDetailController</servlet-name>
         <url-pattern>/SearchBookingDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldController</servlet-name>
+        <url-pattern>/PrintFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <url-pattern>/UpdateFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileUserController</servlet-name>
+        <url-pattern>/ProfileUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileUserController</servlet-name>
+        <url-pattern>/UpdateProfileUserController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
