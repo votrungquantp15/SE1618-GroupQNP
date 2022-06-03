@@ -44,6 +44,12 @@ public class MainController extends HttpServlet {
     private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
     private static final String UPDATE_FIELD = "UpdateField";
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
+    //Profile User Page
+    private static final String PROFILE_USER = "ProfileUser";
+    private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
+   //Update Profile User 
+    private static final String UPDATE_PROFILE_USER = "UpdateProfileUser";
+    private static final String UPDATE_PROFILE_USER_CONTROLLER = "UpdateProfileUserController";
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
 
@@ -81,7 +87,14 @@ public class MainController extends HttpServlet {
                 url = DELETE_LIST_FIELD_CONTROLLER;
             } else if (PRINT_DETAIL_FIELD.equals(action)) {
                 url = PRINT_DETAIL_FIELD_CONTROLLER;
+                url = UPDATE_FIELD_CONTROLLER;            
+            } else if (PROFILE_USER.equals(action)) {
+                url = PROFILE_USER_CONTROLLER;
             }
+            else if (UPDATE_PROFILE_USER.equals(action)) {
+                url = UPDATE_PROFILE_USER_CONTROLLER;
+            }
+           
         } catch (Exception e) {
             log("Error at MainController" + e.toString());
         } finally {
