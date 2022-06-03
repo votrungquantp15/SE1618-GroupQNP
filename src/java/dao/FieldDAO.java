@@ -26,6 +26,8 @@ public class FieldDAO {
     private static final String GET_ALL_INFO = "SELECT fieldID, fieldName, description, image, categoryFieldID, UserID, LocationID, cityID, status "
             + "FROM tblFields WHERE fieldID like ? ";
 
+    private static final String GET_ALL_INFO = "SELECT fieldID, fieldName, description, image, categoryFieldID, UserID, LocationID, cityID, status "
+            + "FROM tblFields WHERE fieldID like ? ";
     private static final String GET_FIELD = "SELECT fieldName FROM tblFields WHERE fieldID like ? ";
     private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, userId, locationId, cityId, status FROM tblFields";
     private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, userId, locationId, cityId, status FROM tblFields WHERE fieldId like ?";
@@ -68,6 +70,7 @@ public class FieldDAO {
                     String status = rs.getString("status");
                     
                     field = new Field(getFieldID, fieldName, description, image, fieldCategory, user, location, city, status);
+
                 }
             }
         } catch (Exception e) {
