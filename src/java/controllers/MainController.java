@@ -24,7 +24,7 @@ public class MainController extends HttpServlet {
     //Search Booking Order History
     private static final String SEARCH_BOOKING = "SearchHistory";
     private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
-    //Show Booking Order Detail
+    //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
     //Search Product
