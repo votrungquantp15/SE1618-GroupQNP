@@ -19,6 +19,7 @@
         <form action="MainController">  
             <input type="submit" name="action" value="Logout"/>
         </form>
-        <a href="resetPassword.jsp">Change your password here</a>
+            <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">profile user</a>
+<!--        <a href="resetPassword.jsp">Change your password here</a>-->
     </body>
 </html>
