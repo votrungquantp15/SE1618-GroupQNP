@@ -19,7 +19,6 @@ public class PrintFieldController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-
         try {
             FieldDAO dao = new FieldDAO();
             List<Field> listField = dao.getListProduct();
