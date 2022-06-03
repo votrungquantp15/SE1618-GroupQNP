@@ -1,3 +1,8 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package dao;
 
 import dto.FieldCategory;
@@ -14,7 +19,9 @@ import utils.DBUtils;
  */
 public class FieldCategoryDAO {
     private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
-            + "FROM tblFieldCategory WHERE categoryID like ?";
+
+            + "FROM tblFieldCategory WHERE categoryFieldId like ?";
+
     
         public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
         FieldCategory fieldCategory = new FieldCategory();

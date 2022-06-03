@@ -26,22 +26,22 @@ public class UpdateFieldByAdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String fieldID = request.getParameter("fieldID");
+            String fieldID = request.getParameter("fieldId");
             String fieldName = request.getParameter("fieldName");
             String description = request.getParameter("description");
             String image = request.getParameter("image");
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-            FieldCategory categoryFieldID = fieldCate.getFieldCategoryId(id_of_field_category);
+            FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
             String id_of_user = request.getParameter("userId");
             UserDAO user = new UserDAO();
-            User userID = user.getUserId(id_of_user);
+            User userID = user.getUserByID(id_of_user);
             String id_of_location = request.getParameter("locationId");
             LocationDAO location = new LocationDAO();
-            Location locationID = location.getLocationId(id_of_location);
+            Location locationID = location.getLocationByID(id_of_location);
             String id_of_city = request.getParameter("cityId");
             CityDAO city = new CityDAO();
-            City cityID = city.getCityId(id_of_city);
+            City cityID = city.getCityByID(id_of_city);
             String status = request.getParameter("status");
             FieldDAO dao = new FieldDAO();
             Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status);
@@ -50,7 +50,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at UpdateController: " + e.toString());
+            log("Error at UpdateFieldByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

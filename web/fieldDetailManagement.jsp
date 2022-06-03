@@ -1,5 +1,4 @@
-<%@page import="java.util.List"%>
-<%@page import="dto.Booking"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +14,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Admin Dashboard</title>
+        <title>Field Detail Management</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -52,64 +51,65 @@
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom"
-                    >
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Share
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Export
-                            </button>
-                        </div>
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                            >
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
-                    </div>
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Field Detail</h1>
                 </div>
-
-                <h2>Booking History Table</h2>
                 <div class="table-responsive">
-                    <table class="table table-striped table-sm">
+                    <table class="table table-striped table-sm" border="1">
                         <thead>
                             <tr>
-                                <th>Số</th>
-                                <th>Mã Đơn</th>
-                                <th>Ngày chơi</th>
-                                <th>Người đặt</th>
-                                <th>Tổng tiền</th>
-                                <th>Ngày tạo đơn</th>
+                                <th>No</th>
+                                <th>Field ID</th>
+                                <th>Field Name</th>
+                                <th>Description</th>
+                                <th>Image</th>
+                                <th>CategoryFieldID</th>
                                 <th>UserID</th>
+                                <th>LocationID</th>
+                                <th>CityId</th>
+                                <th>Status</th>
+                                <th>Delete</th>
+                                <th>Update</th>
                             </tr>
                         </thead>
-                    <tbody>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                        </tr>
-                        <tr>
-                            <td>1</td>
-                            <td>2</td>
-                            <td>3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                        </tr>
+                        <tbody>
+                        <c:forEach var="field" items="${requestScope.FIELD_DETAIL}" varStatus="counter">
+                        <form action="MainController">
+                            <tr>
+                                <td>${counter.count}</td>
+                                <td>${field.fieldId}</td>
+                                <td><input type="text" name="fieldName" value="${field.fieldName}" required="/>"</td>
+                                <td><input type="text" name="description" value="${field.description}" required=""/></td>
+                                <td><input type="text" name="image" value="${field.image}" required=""/></td>
+                                <td><input type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
+                                <td><input type="text" name="userId" value="${field.user.userID}" required=""/></td>
+                                <td><input type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
+                                <td><input type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
+                                <td><input type="text" name="status" value="${field.status}" required=""/></td>
+                                <td>
+                                    <c:url var="delete" value="MainController">
+                                        <c:param name="action" value="DeleteField"></c:param>
+                                        <c:param name="fieldId" value="${field.fieldId}"></c:param>
+                                    </c:url>
+                                    <a href="${delete}">Delete</a>
+                                </td>
+                                <td>
+                                    <input type="submit" name="action" value="UpdateField"/>
+                                    <input type="hidden" name="fieldId" value="${field.fieldId}"/>
+                                </td>
+                            </tr>
+                        </form>
+                    </c:forEach>
                     </tbody>
                 </table>
+            </div>
+
+
+
+
+
+        </main>
+
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -19,12 +19,22 @@
     <servlet>
         <servlet-name>SearchBookingDetailController</servlet-name>
         <servlet-class>controllers.SearchBookingDetailController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>PrintFieldController</servlet-name>
         <servlet-class>controllers.PrintFieldController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateFieldByAdminController</servlet-name>
         <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <servlet-class>controllers.DeleteFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.PrintFieldDetailController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileUserController</servlet-name>
@@ -63,6 +73,14 @@
         <url-pattern>/UpdateFieldByAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <url-pattern>/DeleteFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <url-pattern>/PrintFieldDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>ProfileUserController</servlet-name>
         <url-pattern>/ProfileUserController</url-pattern>
     </servlet-mapping>
@@ -74,9 +92,6 @@
         <session-timeout>
             30
         </session-timeout>
-        <welcome-file-list>
-            <welcome-file>login.jsp</welcome-file>
-        </welcome-file-list>
     </session-config>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

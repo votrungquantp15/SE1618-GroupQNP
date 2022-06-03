@@ -1,39 +1,33 @@
 package controllers;
 
 import dao.FieldDAO;
-import dto.Field;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class PrintFieldController extends HttpServlet {
+public class DeleteFieldController extends HttpServlet {
 
-    private static final String ERROR = "fieldsManagement.jsp";
-    private static final String SUCCESS = "fieldsManagement.jsp";
-
+    private static final String ERROR = "PrintFieldController";
+    private static final String SUCCESS = "PrintFieldController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            String fieldID = request.getParameter("fieldId");
             FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getListProduct();
-            if (listField.size() > 0) {
-                request.setAttribute("LIST_FIELD", listField);
+            boolean check = dao.deleteField(fieldID);
+            if (check) {
                 url = SUCCESS;
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at DeleteFieldController: " + e.toString());
         } finally {
-            try {
-                request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
-                log("Error at PrintFieldController: " + e.toString());
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
