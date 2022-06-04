@@ -51,13 +51,13 @@
         <jsp:include page="layoutAdmin.jsp"></jsp:include>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">List of Field</h1>
+                </div>
             <c:if test="${requestScope.LIST_FIELD != null}">
                 <c:if test="${not empty requestScope.LIST_FIELD}">
-                    <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">List of Field</h1>
-                    </div>
                     <div class="table-responsive">
-                        <table class="table table-striped table-sm" border="1">
+                        <table class="table table-striped table-sm">
                             <thead>
                                 <tr>
                                     <th>No</th>
@@ -78,7 +78,7 @@
                                     <tr>
                                         <td>${counter.count}</td>
                                         <td>${field.fieldId}</td>
-                                        <td><a class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
+                                        <td><a title="Click to view detail" class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
                                         <td>${field.description}</td>
                                         <td>${field.image}</td>
                                         <td>${field.fieldCate.fieldCateId}</td>

@@ -10,8 +10,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class DeleteFieldController extends HttpServlet {
 
-    private static final String ERROR = "PrintFieldController";
-    private static final String SUCCESS = "PrintFieldController";
+    private static final String ERROR = "PrintFieldDetailController";
+    private static final String SUCCESS = "PrintFieldDetailController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -23,6 +23,9 @@ public class DeleteFieldController extends HttpServlet {
             boolean check = dao.deleteField(fieldID);
             if (check) {
                 url = SUCCESS;
+                request.setAttribute("DELETE_SUCCESS", "Delete field success!");
+            } else {
+                request.setAttribute("DELETE_UNSUCCESS", "Delete field unsuccess! Please try again!");
             }
         } catch (Exception e) {
             log("Error at DeleteFieldController: " + e.toString());
