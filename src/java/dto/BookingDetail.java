@@ -1,12 +1,11 @@
 package dto;
 
 public class BookingDetail {
-
+    private String bookingDetailID;
     private Booking booking;
     private Field field;
-    private Slot slot;
+    private SlotDetail slotDetail;
     private double fieldPrice;
-    private Food food;
     private FoodDetail foodDetail;
     private double foodTotalPrice;
     private int foodTotalQuantity;
@@ -14,11 +13,11 @@ public class BookingDetail {
     private boolean status;
 
     public BookingDetail() {
+        this.bookingDetailID = "";
         this.booking = null;
         this.field = null;
-        this.slot = null;
+        this.slotDetail = null;
         this.fieldPrice = 0.0;
-        this.food = null;
         this.foodDetail = null;
         this.foodTotalPrice = 0.0;
         this.foodTotalQuantity = 0;
@@ -26,17 +25,25 @@ public class BookingDetail {
         this.status = false;
     }
 
-    public BookingDetail(Booking booking, Field field, Slot slot, double fieldPrice, Food food, FoodDetail foodDetail, double foodTotalPrice, int foodTotalQuantity, String playDate, boolean status) {
+    public BookingDetail(String bookingDetailID, Booking booking, Field field, SlotDetail slotDetail, double fieldPrice, FoodDetail foodDetail, double foodTotalPrice, int foodTotalQuantity, String playDate, boolean status) {
+        this.bookingDetailID = bookingDetailID;
         this.booking = booking;
         this.field = field;
-        this.slot = slot;
+        this.slotDetail = slotDetail;
         this.fieldPrice = fieldPrice;
-        this.food = food;
         this.foodDetail = foodDetail;
         this.foodTotalPrice = foodTotalPrice;
         this.foodTotalQuantity = foodTotalQuantity;
         this.playDate = playDate;
         this.status = status;
+    }
+
+    public String getBookingDetailID() {
+        return bookingDetailID;
+    }
+
+    public void setBookingDetailID(String bookingDetailID) {
+        this.bookingDetailID = bookingDetailID;
     }
 
     public double getFieldPrice() {
@@ -95,20 +102,12 @@ public class BookingDetail {
         this.field = field;
     }
 
-    public Slot getSlot() {
-        return slot;
+    public SlotDetail getSlotDetail() {
+        return slotDetail;
     }
 
-    public void setSlot(Slot slot) {
-        this.slot = slot;
-    }
-
-    public Food getFood() {
-        return food;
-    }
-
-    public void setFood(Food food) {
-        this.food = food;
+    public void setSlotDetail(SlotDetail slotDetail) {
+        this.slotDetail = slotDetail;
     }
 
     public boolean isStatus() {

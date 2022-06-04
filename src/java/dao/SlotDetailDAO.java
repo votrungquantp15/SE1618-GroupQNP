@@ -7,22 +7,26 @@ package dao;
 
 import dto.Field;
 import dto.Food;
-import dto.FoodDetail;
+import dto.Slot;
+import dto.SlotDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.DBUtils;
 
 /**
  *
  * @author NITRO 5
  */
-public class FoodDetailDAO {
-    private static final String GET_ALL_INFO = "SELECT foodDetailID, foodID, fieldID, price, quantity, status FROM tblFoodDetail WHERE foodDetailID like ?";
+public class SlotDetailDAO {
+    private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, price, status "
+            + "FROM tblSlotDetail WHERE slotDetailID like ? ";
     
-    public FoodDetail getFoodDetailByID(String foodDetailID) throws SQLException {
-        FoodDetail foodDetail = null;
+    public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
+        SlotDetail slotDetail = null;
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -30,23 +34,23 @@ public class FoodDetailDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_ALL_INFO);
-                ptm.setString(1, foodDetailID);
+                ptm.setString(1, slotDetailID);
                 rs = ptm.executeQuery();
-                if (rs.next()) {
-                    String getFoodDetailID = rs.getString("foodDetailID");
+                while (rs.next()) {
+                    String getSlotDetailID = rs.getString("slotDetailID");
                     
-                    String getFoodID = rs.getString("foodID");
-                    FoodDAO foodDAO = new FoodDAO();
-                    Food food = foodDAO.getFoodByID(getFoodID);
+                    String slotID = rs.getString("slotID");
+                    SlotDAO slotDAO = new SlotDAO();
+                    Slot slot = slotDAO.getSlotByID(slotID);
                     
                     String fieldID = rs.getString("fieldID");
                     FieldDAO fieldDAO = new FieldDAO();
                     Field field = fieldDAO.getFieldByID(fieldID);
                     
                     double price = rs.getDouble("price");
-                    int quantity = rs.getInt("quantity");
                     String status = rs.getString("status");
-                    foodDetail = new FoodDetail(getFoodDetailID, food, field, price, quantity, status);
+
+                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, price, status);
                 }
             }
         } catch (Exception e) {
@@ -62,6 +66,6 @@ public class FoodDetailDAO {
                 conn.close();
             }
         }
-        return foodDetail;
+        return slotDetail;
     }
 }

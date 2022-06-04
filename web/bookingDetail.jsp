@@ -74,7 +74,7 @@
             <c:if test="${requestScope.BOOKING_DETAIL != null}">
                 <img src="${requestScope.BOOKING_DETAIL.field.image}" 
                      alt="${requestScope.BOOKING_DETAIL.field.fieldName}"><br>
-                <label>booking</label><br>
+                <label style="font-style: bold">Booking</label><br>
                 ${requestScope.BOOKING_DETAIL.booking.bookingId}<br>
                 ${requestScope.BOOKING_DETAIL.booking.bookingDate}<br>
                 ${requestScope.BOOKING_DETAIL.booking.user.fullName}<br>
@@ -86,14 +86,15 @@
                 ${requestScope.BOOKING_DETAIL.field.location.locationName}<br>
                 ${requestScope.BOOKING_DETAIL.fieldPrice}<br>
                 <label>Time</label><br>
-                ${requestScope.BOOKING_DETAIL.slot.timeStart}<br>
-                ${requestScope.BOOKING_DETAIL.slot.timeEnd}<br>
+                ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeStart}<br>
+                ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeEnd}<br>
                 ${requestScope.BOOKING_DETAIL.booking.bookingDate}<br>
                 ${requestScope.BOOKING_DETAIL.playDate}<br>
                 <label>Food</label><br>
-                ${requestScope.BOOKING_DETAIL.food.foodName}<br>
+                ${requestScope.BOOKING_DETAIL.foodDetail.food.foodName}<br>
                 ${requestScope.BOOKING_DETAIL.foodTotalPrice}<br>
                 ${requestScope.BOOKING_DETAIL.foodTotalQuantity}<br>
+
             </c:if>
 
             <script

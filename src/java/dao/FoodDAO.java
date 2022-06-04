@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package dao;
 
 import dto.Food;
@@ -20,7 +16,7 @@ import utils.DBUtils;
 public class FoodDAO {
     private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodID, status "
             + "FROM tblFoods WHERE foodID like ?";
-    
+      
     public Food getFoodByID(String foodID) throws SQLException{
         Food food = new Food();
         Connection conn = null;
@@ -59,5 +55,5 @@ public class FoodDAO {
             }
         }
         return food;
-    }
+    }  
 }
