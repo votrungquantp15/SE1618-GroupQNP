@@ -15,7 +15,7 @@
           <div class="sidebar-sticky pt-3">
             <ul class="nav flex-column">
               <li class="nav-item">
-                <a class="nav-link active" href="#">
+                <a class="nav-link active" href="adminDashboard.jsp">
                   <span data-feather="home"></span>
                   Admin Dashboard <span class="sr-only"></span>
                 </a>

@@ -78,23 +78,23 @@
                             <tr>
                                 <td>${counter.count}</td>
                                 <td>${field.fieldId}</td>
-                                <td><input type="text" name="fieldName" value="${field.fieldName}" required="/>"</td>
-                                <td><input type="text" name="description" value="${field.description}" required=""/></td>
-                                <td><input type="text" name="image" value="${field.image}" required=""/></td>
-                                <td><input type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
-                                <td><input type="text" name="userId" value="${field.user.userID}" required=""/></td>
-                                <td><input type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
-                                <td><input type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
-                                <td><input type="text" name="status" value="${field.status}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="fieldName" value="${field.fieldName}" required=""></td>
+                                <td><input title="Input what you want to update" type="text" name="description" value="${field.description}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="image" value="${field.image}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="userId" value="${field.user.userID}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="status" value="${field.status}" required=""/></td>
                                 <td>
                                     <c:url var="delete" value="MainController">
                                         <c:param name="action" value="DeleteField"></c:param>
                                         <c:param name="fieldId" value="${field.fieldId}"></c:param>
                                     </c:url>
-                                    <a href="${delete}">Delete</a>
+                                    <a title="Click here to delete field" href="${delete}">Delete</a>
                                 </td>
                                 <td>
-                                    <input type="submit" name="action" value="UpdateField"/>
+                                    <input title="Click here to update field" type="submit" name="action" value="UpdateField"/>
                                     <input type="hidden" name="fieldId" value="${field.fieldId}"/>
                                 </td>
                             </tr>
@@ -102,14 +102,12 @@
                     </c:forEach>
                     </tbody>
                 </table>
+                <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
             </div>
-
-
-
-
-
         </main>
-
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

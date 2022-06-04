@@ -18,8 +18,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class UpdateFieldByAdminController extends HttpServlet {
 
-    public static final String ERROR = "PrintFieldController";
-    public static final String SUCCESS = "PrintFieldController";
+    public static final String ERROR = "PrintFieldDetailController";
+    public static final String SUCCESS = "PrintFieldDetailController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,6 +48,9 @@ public class UpdateFieldByAdminController extends HttpServlet {
             boolean checkUpdate = dao.updateStatusField(field);
             if (checkUpdate) {
                 url = SUCCESS;
+                request.setAttribute("UPDATE_SUCCESS", "Update field success!");
+            } else {
+                request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
             }
         } catch (Exception e) {
             log("Error at UpdateFieldByAdminController: " + e.toString());
