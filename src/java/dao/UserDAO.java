@@ -35,7 +35,7 @@ public class UserDAO {
             stm = conn.prepareStatement(GET_USER_BY_ID);
             stm.setString(1, userID);
             rs = stm.executeQuery();
-            if (rs.next()) {
+                if (rs.next()) {
                 String getUserID = rs.getString("userID");
                 String fullName = rs.getString("fullName");
                 String id = rs.getString("roleID");
@@ -151,7 +151,6 @@ public class UserDAO {
                 String accName = rs.getString("accName");
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
-
                 user = new User(userID, fullName, address, birthday, phone, email, accName, "", role, status);
             }
         } catch (Exception e) {
