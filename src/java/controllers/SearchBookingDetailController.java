@@ -21,8 +21,8 @@ public class SearchBookingDetailController extends HttpServlet {
     private static final String ADMIN = "AD";
     private static final String USER = "US";
 
-    private static final String SUCCESS_ADMIN = "SearchBookingController";
-    private static final String SUCCESS_USER = "SearchBookingController";
+    private static final String SUCCESS_ADMIN = "bookingDetail.jsp";
+    private static final String SUCCESS_USER = "bookingDetail.jsp";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -35,13 +35,13 @@ public class SearchBookingDetailController extends HttpServlet {
             String bookingID = request.getParameter("bookingID");
             if (ADMIN.equals(roleID)) {
                 BookingDetailDAO dao = new BookingDetailDAO();
-                List<BookingDetail> list = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("LIST_BOOKING_DETAIL", list);
+                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
+                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 BookingDetailDAO dao = new BookingDetailDAO();
-                List<BookingDetail> list = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("LIST_BOOKING_DETAIL", list);
+                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
+                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
                 url = SUCCESS_USER;
             }
         } catch (Exception e) {

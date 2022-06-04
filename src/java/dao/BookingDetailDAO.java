@@ -21,11 +21,11 @@ import utils.DBUtils;
 
 public class BookingDetailDAO {
     
-    private static final String GET_BOOKING_DETAIL = "SELECT bookingID, fieldID, slotID, fieldPrice, foodID, foodDetailID, foodPrice, totalQuantity, playDate, status "
+    private static final String GET_BOOKING_DETAIL = "SELECT bookingID, fieldID, slotID, fieldPrice, foodID, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ? ";
     
-    public List<BookingDetail> getBookingDetailByID(String bookingID) throws SQLException {
-        List<BookingDetail> list = new ArrayList<>();
+    public BookingDetail getBookingDetailByID(String bookingID) throws SQLException {
+        BookingDetail bookingDetail = null;
         Connection connect = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -35,7 +35,7 @@ public class BookingDetailDAO {
                 ptm = connect.prepareStatement(GET_BOOKING_DETAIL);
                 ptm.setString(1, bookingID);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                if(rs.next()){
                     String getBookingID = rs.getString("bookingId");
                     BookingDAO bookingDAO = new BookingDAO();
                     Booking booking = bookingDAO.getBookingByID(getBookingID);
@@ -63,7 +63,7 @@ public class BookingDetailDAO {
                     String playDate = rs.getString("playDate");
                     
                     boolean status = rs.getBoolean("status");
-                    list.add(new BookingDetail(booking, field, slot, fieldPrice, food, foodDetail, foodTotalPrice, foodTotalQuantity, playDate, status));
+                    bookingDetail = new BookingDetail(booking, field, slot, fieldPrice, food, foodDetail, foodTotalPrice, foodTotalQuantity, playDate, status);
                 }
             }
         } catch (Exception e) {
@@ -79,7 +79,7 @@ public class BookingDetailDAO {
                 connect.close();
             }
         }
-        return list;
+        return bookingDetail;
     }
 
 }

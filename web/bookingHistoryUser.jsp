@@ -72,38 +72,30 @@
                         </button>
                     </div>
                 </div>
-            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                    <h2>Booking History Table</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Số</th>
-                                    <th>Mã Đơn</th>
-                                    <th>Người đặt</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Ngày tạo đơn</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
+                <h2>Booking History Table</h2>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm">
+                        <thead>
+                            <tr>
+                                <th>Số</th>
+                                <th>Mã Đơn</th>
+                                <th>Người đặt</th>
+                                <th>Tổng tiền</th>
+                                <th>Ngày tạo đơn</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                            <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
                                 <c:forEach var="list" items="${requestScope.LIST_BOOKING_HISTORY}" varStatus="counter">
                                     <tr>
                                         <td>${counter.count}</td>
-                                        <td>${list.bookingId}</td>
+                                        <td>
+                                            <a href="MainController?action=SearchBookingDetail&bookingID=${list.bookingId}"> ${list.bookingId}</a>
+                                        </td>
                                         <td>${list.user.fullName}</td>
                                         <td>${list.totalPrice}</td>
                                         <td>${list.bookingDate}</td>
-                                        <td>
-                                            <c:url var="Detail" value="MainController">
-                                                <c:param name="action" value="SearchBookingDetail"></c:param>
-                                                <c:param name="bookingID" value="${list.bookingId}"></c:param>
-                                            </c:url>
-                                            <a href="${Detail}">
-                                                <button data-toggle="modal" data-target="#bookingDetailModal">Detail</button>
-                                            </a>
-                                        </td>
                                     </tr>
                                 </c:forEach>
                             </tbody>
@@ -112,91 +104,6 @@
                 </c:if>
             </c:if>
         </main>
-<button data-toggle="modal" data-target="#bookingDetailModal">Detail</button>
-        <div id="bookingDetailModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg" role="content">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Booking Details</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-row">
-                            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                                    <c:forEach var="listDetail" items="${requestScope.LIST_BOOKING_DETAIL}">
-                                        <div class="form-group col-sm-4">
-                                            <h6>Mã Đơn</h6>
-                                            ${listDetail.booking.bookingId}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Người Đặt</h6>
-                                            ${listDetail.user.userName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tổng Tiền</h6>
-                                            ${listDetail.booking.totalPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Ngày Tạo Đơn</h6>
-                                            ${listDetail.booking.bookingDate}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tên Sân</h6>
-                                            ${listDetail.field.fieldName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Chủ Sân</h6>
-                                            ${listDetail.field.user.userName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Kiểu Sân</h6>
-                                            ${listDetail.field.fieldCate.fieldCateName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Địa Chỉ</h6>
-                                            ${listDetail.field.location.locationName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Thời Gian Bắt Đầu</h6>
-                                            ${listDetail.slot.timeStart}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Thời Gian Kết Thúc</h6>
-                                            ${listDetail.slot.timeEnd}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tiền Sân</h6>
-                                            ${listDetail.bookingDetail.fieldPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tên Đồ Ăn</h6>
-                                            ${listDetail.food.foodName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tổng Tiền Đồ Ăn</h6>
-                                            ${listDetail.bookingDetail.foodPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Số Lượng</h6>
-                                            ${listDetail.bookingDetail.foodQuantity}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Ngày Chơi</h6>
-                                            ${listDetail.bookingDetail.playDate}
-                                        </div>
-                                    </c:forEach>
-                                </c:if>
-                            </c:if>
-                        </div>
-                        <div class="form-row">
-                            <button type="button" class="btn btn-secondary btn-sm ml-auto"
-                                    data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <script
             src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
             integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"

@@ -22,6 +22,8 @@ import utils.DBUtils;
 public class BookingDAO {
     private static final String GET_BOOKING = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE userID like ? ";
+    private static final String GET_BOOKING_BY_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
+            + "FROM tblBooking WHERE bookingID like ? ";
     
     public List<Booking> getListBookingByID(String userID) throws SQLException{
         List<Booking> booking = new ArrayList<>();
@@ -39,10 +41,10 @@ public class BookingDAO {
                     String getBookingDate = rs.getString("bookingDate");       
                     String getUserID = rs.getString("userID");
                     UserDAO userDAO = new UserDAO();
-                    User User = userDAO.getUserByID(getUserID);
+                    User user = userDAO.getUserByID(getUserID);
                     double getTotalPrice = rs.getDouble("totalPrice");
                     String status = rs.getString("status");
-                    booking.add(new Booking(getBookingID, getBookingDate, User, getTotalPrice, status));
+                    booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, status));
                 }
             }
         } catch (Exception e) {
@@ -69,7 +71,7 @@ public class BookingDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_BOOKING);
+                ptm = conn.prepareStatement(GET_BOOKING_BY_ID);
                 ptm.setString(1, bookingID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
