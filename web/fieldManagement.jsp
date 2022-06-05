@@ -52,83 +52,38 @@
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Profile Datatable</h4>
-                        </div>
-                        <div class="card-body">
-                            <div class="table-responsive">
-                                <table id="example3" class="display" style="min-width: 845px">
-                                    <thead>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Field ID</th>
-                                            <th>Field Name</th>
-                                            <th>CategoryFieldID</th>
-                                            <th>UserID</th>
-                                            <th>LocationID</th>
-                                            <th>CityId</th>
-                                            <th>Status</th>
-                                            <th>Action</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                    <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
-                                        <tr>
-                                            <td>${counter.count}</td>
-                                            <td>${field.fieldId}</td>
-                                            <td><a title="Click to view detail" class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
-                                            <td>${field.fieldCate.fieldCateId}</td>
-                                            <td>${field.user.userID}</td>
-                                            <td>${field.location.locationId}</td>
-                                            <td>${field.city.cityId}</td>
-                                            <td>${field.status}</td>
-                                            <td>
-                                                <div class="d-flex">
-                                                    <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                    <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </c:forEach>
 
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Fields Management</h4>
+                                    </div>
+                                    <div class="card-body">
 
-
-
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h4 class="card-title">Recent Payments Queue</h4>
-                                </div>
-                                <div class="card-body">
-
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive-md">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
-                                                    <th><strong>Field ID</strong></th>
-                                                    <th><strong>Field Name</strong></th>
-                                                    <th><strong>CategoryFieldID</strong></th>
-                                                    <th><strong>UserID</strong></th>
-                                                    <th><strong>LocationID</strong></th>
-                                                    <th><strong>CityID</strong></th>
-                                                    <th><strong>Status</strong></th>
-                                                    <th><strong>Action</strong></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-md">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>Field ID</strong></th>
+                                                        <th><strong>Field Name</strong></th>
+                                                        <th><strong>CategoryFieldID</strong></th>
+                                                        <th><strong>UserID</strong></th>
+                                                        <th><strong>LocationID</strong></th>
+                                                        <th><strong>CityID</strong></th>
+                                                        <th><strong>Status</strong></th>
+                                                        <th><strong>Action</strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
                                                     <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
                                                     <tr>
                                                         <td><strong>${counter.count}</strong></td>
                                                         <td>${field.fieldId}</td>
-                                                        <td><a title="Click to view detail" class="nav-link" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
+                                                        <td><a title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
                                                         <td>${field.fieldCate.fieldCateId}</td>
                                                         <td>${field.user.userID}</td>
                                                         <td>${field.location.locationId}</td>
