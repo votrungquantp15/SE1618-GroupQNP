@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
     public static final String ERROR = "login.jsp";
-    public static final String USER_PAGE = "user.jsp";
+    public static final String USER_PAGE = "home.jsp";
     public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
