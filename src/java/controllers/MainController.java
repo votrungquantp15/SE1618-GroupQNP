@@ -69,6 +69,9 @@ public class MainController extends HttpServlet {
     //Home page
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
+    //View Account List
+    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
+    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -128,6 +131,9 @@ public class MainController extends HttpServlet {
                     break;
                 case UPDATE_PROFILE_USER:
                     url = UPDATE_PROFILE_USER_CONTROLLER;
+                    break;
+                case VIEW_ACCOUNT_LIST:
+                    url = VIEW_ACCOUNT_LIST_CONTROLLER;
                     break;
             }
         
