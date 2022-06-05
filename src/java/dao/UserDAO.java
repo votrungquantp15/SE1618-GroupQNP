@@ -19,8 +19,8 @@ public class UserDAO {
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
     private static final String SEARCH_ACCOUNT_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
-    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, status = ?  WHERE userID = ?";
-    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, birthday, phone, email, accName, roleID, status FROM tblUsers WHERE userID = ?";
+    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?  WHERE userID = ?";
+    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
    // Update Profile User
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";                                                                              
 
@@ -35,22 +35,22 @@ public class UserDAO {
             stm = conn.prepareStatement(GET_USER_BY_ID);
             stm.setString(1, userID);
             rs = stm.executeQuery();
-            if (rs.next()) {
+                if (rs.next()) {
                 String getUserID = rs.getString("userID");
                 String fullName = rs.getString("fullName");
                 String id = rs.getString("roleID");
                 RoleDAO roleDAO = new RoleDAO();
-                Role role = roleDAO.getRole(id);
+                Role role = roleDAO.getRoleByID(id);
                 String address = rs.getString("address");
                 String birthday = rs.getString("birthday");
                 String phone = rs.getString("phone");
-                String accName = rs.getString("accName");
                 String email = rs.getString("email");
+                String accName = rs.getString("accName");
                 String status = rs.getString("status");
                 user = new User(getUserID, fullName, address, birthday, phone, email, accName, "", role, status);
-                System.out.println(user.toString());
             }
         } catch (Exception e) {
+            e.getMessage();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -151,10 +151,10 @@ public class UserDAO {
                 String accName = rs.getString("accName");
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
-
                 user = new User(userID, fullName, address, birthday, phone, email, accName, "", role, status);
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (rs != null) {
                 rs.close();
@@ -319,9 +319,10 @@ public class UserDAO {
                 ptm.setString(1, user.getFullName());
                 ptm.setString(2, user.getAddress());
                 ptm.setString(3, user.getBirth());
-                ptm.setString(3, user.getPhone());
-                ptm.setString(3, user.getEmail());
-                ptm.setString(3, user.getStatus());
+                ptm.setString(4, user.getPhone());
+                ptm.setString(5, user.getEmail());
+                ptm.setString(6, user.getUserID());
+                    
 
                 check = ptm.executeUpdate() > 0 ? true : false;
             }

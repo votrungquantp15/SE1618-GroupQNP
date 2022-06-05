@@ -29,7 +29,7 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
-                        <form action="MainController" method="POST">
+                        <form action="MainController" method="GET">
                             <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" class="form-control" placeholder="Full name" value="${requestScope.PROFILE_USER.fullName}"></div>
                             <div class="col-md-6"><label class="labels">Birth Day</label><input type="text" name="birth" class="form-control" value="${requestScope.PROFILE_USER.birth}" placeholder="birthDay"></div>

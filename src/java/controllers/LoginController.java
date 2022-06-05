@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 public class LoginController extends HttpServlet {
     public static final String ERROR = "login.jsp";
-    public static final String USER_PAGE = "user.jsp";
+    public static final String USER_PAGE = "home.jsp";
     public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -33,10 +33,10 @@ public class LoginController extends HttpServlet {
                 }else if(roleID.equals("AD")){
                     url = ADMIN_PAGE;
                 }else{
-                    session.setAttribute("ERROR_MESSAGE", "Wrong Role!!");
+                    request.setAttribute("ERROR_MESSAGE", "Wrong Role!");
                 }
             }else{
-                session.setAttribute("ERROR_MESSAGE", "Wrong ID or Password!!");
+                request.setAttribute("ERROR_MESSAGE", "Wrong Email or Password!");
             }
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());
