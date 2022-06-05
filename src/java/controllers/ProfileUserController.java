@@ -23,7 +23,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class ProfileUserController extends HttpServlet {
     private static final String PROFILE_USER_SUCCESS = "profileUser.jsp";
-    private static final String ERROR = "";
+    private static final String ERROR = "profileUser.jsp";
     
             
     /**

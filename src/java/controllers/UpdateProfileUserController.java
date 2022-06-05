@@ -43,15 +43,17 @@ public class UpdateProfileUserController extends HttpServlet {
             User user = null;
             
             String name = request.getParameter("name");
-            String birth = request.getParameter("birth");
+            String birthday = request.getParameter("birth");
             String userID = request.getParameter("userID");
             String phone = request.getParameter("phone");
             String email =  request.getParameter("email");
             String address = request.getParameter("address");            
-            check = userDAO.updateProfileUser(name, birth, userID, phone, email, address);
-            user = userDAO.getUserByID(userID);
+            user = new User(userID, name, address, birthday, phone, email, "", "", null, "");
+            
+            check = userDAO.updateUser(user);
+            
             if (check == true) {
-                request.setAttribute("PROFILE_USER", user);
+                request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));
                 url = UPDATE_PROFILE_USER_SUCCESS;
             }
         } catch (Exception e) {

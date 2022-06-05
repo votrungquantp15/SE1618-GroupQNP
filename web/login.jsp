@@ -34,7 +34,7 @@
                     </div>
                     <div class="col-lg-6 px-5 pt-5">
                         <h4 class="my-4">Sign into your account</h4>
-                        <form action="MainController" method="POST">
+                        <form action="MainController" method="GET">
                             <div class="form-row">
                                 <div class="col-lg-8">
                                     <input

@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServletResponse;
 
 public class PrintFieldController extends HttpServlet {
 
-    private static final String ERROR = "fieldsManagement.jsp";
-    private static final String SUCCESS = "fieldsManagement.jsp";
+    private static final String ERROR = "fieldManagement.jsp";
+    private static final String SUCCESS = "fieldManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
