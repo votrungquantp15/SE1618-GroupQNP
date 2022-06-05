@@ -10,6 +10,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Locale;
 import utils.DBUtils;
 
@@ -18,12 +20,12 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class FieldCategoryDAO {
+
     private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
-
             + "FROM tblFieldCategory WHERE categoryFieldId like ?";
+    private static final String GET_ALL_CATEGORY = "SELECT  categoryFieldID, categoryFieldName, status FROM tblFieldCategory";
 
-    
-        public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
+    public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
         FieldCategory fieldCategory = new FieldCategory();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -55,5 +57,41 @@ public class FieldCategoryDAO {
             }
         }
         return fieldCategory;
+    }
+
+    public List<FieldCategory> getAllFieldCategory() throws SQLException {
+        List<FieldCategory> listFieldCategorys = new ArrayList<>();
+        FieldCategory fieldCategory = null;
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_CATEGORY);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String getCategoryFieldID = rs.getString("categoryFieldID");
+                    String categoryFieldName = rs.getString("categoryFieldName");
+                    String status = rs.getString("status");
+                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
+                    listFieldCategorys.add(fieldCategory);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listFieldCategorys;
     }
 }

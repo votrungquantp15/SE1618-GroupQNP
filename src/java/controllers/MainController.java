@@ -69,7 +69,10 @@ public class MainController extends HttpServlet {
     //Home page
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
-
+    //
+    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
+    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
