@@ -69,10 +69,17 @@ public class MainController extends HttpServlet {
     //Home page
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
+
     //
     private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
     private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
     
+
+    //View Account List
+    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
+    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -131,6 +138,9 @@ public class MainController extends HttpServlet {
                     break;
                 case UPDATE_PROFILE_USER:
                     url = UPDATE_PROFILE_USER_CONTROLLER;
+                    break;
+                case VIEW_ACCOUNT_LIST:
+                    url = VIEW_ACCOUNT_LIST_CONTROLLER;
                     break;
             }
         
