@@ -69,7 +69,7 @@ public class MainController extends HttpServlet {
     //Home page
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
-
+//aa
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
