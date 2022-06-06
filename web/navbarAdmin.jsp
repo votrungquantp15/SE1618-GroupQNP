@@ -55,6 +55,7 @@ Chat box End
                         <i id="icon-light" class="fa fa-sun-o"></i>
                         <i id="icon-dark" class="fa fa-moon-o"></i>
                     </a>
+
                 </li>
                 <li class="nav-item dropdown notification_dropdown">
                     <a class="nav-link bell dz-fullscreen" href="#">
