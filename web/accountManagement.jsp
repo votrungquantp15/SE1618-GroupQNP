@@ -59,29 +59,43 @@
                                     <div class="card-header">
                                         <h4 class="card-title">Account Management</h4>
                                     </div>
-                                    <div class="card-body">
 
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>User ID</strong></th>
-                                                        <th><strong>Full Name</strong></th>
-                                                        <th><strong>Address</strong></th>
-                                                        <th><strong>Birthday</strong></th>
-                                                        <th><strong>Phone</strong></th>
-                                                        <th><strong>Email</strong></th>
-                                                        <th><strong>Account Name</strong></th>                                                                                        
-                                                        <th><strong>Role ID</strong></th>
-                                                        <th><strong>Password</strong></th>
-                                                        <th><strong>Status</strong></th>
-                                                        <th><strong>Action</strong></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
+                                    <div class="card-body">
+                                        <form action="MainController">
+                                            <div class="form-group col-md-6">
+                                                <label><strong>Search user by name</strong></label>
+                                                <div class="row">
+                                                    <div class ="col-md-6">
+                                                        <input name="searchAccountByAdmin" type="text" class="form-control" placeholder="Type here to search" value="${param.searchAccountByAdmin}">                                                                                             
+                                                    </div>
+                                                    <div class ="col-md-6">
+                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">SEARCH</button>
+                                                    </div>
+                                                </div>                              
+                                            </div>                                                                                  
+                                        </form>
+
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px;"><strong>#</strong></th>
+                                                    <th><strong>User ID</strong></th>
+                                                    <th><strong>Full Name</strong></th>
+                                                    <th><strong>Address</strong></th>
+                                                    <th><strong>Birthday</strong></th>
+                                                    <th><strong>Phone</strong></th>
+                                                    <th><strong>Email</strong></th>
+                                                    <th><strong>Account Name</strong></th>                                                                                        
+                                                    <th><strong>Password</strong></th>
+                                                    <th><strong>Role ID</strong></th>
+                                                    <th><strong>Status</strong></th>
+                                                    <th><strong>Action</strong></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
                                                     <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}" varStatus="counter">
                                                     <tr>
                                                         <td><strong>${counter.count}</strong></td>
@@ -91,13 +105,13 @@
                                                         <td>${user.birth}</td>
                                                         <td>${user.phone}</td>
                                                         <td>${user.email}</td>
-                                                        <td>${user.accName}</td>                                               
-                                                        <td>${user.role.roleId}</td>
+                                                        <td>${user.accName}</td>  
                                                         <td>${user.password}</td>
+                                                        <td>${user.role.roleId}</td>                                                       
                                                         <td>${user.status}</td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="MainController?action=SearchAccountByAdmin&searchAccountByAdmin=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                                <a href="MainController?action=AccountEditor&userID=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
                                                                 <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
                                                             </div>
@@ -107,7 +121,7 @@
 
                                                 </tr>
                                         </table>
-                                        
+
                                         <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
                                         <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                     </div>
