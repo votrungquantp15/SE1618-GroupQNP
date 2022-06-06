@@ -47,7 +47,7 @@ public class SearchFieldByNameController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SEARCH_ERROR;
         String fieldName;
         try {
             //Get category 
@@ -60,7 +60,7 @@ public class SearchFieldByNameController extends HttpServlet {
             CityDAO cityDao = new CityDAO();
             listCitys = cityDao.getALLCity();
             
-            fieldName = request.getParameter("fieldName");
+            fieldName = request.getParameter("name");
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
@@ -70,7 +70,7 @@ public class SearchFieldByNameController extends HttpServlet {
                 //setAttribute citys
 
                 //setAttribute Fields
-                
+                url = SEARCH_SUCCES;
                 
                 request.setAttribute("FIELD", listFields);
                 

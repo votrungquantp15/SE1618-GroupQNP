@@ -73,7 +73,7 @@
                         <form action="MainController">
                             <div class="input-group search-area right d-lg-inline-flex d-none">
 
-                                <input type="text" class="form-control" name="fieldName" placeholder="Nhập tên sân ....">
+                                <input type="text" class="form-control" name="name" placeholder="Nhập tên sân ...." value="${param.name}">
                                 <button type="submit" name="action" class="btn light btn-dark" value="SearchFieldByName">Search</button>
 
                             </div>
