@@ -26,51 +26,21 @@
     <body>
 
 
-
-
-        <!--**********************************
-            Main wrapper start
-        ***********************************-->
-        <!--**********************************
-            Nav header end
-        ***********************************-->
-
-        <!--**********************************
-    Chat box start
-***********************************-->
-
-
-
-
-
-        <!--**********************************
-    Chat box End
-***********************************-->
         <div class="deznav">
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
 
                     <li class="nav-label">Thông tin Sân</li>
+
                     <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+
                             <i class="flaticon-077-menu-1"></i>
                             <span class="nav-text">Địa chỉ</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="app-profile.html">HÃ  Ná»i</a></li>
-                            <li><a href="post-details.html">SÃ i gÃ²n</a></li>
-                            <li><a href="app-calender.html">LÃ o Cai</a></li>
-                            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">Shop</a>
-                                <ul aria-expanded="false">
-                                    <li><a href="ecom-product-grid.html">Product Grid</a></li>
-                                    <li><a href="ecom-product-list.html">Product List</a></li>
-                                    <li><a href="ecom-product-detail.html">Product Details</a></li>
-                                    <li><a href="ecom-product-order.html">Order</a></li>
-                                    <li><a href="ecom-checkout.html">Checkout</a></li>
-                                    <li><a href="ecom-invoice.html">Invoice</a></li>
-                                    <li><a href="ecom-customers.html">Customers</a></li>
-                                </ul>
-                            </li>
+
                         </ul>
                     </li>
 
@@ -102,7 +72,9 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="input-group search-area right d-lg-inline-flex d-none">
-                                <input type="text" class="form-control" placeholder="Nháº­p tÃªn sÃ¢n ....">
+
+                                <input type="text" class="form-control" placeholder="Nhập tên sân ....">
+
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <a href="javascript:void(0)">
@@ -136,7 +108,7 @@
                                     </div>
                                 </a>
                                 <div class="dropdown-menu dropdown-menu-right">
-                                    <a href="app-profile.html" class="dropdown-item ai-icon">
+                                    <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="dropdown-item ai-icon">
                                         <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                                         <span class="ml-2">Profile </span>
                                     </a>
@@ -210,28 +182,35 @@
                     </div>
                 </div>
                 <div class="row">
+                    <c:forEach var="field" items="${requestScope.FIELD}">
                     <div class="col-xl-3 col-lg-6 col-sm-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="new-arrival-product">
-                                    <div class="new-arrivals-img-contnent">
-                                        <img class="img-fluid" src="images/product/1.jpg" alt="">
+                        
+                            <div class="card">
+                                
+                                <div class="card-body">
+
+                                    <div class="new-arrival-product">
+                                        <div class="new-arrivals-img-contnent">
+                                            <img class="img-fluid" src="${field.image}" alt="">
+                                        </div>
+                                        <div class="new-arrival-content text-center mt-3">
+                                            <h4><a href="ecom-product-detail.html">${field.fieldName}</a></h4>
+                                            <ul class="star-rating">
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                                <li><i class="fa fa-star-half-empty"></i></li>
+                                            </ul>
+                                            <span class="price">$761.00</span>
+                                        </div>
                                     </div>
-                                    <div class="new-arrival-content text-center mt-3">
-                                        <h4><a href="ecom-product-detail.html">Bonorum et Malorum</a></h4>
-                                        <ul class="star-rating">
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star"></i></li>
-                                            <li><i class="fa fa-star-half-empty"></i></li>
-                                            <li><i class="fa fa-star-half-empty"></i></li>
-                                        </ul>
-                                        <span class="price">$761.00</span>
-                                    </div>
+
                                 </div>
                             </div>
-                        </div>
+                        
                     </div>
+                                            </c:forEach>
                     <div class="col-xl-3 col-lg-6 col-sm-6">
                         <div class="card">
                             <div class="card-body">
