@@ -27,10 +27,7 @@ public class UserDAO {
     // Update Profile User
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
 
-    public User getUserByID(String userID) throws SQLException {
-
-   // Update Profile User
-    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";                                                                              
+                                                                           
     private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
 
         public User getUserByID(String userID) throws SQLException {
