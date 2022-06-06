@@ -400,22 +400,21 @@ public class UserDAO {
         return check;
     }
     
-    public boolean updateProfileUser (String fullName, String birthday,String userID, String phone, String email, String address) throws SQLException{
+    public boolean updateProfileUser (User user) throws SQLException{
         boolean check =false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             try {
                 if (conn != null) {
-                    ptm = conn.prepareStatement(UPDATE_USER);
-                    ptm.setString(1, fullName);
-                    ptm.setString(2, birthday);
-                    ptm.setString(3, phone);
-                    ptm.setString(4, email);
-                    ptm.setString(5, address);
-                    ptm.setString(6, userID);
+                    ptm = conn.prepareStatement(UPDATE_PROFILE_USER);
+                    ptm.setString(1, user.getFullName());
+                    ptm.setString(2, user.getBirth());
+                    ptm.setString(3, user.getPhone());
+                    ptm.setString(4, user.getEmail());
+                    ptm.setString(5, user.getAddress());
+                    ptm.setString(6, user.getUserID());
                     
                     check = ptm.executeUpdate() > 0;
                 }
@@ -426,9 +425,6 @@ public class UserDAO {
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
-            if (rs != null) {
-                rs.close();
-            }
             if (ptm != null) {
                 ptm.close();
             }

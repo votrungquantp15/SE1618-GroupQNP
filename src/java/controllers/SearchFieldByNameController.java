@@ -5,23 +5,35 @@
  */
 package controllers;
 
+import static controllers.LoginController.ADMIN_PAGE;
+import static controllers.LoginController.ERROR;
+import static controllers.LoginController.USER_PAGE;
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
+import dao.FieldDAO;
 import dao.UserDAO;
+import dto.City;
+import dto.Field;
+import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author votru
  */
-public class UpdateProfileUserController extends HttpServlet {
+public class SearchFieldByNameController extends HttpServlet {
     
-    private final static String UPDATE_PROFILE_USER_SUCCESS = "profileUser.jsp";
-    private final static String UPDATE_PROFILE_USER_ERROR = "profileUser.jsp";
+        private static final String SEARCH_SUCCES = "home.jsp";
+        private static final String SEARCH_ERROR = "home.jsp";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,37 +47,43 @@ public class UpdateProfileUserController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = UPDATE_PROFILE_USER_ERROR;
-
+        String url = ERROR;
+        String fieldName;
         try {
-            UserDAO userDAO = new UserDAO();
-            boolean check = false;
-            User user = null;
+            //Get category 
+            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+
+            //Get city
+            List<City> listCitys = new ArrayList<>();
+            CityDAO cityDao = new CityDAO();
+            listCitys = cityDao.getALLCity();
             
-            String name = request.getParameter("name");
-            String birthday = request.getParameter("birth");
-            String userID = request.getParameter("userID");
-            String phone = request.getParameter("phone");
-            String email =  request.getParameter("email");
-            String address = request.getParameter("address");            
-            user = new User(userID, name, address, birthday, phone, email, "", "", null, "");
-            
-            check = userDAO.updateProfileUser(user);
-            
-            if (check == true) {
-                request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));
-                url = UPDATE_PROFILE_USER_SUCCESS;
+            fieldName = request.getParameter("fieldName");
+            //Get price 
+            List<Field> listFields = new ArrayList<>();
+            FieldDAO fieldDao = new FieldDAO();
+            listFields = fieldDao.getFieldDetailByName(fieldName);
+
+            if (listFields != null) {
+                //setAttribute citys
+
+                //setAttribute Fields
+                
+                
+                request.setAttribute("FIELD", listFields);
+                
+                
+                //setAttribute category
+            } else {
+
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at LoginController: " + e.toString());
         } finally {
-            try {
-                request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
-                log("Error at SearchController: " + e.toString());
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
-              request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
