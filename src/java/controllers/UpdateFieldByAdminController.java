@@ -49,7 +49,17 @@ public class UpdateFieldByAdminController extends HttpServlet {
             if (checkUpdate) {
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Update field success!");
+
             } else {
+                if (categoryFieldID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "CategoryId is not exist!");
+                } else if (userID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "UserId is not exist!");
+                } else if (locationID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "LocationId is not exist!");
+                } else if (cityID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "cityId is not exist!");
+                }
                 request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
             }
         } catch (Exception e) {
