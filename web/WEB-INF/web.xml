@@ -44,6 +44,10 @@
         <servlet-name>UpdateProfileUserController</servlet-name>
         <servlet-class>controllers.UpdateProfileUserController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchFieldByNameController</servlet-name>
+        <servlet-class>controllers.SearchFieldByNameController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>UpdateProfileUserController</servlet-name>
         <url-pattern>/UpdateProfileUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFieldByNameController</servlet-name>
+        <url-pattern>/SearchFieldByNameController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
