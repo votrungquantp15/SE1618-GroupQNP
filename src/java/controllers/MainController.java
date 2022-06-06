@@ -78,6 +78,10 @@ public class MainController extends HttpServlet {
     //View Account List
     private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
     private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+    
+    //Account Editor
+    private static final String ACCOUNT_EDITOR = "AccountEditor";
+    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -141,6 +145,9 @@ public class MainController extends HttpServlet {
                     break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                    break;
+                case ACCOUNT_EDITOR:
+                    url = ACCOUNT_EDITOR_CONTROLLER;
                     break;
             }
         
