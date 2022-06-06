@@ -6,52 +6,47 @@
 package controllers;
 
 import dao.BookingDAO;
-import dto.Booking;
-import dto.User;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author NITRO 5
  */
-public class SearchBookingController extends HttpServlet {
+public class DeleteBookingController extends HttpServlet {
 
-    private static final String ADMIN = "AD";
-    private static final String USER = "US";
-
-    private static final String SUCCESS_ADMIN = "bookingHistoryAdmin.jsp";
-    private static final String SUCCESS_USER = "bookingHistoryUser.jsp";
-    private static final String ERROR = "error.jsp";
+    private static final String SUCCESS = "SearchBookingController";
+    private static final String ERROR = "SearchBookingController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        User loginUser = (User) session.getAttribute("LOGIN_USER");
-        String roleID = loginUser.getRole().getRoleId();
         String url = ERROR;
+        String bookingID = request.getParameter("bookingID");
+        String status = request.getParameter("status");
         try {
-            if (ADMIN.equals(roleID)) {
-                String UserID = "U";
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
-                request.setAttribute("LIST_BOOKING_HISTORY", list);
-                url = SUCCESS_ADMIN;
-            } else if (USER.equals(roleID)) {
-                String UserID = loginUser.getUserID();
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
-                request.setAttribute("LIST_BOOKING_HISTORY", list);
-                url = SUCCESS_USER;
+            BookingDAO bookingDAO = new BookingDAO();
+            boolean check = bookingDAO.deleteBookingByID(bookingID, status);
+            if (check == true) {
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
+                } else {
+                    request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
+                }
+                url = SUCCESS;
+            } else {
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
+                }
             }
         } catch (Exception e) {
-            log("Error at SearchBookingController: " + e.toString());
+            log("Error at DeleteBookingController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

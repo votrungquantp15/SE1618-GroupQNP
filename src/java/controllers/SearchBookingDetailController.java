@@ -9,7 +9,6 @@ import dao.BookingDetailDAO;
 import dto.BookingDetail;
 import dto.User;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -21,8 +20,8 @@ public class SearchBookingDetailController extends HttpServlet {
     private static final String ADMIN = "AD";
     private static final String USER = "US";
 
-    private static final String SUCCESS_ADMIN = "bookingDetail.jsp";
-    private static final String SUCCESS_USER = "bookingDetail.jsp";
+    private static final String SUCCESS_ADMIN = "bookingDetailAdmin.jsp";
+    private static final String SUCCESS_USER = "bookingDetailUser.jsp";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
