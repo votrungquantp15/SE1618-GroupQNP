@@ -1,14 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dto;
 
-/**
- *
- * @author ROG STRIX
- */
+
 public class CustomerError {
      private String userIDError;
     private String fullNameError;
@@ -20,6 +12,7 @@ public class CustomerError {
     private String passwordError;
     private String roleIDError;
     private String statusError;
+    private String confirmError;
     private String messageError;
 
     public CustomerError() {
@@ -33,10 +26,11 @@ public class CustomerError {
         this.passwordError = "";
         this.roleIDError = "";
         this.statusError = "";
+        this.confirmError="";
         this.messageError = "";
     }
 
-    public CustomerError(String userIDError, String fullNameError, String addressError, String birthError, String phoneError, String emailError, String accNameError, String passwordError, String roleIDError, String statusError, String messageError) {
+    public CustomerError(String userIDError, String fullNameError, String addressError, String birthError, String phoneError, String emailError, String accNameError, String passwordError, String roleIDError, String statusError,String confirmError, String messageError) {
         this.userIDError = userIDError;
         this.fullNameError = fullNameError;
         this.addressError = addressError;
@@ -47,6 +41,7 @@ public class CustomerError {
         this.passwordError = passwordError;
         this.roleIDError = roleIDError;
         this.statusError = statusError;
+        this.confirmError = confirmError;
         this.messageError = messageError;
     }
 
@@ -137,6 +132,15 @@ public class CustomerError {
     public void setMessageError(String messageError) {
         this.messageError = messageError;
     }
+
+    public String getConfirmError() {
+        return confirmError;
+    }
+
+    public void setConfirmError(String confirmError) {
+        this.confirmError = confirmError;
+    }
+    
     
     
 }

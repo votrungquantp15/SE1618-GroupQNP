@@ -1,10 +1,5 @@
-<!-- <%-- 
-    Document   : login.jsp
-    Created on : 10-May-2022, 20:03:04
-    Author     : votru
---%>
-
-<%@page contentType="text/html" pageEncoding="UTF-8"%> -->
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -39,13 +34,14 @@
                     </div>
                     <div class="col-lg-6 px-5 pt-5">
                         <h4 class="my-4">Sign into your account</h4>
-                        <form action="MainController" method="POST">
+                        <form action="MainController">
                             <div class="form-row">
                                 <div class="col-lg-8">
                                     <input
                                         type="email"
                                         name="email"
                                         placeholder="Email"
+                                        required=""
                                         class="form-control my-3 p-4"
                                         />
                                 </div>
@@ -55,7 +51,8 @@
                                     <input
                                         type="password"
                                         name="password"
-                                        placeholder="*******"
+                                        placeholder="Password"
+                                        required=""
                                         class="form-control my-3 p-4"
                                         />
                                 </div>
@@ -65,7 +62,8 @@
                                     <button class="btn1" type="submit" name="action" value="Login">Login</button>
                                 </div>
                             </div>
-                            <a href="#"> Forget Password</a>
+                            <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
+                            <a href="#">Forget Password</a>
                             <p>Don't have an account? <a href="createAccountForUser.jsp">Create User</a></p>
                         </form>
                         <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/sg-booking-management/login-google&response_type=code

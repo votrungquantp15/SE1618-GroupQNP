@@ -13,8 +13,40 @@
         <servlet-class>controllers.MainController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchHistoryController</servlet-name>
-        <servlet-class>controllers.SearchHistoryController</servlet-class>
+        <servlet-name>SearchBookingController</servlet-name>
+        <servlet-class>controllers.SearchBookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchBookingDetailController</servlet-name>
+        <servlet-class>controllers.SearchBookingDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFieldController</servlet-name>
+        <servlet-class>controllers.PrintFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateFieldByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <servlet-class>controllers.DeleteFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.PrintFieldDetailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileUserController</servlet-name>
+        <servlet-class>controllers.ProfileUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileUserController</servlet-name>
+        <servlet-class>controllers.UpdateProfileUserController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFieldByNameController</servlet-name>
+        <servlet-class>controllers.SearchFieldByNameController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -29,16 +61,45 @@
         <url-pattern>/MainController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchHistoryController</servlet-name>
-        <url-pattern>/SearchHistoryController</url-pattern>
+        <servlet-name>SearchBookingController</servlet-name>
+        <url-pattern>/SearchBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchBookingDetailController</servlet-name>
+        <url-pattern>/SearchBookingDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldController</servlet-name>
+        <url-pattern>/PrintFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFieldByAdminController</servlet-name>
+        <url-pattern>/UpdateFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFieldController</servlet-name>
+        <url-pattern>/DeleteFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFieldDetailController</servlet-name>
+        <url-pattern>/PrintFieldDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileUserController</servlet-name>
+        <url-pattern>/ProfileUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileUserController</servlet-name>
+        <url-pattern>/UpdateProfileUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFieldByNameController</servlet-name>
+        <url-pattern>/SearchFieldByNameController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
             30
         </session-timeout>
-        <welcome-file-list>
-            <welcome-file>login.jsp</welcome-file>
-        </welcome-file-list>
     </session-config>
     <welcome-file-list>
         <welcome-file>login.jsp</welcome-file>

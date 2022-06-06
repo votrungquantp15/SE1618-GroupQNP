@@ -64,4 +64,14 @@ nbdist/
 
 # End of https://www.toptal.com/developers/gitignore/api/netbeans,java,visualstudiocode
 
+# NetBeans specific #
+nbproject/private/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+nb-configuration.xml
 
+
+src/java/utils/DBUtils.java

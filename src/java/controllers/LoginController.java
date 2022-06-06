@@ -1,39 +1,28 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.CustomerDAO;
-import dto.UserDTO;
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
+import dao.FieldDAO;
+import dao.UserDAO;
+import dto.City;
+import dto.Field;
+import dto.FieldCategory;
+import dto.User;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author votru
- */
 public class LoginController extends HttpServlet {
+
     public static final String ERROR = "login.jsp";
-    public static final String USER_PAGE = "user.jsp";
+    public static final String USER_PAGE = "home.jsp";
     public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
-    
-    
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,24 +31,48 @@ public class LoginController extends HttpServlet {
             HttpSession session = request.getSession();
             String email = request.getParameter("email");
             String password = request.getParameter("password");
-            CustomerDAO dao = new CustomerDAO();
-            UserDTO cus = dao.checkLogin(email, password);
-            if(cus!=null){
+            UserDAO dao = new UserDAO();
+            User cus = dao.checkLogin(email, password);
+
+            //Get category 
+            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+
+            //Get city
+            List<City> listCitys = new ArrayList<>();
+            CityDAO cityDao = new CityDAO();
+            listCitys = cityDao.getALLCity();
+
+            //Get price 
+            List<Field> listFields = new ArrayList<>();
+            FieldDAO fieldDao = new FieldDAO();
+            listFields = fieldDao.getListProduct();
+
+            if (cus != null) {
                 session.setAttribute("LOGIN_USER", cus);
-                String roleID = cus.getRoleID();
-                if(roleID.equals("US")){
+                String roleID = cus.getRole().getRoleId();
+                //setAttribute citys
+
+                //setAttribute Fields
+                
+                request.setAttribute("FIELD", listFields);
+                
+                
+                //setAttribute category
+                if (roleID.equals("US")) {
                     url = USER_PAGE;
-                }else if(roleID.equals("AD")){
+                } else if (roleID.equals("AD")) {
                     url = ADMIN_PAGE;
-                }else{
-                    session.setAttribute("ERROR_MESSAGE", "Wrong Role!!");
+                } else {
+                    request.setAttribute("ERROR_MESSAGE", "Wrong Role!");
                 }
-            }else{
-                session.setAttribute("ERROR_MESSAGE", "Wrong ID or Password!!");
+            } else {
+                request.setAttribute("ERROR_MESSAGE", "Wrong Email or Password!");
             }
         } catch (Exception e) {
-            log("Error at LoginController");
-        }finally{
+            log("Error at LoginController: " + e.toString());
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
