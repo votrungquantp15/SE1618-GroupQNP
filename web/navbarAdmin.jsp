@@ -115,7 +115,7 @@
                         <span class="nav-text">Dashboard Management</span>
                     </a>
                     <ul aria-expanded="false">
-                        <li><a href="index.html">Accounts Management</a></li>
+                        <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
                         <li><a href="MainController?action=Print">Fields Management</a></li>
                         <li><a href="my-wallets.html">Booking report</a></li>
                     </ul>

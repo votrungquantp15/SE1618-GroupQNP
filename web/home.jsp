@@ -25,28 +25,22 @@
 
     <body>
 
-        <!--*******************
-            Preloader start
-        ********************-->
-        <div id="preloader">
-            <div class="sk-three-bounce">
-                <div class="sk-child sk-bounce1"></div>
-                <div class="sk-child sk-bounce2"></div>
-                <div class="sk-child sk-bounce3"></div>
-            </div>
-        </div>
+
         <div class="deznav">
             <div class="deznav-scroll">
                 <ul class="metismenu" id="menu">
                     <li class="nav-label first">Main Menu</li>
 
                     <li class="nav-label">Thông tin Sân</li>
-                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="true">
+
+                    <li><a class="has-arrow ai-icon" href="javascript:void()" aria-expanded="false">
+
                             <i class="flaticon-077-menu-1"></i>
                             <span class="nav-text">Địa chỉ</span>
                         </a>
                         <ul aria-expanded="false">
                             <li><a href="app-profile.html">HÃ  Ná»i</a></li>
+
                         </ul>
                     </li>
 
@@ -78,7 +72,9 @@
                     <div class="collapse navbar-collapse justify-content-between">
                         <div class="header-left">
                             <div class="input-group search-area right d-lg-inline-flex d-none">
+
                                 <input type="text" class="form-control" placeholder="Nhập tên sân ....">
+
                                 <div class="input-group-append">
                                     <span class="input-group-text">
                                         <a href="javascript:void(0)">
@@ -274,6 +270,8 @@
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
     <script src="js/styleSwitcher.js"></script>
+
+
 
 </body>
 </html>

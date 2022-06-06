@@ -5,11 +5,10 @@
  */
 package controllers;
 
-import dao.RoleDAO;
 import dao.UserDAO;
-import dto.Role;
 import dto.User;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -20,42 +19,27 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author predator
  */
-@WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
-public class UpdateAccountByAdminController extends HttpServlet {
+@WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
+public class ViewAccountListController extends HttpServlet {
 
-    public static final String ERROR = "accountEditor.jsp";
-    public static final String SUCCESS = "accountEditor.jsp";
-
+    private static final String ERROR = "accountManagement.jsp";
+    private static final String SUCCESS = "accountManagement.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullname");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("quantity");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
+            String viewAll = request.getParameter("viewAccountList");
+            UserDAO userDao = new UserDAO();
+            List<User> list = userDao.viewAccountList();
+            request.setAttribute("VIEW_ACCOUNT", list);
+            url = SUCCESS;
             
-            String id_of_role = request.getParameter("roleId");
-            RoleDAO role = new RoleDAO();
-            Role roleID = role.getRole(id_of_role);
-            String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
-                url = SUCCESS;
-                request.setAttribute("UPDATE_SUCCESS", "Update account successfully!!!");
-            } else {
-                request.setAttribute("UPDATE_FAILED", "Update account FAILED!!!");
-            }
         } catch (Exception e) {
-            log("Error at UpdateAccountByAdminController: " + e.toString());
+            log("Error at ViewAccountListController: " + e.toString());
         } finally {
+
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
