@@ -78,16 +78,14 @@ public class MainController extends HttpServlet {
     //View Account List
     private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
     private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
-<<<<<<< HEAD
-    
+
     //Account Editor
     private static final String ACCOUNT_EDITOR = "AccountEditor";
     private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
-=======
+
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
->>>>>>> master
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
