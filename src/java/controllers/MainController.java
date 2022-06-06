@@ -149,6 +149,7 @@ public class MainController extends HttpServlet {
                     break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                    break;
                 case SEARCH_FIELD_BY_NAME:
                     url = SEARCH_FIELD_BY_NAME_CONTROLLER;
                     break;
