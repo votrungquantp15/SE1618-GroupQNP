@@ -5,38 +5,53 @@
  */
 package controllers;
 
+import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
 /**
  *
  * @author predator
  */
-@WebServlet(name = "DeleteController", urlPatterns = {"/DeleteController"})
+@WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
 public class DeleteAccountByAdminController extends HttpServlet {
 
-    private static final String ERROR = "SearchAccountByAdminController";
-    private static final String SUCCESS = "SearchAccountByAdminController";
+    private static final String ERROR = "ViewAccountListController";
+    private static final String SUCCESS = "ViewAccountListController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-//        String url = ERROR;
-//        try {
-//            String productID = request.getParameter("userID");
-//            UserDAO dao = new UserDAO();
-//            boolean check = dao.deleteUser(userID);
-//            if (check) {
-//                url = SUCCESS;
-//
-//            }
-//        } catch (Exception e) {
-//            log("Error at DeleteController: " + e.toString());
-//        } finally {
-//            request.getRequestDispatcher(url).forward(request, response);
-//        }
+        String url = ERROR;
+        try {
+            String userID = request.getParameter("userID");
+            HttpSession session = request.getSession();
+            User loginUser = (User) session.getAttribute("LOGIN_USER");
+            if (userID.equals(loginUser.getUserID())) {
+                request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
+            } else {
+                UserDAO dao = new UserDAO();
+                boolean check = dao.deleteUser(userID);
+
+                if (check) {
+                    request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
+                    url = SUCCESS;               
+                } else 
+                    request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
+                
+
+            }
+        } catch (Exception e) {
+            log("Error at DeleteAccountByAdminController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

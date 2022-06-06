@@ -5,56 +5,82 @@
  */
 package controllers;
 
-import dao.RoleDAO;
+import static controllers.LoginController.ADMIN_PAGE;
+import static controllers.LoginController.ERROR;
+import static controllers.LoginController.USER_PAGE;
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
+import dao.FieldDAO;
 import dao.UserDAO;
-import dto.Role;
+import dto.City;
+import dto.Field;
+import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author predator
+ * @author votru
  */
-@WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
-public class UpdateAccountByAdminController extends HttpServlet {
+public class SearchFieldByNameController extends HttpServlet {
+    
+        private static final String SEARCH_SUCCES = "home.jsp";
+        private static final String SEARCH_ERROR = "home.jsp";
 
-    public static final String ERROR = "AccountEditorController";
-    public static final String SUCCESS = "AccountEditorController";
-
+    /**
+     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
+     * methods.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SEARCH_ERROR;
+        String fieldName;
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullName");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
+            //Get category 
+            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+
+            //Get city
+            List<City> listCitys = new ArrayList<>();
+            CityDAO cityDao = new CityDAO();
+            listCitys = cityDao.getALLCity();
             
-            String id_of_role = request.getParameter("roleId");
-            RoleDAO role = new RoleDAO();
-            Role roleID = role.getRole(id_of_role);
-            String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
-                url = SUCCESS;
-                request.setAttribute("UPDATE_SUCCESS", "Update account successfully!!!");
+            fieldName = request.getParameter("name");
+            //Get price 
+            List<Field> listFields = new ArrayList<>();
+            FieldDAO fieldDao = new FieldDAO();
+            listFields = fieldDao.getFieldDetailByName(fieldName);
+
+            if (listFields != null) {
+                //setAttribute citys
+
+                //setAttribute Fields
+                url = SEARCH_SUCCES;
+                
+                request.setAttribute("FIELD", listFields);
+                
+                
+                //setAttribute category
             } else {
-                request.setAttribute("UPDATE_FAILED", "Update account FAILED!!!");
+
             }
         } catch (Exception e) {
-            log("Error at UpdateAccountByAdminController: " + e.toString());
+            log("Error at LoginController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

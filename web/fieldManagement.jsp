@@ -60,7 +60,24 @@
                                         <h4 class="card-title">Fields Management</h4>
                                     </div>
                                     <div class="card-body">
-
+                                        <div class="form-row">
+                                            <div class="form-group col-md-2">
+                                                <label><strong>First Name</strong></label>
+                                                <input type="text" class="form-control" placeholder="1234 Main St">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label><strong>First Name</strong></label>
+                                                <input type="email" class="form-control" placeholder="Email">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label><strong>First Name</strong></label>
+                                                <input type="password" class="form-control" placeholder="Password">
+                                            </div>
+                                            <div class="form-group col-md-2">
+                                                <label><strong>First Name</strong></label>
+                                                <input type="text" class="form-control">
+                                            </div>
+                                        </div>
                                         <div class="table-responsive">
                                             <table class="table table-responsive-md">
                                                 <thead>
@@ -128,22 +145,23 @@
             </div>
 
         </div>
-        <!--**********************************
-            Main wrapper end
-        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
 
-        <!--**********************************
-            Scripts
-        ***********************************-->
-        <!-- Required vendors -->
-        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="js/plugins-init/datatables.init.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

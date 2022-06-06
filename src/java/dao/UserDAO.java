@@ -17,13 +17,14 @@ public class UserDAO {
     private static final String LOGIN = "SELECT userID, fullName, address, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
     private static final String CHECK_PASS = "SELECT email, password FROM tblUsers WHERE email = ? AND password = ?";
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
-    private static final String SEARCH_ACCOUNT_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleID, status FROM tblUsers";
+    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
+    private static final String SEARCH_ACCOUNT_BY_ID_FOR_ADMIN = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE userID LIKE ? ";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
-    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?  WHERE userID = ?";
+    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, birthday = ?, phone = ?, email = ?, accName = ?, password = ?, roleId = ?, status = ?  WHERE userID = ?";
     private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
    // Update Profile User
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";                                                                              
-
+    private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
 
         public User getUserByID(String userID) throws SQLException {
         User user = null;
@@ -239,16 +240,19 @@ public class UserDAO {
         return userID;
     }
 
-    public List<User> SearchAccountForAdmin() throws SQLException {
+    public List<User> searchAccountByNameForAdmin(String search) throws SQLException {
         List<User> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(SEARCH_ACCOUNT_FOR_ADMIN);
+            try {
+                if (conn != null) {
+                ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN);
+                ptm.setString(1, "%" + search + "%");
                 rs = ptm.executeQuery();
+                
                 while (rs.next()) {
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullName");
@@ -258,14 +262,68 @@ public class UserDAO {
                     String email = rs.getString("email");
                     String accName = rs.getString("accName");
                     String password = rs.getString("password");
-                    String id_of_role = rs.getString("roleID");
+                    String id_of_role = rs.getString("roleId");
                     RoleDAO role = new RoleDAO();
-                    Role roleId = role.getRole(id_of_role);
+                    Role roleID = role.getRole(id_of_role);
                     String status = rs.getString("status");
 
-                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleId, status));
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
                 }
             }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    public List<User> searchAccountByIDForAdmin(String search) throws SQLException {
+        List<User> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_ID_FOR_ADMIN);
+                ptm.setString(1, "%" + search + "%");
+                rs = ptm.executeQuery();
+                
+                while (rs.next()) {
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
+                    String address = rs.getString("address");
+                    String birthday = rs.getString("birthday");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String accName = rs.getString("accName");
+                    String password = rs.getString("password");
+                    String id_of_role = rs.getString("roleId");
+                    RoleDAO role = new RoleDAO();
+                    Role roleID = role.getRole(id_of_role);
+                    String status = rs.getString("status");
+
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                }
+            }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -321,12 +379,16 @@ public class UserDAO {
                 ptm.setString(3, user.getBirth());
                 ptm.setString(4, user.getPhone());
                 ptm.setString(5, user.getEmail());
-                ptm.setString(6, user.getUserID());
-                    
+                ptm.setString(6, user.getAccName());
+                ptm.setString(7, user.getPassword());
+                ptm.setString(8, user.getRole().getRoleId());
+                ptm.setString(9, user.getStatus());
+                ptm.setString(10, user.getUserID());
 
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (ptm != null) {
                 ptm.close();
@@ -338,27 +400,66 @@ public class UserDAO {
         return check;
     }
     
-    public boolean updateProfileUser (String fullName, String birthday,String userID, String phone, String email, String address) throws SQLException{
+    public boolean updateProfileUser (User user) throws SQLException{
         boolean check =false;
         Connection conn = null;
         PreparedStatement ptm = null;
-        ResultSet rs = null;
         try {
             conn = DBUtils.getConnection();
             try {
                 if (conn != null) {
-                    ptm = conn.prepareStatement(UPDATE_USER);
-                    ptm.setString(1, fullName);
-                    ptm.setString(2, birthday);
-                    ptm.setString(3, phone);
-                    ptm.setString(4, email);
-                    ptm.setString(5, address);
-                    ptm.setString(6, userID);
+                    ptm = conn.prepareStatement(UPDATE_PROFILE_USER);
+                    ptm.setString(1, user.getFullName());
+                    ptm.setString(2, user.getBirth());
+                    ptm.setString(3, user.getPhone());
+                    ptm.setString(4, user.getEmail());
+                    ptm.setString(5, user.getAddress());
+                    ptm.setString(6, user.getUserID());
                     
                     check = ptm.executeUpdate() > 0;
                 }
             } catch (Exception e) {
                 e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    public List<User> viewAccountList() throws SQLException {
+        List<User> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(VIEW_ACCOUNT_LIST);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String userID = rs.getString("userID");
+                    String fullName = rs.getString("fullName");
+                    String address = rs.getString("address");                   
+                    String birthday = rs.getString("birthday");
+                    String phone = rs.getString("phone");
+                    String email = rs.getString("email");
+                    String accName = rs.getString("accName");
+                    String password = rs.getString("password");
+                    String id_of_role = rs.getString("roleID");
+                    RoleDAO role = new RoleDAO();
+                    Role roleID = role.getRole(id_of_role);
+                    String status = rs.getString("status");
+                   
+                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                }
             }
 
         } catch (Exception e) {
@@ -374,7 +475,7 @@ public class UserDAO {
                 conn.close();
             }
         }
-        return check;
+        return list;
     }
              
 }

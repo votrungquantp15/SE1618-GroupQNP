@@ -73,6 +73,24 @@ public class MainController extends HttpServlet {
     private static final String HOME = "Home";
     private static final String HOME_CONTROLLER = "HomeController";
 
+    //
+    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
+    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
+    
+
+    //View Account List
+    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
+    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+
+    //Account Editor
+    private static final String ACCOUNT_EDITOR = "AccountEditor";
+    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
+
+    //Search Field By Name 
+    private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
+    private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -134,6 +152,14 @@ public class MainController extends HttpServlet {
                     break;
                 case DELETE_BOOKING:
                     url = DELETE_BOOKING_CONTROLLER;
+                case VIEW_ACCOUNT_LIST:
+                    url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_BY_NAME:
+                    url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                    break;
+                case ACCOUNT_EDITOR:
+                    url = ACCOUNT_EDITOR_CONTROLLER;
                     break;
             }
         
