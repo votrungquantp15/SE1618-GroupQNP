@@ -78,6 +78,9 @@ public class MainController extends HttpServlet {
     //View Account List
     private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
     private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+    //Search Field By Name 
+    private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
+    private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -141,6 +144,8 @@ public class MainController extends HttpServlet {
                     break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                case SEARCH_FIELD_BY_NAME:
+                    url = SEARCH_FIELD_BY_NAME_CONTROLLER;
                     break;
             }
         
