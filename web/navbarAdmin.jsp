@@ -115,14 +115,14 @@
                     <ul aria-expanded="false">
                         <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
                         <li><a href="MainController?action=Print">Fields Management</a></li>
-                        <li><a href="my-wallets.html">Booking report</a></li>
+                        <li><a href="MainController?action=SearchHistory">Booking report</a></li>
                     </ul>
 
                 </li>
 
             </ul>
             <div class="copyright">
-                <p><strong>Zenix Crypto Admin Dashboard</strong> Â© 2021 All Rights Reserved</p>
+                <p><strong>Zenix Crypto Admin Dashboard</strong> © 2021 All Rights Reserved</p>
                 <p class="fs-12">Made with <span class="heart"></span> by DexignZone</p>
             </div>
         </div>

@@ -8,24 +8,21 @@ package dao;
 import dto.Booking;
 import dto.BookingDetail;
 import dto.Field;
-import dto.Food;
 import dto.FoodDetail;
-import dto.Slot;
+import dto.SlotDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import utils.DBUtils;
 
 public class BookingDetailDAO {
     
-    private static final String GET_BOOKING_DETAIL = "SELECT bookingID, fieldID, slotID, fieldPrice, foodID, foodDetailID, foodPrice, totalQuantity, playDate, status "
+    private static final String GET_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ? ";
     
-    public List<BookingDetail> getBookingDetailByID(String bookingID) throws SQLException {
-        List<BookingDetail> list = new ArrayList<>();
+    public BookingDetail getBookingDetailByID(String bookingID) throws SQLException {
+        BookingDetail bookingDetail = null;
         Connection connect = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -35,7 +32,9 @@ public class BookingDetailDAO {
                 ptm = connect.prepareStatement(GET_BOOKING_DETAIL);
                 ptm.setString(1, bookingID);
                 rs = ptm.executeQuery();
-                while(rs.next()){
+                if(rs.next()){
+                    String bookingDetailID = rs.getString("bookingDetailID");
+                    
                     String getBookingID = rs.getString("bookingId");
                     BookingDAO bookingDAO = new BookingDAO();
                     Booking booking = bookingDAO.getBookingByID(getBookingID);
@@ -46,13 +45,9 @@ public class BookingDetailDAO {
                     
                     double fieldPrice = rs.getDouble("fieldPrice");
                     
-                    String slotID = rs.getString("slotID");
-                    SlotDAO slotDAO = new SlotDAO();
-                    Slot slot = slotDAO.getSlotByID(slotID);
-
-                    String foodID = rs.getString("foodID");
-                    FoodDAO foodDAO = new FoodDAO();
-                    Food food = foodDAO.getFoodByID(foodID);
+                    String slotDetailID = rs.getString("slotDetailID");
+                    SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+                    SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
                     
                     String foodDetailID = rs.getString("foodDetailID");
                     FoodDetailDAO foodDetailDAO = new FoodDetailDAO();
@@ -61,9 +56,8 @@ public class BookingDetailDAO {
                     double foodTotalPrice = rs.getDouble("foodPrice");
                     int foodTotalQuantity = rs.getInt("foodQuantity");
                     String playDate = rs.getString("playDate");
-                    
                     boolean status = rs.getBoolean("status");
-                    list.add(new BookingDetail(booking, field, slot, fieldPrice, food, foodDetail, foodTotalPrice, foodTotalQuantity, playDate, status));
+                    bookingDetail = new BookingDetail(bookingDetailID, booking, field, slotDetail, fieldPrice, foodDetail, foodTotalPrice, foodTotalQuantity, playDate, status);
                 }
             }
         } catch (Exception e) {
@@ -79,7 +73,7 @@ public class BookingDetailDAO {
                 connect.close();
             }
         }
-        return list;
+        return bookingDetail;
     }
 
 }

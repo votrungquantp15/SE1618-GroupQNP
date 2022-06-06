@@ -1,235 +1,204 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@page import="dto.Booking"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-        <meta name="description" content="" />
-        <meta
-            name="author"
-            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-            />
-        <meta name="generator" content="Hugo 0.88.1" />
-        <title>Booking History Page</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
-            crossorigin="anonymous"
-            />
-        <link
-            rel="canonical"
-            href="https://getbootstrap.com/docs/4.6/examples/dashboard/"
-            />
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
-        <link href="./styles/adminDashboard.css" />
-        <!-- Bootstrap core CSS -->
 
-        <!-- Favicons -->
-        <meta name="theme-color" content="#563d7c" />
 
-        <!-- Custom styles for this template -->
-        <link href="dashboard.css" rel="stylesheet" />
-    </head>
-    <body>
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
-        <jsp:include page="layoutUser.jsp"></jsp:include>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3">
-                    <h1 class="h2">Dash Board</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Share
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Export
-                            </button>
-                        </div>
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                            >
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
-                    </div>
-                </div>
-            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                    <h2>Booking History Table</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Số</th>
-                                    <th>Mã Đơn</th>
-                                    <th>Người đặt</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Ngày tạo đơn</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="list" items="${requestScope.LIST_BOOKING_HISTORY}" varStatus="counter">
-                                    <tr>
-                                        <td>${counter.count}</td>
-                                        <td>${list.bookingId}</td>
-                                        <td>${list.user.fullName}</td>
-                                        <td>${list.totalPrice}</td>
-                                        <td>${list.bookingDate}</td>
-                                        <td>
-                                            <c:url var="Detail" value="MainController">
-                                                <c:param name="action" value="SearchBookingDetail"></c:param>
-                                                <c:param name="bookingID" value="${list.bookingId}"></c:param>
-                                            </c:url>
-                                            <a href="${Detail}">
-                                                <button data-toggle="modal" data-target="#bookingDetailModal">Detail</button>
-                                            </a>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
-                    </div>
-                </c:if>
-            </c:if>
-        </main>
-<button data-toggle="modal" data-target="#bookingDetailModal">Detail</button>
-        <div id="bookingDetailModal" class="modal fade" role="dialog">
-            <div class="modal-dialog modal-lg" role="content">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h4 class="modal-title">Booking Details</h4>
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-row">
-                            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                                    <c:forEach var="listDetail" items="${requestScope.LIST_BOOKING_DETAIL}">
-                                        <div class="form-group col-sm-4">
-                                            <h6>Mã Đơn</h6>
-                                            ${listDetail.booking.bookingId}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Người Đặt</h6>
-                                            ${listDetail.user.userName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tổng Tiền</h6>
-                                            ${listDetail.booking.totalPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Ngày Tạo Đơn</h6>
-                                            ${listDetail.booking.bookingDate}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tên Sân</h6>
-                                            ${listDetail.field.fieldName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Chủ Sân</h6>
-                                            ${listDetail.field.user.userName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Kiểu Sân</h6>
-                                            ${listDetail.field.fieldCate.fieldCateName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Địa Chỉ</h6>
-                                            ${listDetail.field.location.locationName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Thời Gian Bắt Đầu</h6>
-                                            ${listDetail.slot.timeStart}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Thời Gian Kết Thúc</h6>
-                                            ${listDetail.slot.timeEnd}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tiền Sân</h6>
-                                            ${listDetail.bookingDetail.fieldPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tên Đồ Ăn</h6>
-                                            ${listDetail.food.foodName}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Tổng Tiền Đồ Ăn</h6>
-                                            ${listDetail.bookingDetail.foodPrice}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Số Lượng</h6>
-                                            ${listDetail.bookingDetail.foodQuantity}
-                                        </div>
-                                        <div class="form-group col-sm-4">
-                                            <h6>Ngày Chơi</h6>
-                                            ${listDetail.bookingDetail.playDate}
-                                        </div>
-                                    </c:forEach>
-                                </c:if>
-                            </c:if>
-                        </div>
-                        <div class="form-row">
-                            <button type="button" class="btn btn-secondary btn-sm ml-auto"
-                                    data-dismiss="modal">Cancel</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:title" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+    <title>Zenix -   Dashboard </title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
         </div>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            window.jQuery ||
-                    document.write(
-                            '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
-                            );
-        </script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
 
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-        <script src="dashboard.js"></script>
-        <script type="text/javascript">
-            document.getElementById('branche').onchange = function () {
-                localStorage.setItem('selectedtem', document.getElementById('branche').value);
-            };
 
-            if (localStorage.getItem('selectedtem')) {
-                document.getElementById(localStorage.getItem('selectedtem')).selected = true;
-            }
-        </script>
-    </body>
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
+
+        <jsp:include page="navbarUser.jsp"></jsp:include>
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Boooking History
+                                            <p style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></p> 
+                                        <p style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></p> 
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
+                                                <strong>No Result</strong>
+                                            </c:if>
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px;"><strong>#</strong></th>
+                                                    <th><strong>Booknig ID</strong></th>
+                                                    <th><strong>Booking Date</strong></th>
+                                                    <th><strong>Booker</strong></th>
+                                                    <th><strong>Total Price</strong></th>
+                                                    <th><strong>Status</strong></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                                                    <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                                                        <c:set var="counter" scope="page" value="0"/>
+                                                        <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
+                                                            <c:if test="${booking.status ne 'Delete'}">
+                                                                <c:set var="counter" scope="page" value="${counter + 1}"/>
+                                                                <tr>
+                                                                    <td><strong>${counter}</strong></td>
+                                                                    <c:url var="BookingDetail" value="MainController">
+                                                                        <c:param name="action" value="SearchBookingDetail"></c:param>
+                                                                        <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                    </c:url>
+                                                                    <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
+                                                                    <td>${booking.bookingDate}</td>
+                                                                    <td>${booking.user.fullName}</td>
+                                                                    <td>${booking.totalPrice}$</td>
+                                                                    <td>${booking.status}</td>
+                                                                    <c:url var="DeleteBooking" value="MainController">
+                                                                        <c:param name="action" value="DeleteBooking"></c:param>
+                                                                        <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                        <c:param name="status" value="${booking.status}"></c:param>
+                                                                    </c:url>
+                                                                    <td>
+                                                                        <div class="d-flex">
+                                                                            <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1">
+                                                                                <i class="fa fa-pencil"></i>
+                                                                            </a>
+                                                                            <c:if test="${booking.status ne 'On-Going'}">
+                                                                                <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
+                                                                                <div class="modal fade" id="basicModalDelete${counter}">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                                <h3 class="modal-title">Delete Booking ${booking.bookingId}</h3>
+                                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                                <h3>Do you want to Delete ${booking.bookingId}</h3>
+                                                                                            </div>
+                                                                                            <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                            <c:if test="${booking.status eq 'On-Going'}">
+                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalCancel${counter}" title="Cancel"><i class="fa fa-trash"></i></button>
+                                                                                <div class="modal fade" id="basicModalCancel${counter}">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                                <h3 class="modal-title">Cancel Booking ${booking.bookingId}</h3>
+                                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                                <h3>Do you want to Cancel ${booking.bookingId}</h3>
+                                                                                            </div>
+                                                                                            <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+
+                                                            </c:if>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:if>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="footer">
+                    <div class="copyright">
+                        <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
+                    </div>
+                </div>
+                <!--**********************************
+                    Footer end
+                ***********************************-->
+
+                <!--**********************************
+                   Support ticket button start
+                ***********************************-->
+
+                <!--**********************************
+                   Support ticket button end
+                ***********************************-->
+            </div>
+
+        </div>
+        <!--**********************************
+            Main wrapper end
+        ***********************************-->
+
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <!-- Required vendors -->
+        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <!-- Datatable -->
+        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="js/plugins-init/datatables.init.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/deznav-init.js"></script>
+        <script src="js/demo.js"></script>
+        <script src="js/styleSwitcher.js"></script>
+</body>
 </html>
