@@ -27,13 +27,12 @@ public class UserDAO {
     // Update Profile User
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
 
-    public User getUserByID(String userID) throws SQLException {
 
-   // Update Profile User
-    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";                                                                              
+        // Update Profile User
+
     private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
 
-        public User getUserByID(String userID) throws SQLException {
+    public User getUserByID(String userID) throws SQLException {
 
         User user = null;
         boolean check = false;
@@ -330,31 +329,30 @@ public class UserDAO {
             conn = DBUtils.getConnection();
             try {
                 if (conn != null) {
-                ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN);
-                ptm.setString(1, "%" + search + "%");
-                rs = ptm.executeQuery();
-                
-                while (rs.next()) {
-                    String userID = rs.getString("userID");
-                    String fullName = rs.getString("fullName");
-                    String address = rs.getString("address");
-                    String birthday = rs.getString("birthday");
-                    String phone = rs.getString("phone");
-                    String email = rs.getString("email");
-                    String accName = rs.getString("accName");
-                    String password = rs.getString("password");
-                    String id_of_role = rs.getString("roleID");
-                    RoleDAO role = new RoleDAO();
-                    Role roleID = role.getRole(id_of_role);
-                    String status = rs.getString("status");
+                    ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN);
+                    ptm.setString(1, "%" + search + "%");
+                    rs = ptm.executeQuery();
 
-                    list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                    while (rs.next()) {
+                        String userID = rs.getString("userID");
+                        String fullName = rs.getString("fullName");
+                        String address = rs.getString("address");
+                        String birthday = rs.getString("birthday");
+                        String phone = rs.getString("phone");
+                        String email = rs.getString("email");
+                        String accName = rs.getString("accName");
+                        String password = rs.getString("password");
+                        String id_of_role = rs.getString("roleID");
+                        RoleDAO role = new RoleDAO();
+                        Role roleID = role.getRole(id_of_role);
+                        String status = rs.getString("status");
+
+                        list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
+                    }
                 }
-            }
             } catch (Exception e) {
                 e.printStackTrace();
             }
-            
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -415,7 +413,6 @@ public class UserDAO {
                 ptm.setString(7, user.getStatus());
                 ptm.setString(8, user.getUserID());
 
-
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -430,22 +427,16 @@ public class UserDAO {
         }
         return check;
     }
-<<<<<<< HEAD
-    
-    public boolean updateProfileUser (User user) throws SQLException{
-        boolean check =false;
-=======
 
-    public boolean updateProfileUser(String fullName, String birthday, String userID, String phone, String email, String address) throws SQLException {
+    public boolean updateProfileUser(User user) throws SQLException {
         boolean check = false;
->>>>>>> develop
+
         Connection conn = null;
         PreparedStatement ptm = null;
         try {
             conn = DBUtils.getConnection();
             try {
                 if (conn != null) {
-<<<<<<< HEAD
                     ptm = conn.prepareStatement(UPDATE_PROFILE_USER);
                     ptm.setString(1, user.getFullName());
                     ptm.setString(2, user.getBirth());
@@ -453,17 +444,7 @@ public class UserDAO {
                     ptm.setString(4, user.getEmail());
                     ptm.setString(5, user.getAddress());
                     ptm.setString(6, user.getUserID());
-                    
-=======
-                    ptm = conn.prepareStatement(UPDATE_USER);
-                    ptm.setString(1, fullName);
-                    ptm.setString(2, birthday);
-                    ptm.setString(3, phone);
-                    ptm.setString(4, email);
-                    ptm.setString(5, address);
-                    ptm.setString(6, userID);
 
->>>>>>> develop
                     check = ptm.executeUpdate() > 0;
                 }
             } catch (Exception e) {
@@ -496,7 +477,7 @@ public class UserDAO {
                 while (rs.next()) {
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullName");
-                    String address = rs.getString("address");                   
+                    String address = rs.getString("address");
                     String birthday = rs.getString("birthday");
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
@@ -506,7 +487,7 @@ public class UserDAO {
                     RoleDAO role = new RoleDAO();
                     Role roleID = role.getRole(id_of_role);
                     String status = rs.getString("status");
-                   
+
                     list.add(new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status));
                 }
             }
@@ -526,5 +507,5 @@ public class UserDAO {
         }
         return list;
     }
-             
+
 }

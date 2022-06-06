@@ -115,8 +115,6 @@ Chat box End
                         </span>
                     </div>
                 </div>
-                <h5 class="name"><span class="font-w400">Hello,</span>${sessionScope.LOGIN_USER.fullName}</h5>
-                <p class="email"><a href="" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">${sessionScope.LOGIN_USER.email}</a></p>
             </div>
             <ul class="navbar-nav header-right main-notification">
                 <li class="nav-item dropdown notification_dropdown">

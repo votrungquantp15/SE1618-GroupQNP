@@ -39,7 +39,7 @@
                             <span class="nav-text">Địa chỉ</span>
                         </a>
                         <ul aria-expanded="false">
-                            <li><a href="app-profile.html">HÃ  Ná»i</a></li>
+                            <li><a href="app-profile.html"></a></li>
 
                         </ul>
                     </li>
@@ -118,31 +118,7 @@
                 </nav>
             </div>
         </div>
-        <!--**********************************
-            Header end ti-comment-alt
-        ***********************************-->
 
-        <!--**********************************
-            Sidebar start
-        ***********************************-->
-
-
-
-
-
-
-
-
-
-
-
-        <!--**********************************
-            Sidebar end
-        ***********************************-->
-
-        <!--**********************************
-            Content body start
-        ***********************************-->
         <div class="content-body">
             <div class="container-fluid">
                 <!-- Add Project -->
