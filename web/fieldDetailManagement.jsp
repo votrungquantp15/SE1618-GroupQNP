@@ -1,137 +1,174 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-        <meta name="description" content="" />
-        <meta
-            name="author"
-            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-            />
-        <meta name="generator" content="Hugo 0.88.1" />
-        <title>Field Detail Management</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
-            crossorigin="anonymous"
-            />
-        <link
-            rel="canonical"
-            href="https://getbootstrap.com/docs/4.6/examples/dashboard/"
-            />
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
-        <link href="./styles/adminDashboard.css" />
-        <!-- Bootstrap core CSS -->
 
-        <!-- Favicons -->
-        <meta name="theme-color" content="#563d7c" />
 
-        <!-- Custom styles for this template -->
-        <link href="dashboard.css" rel="stylesheet" />
-    </head>
-    <body>
 
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:title" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+    <title>Field Detail Page</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
-        <jsp:include page="layoutAdmin.jsp"></jsp:include>
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="card">
 
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Field Detail</h1>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Fields Management</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="input-group mb-3">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div role="separator" class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
+                                            </div>
+                                            <input class="col-sm-3" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search something...">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" type="button">Search</button>
+                                            </div>
+                                        </div>
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive">
+                                                <thead>
+                                                    <tr>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>Field ID</strong></th>
+                                                        <th><strong>Field Name</strong></th>
+                                                        <th><strong>Field Description</strong></th>
+                                                        <th><strong>Field Image</strong></th>
+                                                        <th><strong>CategoryFieldID</strong></th>
+                                                        <th><strong>UserID</strong></th>
+                                                        <th><strong>LocationID</strong></th>
+                                                        <th><strong>CityName</strong></th>
+                                                        <th><strong>Status</strong></th>
+                                                        <th><strong>Action</strong></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                    <c:forEach var="field" items="${requestScope.FIELD_DETAIL}" varStatus="counter">
+                                                <form action="MainController"> 
+                                                    <tr>
+                                                        <td><strong>${counter.count}</strong></td>
+                                                        <td>${field.fieldId}</td>
+                                                        <td><input title="${field.fieldName}" type="text" name="fieldName" value="${field.fieldName}" required=""></td>
+                                                        <td><input title="${field.description}" type="text" name="description" value="${field.description}" required=""/></td>
+                                                        <td><input title="${field.image}" type="text" name="image" value="${field.image}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="userId" value="${field.user.userID}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="status" value="${field.status}" required=""/></td>
+                                                        <td>
+                                                            <div class="d-flex">
+                                                                <input style="color: white" class="btn btn-primary btn-sm" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
+                                                                <input type="hidden" name="fieldId" value="${field.fieldId}"/>
+                                                                <c:url var="delete" value="MainController">
+                                                                    <c:param name="action" value="DeleteField"></c:param>
+                                                                    <c:param name="fieldId" value="${field.fieldId}"></c:param>
+                                                                </c:url>
+                                                                <a title="Click here to delete field" href="${delete}" class="btn btn-danger shadow btn-sm sharp ml-1"><i class="fa fa-trash"></i></a>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </form>
+                                            </c:forEach>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
+                                        <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                                        <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                        <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm" border="1">
-                        <thead>
-                            <tr>
-                                <th>No</th>
-                                <th>Field ID</th>
-                                <th>Field Name</th>
-                                <th>Description</th>
-                                <th>Image</th>
-                                <th>CategoryFieldID</th>
-                                <th>UserID</th>
-                                <th>LocationID</th>
-                                <th>CityId</th>
-                                <th>Status</th>
-                                <th>Delete</th>
-                                <th>Update</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="field" items="${requestScope.FIELD_DETAIL}" varStatus="counter">
-                        <form action="MainController">
-                            <tr>
-                                <td>${counter.count}</td>
-                                <td>${field.fieldId}</td>
-                                <td><input title="Input what you want to update" type="text" name="fieldName" value="${field.fieldName}" required=""></td>
-                                <td><input title="Input what you want to update" type="text" name="description" value="${field.description}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="image" value="${field.image}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="userId" value="${field.user.userID}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="status" value="${field.status}" required=""/></td>
-                                <td>
-                                    <c:url var="delete" value="MainController">
-                                        <c:param name="action" value="DeleteField"></c:param>
-                                        <c:param name="fieldId" value="${field.fieldId}"></c:param>
-                                    </c:url>
-                                    <a title="Click here to delete field" href="${delete}">Delete</a>
-                                </td>
-                                <td>
-                                    <input title="Click here to update field" type="submit" name="action" value="UpdateField"/>
-                                    <input type="hidden" name="fieldId" value="${field.fieldId}"/>
-                                </td>
-                            </tr>
-                        </form>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
-            </div>
-        </main>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            window.jQuery ||
-                    document.write(
-                            '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
-                            );
-        </script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
+                <!--**********************************
+                    Footer end
+                ***********************************-->
 
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-        <script src="dashboard.js"></script>
-    </body>
+                <!--**********************************
+                   Support ticket button start
+                ***********************************-->
+
+                <!--**********************************
+                   Support ticket button end
+                ***********************************-->
+            </div>
+
+        </div>
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+</body>
 </html>

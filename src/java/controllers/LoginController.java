@@ -42,7 +42,7 @@ public class LoginController extends HttpServlet {
             //Get city
             List<City> listCitys = new ArrayList<>();
             CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getALLCity();
+            listCitys = cityDao.getAllCity();
 
             //Get price 
             List<Field> listFields = new ArrayList<>();
