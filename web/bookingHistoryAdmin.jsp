@@ -1,145 +1,206 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@page import="dto.Booking"%>
-<%@page import="java.util.List"%>
-
-
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, shrink-to-fit=no"
-            />
-        <meta name="description" content="" />
-        <meta
-            name="author"
-            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
-            />
-        <meta name="generator" content="Hugo 0.88.1" />
-        <title>Booking History Page</title>
-        <link
-            rel="stylesheet"
-            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
-            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
-            crossorigin="anonymous"
-            />
-        <link
-            rel="canonical"
-            href="https://getbootstrap.com/docs/4.6/examples/dashboard/"
-            />
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
-        <link href="./styles/adminDashboard.css" />
-        <!-- Bootstrap core CSS -->
 
-        <!-- Favicons -->
-        <meta name="theme-color" content="#563d7c" />
 
-        <!-- Custom styles for this template -->
-        <link href="dashboard.css" rel="stylesheet" />
-    </head>
-    <body>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="keywords" content="">
+    <meta name="author" content="">
+    <meta name="robots" content="">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:title" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
+    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
+    <meta name="format-detection" content="telephone=no">
+    <title>Admin Dashboard</title>
+    <!-- Favicon icon -->
+    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+    <!-- Datatable -->
+    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+    <!-- Custom Stylesheet -->
+    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
+
+</head>
+
+<body>
+
+    <!--*******************
+        Preloader start
+    ********************-->
+    <div id="preloader">
+        <div class="sk-three-bounce">
+            <div class="sk-child sk-bounce1"></div>
+            <div class="sk-child sk-bounce2"></div>
+            <div class="sk-child sk-bounce3"></div>
+        </div>
+    </div>
+    <!--*******************
+        Preloader end
+    ********************-->
+
+
+    <!--**********************************
+        Main wrapper start
+    ***********************************-->
+    <div id="main-wrapper">
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
-        <jsp:include page="layoutAdmin.jsp"></jsp:include>
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div
-                    class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3"
-                    >
-                    <h1 class="h2">Dashboard</h1>
-                    <div class="btn-toolbar mb-2 mb-md-0">
-                        <div class="btn-group mr-2">
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Share
-                            </button>
-                            <button type="button" class="btn btn-sm btn-outline-secondary">
-                                Export
-                            </button>
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="card">
+
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4 class="card-title">Boooking History
+                                            <p style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></p> 
+                                        <p style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></p> 
+                                    </h4>
+                                </div>
+                                <div class="card-body">
+
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
+                                                <strong>No Result</strong>
+                                            </c:if>
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px;"><strong>#</strong></th>
+                                                    <th><strong>Booknig ID</strong></th>
+                                                    <th><strong>Booking Date</strong></th>
+                                                    <th><strong>Booking User</strong></th>
+                                                    <th><strong>Total Price</strong></th>
+                                                    <th><strong>Status</strong></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                                                    <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                                                        <c:set var="counter" scope="page" value="0"/>
+                                                        <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
+                                                            <c:set var="counter" scope="page" value="${counter + 1}"/>
+                                                            <tr>
+                                                                <td><strong>${counter}</strong></td>
+                                                                <c:url var="BookingDetail" value="MainController">
+                                                                    <c:param name="action" value="SearchBookingDetail"></c:param>
+                                                                    <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                </c:url>
+                                                                <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
+                                                                <td>${booking.bookingDate}</td>
+                                                                <td>${booking.user.fullName}</td>
+                                                                <td>${booking.totalPrice}</td>
+                                                                <td>${booking.status}</td>
+                                                                <c:url var="DeleteBooking" value="MainController">
+                                                                    <c:param name="action" value="DeleteBooking"></c:param>
+                                                                    <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                    <c:param name="status" value="${booking.status}"></c:param>
+                                                                </c:url>
+                                                                <td>
+                                                                    <div class="d-flex">
+                                                                        <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1">
+                                                                            <i class="fa fa-pencil"></i>
+                                                                        </a>
+                                                                        <c:if test="${booking.status ne 'On-Going'}">
+                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
+                                                                            <div class="modal fade" id="basicModalDelete${counter}">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                            <h3 class="modal-title">Delete Booking ${booking.bookingId}</h3>
+                                                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                            <h3>Do you want to Delete ${booking.bookingId}</h3>
+                                                                                        </div>
+                                                                                        <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                            <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                        <c:if test="${booking.status eq 'On-Going'}">
+                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalCancel${counter}" title="Cancel"><i class="fa fa-trash"></i></button>
+                                                                            <div class="modal fade" id="basicModalCancel${counter}">
+                                                                                <div class="modal-dialog" role="document">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                            <h3 class="modal-title">Cancel Booking ${booking.bookingId}</h3>
+                                                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                            </button>
+                                                                                        </div>
+                                                                                        <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                            <h3>Do you want to Cancel ${booking.bookingId}</h3>
+                                                                                        </div>
+                                                                                        <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                            <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </c:if>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </c:forEach>
+                                                    </c:if>
+                                                </c:if>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <button
-                            type="button"
-                            class="btn btn-sm btn-outline-secondary dropdown-toggle"
-                            >
-                            <span data-feather="calendar"></span>
-                            This week
-                        </button>
                     </div>
                 </div>
-            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                    <h2>Booking History Table</h2>
-                    <div class="table-responsive">
-                        <table class="table table-striped table-sm">
-                            <thead>
-                                <tr>
-                                    <th>Số</th>
-                                    <th>Mã Đơn</th>
-                                    <th>Người đặt</th>
-                                    <th>Tổng tiền</th>
-                                    <th>Ngày tạo đơn</th>
-                                    <th>UserID</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach var="list" items="${requestScope.LIST_BOOKING_HISTORY}" varStatus="counter">
-                                    <tr>
-                                        <td>${counter.count}</td>
-                                        <td>${list.bookingId}</td>
-                                        <td>${list.user.fullName}</td>
-                                        <td>${list.totalPrice}</td>
-                                        <td>${list.bookingDate}</td>
-                                        <td>${list.user.userID}</td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+
+
+
+
+                <div class="footer">
+                    <div class="copyright">
+                        <p>Copyright Â© Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
                     </div>
-                </c:if>
-            </c:if>
-        </main>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            window.jQuery ||
-                    document.write(
-                            '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
-                            );
-        </script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
+                </div>
+                <!--**********************************
+                    Footer end
+                ***********************************-->
 
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-        <script src="dashboard.js"></script>
-        <script type="text/javascript">
-            document.getElementById('branche').onchange = function () {
-                localStorage.setItem('selectedtem', document.getElementById('branche').value);
-            };
+                <!--**********************************
+                   Support ticket button start
+                ***********************************-->
 
-            if (localStorage.getItem('selectedtem')) {
-                document.getElementById(localStorage.getItem('selectedtem')).selected = true;
-            }
-        </script>
-    </body>
+                <!--**********************************
+                   Support ticket button end
+                ***********************************-->
+            </div>
+
+        </div>
+        <!--**********************************
+            Main wrapper end
+        ***********************************-->
+
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <!-- Required vendors -->
+        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <!-- Datatable -->
+        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="js/plugins-init/datatables.init.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/deznav-init.js"></script>
+        <script src="js/demo.js"></script>
+        <script src="js/styleSwitcher.js"></script>
+</body>
 </html>

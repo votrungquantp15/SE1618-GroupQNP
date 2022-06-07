@@ -50,7 +50,7 @@ public class UpdateProfileUserController extends HttpServlet {
             String address = request.getParameter("address");            
             user = new User(userID, name, address, birthday, phone, email, "", "", null, "");
             
-            check = userDAO.updateUser(user);
+            check = userDAO.updateProfileUser(user);
             
             if (check == true) {
                 request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));

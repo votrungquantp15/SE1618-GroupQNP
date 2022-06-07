@@ -29,10 +29,10 @@
                         <div class="d-flex justify-content-between align-items-center mb-3">
                             <h4 class="text-right">Profile Settings</h4>
                         </div>
-                        <form action="MainController" method="GET">
+                        <form action="MainController" method="POST">
                             <div class="row mt-2">
-                            <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" class="form-control" placeholder="Full name" value="${requestScope.PROFILE_USER.fullName}"></div>
-                            <div class="col-md-6"><label class="labels">Birth Day</label><input type="text" name="birth" class="form-control" value="${requestScope.PROFILE_USER.birth}" placeholder="birthDay"></div>
+                            <div class="col-md-6"><label class="labels">Name</label><input type="text" name="name" required="" class="form-control" placeholder="Full name" value="${requestScope.PROFILE_USER.fullName}"></div>
+                            <div class="col-md-6"><label class="labels">Birth Day</label><input type="date" name="birth" class="form-control" value="${requestScope.PROFILE_USER.birth}" placeholder="birthDay"></div>
                         </div>
                         <div class="row mt-2">
                             <div class="col-md-6"><label class="labels">UserID</label><input type="text" class="form-control" value="${requestScope.PROFILE_USER.userID}" disabled=""></div>
@@ -41,9 +41,9 @@
                         </div>
                         <div class="row mt-3">
                             <div class="col-md-12"><label class="labels">Account Name</label><input type="text" class="form-control" disabled="" placeholder="enter address line 2" value="${requestScope.PROFILE_USER.accName}"></div>
-                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" name="phone" class="form-control" placeholder="enter phone number" value="${requestScope.PROFILE_USER.phone}" ></div>
-                            <div class="col-md-12"><label class="labels">Email</label><input type="text" class="form-control" name="email" placeholder="Email" value="${requestScope.PROFILE_USER.email}" ></div>
-                            <div class="col-md-12"><label class="labels">Address</label><input type="text" class="form-control" name="address" placeholder="enter address line 1" value="${requestScope.PROFILE_USER.address}"></div>
+                            <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" required="" name="phone" class="form-control" placeholder="enter phone number" value="${requestScope.PROFILE_USER.phone}" ></div>
+                            <div class="col-md-12"><label class="labels">Email</label><input type="email" required="" class="form-control" name="email" placeholder="Email" value="${requestScope.PROFILE_USER.email}" ></div>
+                            <div class="col-md-12"><label class="labels">Address</label><input type="text" required=""  class="form-control" name="address" placeholder="enter address line 1" value="${requestScope.PROFILE_USER.address}"></div>
                             <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" name="action" value="UpdateProfileUser" >Save Profile</button></div>
                         </div>
                         </form>

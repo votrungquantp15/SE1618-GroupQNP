@@ -18,15 +18,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "SearchAccountByAdminController", urlPatterns = {"/SearchAccountByAdminController"})
 public class SearchAccountByAdminController extends HttpServlet {
 
-    private static final String ERROR = "ViewAccountListController";
-    private static final String SUCCESS = "ViewAccountListController";
+    private static final String ERROR = "accountManagement.jsp";
+    private static final String SUCCESS = "accountManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
+            String search = request.getParameter("searchAccountByAdmin");
             UserDAO dao = new UserDAO();
             List<User> listUser = dao.searchAccountByNameForAdmin(search);
                 

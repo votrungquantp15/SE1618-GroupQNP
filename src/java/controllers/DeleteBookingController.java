@@ -5,56 +5,48 @@
  */
 package controllers;
 
-import dao.RoleDAO;
-import dao.UserDAO;
-import dto.Role;
-import dto.User;
+import dao.BookingDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author predator
+ * @author NITRO 5
  */
-@WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
-public class UpdateAccountByAdminController extends HttpServlet {
+public class DeleteBookingController extends HttpServlet {
 
-    public static final String ERROR = "AccountEditorController";
-    public static final String SUCCESS = "AccountEditorController";
+    private static final String SUCCESS = "SearchBookingController";
+    private static final String ERROR = "SearchBookingController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String bookingID = request.getParameter("bookingID");
+        String status = request.getParameter("status");
         try {
-            String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullName");
-            String address = request.getParameter("address");
-            String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String accName = request.getParameter("accName");
-            String password = request.getParameter("password");
-            
-            String id_of_role = request.getParameter("roleId");
-            RoleDAO role = new RoleDAO();
-            Role roleID = role.getRole(id_of_role);
-            String status = request.getParameter("status");
-            UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
-            boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
+            BookingDAO bookingDAO = new BookingDAO();
+            boolean check = bookingDAO.deleteBookingByID(bookingID, status);
+            if (check == true) {
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
+                } else {
+                    request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
+                }
                 url = SUCCESS;
-                request.setAttribute("UPDATE_SUCCESS", "Update account successfully!!!");
             } else {
-                request.setAttribute("UPDATE_FAILED", "Update account FAILED!!!");
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
+                }
             }
         } catch (Exception e) {
-            log("Error at UpdateAccountByAdminController: " + e.toString());
+            log("Error at DeleteBookingController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

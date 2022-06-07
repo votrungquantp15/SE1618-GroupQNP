@@ -45,6 +45,7 @@ Chat box End
             <div class="collapse navbar-collapse justify-content-between">
                 <div class="header-left">
                     <div class="input-group search-area right d-lg-inline-flex d-none">
+                        </span>
                     </div>
                 </div>
             </div>
@@ -80,14 +81,10 @@ Chat box End
                     </div>
                 </li>
             </ul>
-    </div>
-    <div class="sub-header">
-        <div class="d-flex align-items-center flex-wrap mr-auto">
-            <h5 class="dashboard_bar">Dashboard</h5>
-        </div>
+        </nav>
     </div>
 </div>
-</div>
+
 <!--**********************************
     Header end ti-comment-alt
 ***********************************-->
@@ -102,16 +99,13 @@ Chat box End
                 <img src="images/Untitled-1.jpg" alt="">
                 <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
             </div>
-            <h5 class="name"><span class="font-w400">Hello,</span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p class="email"><a href="" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">${sessionScope.LOGIN_USER.email}</a></p>
+            <h5 class="name"><span class="font-w400">Hello,</span></h5>
+            <p class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">[email&#160;protected]</a></p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
-
-            <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
-            <li><a href="MainController?action=Print">Fields Management</a></li>
-            <li><a href="MainController?action=SearchHistory">Booking report</a></li>
-
+            <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Profile</a></li>
+            <li class="active"><a href="MainController?action=SearchHistory">Booking History</a></li>
         </ul>
         <div class="copyright">
             <p><strong>Zenix Crypto Admin Dashboard</strong> © 2021 All Rights Reserved</p>
