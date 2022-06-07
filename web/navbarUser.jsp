@@ -66,12 +66,11 @@ Chat box End
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
                         <img src="images/profile/pic1.jpg" width="20" alt="">
                         <div class="header-info">
-                            <span>Johndoe</span>
-                            <small>Super Admin</small>
+                            <span>${sessionScope.LOGIN_USER.fullName}</span>
                         </div>
                     </a>
                     <div class="dropdown-menu dropdown-menu-right">
-                        <a href="app-profile.html" class="dropdown-item ai-icon">
+                        <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="dropdown-item ai-icon">
                             <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
                             <span class="ml-2">Profile </span>
                         </a>
@@ -105,7 +104,7 @@ Chat box End
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
-            <li><a href="index.html">Profile</a></li>
+            <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Profile</a></li>
             <li class="active"><a href="MainController?action=SearchHistory">Booking History</a></li>
         </ul>
         <div class="copyright">
