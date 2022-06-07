@@ -49,9 +49,9 @@ public class UpdateAccountByAdminController extends HttpServlet {
             boolean checkUpdate = dao.updateUser(user);
             if (checkUpdate) {                              
                 url = SUCCESS;
-                request.setAttribute("UPDATE_SUCCESS", "Update account successfully!!!");
+                request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {
-                request.setAttribute("UPDATE_FAILED", "Update account FAILED!!!");
+                request.setAttribute("UPDATE_FAILED", "Cập nhật thất bại!!!");
             }
         } catch (Exception e) {
             log("Error at UpdateAccountByAdminController: " + e.toString());
