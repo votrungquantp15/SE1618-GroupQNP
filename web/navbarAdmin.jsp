@@ -45,7 +45,6 @@ Chat box End
             <div class="collapse navbar-collapse justify-content-between">
                 <div class="header-left">
                     <div class="input-group search-area right d-lg-inline-flex d-none">
-
                     </div>
                 </div>
             </div>

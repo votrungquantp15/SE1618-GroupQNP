@@ -20,8 +20,8 @@ public class PrintFieldDetailController extends HttpServlet {
         String url = ERROR;
         try {
             String id_of_field = request.getParameter("fieldId");
-            FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getFieldDetailById(id_of_field);
+            FieldDAO daoField = new FieldDAO();
+            List<Field> listField = daoField.getFieldDetailById(id_of_field);
             if (listField.size() > 0) {
                 request.setAttribute("FIELD_DETAIL", listField);
                 url = SUCCESS;
