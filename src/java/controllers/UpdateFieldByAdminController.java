@@ -33,6 +33,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
             FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+            double price = Double.parseDouble(request.getParameter("price"));
             String id_of_user = request.getParameter("userId");
             UserDAO user = new UserDAO();
             User userID = user.getUserByID(id_of_user);
@@ -44,7 +45,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
             City cityID = city.getCityByID(id_of_city);
             String status = request.getParameter("status");
             FieldDAO dao = new FieldDAO();
-            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status);
+            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status);
             boolean checkUpdate = dao.updateStatusField(field);
             if (checkUpdate) {
                 url = SUCCESS;

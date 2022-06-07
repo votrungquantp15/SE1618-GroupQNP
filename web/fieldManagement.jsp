@@ -85,6 +85,7 @@
                                                         <th><strong>Field ID</strong></th>
                                                         <th><strong>Field Name</strong></th>
                                                         <th><strong>CategoryFieldID</strong></th>
+                                                        <th><strong>Price</strong></th>
                                                         <th><strong>UserID</strong></th>
                                                         <th><strong>LocationID</strong></th>
                                                         <th><strong>CityName</strong></th>
@@ -100,6 +101,7 @@
                                                         <td>${field.fieldId}</td>
                                                         <td><a title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
                                                         <td>${field.fieldCate.fieldCateId}</td>
+                                                        <td>${field.price}</td>
                                                         <td>${field.user.userID}</td>
                                                         <td>${field.location.locationId}</td>
                                                         <td>${field.city.cityName}</td>
