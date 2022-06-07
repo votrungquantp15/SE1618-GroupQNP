@@ -87,6 +87,7 @@
                                                         <th><strong>Field Description</strong></th>
                                                         <th><strong>Field Image</strong></th>
                                                         <th><strong>CategoryFieldID</strong></th>
+                                                        <th><strong>Price</strong></th>
                                                         <th><strong>UserID</strong></th>
                                                         <th><strong>LocationID</strong></th>
                                                         <th><strong>CityName</strong></th>
@@ -106,6 +107,7 @@
                                                         <td><input title="${field.description}" type="text" name="description" value="${field.description}" required=""/></td>
                                                         <td><input title="${field.image}" type="text" name="image" value="${field.image}" required=""/></td>
                                                         <td><input title="Input what you want to update" type="text" name="categoryFieldId" value="${field.fieldCate.fieldCateId}" required=""/></td>
+                                                        <td><input title="Input what you want to update" type="text" name="price" value="${field.price}" required=""/></td>
                                                         <td><input title="Input what you want to update" type="text" name="userId" value="${field.user.userID}" required=""/></td>
                                                         <td><input title="Input what you want to update" type="text" name="locationId" value="${field.location.locationId}" required=""/></td>
                                                         <td><input title="Input what you want to update" type="text" name="cityId" value="${field.city.cityId}" required=""/></td>
