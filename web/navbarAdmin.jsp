@@ -45,7 +45,6 @@ Chat box End
             <div class="collapse navbar-collapse justify-content-between">
                 <div class="header-left">
                     <div class="input-group search-area right d-lg-inline-flex d-none">
-
                     </div>
                 </div>
             </div>
@@ -112,11 +111,6 @@ Chat box End
             <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
             <li><a href="MainController?action=Print">Fields Management</a></li>
             <li><a href="MainController?action=SearchHistory">Booking report</a></li>
-
         </ul>
-        <div class="copyright">
-            <p><strong>Zenix Crypto Admin Dashboard</strong> © 2021 All Rights Reserved</p>
-            <p class="fs-12">Made with <span class="heart"></span> by DexignZone</p>
-        </div>
     </div>
 </div>

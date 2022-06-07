@@ -58,7 +58,7 @@ public class SearchFieldByNameController extends HttpServlet {
             //Get city
             List<City> listCitys = new ArrayList<>();
             CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getALLCity();
+            listCitys = cityDao.getAllCity();
             
             fieldName = request.getParameter("name");
             //Get price 
