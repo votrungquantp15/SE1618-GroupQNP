@@ -354,10 +354,15 @@ public class UserDAO {
                         String email = rs.getString("email");
                         String accName = rs.getString("accName");
                         String password = rs.getString("password");
-                        String id_of_role = rs.getString("roleId");
+                        String id_of_role = rs.getString("roleID");
                         RoleDAO role = new RoleDAO();
-                        Role roleID = role.getRole(id_of_role);
+                        Role roleID = role.getRoleByID(id_of_role);
                         String status = rs.getString("status");
+                        if (status.equals("1")) {
+                            status = "active";
+                        } else {
+                            status = "in-active";
+                        }
 
                         list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
                     }

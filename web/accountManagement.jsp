@@ -111,17 +111,17 @@
                                                         <td>${user.accName}</td>                                                         
                                                         <td>${user.role.roleId}</td>                                                       
                                                         <td>${user.status}</td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <a href="MainController?action=AccountEditor&userID=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                <td>
+                                                    <div class="d-flex">
+                                                        <a href="MainController?action=AccountEditor&userID=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+                                                        <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-
+                                                    </div>
+                                                </td>
                                                 </tr>
+                                            </c:forEach>
+
+                                            </tr>
                                         </table>
 
 
