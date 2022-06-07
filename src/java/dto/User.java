@@ -5,6 +5,7 @@ public class User {
     private String userID;
     private String fullName;
     private String address;
+    private City city;
     private String birth;
     private String phone;
     private String email;
@@ -17,6 +18,7 @@ public class User {
         this.userID = "";
         this.fullName = "";
         this.address = "";
+        this.city = null;
         this.birth = "";
         this.phone = "";
         this.email = "";
@@ -26,10 +28,11 @@ public class User {
         this.status = "";
     }
 
-    public User(String userID, String fullName, String address, String birth, String phone, String email, String accName, String password, Role role, String status) {
+    public User(String userID, String fullName, String address, City city, String birth, String phone, String email, String accName, String password, Role role, String status) {
         this.userID = userID;
         this.fullName = fullName;
         this.address = address;
+        this.city = city;
         this.birth = birth;
         this.phone = phone;
         this.email = email;
@@ -65,6 +68,14 @@ public class User {
 
     public String getBirth() {
         return birth;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public void setBirth(String birth) {

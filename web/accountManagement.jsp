@@ -85,6 +85,7 @@
                                                     <th><strong>User ID</strong></th>
                                                     <th><strong>Full Name</strong></th>
                                                     <th><strong>Address</strong></th>
+                                                    <th><strong>City</strong></th>
                                                     <th><strong>Birthday</strong></th>
                                                     <th><strong>Phone</strong></th>
                                                     <th><strong>Email</strong></th>
@@ -103,6 +104,7 @@
                                                         <td>${user.userID}</td>
                                                         <td>${user.fullName}</td>
                                                         <td>${user.address}</td>
+                                                        <td>${user.city.cityName}</td>
                                                         <td>${user.birth}</td>
                                                         <td>${user.phone}</td>
                                                         <td>${user.email}</td>
