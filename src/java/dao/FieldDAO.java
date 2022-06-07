@@ -238,7 +238,7 @@ public class FieldDAO {
     }
     
     
-    public List<Field> getFieldDetailByName(String fieldName) throws SQLException {
+    public List<Field> getFieldDetailByName(String name) throws SQLException {
         List<Field> listField = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -247,12 +247,14 @@ public class FieldDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(PRINT_FIELD_DETAIL_BY_NAME);
-                ptm.setString(1, "%" + fieldName + "%");
+                ptm.setString(1, "%" + name + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String fieldId = rs.getString("fieldId");
                     String description = rs.getString("description");
                     String image = rs.getString("image");
+                    String fieldName = rs.getString("fieldName");
+                    
                     String id_of_field_category = rs.getString("categoryFieldId");
                     FieldCategoryDAO fieldCate = new FieldCategoryDAO();
                     FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);

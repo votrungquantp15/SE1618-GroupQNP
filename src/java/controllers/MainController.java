@@ -24,6 +24,9 @@ public class MainController extends HttpServlet {
     //Search Booking Order History
     private static final String SEARCH_BOOKING = "SearchHistory";
     private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
+    //Cancle, Delete Booking
+    private static final String DELETE_BOOKING = "DeleteBooking";
+    private static final String DELETE_BOOKING_CONTROLLER = "DeleteBookingController";
     //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
@@ -78,6 +81,11 @@ public class MainController extends HttpServlet {
     //View Account List
     private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
     private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+
+    //Account Editor
+    private static final String ACCOUNT_EDITOR = "AccountEditor";
+    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
+
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
@@ -142,10 +150,16 @@ public class MainController extends HttpServlet {
                 case UPDATE_PROFILE_USER:
                     url = UPDATE_PROFILE_USER_CONTROLLER;
                     break;
+                case DELETE_BOOKING:
+                    url = DELETE_BOOKING_CONTROLLER;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                    break;
                 case SEARCH_FIELD_BY_NAME:
                     url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                    break;
+                case ACCOUNT_EDITOR:
+                    url = ACCOUNT_EDITOR_CONTROLLER;
                     break;
             }
         
