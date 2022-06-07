@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Zenix -   Dashboard </title>
+    <title>Admin Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -128,15 +128,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright Â© Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
                     </div>
                 </div>
                 <!--**********************************
