@@ -67,14 +67,16 @@
                                                 <div class="row">
                                                     <div class ="col-md-6">
                                                         <input name="searchAccountByAdmin" type="text" class="form-control" placeholder="Type here to search" value="${param.searchAccountByAdmin}">                                                                                             
-                                                    </div>
-                                                    <div class ="col-md-6">
-                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">SEARCH</button>
-                                                    </div>
-                                                </div>                              
-                                            </div>                                                                                  
-                                        </form>
-
+                                                </div>
+                                                <div class ="col-md-6">
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">SEARCH</button>
+                                                </div>
+                                            </div>                              
+                                        </div>                                                                                  
+                                    </form>
+                                    <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
+                                    <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                    <p style="color: red">${requestScope.SEARCH_FAILED} </p>
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
                                             <thead>
@@ -83,12 +85,12 @@
                                                     <th><strong>User ID</strong></th>
                                                     <th><strong>Full Name</strong></th>
                                                     <th><strong>Address</strong></th>
+                                                    <th><strong>City</strong></th>
                                                     <th><strong>Birthday</strong></th>
                                                     <th><strong>Phone</strong></th>
                                                     <th><strong>Email</strong></th>
-                                                    <th><strong>Account Name</strong></th>                                                                                        
-                                                    <th><strong>Password</strong></th>
-                                                    <th><strong>Role ID</strong></th>
+                                                    <th><strong>Account Name</strong></th>                                                                                                                                    
+                                                    <th><strong>Role Name</strong></th>
                                                     <th><strong>Status</strong></th>
                                                     <th><strong>Action</strong></th>
                                                     <th></th>
@@ -102,11 +104,11 @@
                                                         <td>${user.userID}</td>
                                                         <td>${user.fullName}</td>
                                                         <td>${user.address}</td>
+                                                        <td>${user.city.cityName}</td>
                                                         <td>${user.birth}</td>
                                                         <td>${user.phone}</td>
                                                         <td>${user.email}</td>
-                                                        <td>${user.accName}</td>  
-                                                        <td>${user.password}</td>
+                                                        <td>${user.accName}</td>                                                         
                                                         <td>${user.role.roleId}</td>                                                       
                                                         <td>${user.status}</td>
                                                         <td>
@@ -122,8 +124,7 @@
                                                 </tr>
                                         </table>
 
-                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
-                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+
                                     </div>
                                 </div>
                             </div>
