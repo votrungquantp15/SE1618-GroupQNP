@@ -152,6 +152,7 @@ public class MainController extends HttpServlet {
                     break;
                 case DELETE_BOOKING:
                     url = DELETE_BOOKING_CONTROLLER;
+                    break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
                     break;
