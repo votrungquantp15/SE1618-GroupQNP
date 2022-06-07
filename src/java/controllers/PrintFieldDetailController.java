@@ -13,7 +13,7 @@ public class PrintFieldDetailController extends HttpServlet {
 
     private static final String ERROR = "fieldDetailManagement.jsp";
     private static final String SUCCESS = "fieldDetailManagement.jsp";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -21,13 +21,11 @@ public class PrintFieldDetailController extends HttpServlet {
         try {
             String id_of_field = request.getParameter("fieldId");
             FieldDAO daoField = new FieldDAO();
-            List<Field> listField = daoField.getFieldDetailById(id_of_field);
-            if (listField.size() > 0) {
-                request.setAttribute("FIELD_DETAIL", listField);
-                url = SUCCESS;
-            }
+            Field listField = daoField.getFieldByID(id_of_field);
+            request.setAttribute("FIELD_DETAIL", listField);
+            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at PrintController: " + e.toString());
+            log("Error at PrintFieldDeatailController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

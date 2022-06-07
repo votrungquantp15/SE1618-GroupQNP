@@ -61,20 +61,25 @@
                                         <h4 class="card-title">Fields Management</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="input-group mb-3 ">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                    <div role="separator" class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                        <div class="row">
+                                            <div class="input-group mb-3 col-10">
+                                                <div class="input-group-prepend">
+                                                    <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="dropdown-item" href="#">Action</a>
+                                                        <a class="dropdown-item" href="#">Another action</a>
+                                                        <a class="dropdown-item" href="#">Something else here</a>
+                                                        <div role="separator" class="dropdown-divider"></div>
+                                                        <a class="dropdown-item" href="#">Separated link</a>
+                                                    </div>
+                                                </div>
+                                                <input class="col-sm-4" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search something...">
+                                                <div class="input-group-append">
+                                                    <button class="btn btn-secondary" type="button">Search</button>
                                                 </div>
                                             </div>
-                                            <input class="col-sm-3" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search something...">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary" type="button">Search</button>
+                                            <div class="col-2">
+                                                <button class="btn btn-secondary" type="button">Create new field</button>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
