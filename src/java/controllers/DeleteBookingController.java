@@ -7,7 +7,6 @@ package controllers;
 
 import dao.BookingDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -19,6 +18,10 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class DeleteBookingController extends HttpServlet {
 
+    private static final String PLAYED = "Played";
+    private static final String CANCELED = "Canceled";
+    private static final String DELETE = "Delete";
+
     private static final String SUCCESS = "SearchBookingController";
     private static final String ERROR = "SearchBookingController";
 
@@ -27,23 +30,27 @@ public class DeleteBookingController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         String bookingID = request.getParameter("bookingID");
-        String status = request.getParameter("status");
+        String bookingStatus = request.getParameter("bookingStatus");
         try {
-            BookingDAO bookingDAO = new BookingDAO();
-            boolean check = bookingDAO.deleteBookingByID(bookingID, status);
-            if (check == true) {
-                if ("Played".equals(status) || "Canceled".equals(status)) {
-                    request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
+            if (!DELETE.equals(bookingStatus)) {
+                BookingDAO bookingDAO = new BookingDAO();
+                boolean check = bookingDAO.deleteBookingByID(bookingID, bookingStatus);
+                if (check == true) {
+                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
+                        request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
+                    } else {
+                        request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
+                    }
+                    url = SUCCESS;
                 } else {
-                    request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
+                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
+                        request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
+                    } else {
+                        request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
+                    }
                 }
-                url = SUCCESS;
             } else {
-                if ("Played".equals(status) || "Canceled".equals(status)) {
-                    request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
-                } else {
-                    request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
-                }
+                request.setAttribute("DELETE_UNSUCCESS", "Can't delete a booking with status Delete");
             }
         } catch (Exception e) {
             log("Error at DeleteBookingController: " + e.toString());

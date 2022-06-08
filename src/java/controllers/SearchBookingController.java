@@ -37,16 +37,18 @@ public class SearchBookingController extends HttpServlet {
         String roleID = loginUser.getRole().getRoleId();
         String url = ERROR;
         try {
+            String search = request.getParameter("search");
+            String status = request.getParameter("status");
             if (ADMIN.equals(roleID)) {
                 String UserID = "U";
                 BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
+                List<Booking> list = dao.getListBookingByID(UserID, search, status);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 String UserID = loginUser.getUserID();
                 BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID);
+                List<Booking> list = dao.getListBookingByID(UserID, search, status);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 url = SUCCESS_USER;
             }
