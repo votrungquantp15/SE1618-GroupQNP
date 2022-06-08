@@ -73,7 +73,7 @@
                                                     <select class="form-control" name="status">
                                                         <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all</option>
                                                         <option value="On-Going" <c:if test="${param.status eq 'On-Going'}">selected</c:if>>On-Going</option>
-                                                        <option value="Played" <c:if test="${param.status eq 'Played'}">selected</c:if>>(Booked)Played</option>
+                                                        <option value="Played" <c:if test="${param.status eq 'Played'}">selected</c:if>>Played</option>
                                                         <option value="Canceled" <c:if test="${param.status eq 'Canceled'}">selected</c:if>>Canceled</option>
                                                     </select>
                                                 </div>
