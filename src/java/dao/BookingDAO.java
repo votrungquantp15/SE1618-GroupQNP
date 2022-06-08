@@ -22,13 +22,13 @@ public class BookingDAO {
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
 
-    private static final String GET_BOOKING_BY_USER_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
-            + "FROM tblBooking WHERE userID like ? ";
+    private static final String GET_LIST_BOOKING = "SELECT bookingID, bookingDate, userID, totalPrice, status "
+            + "FROM tblBooking WHERE userID like ? AND bookingID like ? AND status like ? ";
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
     private static final String DELETE_BOOKING_BY_BOOKING_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
 
-    public List<Booking> getListBookingByID(String userID) throws SQLException {
+    public List<Booking> getListBookingByID(String userID, String search, String status) throws SQLException {
         List<Booking> booking = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -36,8 +36,10 @@ public class BookingDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_BOOKING_BY_USER_ID);
+                ptm = conn.prepareStatement(GET_LIST_BOOKING);
                 ptm.setString(1, "%" + userID + "%");
+                ptm.setString(2, "%" + search + "%");
+                ptm.setString(3,"%" + status + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getBookingID = rs.getString("bookingID");
@@ -46,8 +48,8 @@ public class BookingDAO {
                     UserDAO userDAO = new UserDAO();
                     User user = userDAO.getUserByID(getUserID);
                     double getTotalPrice = rs.getDouble("totalPrice");
-                    String status = rs.getString("status");
-                    booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, status));
+                    String getStatus = rs.getString("status");
+                    booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, getStatus));
                 }
             }
         } catch (Exception e) {
