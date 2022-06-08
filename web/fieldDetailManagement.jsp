@@ -81,7 +81,7 @@
                                                                             <form action="MainController" method="POST" accept-charset="utf-8"> 
                                                                                 <tr>
                                                                                     <th>Field Id:</th>
-                                                                                    <th>${requestScope.FIELD_DETAIL.fieldId}</th>
+                                                                                    <th style="color: black">${requestScope.FIELD_DETAIL.fieldId}</th>
                                                                                 </tr>
                                                                                 <tr>
                                                                                     <th>Field Name:</th>

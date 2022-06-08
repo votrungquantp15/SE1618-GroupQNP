@@ -38,14 +38,11 @@ public class DeleteAccountByAdminController extends HttpServlet {
             } else {
                 UserDAO dao = new UserDAO();
                 boolean check = dao.deleteUser(userID);
-
                 if (check) {
                     request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
                     url = SUCCESS;               
                 } else 
                     request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
-                
-
             }
         } catch (Exception e) {
             log("Error at DeleteAccountByAdminController: " + e.toString());
