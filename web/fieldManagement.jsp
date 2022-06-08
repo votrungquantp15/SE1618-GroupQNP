@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Admin Page</title>
+    <title>Field Management Page</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -23,7 +23,6 @@
     <!-- Custom Stylesheet -->
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
-
 
 </head>
 
@@ -61,49 +60,55 @@
                                         <h4 class="card-title">Fields Management</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="input-group mb-3 ">
-                                            <div class="input-group-prepend">
-                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
-                                                <div class="dropdown-menu">
-                                                    <a class="dropdown-item" href="#">Action</a>
-                                                    <a class="dropdown-item" href="#">Another action</a>
-                                                    <a class="dropdown-item" href="#">Something else here</a>
-                                                    <div role="separator" class="dropdown-divider"></div>
-                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                        <div class="row">
+                                            <div class="form col-12">
+                                                <form class="col-12 form-inline mb-3" action="MainController">
+                                                    <div class="input-group col-sm-10">
+<!--                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-secondary" type="button">Search By</button>
+                                                            <select name ="searchBy">
+                                                                <option value="Name">Name</option>
+                                                                <option value="Category">Category</option>
+                                                                <option value="Field Owner">Field Owner</option>
+                                                                <option value="City">City</option>
+                                                                <option value="Status">Status</option>
+                                                            </select>
+                                                        </div>-->
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search by name">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-secondary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                            <input class="col-sm-3" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search something...">
-                                            <div class="input-group-append">
-                                                <button class="btn btn-secondary" type="button">Search</button>
-                                            </div>
+                                                <button class="btn btn-secondary col-sm" type="button">Create new field</button>
+                                            </form>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Field ID</strong></th>
-                                                        <th><strong>Field Name</strong></th>
-                                                        <th><strong>CategoryFieldID</strong></th>
-                                                        <th><strong>Price</strong></th>
-                                                        <th><strong>UserID</strong></th>
-                                                        <th><strong>LocationID</strong></th>
-                                                        <th><strong>CityName</strong></th>
-                                                        <th><strong>Status</strong></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
+                                        <p style="color: red">${requestScope.SEARCH_FIELD_ERROR} </p>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px;"><strong>#</strong></th>
+                                                    <th><strong>Field ID</strong></th>
+                                                    <th><strong>Field Name</strong></th>
+                                                    <th><strong>Category</strong></th>
+                                                    <th><strong>Price</strong></th>
+                                                    <th><strong>Field Owner</strong></th>
+                                                    <th><strong>City Name</strong></th>
+                                                    <th><strong>Status</strong></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
                                                     <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
                                                     <tr>
                                                         <td><strong>${counter.count}</strong></td>
                                                         <td>${field.fieldId}</td>
                                                         <td><a title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
-                                                        <td>${field.fieldCate.fieldCateId}</td>
+                                                        <td>${field.fieldCate.fieldCateName}</td>
                                                         <td>${field.price}</td>
-                                                        <td>${field.user.userID}</td>
-                                                        <td>${field.location.locationId}</td>
+                                                        <td>${field.user.fullName}</td>
                                                         <td>${field.city.cityName}</td>
                                                         <td>${field.status}</td>
                                                     </tr>

@@ -47,7 +47,7 @@ public class LoginController extends HttpServlet {
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getListProduct();
+            listFields = fieldDao.getListField();
 
             if (cus != null) {
                 session.setAttribute("LOGIN_USER", cus);

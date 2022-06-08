@@ -21,7 +21,7 @@ public class PrintFieldController extends HttpServlet {
         String url = ERROR;
         try {
             FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getListProduct();
+            List<Field> listField = dao.getListField();
             if (listField.size() > 0) {
                 request.setAttribute("LIST_FIELD", listField);
                 url = SUCCESS;

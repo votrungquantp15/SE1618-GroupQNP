@@ -80,6 +80,10 @@ public class MainController extends HttpServlet {
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+    
+    //Search Field By Admin
+    private static final String SEARCH_FIELD_BY_ADMIN = "SearchFieldByAdmin";
+    private static final String SEARCH_FIELD_BY_ADMIN_CONTROLLER = "SearchFieldByAdminController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -152,6 +156,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ACCOUNT_EDITOR:
                     url = ACCOUNT_EDITOR_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_BY_ADMIN:
+                    url = SEARCH_FIELD_BY_ADMIN_CONTROLLER;
                     break;
             }
         

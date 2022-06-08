@@ -11,6 +11,8 @@ import dto.FieldCategory;
 import dto.Location;
 import dto.User;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -28,7 +30,11 @@ public class UpdateFieldByAdminController extends HttpServlet {
         try {
             String fieldID = request.getParameter("fieldId");
             String fieldName = request.getParameter("fieldName");
+            fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
+            fieldName = URLDecoder.decode(fieldName, "UTF-8");
             String description = request.getParameter("description");
+            description = URLEncoder.encode(description, "ISO-8859-1");
+            description = URLDecoder.decode(description, "UTF-8");
             String image = request.getParameter("image");
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
@@ -38,9 +44,13 @@ public class UpdateFieldByAdminController extends HttpServlet {
             UserDAO user = new UserDAO();
             User userID = user.getUserByID(id_of_user);
             String id_of_location = request.getParameter("locationId");
+            id_of_location = URLEncoder.encode(id_of_location, "ISO-8859-1");
+            id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
             LocationDAO location = new LocationDAO();
             Location locationID = location.getLocationByID(id_of_location);
             String id_of_city = request.getParameter("cityId");
+            id_of_city = URLEncoder.encode(id_of_city, "ISO-8859-1");
+            id_of_city = URLDecoder.decode(id_of_city, "UTF-8");
             CityDAO city = new CityDAO();
             City cityID = city.getCityByID(id_of_city);
             String status = request.getParameter("status");

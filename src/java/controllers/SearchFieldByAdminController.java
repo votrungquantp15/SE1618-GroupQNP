@@ -1,41 +1,70 @@
 package controllers;
 
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
 import dao.FieldDAO;
+import dao.UserDAO;
+import dto.City;
 import dto.Field;
+import dto.FieldCategory;
+import dto.User;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class DeleteFieldController extends HttpServlet {
+public class SearchFieldByAdminController extends HttpServlet {
 
-    private static final String ERROR = "PrintFieldDetailController";
-    private static final String SUCCESS = "PrintFieldDetailController";
+    private static final String SUCCESS = "fieldManagement.jsp";
+    private static final String ERROR = "fieldManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String fieldID = request.getParameter("fieldId");
-            FieldDAO dao = new FieldDAO();
-            boolean checkDelete = dao.checkDeleteField(fieldID);
-            boolean check = dao.deleteField(fieldID);
-            if (checkDelete) {
-                request.setAttribute("DELETE_UNSUCCESS", "This field being booked cannot be deleted! Delete unsuccess!");
+            String fieldName = request.getParameter("searchByAdmin");
+            //Get name
+            List<Field> listField = new ArrayList<>();
+            FieldDAO fieldDAO = new FieldDAO();
+            listField = fieldDAO.searchFieldByName(fieldName);
+            
+//            //Get category 
+//            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+//            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+//            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+//
+//            //Get city
+//            List<City> listCitys = new ArrayList<>();
+//            CityDAO cityDao = new CityDAO();
+//            listCitys = cityDao.getAllCity();
+//
+//            //Get field owner
+//            List<User> listUser = new ArrayList<>();
+//            UserDAO userDao = new UserDAO();
+//            listUser = userDao.searchAccountByIDForAdmin(ERROR);
+//            
+//            //Get price 
+//            List<Field> listFields = new ArrayList<>();
+//            FieldDAO fieldDao = new FieldDAO();
+//            listFields = fieldDao.getFieldDetailByName(fieldName);
+
+            if (listField != null) {
+                //setAttribute citys
+
+                //setAttribute Fields
+                url = SUCCESS;
+                request.setAttribute("LIST_FIELD", listField);
+
+                //setAttribute category
             } else {
-                if (check) {
-                    url = SUCCESS;
-                    request.setAttribute("DELETE_SUCCESS", "Delete field success!");
-                } else {
-                    request.setAttribute("DELETE_UNSUCCESS", "Delete field unsuccess! Please try again!");
-                }
+                request.setAttribute("SEARCH_FIELD_ERROR", "Couldn't find any fields");
             }
         } catch (Exception e) {
-            log("Error at DeleteFieldController: " + e.toString());
+            log("Error at SearchFieldByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

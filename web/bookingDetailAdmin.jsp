@@ -136,15 +136,6 @@
             </div>
         </div>
     </div>
-
-
-
-
-    <div class="footer">
-        <div class="copyright">
-            <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
-        </div>
-    </div>
 </div>
 <!--**********************************
     Main wrapper end

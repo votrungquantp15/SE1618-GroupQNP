@@ -560,9 +560,9 @@ public class UserDAO {
 
                     String status = rs.getString("status");
                     if (status.equals("1")) {
-                        status = "active";
+                        status = "Active";
                     } else {
-                        status = "in-active";
+                        status = "In-active";
                     }
 
                     list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
