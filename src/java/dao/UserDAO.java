@@ -14,7 +14,7 @@ import utils.DBUtils;
 public class UserDAO {
 
     private static final String CHECK_DUPLICATE = "SELECT fullName FROM tblUsers WHERE userID = ?";
-    private static final String CREATE = "INSERT INTO tblUsers(userID, fullName, address, cityId, birthday, phone, accName, roleID, status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String CREATE = "INSERT INTO tblUsers(userID, fullName, cityId, birthday, phone, accName,email, roleId, status, password) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
     private static final String LOGIN = "SELECT userID, fullName, address, cityId, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
     private static final String CHECK_PASS = "SELECT email, password FROM tblUsers WHERE email = ? AND password = ?";
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
@@ -27,10 +27,14 @@ public class UserDAO {
     private static final String GET_ALL_USER = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, status, roleID FROM tblUsers";
     private static final String CHECK_USER_ID = "SELECT userID FROM tblUsers WHERE userID = ?";
     // Update Profile User
-    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?, city = ?  WHERE userID = ?";
+    private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
 
     private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
+    
+    // check email tồn tại
+    private static final String  CHECK_EMAIL_EXISTED = "SELECT email FROM tblUsers WHERE email = ?" ;
 
+    // Update Profile User
     public User getUserByID(String userID) throws SQLException {
 
         User user = null;
@@ -193,15 +197,24 @@ public class UserDAO {
                 ptm = conn.prepareStatement(CREATE);
                 ptm.setString(1, cus.getUserID());
                 ptm.setString(2, cus.getFullName());
-                ptm.setString(3, cus.getPassword());
-                ptm.setString(4, cus.getAccName());
-                ptm.setString(5, cus.getAddress());
-                ptm.setString(6, cus.getAddress());
-                ptm.setString(7, cus.getBirth());
-                ptm.setString(8, cus.getPhone());
-                ptm.setString(9, cus.getEmail());
-                ptm.setString(10, cus.getRole().getRoleId()); // sai
-                ptm.setString(11, cus.getStatus());
+                ptm.setString(3, cus.getCity().getCityId());
+                ptm.setString(4, cus.getBirth());
+                ptm.setString(5, cus.getPhone());
+                ptm.setString(6, cus.getAccName());
+                ptm.setString(7, cus.getEmail());
+                ptm.setString(8, cus.getRole().getRoleId()); // sai
+                ptm.setString(9, cus.getStatus());
+                ptm.setString(10, cus.getPassword());
+                String a1 = cus.getUserID();
+                String a2 =cus.getFullName();
+                String a3 = cus.getCity().getCityId();
+                String a4 = cus.getBirth();
+                String a5 = cus.getPhone();
+                String a6 = cus.getAccName();
+                String a7 =cus.getEmail();
+                String a8 = cus.getRole().getRoleId();
+                String a9 = cus.getStatus();
+                String a10 = cus.getPassword();
                 check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {
@@ -325,6 +338,9 @@ public class UserDAO {
         boolean check = false;
         do {
             check = checkDuplicate(userID);//check trùng ID
+            if (check == false) {
+                userID = handleUserID();
+            }
         } while (check);
         return userID;
     }
@@ -354,10 +370,15 @@ public class UserDAO {
                         String email = rs.getString("email");
                         String accName = rs.getString("accName");
                         String password = rs.getString("password");
-                        String id_of_role = rs.getString("roleId");
+                        String id_of_role = rs.getString("roleID");
                         RoleDAO role = new RoleDAO();
-                        Role roleID = role.getRole(id_of_role);
+                        Role roleID = role.getRoleByID(id_of_role);
                         String status = rs.getString("status");
+                        if (status.equals("1")) {
+                            status = "active";
+                        } else {
+                            status = "in-active";
+                        }
 
                         list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
                     }
@@ -510,8 +531,6 @@ public class UserDAO {
                     ptm.setString(4, user.getEmail());
                     ptm.setString(5, user.getAddress());
                     ptm.setString(6, user.getUserID());
-                    ptm.setString(7, user.getCity().getCityId());
-
                     check = ptm.executeUpdate() > 0;
                 }
             } catch (Exception e) {
@@ -585,5 +604,38 @@ public class UserDAO {
         }
         return list;
     }
+    
+    public boolean checkEmailExisted (String email) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_EMAIL_EXISTED);
+                ptm.setString(1, email);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+        
+    }
 
-}
+

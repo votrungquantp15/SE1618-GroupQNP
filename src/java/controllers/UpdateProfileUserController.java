@@ -6,6 +6,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.concurrent.TimeUnit;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,16 +34,33 @@ public class UpdateProfileUserController extends HttpServlet {
             name = URLEncoder.encode(name, "ISO-8859-1");
             name = URLDecoder.decode(name, "UTF-8");
             String birthday = request.getParameter("birth");
-            String userID = request.getParameter("userID");
-            String phone = request.getParameter("phone");
-            String email = request.getParameter("email");
-            String address = request.getParameter("address");
-            user = new User(userID, name, address, birthday, phone, email, "", "", null, "");
+            SimpleDateFormat formatDate = new SimpleDateFormat("yyyy-MM-dd");
+            Date currentDate = formatDate.parse(birthday);
+            LocalDate todayDate = java.time.LocalDate.now();
+            Date localDate = java.sql.Date.valueOf(todayDate);
+            Date prevDate = localDate;
 
-            check = userDAO.updateProfileUser(user);
+            String userID = request.getParameter("userID");
+            double time = TimeUnit.MILLISECONDS.toDays(prevDate.getTime() - currentDate.getTime()) ;
+            if (time <= 3650) {
+                request.setAttribute("UPDATE_PROFILE_FAIL", "10 tuổi trở lên để có thể dùng Web, Cập nhật thất bại");
+                user = userDAO.getUserByID(userID);
+                request.setAttribute("PROFILE_USER", user);
+                request.getRequestDispatcher(url).forward(request, response);
+            } else {
+                String dateUpdate = formatDate.format(currentDate.getTime());
+                String phone = request.getParameter("phone");
+                String email = request.getParameter("email");
+                String address = request.getParameter("address");
+                address = URLEncoder.encode(address, "ISO-8859-1");
+                address = URLDecoder.decode(address, "UTF-8");
+                user = new User(userID, name, address, null, dateUpdate, phone, email, "", "", null, "");
+                check = userDAO.updateProfileUser(user);
+            }
 
             if (check == true) {
                 request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));
+                request.setAttribute("UPDATE_PROFILE_SUCCESS", "Cập nhật thông tin thành công");
                 url = UPDATE_PROFILE_USER_SUCCESS;
             }
         } catch (Exception e) {
