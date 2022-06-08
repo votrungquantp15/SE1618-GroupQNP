@@ -33,6 +33,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
             FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+            double price = Double.parseDouble(request.getParameter("price"));
             String id_of_user = request.getParameter("userId");
             UserDAO user = new UserDAO();
             User userID = user.getUserByID(id_of_user);
@@ -44,12 +45,22 @@ public class UpdateFieldByAdminController extends HttpServlet {
             City cityID = city.getCityByID(id_of_city);
             String status = request.getParameter("status");
             FieldDAO dao = new FieldDAO();
-            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, userID, locationID, cityID, status);
+            Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status);
             boolean checkUpdate = dao.updateStatusField(field);
             if (checkUpdate) {
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Update field success!");
+
             } else {
+                if (categoryFieldID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "CategoryId is not exist!");
+                } else if (userID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "UserId is not exist!");
+                } else if (locationID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "LocationId is not exist!");
+                } else if (cityID == null) {
+                    request.setAttribute("ERROR_MESSAGE", "cityId is not exist!");
+                }
                 request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
             }
         } catch (Exception e) {

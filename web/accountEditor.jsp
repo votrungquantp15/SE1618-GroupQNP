@@ -66,6 +66,7 @@
                                 <th>User ID</th>
                                 <th>Full Name</th>
                                 <th>Address</th>
+                                <th>City</th>
                                 <th>Birthday</th>
                                 <th>Phone</th>
                                 <th>Email</th>
@@ -78,12 +79,13 @@
                         </thead>
                         <tbody>
                         <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
-                        <form action="MainController">
+                        <form action="MainController" method="POST">
                             <tr>
 
                                 <td>${user.userID}</td>                             
                                 <td><input title="Input what you want to update" type="text" name="fullName" value="${user.fullName}" required=""/></td>
                                 <td><input title="Input what you want to update" type="text" name="address" value="${user.address}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="cityId" value="${user.city.cityId}" required=""/></td>
                                 <td><input title="Input what you want to update" type="date" name="birthday" value="${user.birth}" required=""/></td>
                                 <td><input title="Input what you want to update" type="text" name="phone" value="${user.phone}" required=""/></td>
                                 <td><input title="Input what you want to update" type="email" name="email" value="${user.email}" required=""/></td>

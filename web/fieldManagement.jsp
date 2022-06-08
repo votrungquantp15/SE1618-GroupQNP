@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Zenix -   Dashboard </title>
+    <title>Admin Page</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -23,6 +23,7 @@
     <!-- Custom Stylesheet -->
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+
 
 </head>
 
@@ -60,22 +61,20 @@
                                         <h4 class="card-title">Fields Management</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="text" class="form-control" placeholder="1234 Main St">
+                                        <div class="input-group mb-3 ">
+                                            <div class="input-group-prepend">
+                                                <button class="btn btn-outline-secondary dropdown-toggle" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</button>
+                                                <div class="dropdown-menu">
+                                                    <a class="dropdown-item" href="#">Action</a>
+                                                    <a class="dropdown-item" href="#">Another action</a>
+                                                    <a class="dropdown-item" href="#">Something else here</a>
+                                                    <div role="separator" class="dropdown-divider"></div>
+                                                    <a class="dropdown-item" href="#">Separated link</a>
+                                                </div>
                                             </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="email" class="form-control" placeholder="Email">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="password" class="form-control" placeholder="Password">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="text" class="form-control">
+                                            <input class="col-sm-3" type="text" class="form-control" aria-label="Text input with dropdown button" placeholder="Search something...">
+                                            <div class="input-group-append">
+                                                <button class="btn btn-secondary" type="button">Search</button>
                                             </div>
                                         </div>
                                         <div class="table-responsive">
@@ -86,11 +85,11 @@
                                                         <th><strong>Field ID</strong></th>
                                                         <th><strong>Field Name</strong></th>
                                                         <th><strong>CategoryFieldID</strong></th>
+                                                        <th><strong>Price</strong></th>
                                                         <th><strong>UserID</strong></th>
                                                         <th><strong>LocationID</strong></th>
-                                                        <th><strong>CityID</strong></th>
+                                                        <th><strong>CityName</strong></th>
                                                         <th><strong>Status</strong></th>
-                                                        <th><strong>Action</strong></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -102,16 +101,11 @@
                                                         <td>${field.fieldId}</td>
                                                         <td><a title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
                                                         <td>${field.fieldCate.fieldCateId}</td>
+                                                        <td>${field.price}</td>
                                                         <td>${field.user.userID}</td>
                                                         <td>${field.location.locationId}</td>
-                                                        <td>${field.city.cityId}</td>
+                                                        <td>${field.city.cityName}</td>
                                                         <td>${field.status}</td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>
@@ -120,15 +114,6 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-
-
-
-
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright Â© Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
                     </div>
                 </div>
                 <!--**********************************

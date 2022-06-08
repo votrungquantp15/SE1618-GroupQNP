@@ -33,6 +33,7 @@ public class ViewAccountListController extends HttpServlet {
             String viewAll = request.getParameter("viewAccountList");
             UserDAO userDao = new UserDAO();
             List<User> list = userDao.viewAccountList();
+            
             request.setAttribute("VIEW_ACCOUNT", list);
             url = SUCCESS;
             

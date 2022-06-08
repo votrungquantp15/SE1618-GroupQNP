@@ -33,8 +33,8 @@ public class RoleDAO {
                 ptm.setString(1, roleID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String id_of_role = rs.getString("roleID");
-                    role = new Role(id_of_role, "", "");
+                    
+                    role = new Role(roleID, "", "");
                 }
             }
         } catch (Exception e) {
@@ -66,10 +66,16 @@ public class RoleDAO {
                 ptm.setString(1, roleID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
-                    String id = rs.getString("roleID");
                     String roleName = rs.getString("roleName");
                     String status = rs.getString("status");
-                    role = new Role(id, roleName, status);
+                    String id_of_role = rs.getString("roleID");
+                    if (id_of_role.equals("AD"))
+                        id_of_role = "Admin";
+                    else if (id_of_role.equals("MA"))
+                        id_of_role = "Manager";
+                    else if(id_of_role.equals("US"))
+                        id_of_role = "User";
+                    role = new Role(id_of_role, roleName, status);
                 }
             }
         } catch (Exception e) {
