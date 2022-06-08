@@ -48,9 +48,13 @@
         <servlet-name>DeleteBookingController</servlet-name>
         <servlet-class>controllers.DeleteBookingController</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>SearchFieldByNameController</servlet-name>
         <servlet-class>controllers.SearchFieldByNameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <servlet-class>controllers.UpdateBookingController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -103,6 +107,10 @@
     <servlet-mapping>
         <servlet-name>SearchFieldByNameController</servlet-name>
         <url-pattern>/SearchFieldByNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <url-pattern>/UpdateBookingController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

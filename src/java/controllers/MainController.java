@@ -18,6 +18,9 @@ public class MainController extends HttpServlet {
     //Cancle, Delete Booking
     private static final String DELETE_BOOKING = "DeleteBooking";
     private static final String DELETE_BOOKING_CONTROLLER = "DeleteBookingController";
+    //Update Booking
+    private static final String UPDATE_BOOKING = "UpdateBooking";
+    private static final String UPDATE_BOOKING_CONTROLLER = "UpdateBookingController";
     //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
@@ -143,6 +146,9 @@ public class MainController extends HttpServlet {
                     break;
                 case DELETE_BOOKING:
                     url = DELETE_BOOKING_CONTROLLER;
+                    break;
+                case UPDATE_BOOKING:
+                    url = UPDATE_BOOKING_CONTROLLER;
                     break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;

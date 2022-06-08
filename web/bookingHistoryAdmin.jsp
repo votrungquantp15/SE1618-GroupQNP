@@ -60,6 +60,8 @@
                                         <h4 class="card-title">Boooking History
                                             <p style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></p> 
                                         <p style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></p> 
+                                        <p style="color: #17e379"><strong>${UPDATE_SUCCESS}</strong></p> 
+                                        <p style="color: #ff2457"><strong>${UPDATE_UNSUCCESS}</strong></p> 
                                     </h4>
                                 </div>
                                 <div class="card-body">
@@ -98,7 +100,8 @@
                                                     <th><strong>Booking User</strong></th>
                                                     <th><strong>Total Price</strong></th>
                                                     <th><strong>Status</strong></th>
-                                                    <th class="d-flex justify-content-center"><strong>Delete</strong></th>
+                                                    <th class="d-flex justify-content-center"><strong>Update</strong></th>
+                                                    <th><strong>Delete</strong></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -127,6 +130,49 @@
                                                                 </c:url>
                                                                 <td>
                                                                     <div class="d-flex justify-content-center">
+                                                                        <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalUpdate${counter}" title="Update"><i class="fa fa-pencil"></i></button>
+                                                                        <div class="modal fade" id="basicModalUpdate${counter}">
+                                                                            <div class="modal-dialog" role="document">
+                                                                                <div class="modal-content">
+                                                                                    <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                        <h3 class="modal-title">Update Booking ${booking.bookingId} Status</h3>
+                                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                        </button>
+                                                                                    </div>
+                                                                                    <div class="modal-body" style="background-color: #f7f3e6">                                                                                      
+                                                                                        <h3>${booking.bookingId} Status: ${booking.status}</h3><br>
+                                                                                        <form action="MainController" method="POST">
+                                                                                            <input type="hidden" name="bookingID" value="${booking.bookingId}">
+                                                                                            <input type="hidden" name="search" value="${param.search}">
+                                                                                            <input type="hidden" name="status" value="${param.status}">
+
+                                                                                            <div class="form-row">
+                                                                                                <div class="col-sm-3">
+                                                                                                    <h3>Select</h3>
+                                                                                                </div>
+                                                                                                <div class="form-group col-sm-6">
+                                                                                                    <select class="form-control" name="bookingStatus">
+                                                                                                        <option value="On-Going" <c:if test="${booking.status eq 'On-Going'}">selected</c:if>>On-Going</option>
+                                                                                                        <option value="Played" <c:if test="${booking.status eq 'Played'}">selected</c:if>>Played</option>
+                                                                                                        <option value="Canceled" <c:if test="${booking.status eq 'Canceled'}">selected</c:if>>Canceled</option>
+                                                                                                        <option value="Delete" <c:if test="${booking.status eq 'Delete'}">selected</c:if>>Delete</option>                                                                                                            
+                                                                                                        </select>
+                                                                                                    </div>
+
+                                                                                                        <div class="form-row d-inline-block">
+                                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                        <input type="submit" class="btn btn-primary" name="action" value="UpdateBooking">
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </form>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                                                    </td>
+                                                                    <td>
+                                                                        <div class="d-flex justify-content-center">
                                                                         <c:if test="${booking.status ne 'On-Going'}">
                                                                             <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
                                                                             <div class="modal fade" id="basicModalDelete${counter}">

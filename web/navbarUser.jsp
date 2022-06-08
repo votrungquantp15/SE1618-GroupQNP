@@ -109,7 +109,7 @@ Chat box End
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
             <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Profile</a></li>
-            <li class="active"><a href="MainController?action=SearchHistory">Booking History</a></li>
+            <li class="active"><a href="MainController?action=SearchHistory&userID=${sessionScope.LOGIN_USER.userID}&search=&status=">Booking History</a></li>
         </ul>
         <div class="copyright">
             <p><strong>Zenix Crypto Admin Dashboard</strong> © 2021 All Rights Reserved</p>
