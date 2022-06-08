@@ -46,7 +46,7 @@
                     <div class="col-lg-6 px-5 ">
                         <h4 class="my-4">Đăng kí tài khoản</h4>
                         <div  style="color: red">${requestScope.CUSTOMER_ERROR.messageError}</div>
-                        <form action="MainController" method="GET">
+                        <form action="MainController" method="POST">
                             <div class="form-row">
                                 <div class="col-lg-6">
                                     <label class="labels">Email</label> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.emailError}</label>

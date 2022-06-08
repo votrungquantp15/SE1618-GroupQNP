@@ -55,90 +55,118 @@
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
 
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+       <br/>
+        
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
-                    <h1 class="h2">Account Editor</h1>
-                </div>
-                <div class="table-responsive">
-                    <table class="table table-striped table-sm" border="1">
-                        <thead>
-                            <tr>
-                                <th>User ID</th>
-                                <th>Full Name</th>
-                                <th>Address</th>
-                                <th>City</th>
-                                <th>Birthday</th>
-                                <th>Phone</th>
-                                <th>Email</th>
-                                <th>Account Name</th>
-                                <th>Password</th>
-                                <th>Role ID</th>
-                                <th>Status</th>
-                                <th>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                        <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
-                        <form action="MainController" method="POST">
-                            <tr>
+            <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
+                <form action="MainController" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Account Editor</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="basic-form">
+                                <form>
 
-                                <td>${user.userID}</td>                             
-                                <td><input title="Input what you want to update" type="text" name="fullName" value="${user.fullName}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="address" value="${user.address}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="cityId" value="${user.city.cityId}" required=""/></td>
-                                <td><input title="Input what you want to update" type="date" name="birthday" value="${user.birth}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="phone" value="${user.phone}" required=""/></td>
-                                <td><input title="Input what you want to update" type="email" name="email" value="${user.email}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="accName" value="${user.accName}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="password" value="${user.password}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="roleId" value="${user.role.roleId}" required=""/></td>
-                                <td><input title="Input what you want to update" type="text" name="status" value="${user.status}" /></td>
-                                <td>
-                                    <input title="Click here to update user" type="submit" name="action" value="UpdateAccountByAdmin"/>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>User ID</label>
+                                            <input type="text" class="form-control" name="userID" value="${user.userID}" readonly=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Full Name</label>
+                                            <input type="text" class="form-control" name="fullName" value="${user.fullName}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Address</label>
+                                            <input type="text" class="form-control" name="address" value="${user.address}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>City</label>
+                                            <input type="text" class="form-control" name="cityId" value="${user.city.cityId}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Birthday</label>
+                                            <input type="date" class="form-control" name="birthday" value="${user.birth}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="phone" value="${user.phone}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" name="email" value="${user.email}" readonly=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Account Name</label>
+                                            <input type="text" class="form-control" name="accName" value="${user.accName}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Password</label>
+                                            <input type="text" class="form-control" name="password" value="${user.password}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Role ID</label>
+                                            <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
+                                        </div>
+                                        <div class="form-group col-md-6">
+                                            <label>Status</label>
+                                            <input type="text" class="form-control" name="status" value="${user.status}" required=""/>
+                                        </div>
+
+                                    </div>                                       
+                                    <input type="submit" name="action" class="btn btn-primary" value="UpdateAccountByAdmin"/>
                                     <input type="hidden" name="userID" value="${user.userID}"/>
-                                </td>
-                            </tr>
-                        </form>
-                    </c:forEach>
-                    </tbody>
-                </table>
-                <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                <p style="color: red">${requestScope.UPDATE_FAILED} </p>
-            </div>
-        </main>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script>
-            window.jQuery ||
-                    document.write(
-                            '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
-                            );
-        </script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
-            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
-            crossorigin="anonymous"
-        ></script>
-        <script
-            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
-            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
-            crossorigin="anonymous"
-        ></script>
+                                    <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                                    <p style="color: red">${requestScope.UPDATE_FAILED} </p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>                                
+                </form>
+            </c:forEach>
 
-        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
-        <script src="dashboard.js"></script>
-        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="js/plugins-init/datatables.init.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
-    </body>
+
+        </div>
+    </main>
+    <script
+        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+    ></script>
+    <script>
+        window.jQuery ||
+                document.write(
+                        '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
+                        );
+    </script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+        crossorigin="anonymous"
+    ></script>
+    <script
+        src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+        crossorigin="anonymous"
+    ></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+    <script src="dashboard.js"></script>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
+</body>
 </html>

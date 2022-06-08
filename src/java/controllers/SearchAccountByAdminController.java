@@ -34,7 +34,7 @@ public class SearchAccountByAdminController extends HttpServlet {
                 request.setAttribute("VIEW_ACCOUNT", listUser);
                 url = SUCCESS;
             } else 
-                request.setAttribute("SEARCH_FAILED", "CÓ CÁI NỊT");
+                request.setAttribute("SEARCH_FAILED", "KHÔNG TÌM THẤY USER");
         } catch (Exception e) {
             log("Error at SearchAccountByAdminController" + e.toString());
         } finally {
