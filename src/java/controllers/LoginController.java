@@ -34,15 +34,15 @@ public class LoginController extends HttpServlet {
             UserDAO dao = new UserDAO();
             User cus = dao.checkLogin(email, password);
 
-            //Get category 
-            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-
-            //Get city
-            List<City> listCitys = new ArrayList<>();
-            CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getAllCity();
+//            //Get category 
+//            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+//            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+//            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+//
+//            //Get city
+//            List<City> listCitys = new ArrayList<>();
+//            CityDAO cityDao = new CityDAO();
+//            listCitys = cityDao.getAllCity();
 
             //Get price 
             List<Field> listFields = new ArrayList<>();

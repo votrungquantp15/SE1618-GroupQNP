@@ -45,6 +45,10 @@
         <servlet-class>controllers.UpdateProfileUserController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteBookingController</servlet-name>
+        <servlet-class>controllers.DeleteBookingController</servlet-class>
+    </servlet>
+    <servlet>    
         <servlet-name>SearchFieldByNameController</servlet-name>
         <servlet-class>controllers.SearchFieldByNameController</servlet-class>
     </servlet>
@@ -91,6 +95,10 @@
     <servlet-mapping>
         <servlet-name>UpdateProfileUserController</servlet-name>
         <url-pattern>/UpdateProfileUserController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteBookingController</servlet-name>
+        <url-pattern>/DeleteBookingController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>SearchFieldByNameController</servlet-name>

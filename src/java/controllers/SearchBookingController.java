@@ -38,7 +38,7 @@ public class SearchBookingController extends HttpServlet {
         String url = ERROR;
         try {
             if (ADMIN.equals(roleID)) {
-                String UserID = request.getParameter("UserID");
+                String UserID = "U";
                 BookingDAO dao = new BookingDAO();
                 List<Booking> list = dao.getListBookingByID(UserID);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
@@ -51,7 +51,7 @@ public class SearchBookingController extends HttpServlet {
                 url = SUCCESS_USER;
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at SearchBookingController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -5,42 +5,49 @@
  */
 package controllers;
 
-import dao.UserDAO;
-import dto.User;
+import dao.BookingDAO;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /**
  *
- * @author predator
+ * @author NITRO 5
  */
-@WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
-public class ViewAccountListController extends HttpServlet {
+public class DeleteBookingController extends HttpServlet {
 
-    private static final String ERROR = "accountManagement.jsp";
-    private static final String SUCCESS = "accountManagement.jsp";
+    private static final String SUCCESS = "SearchBookingController";
+    private static final String ERROR = "SearchBookingController";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        
+        String bookingID = request.getParameter("bookingID");
+        String status = request.getParameter("status");
         try {
-            String viewAll = request.getParameter("viewAccountList");
-            UserDAO userDao = new UserDAO();
-            List<User> list = userDao.viewAccountList();
-            
-            request.setAttribute("VIEW_ACCOUNT", list);
-            url = SUCCESS;
-            
+            BookingDAO bookingDAO = new BookingDAO();
+            boolean check = bookingDAO.deleteBookingByID(bookingID, status);
+            if (check == true) {
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
+                } else {
+                    request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
+                }
+                url = SUCCESS;
+            } else {
+                if ("Played".equals(status) || "Canceled".equals(status)) {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
+                }
+            }
         } catch (Exception e) {
-            log("Error at ViewAccountListController: " + e.toString());
+            log("Error at DeleteBookingController: " + e.toString());
         } finally {
-
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

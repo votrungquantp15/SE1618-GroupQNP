@@ -1,152 +1,136 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1, shrink-to-fit=no"
+            />
+        <meta name="description" content="" />
+        <meta
+            name="author"
+            content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
+            />
+        <meta name="generator" content="Hugo 0.88.1" />
+        <title>Account Editor</title>
+        <link
+            rel="stylesheet"
+            href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+            integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+            crossorigin="anonymous"
+            />
+        <link
+            rel="canonical"
+            href="https://getbootstrap.com/docs/4.6/examples/dashboard/"
+            />
+        <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"
+        ></script>
+        <link href="./styles/adminDashboard.css" />
+        <!-- Bootstrap core CSS -->
 
+        <!-- Favicons -->
+        <meta name="theme-color" content="#563d7c" />
 
+        <!-- Custom styles for this template -->
+        <link href="dashboard.css" rel="stylesheet" />
+        <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
+        <!-- Datatable -->
+        <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
+        <!-- Custom Stylesheet -->
+        <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
+        <link href="css/style.css" rel="stylesheet">
+    </head>
+    <body>
 
-<head>
-    <meta charset="utf-8">
-    <meta name="keywords" content="">
-    <meta name="author" content="">
-    <meta name="robots" content="">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="description" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:title" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
-    <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
-    <meta name="format-detection" content="telephone=no">
-    <title>Zenix -   Dashboard </title>
-    <!-- Favicon icon -->
-    <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
-    <!-- Datatable -->
-    <link href="vendor/datatables/css/jquery.dataTables.min.css" rel="stylesheet">
-    <!-- Custom Stylesheet -->
-    <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
-
-</head>
-
-<body>
-
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-
-
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
-    <div id="main-wrapper">
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
-            <div class="content-body">
-                <div class="col-12">
-                    <div class="card">
 
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header">
-                                        <h4 class="card-title">Account Management</h4>
-                                    </div>
-                                    <div class="card-body">
-
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>User ID</strong></th>
-                                                        <th><strong>Full Name</strong></th>
-                                                        <th><strong>Address</strong></th>
-                                                        <th><strong>Birthday</strong></th>
-                                                        <th><strong>Phone</strong></th>
-                                                        <th><strong>Email</strong></th>
-                                                        <th><strong>Account Name</strong></th>                                                                                        
-                                                        <th><strong>Role ID</strong></th>
-                                                        <th><strong>Password</strong></th>
-                                                        <th><strong>Status</strong></th>
-                                                        <th><strong>Action</strong></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
-                                                    <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}" varStatus="counter">
-                                                    <tr>
-                                                        <td><strong>${counter.count}</strong></td>
-                                                        <td>${user.userID}</td>
-                                                        <td>${user.fullName}</td>
-                                                        <td>${user.address}</td>
-                                                        <td>${user.birth}</td>
-                                                        <td>${user.phone}</td>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.accName}</td>                                               
-                                                        <td>${user.role.roleId}</td>
-                                                        <td>${user.password}</td>
-                                                        <td>${user.status}</td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-clipboard"></i></a>
-                                                                
-
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </c:forEach>
-
-                                                </tr>
-                                        </table>
-                                        
-                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
-                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+                <div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 border-bottom">
+                    <h1 class="h2">Account Editor</h1>
                 </div>
+                <div class="table-responsive">
+                    <table class="table table-striped table-sm" border="1">
+                        <thead>
+                            <tr>
+                                <th>User ID</th>
+                                <th>Full Name</th>
+                                <th>Address</th>
+                                <th>City</th>
+                                <th>Birthday</th>
+                                <th>Phone</th>
+                                <th>Email</th>
+                                <th>Account Name</th>
+                                <th>Password</th>
+                                <th>Role ID</th>
+                                <th>Status</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                        <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
+                        <form action="MainController" method="POST">
+                            <tr>
 
-
-
-
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright Â© Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
-                    </div>
-                </div>
-                <!--**********************************
-                    Footer end
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button start
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button end
-                ***********************************-->
+                                <td>${user.userID}</td>                             
+                                <td><input title="Input what you want to update" type="text" name="fullName" value="${user.fullName}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="address" value="${user.address}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="cityId" value="${user.city.cityId}" required=""/></td>
+                                <td><input title="Input what you want to update" type="date" name="birthday" value="${user.birth}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="phone" value="${user.phone}" required=""/></td>
+                                <td><input title="Input what you want to update" type="email" name="email" value="${user.email}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="accName" value="${user.accName}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="password" value="${user.password}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="roleId" value="${user.role.roleId}" required=""/></td>
+                                <td><input title="Input what you want to update" type="text" name="status" value="${user.status}" /></td>
+                                <td>
+                                    <input title="Click here to update user" type="submit" name="action" value="UpdateAccountByAdmin"/>
+                                    <input type="hidden" name="userID" value="${user.userID}"/>
+                                </td>
+                            </tr>
+                        </form>
+                    </c:forEach>
+                    </tbody>
+                </table>
+                <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                <p style="color: red">${requestScope.UPDATE_FAILED} </p>
             </div>
+        </main>
+        <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script>
+            window.jQuery ||
+                    document.write(
+                            '<script src="/docs/4.6/assets/js/vendor/jquery.slim.min.js"><\/script>'
+                            );
+        </script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+            integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+            crossorigin="anonymous"
+        ></script>
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+            crossorigin="anonymous"
+        ></script>
 
-        </div>
-        <!--**********************************
-            Main wrapper end
-        ***********************************-->
-
-        <!--**********************************
-            Scripts
-        ***********************************-->
-        <!-- Required vendors -->
+        <script src="https://cdn.jsdelivr.net/npm/feather-icons@4.28.0/dist/feather.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4/dist/Chart.min.js"></script>
+        <script src="dashboard.js"></script>
         <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
         <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <!-- Datatable -->
@@ -156,5 +140,5 @@
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
         <script src="js/styleSwitcher.js"></script>
-</body>
+    </body>
 </html>

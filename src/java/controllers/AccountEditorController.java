@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import dao.UserDAO;
@@ -15,32 +10,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author predator
- */
-@WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
-public class ViewAccountListController extends HttpServlet {
+@WebServlet(name = "AccountEditorController", urlPatterns = {"/AccountEditorController"})
+public class AccountEditorController extends HttpServlet {
 
-    private static final String ERROR = "accountManagement.jsp";
-    private static final String SUCCESS = "accountManagement.jsp";
+    private final static String SUCCESS = "accountEditor.jsp";
+    private final static String ERROR = "accountEditor.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        
         try {
-            String viewAll = request.getParameter("viewAccountList");
-            UserDAO userDao = new UserDAO();
-            List<User> list = userDao.viewAccountList();
+            String id_of_user = request.getParameter("userID");
             
-            request.setAttribute("VIEW_ACCOUNT", list);
-            url = SUCCESS;
-            
+            UserDAO dao = new UserDAO();
+            List<User> listUser = dao.searchAccountByIDForAdmin(id_of_user);
+            if (listUser.size() > 0) {
+                request.setAttribute("VIEW_ACCOUNT", listUser);
+                url = SUCCESS;
+            }
         } catch (Exception e) {
-            log("Error at ViewAccountListController: " + e.toString());
+            log("Error at AccountEditorController: " + e.toString());
         } finally {
-
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

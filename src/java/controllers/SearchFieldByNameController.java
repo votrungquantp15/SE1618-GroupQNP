@@ -5,26 +5,24 @@
  */
 package controllers;
 
-import static controllers.LoginController.ADMIN_PAGE;
-import static controllers.LoginController.ERROR;
-import static controllers.LoginController.USER_PAGE;
+
 import dao.CityDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
-import dao.UserDAO;
+
 import dto.City;
 import dto.Field;
 import dto.FieldCategory;
-import dto.User;
+
 import java.io.IOException;
-import java.io.PrintWriter;
+
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 /**
  *
@@ -47,7 +45,7 @@ public class SearchFieldByNameController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SEARCH_ERROR;
         String fieldName;
         try {
             //Get category 
@@ -58,9 +56,9 @@ public class SearchFieldByNameController extends HttpServlet {
             //Get city
             List<City> listCitys = new ArrayList<>();
             CityDAO cityDao = new CityDAO();
-//            listCitys = cityDao.getALLCity();
+            listCitys = cityDao.getAllCity();
             
-            fieldName = request.getParameter("fieldName");
+            fieldName = request.getParameter("name");
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
@@ -70,11 +68,10 @@ public class SearchFieldByNameController extends HttpServlet {
                 //setAttribute citys
 
                 //setAttribute Fields
-                
+                url = SEARCH_SUCCES;
                 
                 request.setAttribute("FIELD", listFields);
-                
-                
+                               
                 //setAttribute category
             } else {
 
