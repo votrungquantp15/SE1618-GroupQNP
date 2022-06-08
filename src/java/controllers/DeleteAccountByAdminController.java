@@ -30,16 +30,16 @@ public class DeleteAccountByAdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");
+            String userID = request.getParameter("userID");            ;
             HttpSession session = request.getSession();
             User loginUser = (User) session.getAttribute("LOGIN_USER");
             if (userID.equals(loginUser.getUserID())) {
                 request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
             } else {
-                UserDAO dao = new UserDAO();
+                UserDAO dao = new UserDAO();                   
                 boolean check = dao.deleteUser(userID);
-
-                if (check) {
+                
+                if (check) {                    
                     request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
                     url = SUCCESS;               
                 } else 

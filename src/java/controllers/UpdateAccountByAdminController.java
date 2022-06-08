@@ -60,7 +60,7 @@ public class UpdateAccountByAdminController extends HttpServlet {
             UserDAO dao = new UserDAO();
             User user = new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
+            if (checkUpdate) {                
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {
