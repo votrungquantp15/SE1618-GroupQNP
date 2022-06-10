@@ -28,7 +28,9 @@
 </head>
 
 <body>
-
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -128,7 +130,12 @@
                                                                                                 <c:param name="action" value="DeleteField"></c:param>
                                                                                                 <c:param name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"></c:param>
                                                                                             </c:url>
-                                                                                            <a title="Click here to delete field" href="#" class="btn btn-danger shadow   ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+                                                                                            <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+                                                                                        </div>
+                                                                                        <div class="d-flex">
+                                                                                            <form>
+                                                                                                <input class="btn btn-primary btn-sm mt-2" title="Click here to back previous page" type="button" value="Back" onclick="history.go(-1)">
+                                                                                            </form>
                                                                                         </div>
                                                                                     </th>
                                                                                     <th></th>

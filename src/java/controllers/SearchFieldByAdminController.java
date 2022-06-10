@@ -26,40 +26,14 @@ public class SearchFieldByAdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            String searchBy = request.getParameter("searchBy");
             String fieldName = request.getParameter("searchByAdmin");
-            //Get name
-            List<Field> listField = new ArrayList<>();
-            FieldDAO fieldDAO = new FieldDAO();
-            listField = fieldDAO.searchFieldByName(fieldName);
-            
-//            //Get category 
-//            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-//            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-//            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-//
-//            //Get city
-//            List<City> listCitys = new ArrayList<>();
-//            CityDAO cityDao = new CityDAO();
-//            listCitys = cityDao.getAllCity();
-//
-//            //Get field owner
-//            List<User> listUser = new ArrayList<>();
-//            UserDAO userDao = new UserDAO();
-//            listUser = userDao.searchAccountByIDForAdmin(ERROR);
-//            
-//            //Get price 
-//            List<Field> listFields = new ArrayList<>();
-//            FieldDAO fieldDao = new FieldDAO();
-//            listFields = fieldDao.getFieldDetailByName(fieldName);
-
+            String status = request.getParameter("status");
+            FieldDAO fieldDao = new FieldDAO();
+            List<Field> listField = fieldDao.searchFieldByAdmin(searchBy, fieldName, status);
             if (listField != null) {
-                //setAttribute citys
-
-                //setAttribute Fields
                 url = SUCCESS;
                 request.setAttribute("LIST_FIELD", listField);
-
-                //setAttribute category
             } else {
                 request.setAttribute("SEARCH_FIELD_ERROR", "Couldn't find any fields");
             }

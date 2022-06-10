@@ -3,9 +3,12 @@
     Created on : 01-Jun-2022, 13:24:48
     Author     : votru
 --%>
-
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
+<c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:redirect url="login.jsp"></c:redirect>
+</c:if>
 <div class="nav-header">
     <a href="adminDashboard.jsp" class="brand-logo">
         <svg class="logo-abbr" width="50" height="50" viewbox="0 0 50 50" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -114,4 +117,5 @@ Chat box End
 
         </ul>
     </div>
+        
 </div>

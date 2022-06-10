@@ -51,17 +51,19 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-
+        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+            <c:redirect url="login.jsp"></c:redirect>
+        </c:if>
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
 
-       <br/>
-       <br/>
-       <br/>
-       <br/>
-       <br/>
-       <br/>
-        
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
             <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
                 <form action="MainController" method="POST">

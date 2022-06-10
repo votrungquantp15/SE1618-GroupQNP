@@ -28,6 +28,9 @@
 
 <body>
 
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -94,7 +97,7 @@
                                                     <th><strong>Role Name</strong></th>
                                                     <th><strong>Status</strong></th>
                                                     <th><strong>Action</strong></th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -114,7 +117,7 @@
                                                         <td>${user.status}</td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                
+
                                                                 <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
                                                                 <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
