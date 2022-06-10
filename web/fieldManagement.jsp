@@ -132,23 +132,25 @@
                     </div>
                 </div>
             </div>
-            <div class="modal fade" id="createNewField" tabindex="-1" aria-labelledby="createNewField" aria-hidden="true">
-                <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Create new field</h5>
-                            <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                        </div>
-                        <div class="modal-body" style="margin-top: -20px">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="product-detail-content">
-                                        <div class="new-arrival-content pr row">
-                                            <div class="col-12 col-sm-12">
-                                                <div class="card-body">
-                                                    <div class="table row">
-                                                        <table class="col-12">
-                                                            <form action="MainController" method="POST" accept-charset="utf-8"> 
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="createNewField" tabindex="-1" aria-labelledby="createNewField" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new field</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+
                                                                 <tr>
                                                                     <th>Field Name:</th>
                                                                     <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" required=""></th>
@@ -185,8 +187,9 @@
                                                                     <th></th>
                                                                     <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
                                                                 </tr>
-                                                        </table>
-                                                        </form>
+
+                                                            </table>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
@@ -194,15 +197,16 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="action" value="CreateField"/>
+                                <input class="btn btn-primary" type="submit" value="Accept"/>
+                            </div>
+
                         </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <a class="btn btn-primary" href="${delete}">Accept</a>
-                        </div>
-                        </form>
                     </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
     <!-- Required vendors -->
