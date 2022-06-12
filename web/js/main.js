@@ -22,7 +22,6 @@
 	};
 	fullHeight();
 
-
 	// Scrollax
    $.Scrollax();
 

@@ -60,7 +60,6 @@ public class UpdateFieldByAdminController extends HttpServlet {
             if (checkUpdate) {
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Update field success!");
-
             } else {
                 if (categoryFieldID == null) {
                     request.setAttribute("ERROR_MESSAGE", "CategoryId is not exist!");
