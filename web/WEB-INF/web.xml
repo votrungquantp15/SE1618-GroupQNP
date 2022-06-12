@@ -56,6 +56,10 @@
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateFieldController</servlet-name>
+        <servlet-class>controllers.CreateFieldController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -111,6 +115,10 @@
     <servlet-mapping>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <url-pattern>/SearchFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFieldController</servlet-name>
+        <url-pattern>/CreateFieldController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

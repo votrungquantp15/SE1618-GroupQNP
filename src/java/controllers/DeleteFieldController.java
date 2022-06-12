@@ -1,14 +1,11 @@
 package controllers;
 
 import dao.FieldDAO;
-import dto.Field;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 public class DeleteFieldController extends HttpServlet {
 
@@ -23,16 +20,16 @@ public class DeleteFieldController extends HttpServlet {
             String fieldID = request.getParameter("fieldId");
             FieldDAO dao = new FieldDAO();
             boolean checkDelete = dao.checkDeleteField(fieldID);
-            boolean check = dao.deleteField(fieldID);
-            if (checkDelete) {
-                request.setAttribute("DELETE_UNSUCCESS", "This field being booked cannot be deleted! Delete unsuccess!");
-            } else {
+            if (checkDelete == false) {
+                boolean check = dao.deleteField(fieldID);
                 if (check) {
                     url = SUCCESS;
                     request.setAttribute("DELETE_SUCCESS", "Delete field success!");
                 } else {
                     request.setAttribute("DELETE_UNSUCCESS", "Delete field unsuccess! Please try again!");
                 }
+            } else {
+                request.setAttribute("DELETE_UNSUCCESS", "This field being booked cannot be deleted! Delete unsuccess!");
             }
         } catch (Exception e) {
             log("Error at DeleteFieldController: " + e.toString());

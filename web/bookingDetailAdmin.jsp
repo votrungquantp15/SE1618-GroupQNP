@@ -28,6 +28,9 @@
 
 <body>
 
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->

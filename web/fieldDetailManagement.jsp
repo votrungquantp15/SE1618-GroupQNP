@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Field Detail Page</title>
+    <title>Field Detail Management</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -28,7 +28,9 @@
 </head>
 
 <body>
-
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -128,7 +130,12 @@
                                                                                                 <c:param name="action" value="DeleteField"></c:param>
                                                                                                 <c:param name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"></c:param>
                                                                                             </c:url>
-                                                                                            <a title="Click here to delete field" href="#" class="btn btn-danger shadow   ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+                                                                                            <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+                                                                                        </div>
+                                                                                        <div class="d-flex">
+                                                                                            <form>
+                                                                                                <input class="btn btn-primary btn-sm mt-2" title="Click here to back previous page" type="button" value="Back" onclick="history.go(-1)">
+                                                                                            </form>
                                                                                         </div>
                                                                                     </th>
                                                                                     <th></th>

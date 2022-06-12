@@ -84,16 +84,16 @@ public class CreateAccountForUserController extends HttpServlet {
                 cusError.setEmailError("Email đã tồn tại");
                 check = false;
             }
-            if (fullName.length() < 6  || fullName.length() > 30) {
-                cusError.setFullNameError("Tên phải trên 5 kí tự!!");
+            if (fullName.length() <= 0 || fullName.length() > 30) {
+                cusError.setFullNameError("Tên không được để trống kí tự!!");
                 check = false;
             }
             if (!pass.equals(confirm)) {
                 cusError.setConfirmError("2 mật khẩu không trùng nhau!!");
                 check = false;
             }
-            if (accName.length() < 5 || accName.length() > 20) {
-                cusError.setAccNameError("Tài khoản trên 5 và nhỏ hơn 20 kí tự!!");
+            if (accName.length() <= 0 || accName.length() > 20) {
+                cusError.setAccNameError("Tài khoản không được để trống và nhỏ hơn 20 kí tự!!");
                 check = false;
             }
             if (phone.length() < 9 || phone.length() > 11) {
