@@ -204,7 +204,7 @@
             </div>
         </section>
 
-        <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(im/bg_3.jpg);">
+        <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(homeimages/bg_3.jpg);">
             <div class="container">
                 <div class="row mb-5">
                     <div class="col-md pt-5">
@@ -260,21 +260,21 @@
             </div>
         </footer>
 
-        <script src="js/jquery.min.js"></script>
-        <script src="js/jquery-migrate-3.0.1.min.js"></script>
-        <script src="js/popper.min.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/jquery.easing.1.3.js"></script>
-        <script src="js/jquery.waypoints.min.js"></script>
-        <script src="js/jquery.stellar.min.js"></script>
-        <script src="js/owl.carousel.min.js"></script>
-        <script src="js/jquery.magnific-popup.min.js"></script>
-        <script src="js/jquery.animateNumber.min.js"></script>
-        <script src="js/bootstrap-datepicker.js"></script>
-        <script src="js/scrollax.min.js"></script>
+        <script src="homejs/jquery.min.js"></script>
+        <script src="homejs/jquery-migrate-3.0.1.min.js"></script>
+        <script src="homejs/popper.min.js"></script>
+        <script src="homejs/bootstrap.min.js"></script>
+        <script src="homejs/jquery.easing.1.3.js"></script>
+        <script src="homejs/jquery.waypoints.min.js"></script>
+        <script src="homejs/jquery.stellar.min.js"></script>
+        <script src="homejs/owl.carousel.min.js"></script>
+        <script src="homejs/jquery.magnific-popup.min.js"></script>
+        <script src="homejs/jquery.animateNumber.min.js"></script>
+        <script src="homejs/bootstrap-datepicker.js"></script>
+        <script src="homejs/scrollax.min.js"></script>
         <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-        <script src="js/google-map.js"></script>
-        <script src="js/main.js"></script>
+        <script src="homejs/google-map.js"></script>
+        <script src="homejs/main.js"></script>
 
     </body>
 </html>
