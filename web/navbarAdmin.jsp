@@ -98,10 +98,9 @@ Chat box End
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
-
             <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
             <li><a href="MainController?action=Print">Fields Management</a></li>
-            <li><a href="MainController?action=SearchHistory&search=&status=">Booking report</a></li>
+            <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
             <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
 
         </ul>

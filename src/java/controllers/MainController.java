@@ -13,7 +13,7 @@ public class MainController extends HttpServlet {
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
     //Search Booking Order History
-    private static final String SEARCH_BOOKING = "SearchHistory";
+    private static final String SEARCH_BOOKING = "SearchBooking";
     private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
     //Cancle, Delete Booking
     private static final String DELETE_BOOKING = "DeleteBooking";
