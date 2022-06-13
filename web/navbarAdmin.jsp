@@ -102,6 +102,7 @@ Chat box End
             <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
             <li><a href="MainController?action=Print">Fields Management</a></li>
             <li><a href="MainController?action=SearchHistory&search=&status=">Booking report</a></li>
+            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
 
         </ul>
     </div>

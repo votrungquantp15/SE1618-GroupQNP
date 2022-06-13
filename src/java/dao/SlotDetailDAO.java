@@ -6,15 +6,12 @@
 package dao;
 
 import dto.Field;
-import dto.Food;
 import dto.Slot;
 import dto.SlotDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import utils.DBUtils;
 
 /**
@@ -22,8 +19,8 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class SlotDetailDAO {
-    private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, price, status "
-            + "FROM tblSlotDetail WHERE slotDetailID like ? ";
+    private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE slotDetailID = ? ";
     
     public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
         SlotDetail slotDetail = null;
@@ -47,10 +44,9 @@ public class SlotDetailDAO {
                     FieldDAO fieldDAO = new FieldDAO();
                     Field field = fieldDAO.getFieldByID(fieldID);
                     
-                    double price = rs.getDouble("price");
                     String status = rs.getString("status");
 
-                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, price, status);
+                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, status);
                 }
             }
         } catch (Exception e) {
