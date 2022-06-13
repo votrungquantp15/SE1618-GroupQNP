@@ -60,6 +60,10 @@
         <servlet-name>CreateFieldController</servlet-name>
         <servlet-class>controllers.CreateFieldController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <servlet-class>controllers.AdminIncomeManagement</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -119,6 +123,10 @@
     <servlet-mapping>
         <servlet-name>CreateFieldController</servlet-name>
         <url-pattern>/CreateFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <url-pattern>/AdminIncomeManagement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
