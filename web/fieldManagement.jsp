@@ -91,8 +91,14 @@
                                                 </div>
                                                 <button class="btn btn-secondary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
                                             </form>
+                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
+                                            <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_CITY_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                         </div>
-                                        <p style="color: red">${requestScope.SEARCH_FIELD_ERROR} </p>
                                     </div>
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
@@ -187,7 +193,6 @@
                                                                     <th></th>
                                                                     <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
                                                                 </tr>
-
                                                             </table>
                                                         </div>
                                                     </div>

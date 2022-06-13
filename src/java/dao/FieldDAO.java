@@ -31,7 +31,9 @@ public class FieldDAO {
     private static final String SEARCH_FIELD_BY_FIELD_CATE = "SELECT fieldId, fieldName, description, image, f.categoryFieldId, price, userId, locationId, cityId, f.status, fc.categoryFieldName FROM tblFields f LEFT JOIN tblFieldCategory fc ON f.categoryFieldId = fc.categoryFieldId WHERE fc.categoryFieldName like ? AND f.status like ?";
     private static final String SEARCH_FIELD_BY_FIELD_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, f.userId, locationId, f.cityId, f.status FROM tblFields f LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.fullName like ? AND f.status like ?";
     private static final String SEARCH_FIELD_BY_CITY = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, f.cityId, f.status FROM tblFields f LEFT JOIN tblCity ci ON f.cityId = ci.cityId WHERE ci.cityName like ? AND f.status like ?";
-
+    private static final String CHECK_FIELD_ID = "SELECT fieldId FROM tblFields WHERE fieldId = ?";
+    private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId) VALUES(?,?,?,?,?,?,?,?,?)";
+    
     public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();
         Connection conn = null;
@@ -478,5 +480,83 @@ public class FieldDAO {
             }
         }
         return listField;
+    }
+    
+    public boolean checkFieldId(String fieldID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FIELD_ID);
+                ptm.setString(1, fieldID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public String handleFieldId() {
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "FI" + s;
+    }
+
+    public String createFieldId() throws SQLException {
+        String fieldID = handleFieldId();
+        boolean check = false;
+        do {
+            check = checkFieldId(fieldID);
+            if (check == false) {
+                fieldID = handleFieldId();
+            }
+        } while (check);
+        return fieldID;
+    }
+    
+    public boolean createField(Field field) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if(conn != null) {
+                ptm = conn.prepareStatement(CREATE_FIELD);
+                ptm.setString(1, field.getFieldId());
+                ptm.setString(2, field.getFieldName());
+                ptm.setString(3, field.getDescription());
+                ptm.setString(4, field.getImage());
+                ptm.setString(5, field.getFieldCate().getFieldCateId());
+                ptm.setDouble(6, field.getPrice());
+                ptm.setString(7, field.getUser().getUserID());
+                ptm.setString(8, field.getLocation().getLocationId());
+                ptm.setString(9, field.getCity().getCityId());
+                check = ptm.executeUpdate()>0?true:false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if(ptm!= null) ptm.close();
+            if(conn!= null) conn.close();
+        }
+        return check;
     }
 }
