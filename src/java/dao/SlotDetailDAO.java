@@ -6,7 +6,6 @@
 package dao;
 
 import dto.Field;
-import dto.Food;
 import dto.Slot;
 import dto.SlotDetail;
 import java.sql.Connection;
@@ -22,7 +21,7 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class SlotDetailDAO {
-    private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, price, status "
+    private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE slotDetailID like ? ";
     
     public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
@@ -47,10 +46,9 @@ public class SlotDetailDAO {
                     FieldDAO fieldDAO = new FieldDAO();
                     Field field = fieldDAO.getFieldByID(fieldID);
                     
-                    double price = rs.getDouble("price");
                     String status = rs.getString("status");
 
-                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, price, status);
+                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, status);
                 }
             }
         } catch (Exception e) {
@@ -67,5 +65,48 @@ public class SlotDetailDAO {
             }
         }
         return slotDetail;
+    }
+    
+    public List<SlotDetail> getListSlotDetailByID(String search) throws SQLException{
+        List<SlotDetail> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm.setString(1, "%" + search + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getSlotDetailID = rs.getString("slotDetailID");
+                    
+                    String slotID = rs.getString("slotID");
+                    SlotDAO slotDAO = new SlotDAO();
+                    Slot slot = slotDAO.getSlotByID(slotID);
+                    
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+                    
+                    String status = rs.getString("status");
+
+                    list.add(new SlotDetail(getSlotDetailID, slot, field, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }

@@ -12,8 +12,11 @@ public class MainController extends HttpServlet {
     //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
+    //Search Slot
+    private static final String SEARCH_SLOT = "SearchSlot";
+    private static final String SEARCH_SLOT_CONTROLLER = "SearchSlotController";
     //Search Booking Order History
-    private static final String SEARCH_BOOKING = "SearchHistory";
+    private static final String SEARCH_BOOKING = "SearchBooking";
     private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
     //Cancle, Delete Booking
     private static final String DELETE_BOOKING = "DeleteBooking";
@@ -101,6 +104,9 @@ public class MainController extends HttpServlet {
                     break;
                 case SEARCH_BOOKING:
                     url = SEARCH_BOOKING_CONTROLLER;
+                    break;
+                case SEARCH_SLOT:
+                    url = SEARCH_SLOT_CONTROLLER;
                     break;
                 case SEARCH_BOOKING_DETAIL:
                     url = SEARCH_BOOKING_DETAIL_CONTROLLER;

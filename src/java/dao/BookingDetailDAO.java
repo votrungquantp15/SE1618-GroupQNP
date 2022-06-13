@@ -14,13 +14,23 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import utils.DBUtils;
 
 public class BookingDetailDAO {
-    
+
+    private static final String PLAYED = "Played";
+    private static final String CANCELED = "Canceled";
+    private static final String DELETE = "Delete";
+    private static final String ON_GOING = "On-Going";
+
     private static final String GET_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ? ";
-    
+
     public BookingDetail getBookingDetailByID(String bookingID) throws SQLException {
         BookingDetail bookingDetail = null;
         Connection connect = null;
@@ -28,31 +38,31 @@ public class BookingDetailDAO {
         ResultSet rs = null;
         try {
             connect = DBUtils.getConnection();
-            if(connect!=null){
+            if (connect != null) {
                 ptm = connect.prepareStatement(GET_BOOKING_DETAIL);
                 ptm.setString(1, bookingID);
                 rs = ptm.executeQuery();
-                if(rs.next()){
+                if (rs.next()) {
                     String bookingDetailID = rs.getString("bookingDetailID");
-                    
+
                     String getBookingID = rs.getString("bookingId");
                     BookingDAO bookingDAO = new BookingDAO();
                     Booking booking = bookingDAO.getBookingByID(getBookingID);
-                    
+
                     String fieldID = rs.getString("fieldID");
                     FieldDAO fieldDAO = new FieldDAO();
                     Field field = fieldDAO.getFieldByID(fieldID);
-                    
+
                     double fieldPrice = rs.getDouble("fieldPrice");
-                    
+
                     String slotDetailID = rs.getString("slotDetailID");
                     SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
                     SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
-                    
+
                     String foodDetailID = rs.getString("foodDetailID");
                     FoodDetailDAO foodDetailDAO = new FoodDetailDAO();
                     FoodDetail foodDetail = foodDetailDAO.getFoodDetailByID(foodDetailID);
-                    
+
                     double foodTotalPrice = rs.getDouble("foodPrice");
                     int foodTotalQuantity = rs.getInt("foodQuantity");
                     String playDate = rs.getString("playDate");
@@ -74,6 +84,32 @@ public class BookingDetailDAO {
             }
         }
         return bookingDetail;
+    }
+
+    public boolean checkValidDate(String bookingStatus, BookingDetail bookingDetail) throws SQLException, ParseException {
+        boolean check = false;
+
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+
+        String getPlayDate = bookingDetail.getPlayDate();
+        LocalDate playDate = LocalDate.parse(getPlayDate);
+        
+//        String timeEnd = bookingDetail.getSlotDetail().getSlot().getTimeEnd();
+//        String time[] = timeEnd.split(":");
+//        int timeEndHour = Integer.parseInt(time[0]);
+        if (ON_GOING.equals(bookingStatus)) {
+            if (currentDate.isBefore(playDate)) {
+                check = true;
+            }
+        } else if (PLAYED.equals(bookingStatus)) {
+            if (currentDate.isAfter(playDate)) {
+                check = true;
+            }
+        } else if (CANCELED.equals(bookingStatus)
+                || DELETE.equals(bookingStatus)) {
+            check = true;
+        }
+        return check;
     }
 
 }

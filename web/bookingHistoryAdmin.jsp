@@ -31,7 +31,7 @@
     <!--*******************
         Preloader start
     ********************-->
-    <div id="preloader">
+        <div id="preloader">
         <div class="sk-three-bounce">
             <div class="sk-child sk-bounce1"></div>
             <div class="sk-child sk-bounce2"></div>
@@ -52,7 +52,6 @@
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
-
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
@@ -82,7 +81,7 @@
                                                         </select>
                                                     </div>
                                                     <div class ="col-sm-2 d-flex justify-content-between">
-                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchHistory"><i class="fa fa-search "></i></button>
+                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
                                                     </div>
                                                 </div>                              
                                             </div>                                                                                  

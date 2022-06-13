@@ -75,21 +75,21 @@
                                                         <option value="On-Going" <c:if test="${param.status eq 'On-Going'}">selected</c:if>>On-Going</option>
                                                         <option value="Played" <c:if test="${param.status eq 'Played'}">selected</c:if>>Played</option>
                                                         <option value="Canceled" <c:if test="${param.status eq 'Canceled'}">selected</c:if>>Canceled</option>
-                                                    </select>
-                                                </div>
-                                                <div class ="col-sm-2 d-flex justify-content-between">
-                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchHistory"><i class="fa fa-search "></i></button>
-                                                </div>
-                                            </div>                              
-                                        </div>                                                                                  
-                                    </form>
+                                                        </select>
+                                                    </div>
+                                                    <div class ="col-sm-2 d-flex justify-content-between">
+                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
+                                                    </div>
+                                                </div>                              
+                                            </div>                                                                                  
+                                        </form>
 
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive-sm">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-sm">
                                             <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
                                                 <strong>No Result</strong>
                                             </c:if>
-                                                <thead style="background-color: #fcd15b">
+                                            <thead style="background-color: #fcd15b">
                                                 <tr>
                                                     <th style="width:80px;"><strong>#</strong></th>
                                                     <th><strong>Booknig ID</strong></th>
@@ -203,24 +203,24 @@
                    Support ticket button end
                 ***********************************-->
             </div>
-
         </div>
-        <!--**********************************
-            Main wrapper end
-        ***********************************-->
+    </div>
+    <!--**********************************
+        Main wrapper end
+    ***********************************-->
 
-        <!--**********************************
-            Scripts
-        ***********************************-->
-        <!-- Required vendors -->
-        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="js/plugins-init/datatables.init.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
+    <!--**********************************
+        Scripts
+    ***********************************-->
+    <!-- Required vendors -->
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+    <script src="js/styleSwitcher.js"></script>
 </body>
 </html>
