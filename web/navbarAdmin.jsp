@@ -71,6 +71,7 @@ Chat box End
                     </div>
                 </li>
             </ul>
+        </nav>
     </div>
     <div class="sub-header">
         <div class="d-flex align-items-center flex-wrap mr-auto">
@@ -78,7 +79,7 @@ Chat box End
         </div>
     </div>
 </div>
-</div>
+
 <!--**********************************
     Header end ti-comment-alt
 ***********************************-->
@@ -107,5 +108,5 @@ Chat box End
 
         </ul>
     </div>
-        
+
 </div>
