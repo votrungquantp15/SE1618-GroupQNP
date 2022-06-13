@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page import="java.util.List"%>
 <%@page import="dto.Booking"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
@@ -25,7 +26,9 @@
     </head>
     <body>
 
-
+        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+            <c:redirect url="login.jsp"></c:redirect>
+        </c:if>
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
 
         <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>

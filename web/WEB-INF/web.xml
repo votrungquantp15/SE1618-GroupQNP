@@ -59,6 +59,16 @@
     <servlet>
         <servlet-name>SearchSlotController</servlet-name>
         <servlet-class>controllers.SearchSlotController</servlet-class>
+        <servlet-name>SearchFieldByAdminController</servlet-name>
+        <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateFieldController</servlet-name>
+        <servlet-class>controllers.CreateFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <servlet-class>controllers.AdminIncomeManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -119,6 +129,16 @@
     <servlet-mapping>
         <servlet-name>SearchSlotController</servlet-name>
         <url-pattern>/SearchSlotController</url-pattern>
+        <servlet-name>SearchFieldByAdminController</servlet-name>
+        <url-pattern>/SearchFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFieldController</servlet-name>
+        <url-pattern>/CreateFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <url-pattern>/AdminIncomeManagement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

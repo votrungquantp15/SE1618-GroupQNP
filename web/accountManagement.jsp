@@ -28,6 +28,9 @@
 
 <body>
 
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -77,6 +80,7 @@
                                     <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
                                     <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                     <p style="color: red">${requestScope.SEARCH_FAILED} </p>
+                                    <p style="color: red">${requestScope.DELETE_INACTIVE} </p>
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
                                             <thead>
@@ -93,7 +97,7 @@
                                                     <th><strong>Role Name</strong></th>
                                                     <th><strong>Status</strong></th>
                                                     <th><strong>Action</strong></th>
-                                                    <th></th>
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -113,7 +117,8 @@
                                                         <td>${user.status}</td>
                                                         <td>
                                                             <div class="d-flex">
-                                                                <a href="MainController?action=AccountEditor&userID=${user.userID}" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
+
+                                                                <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
                                                                 <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
                                                             </div>

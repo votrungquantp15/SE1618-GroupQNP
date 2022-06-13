@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import dao.CityDAO;
@@ -20,10 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author predator
- */
 @WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
 public class UpdateAccountByAdminController extends HttpServlet {
 
@@ -60,7 +51,7 @@ public class UpdateAccountByAdminController extends HttpServlet {
             UserDAO dao = new UserDAO();
             User user = new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
+            if (checkUpdate) {                
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {

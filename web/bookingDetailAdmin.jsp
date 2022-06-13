@@ -28,6 +28,9 @@
 
 <body>
 
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
     <!--*******************
         Preloader start
     ********************-->
@@ -134,15 +137,6 @@
                     </c:if>
                 </c:if> 
             </div>
-        </div>
-    </div>
-
-
-
-
-    <div class="footer">
-        <div class="copyright">
-            <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
         </div>
     </div>
 </div>
