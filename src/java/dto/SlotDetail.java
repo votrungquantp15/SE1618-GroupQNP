@@ -14,22 +14,19 @@ public class SlotDetail {
     private String slotDetailID;
     private Slot slot;
     private Field field;
-    private double price;
     private String status;
 
     public SlotDetail() {
         this.slotDetailID = "";
         this.slot = null;
         this.field = null;
-        this.price = 0.0;
         this.status = "";
     }
 
-    public SlotDetail(String slotDetailID, Slot slot, Field field, double price, String status) {
+    public SlotDetail(String slotDetailID, Slot slot, Field field, String status) {
         this.slotDetailID = slotDetailID;
         this.slot = slot;
         this.field = field;
-        this.price = price;
         this.status = status;
     }
 
@@ -55,14 +52,6 @@ public class SlotDetail {
 
     public void setField(Field field) {
         this.field = field;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-    public void setPrice(double price) {
-        this.price = price;
     }
 
     public String getStatus() {

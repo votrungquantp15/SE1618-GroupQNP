@@ -21,6 +21,7 @@
     <!-- Custom Stylesheet -->
     <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
     <link href="css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/jquery.timepicker.css">
 
     <!--    <script src="js/jquery-3.2.1.min.js"></script>-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
@@ -36,13 +37,12 @@
 
             let foodPrice = $(element).find("#foodPrice").text();
 
-                total += parseFloat(fieldPrice);
+            total += parseFloat(fieldPrice);
 
-                total += parseFloat(foodPrice);
+            total += parseFloat(foodPrice);
 
             if (!isNaN(total)) {
                 sum += total;
-                console.log(sum);
             }
 
             $(element).find("#total").html(total);
@@ -93,14 +93,18 @@
                                         </h5>
                                     </div>
                                     <div class="card-body">
-                                        <form action="AdminIncomeManagement" method="POST">
+                                        <form action="AdminIncomeManagement" method="GET">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-sm-3">    
-                                                        <div>Search by detail ID</div><input class="form-control" type="text" name="search" value="${param.search}" placeholder="...">
+                                                    <div class="col-sm-3">
+                                                        <div>Search by field ID</div><input class="form-control" type="text" name="fieldID" value="${param.fieldID}" placeholder="...">
                                                 </div>
                                                 <div class="col-sm-3">
-                                                    <div>Search by field name</div><input class="form-control" type="text" name="search" value="${param.search}" placeholder="...">
+                                                    <div class="example">
+                                                        <p class="mb-1">Date Range Pick</p>
+
+                                                        <input type="text" class="form-control" name="datefilter" value="${param.datefilter}" />
+                                                    </div>
                                                 </div>
                                                 <div class ="col-sm-2 d-flex justify-content-between">
                                                     <button type="submit" name="action" class="btn " value="SearchIncome"><i class="fa fa-search" style="font-size:12px"></i></button>
@@ -120,7 +124,7 @@
                                                     </th>
                                                     <th ><strong class="w-space-no">Booking Detail ID </strong></th>
                                                     <th ><strong class="w-space-no">Booking ID</strong></th>
-                                                    <th><strong class="w-space-no">Field Name</strong></th>
+                                                    <th><strong class="w-space-no">Field ID</strong></th>
                                                     <th><strong >Date</strong></th>
                                                     <th><strong class="w-space-no">Field Price</strong></th>
                                                     <th><strong class="w-space-no">Food Name</strong></th>
@@ -141,7 +145,7 @@
                                                         </td>
                                                         <td>${booking.bookingDetailID}</td>
                                                         <td>${booking.booking.bookingId}</td>
-                                                        <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.field.fieldName}</span></div></td>
+                                                        <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.field.fieldId}</span></div></td>
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.playDate}</span></div></td>
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no" id="fieldPrice">${booking.field.price}</span></div></td>
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.foodDetail.food.foodName}</span></div></td>
@@ -191,5 +195,33 @@
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
         <script src="js/styleSwitcher.js"></script>
+
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+
+        <script type="text/javascript">
+    $(function () {
+
+        $('input[name="datefilter"]').daterangepicker({
+            autoUpdateInput: false,
+            locale: {
+                cancelLabel: 'Clear'
+            }
+        });
+
+        $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+            $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+        });
+
+        $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+            $(this).val('');
+        });
+
+    });
+        </script>
+
 </body>
 </html>

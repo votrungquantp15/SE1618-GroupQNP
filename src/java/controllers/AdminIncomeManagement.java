@@ -20,40 +20,43 @@ import javax.servlet.http.HttpServletResponse;
  * @author votru
  */
 public class AdminIncomeManagement extends HttpServlet {
+
     private static final String ERROR = "error.jsp";
-    
+
     private static final String SEARCHINCOME = "SearchIncome";
-    
-    
-    
+
     private static final String GET_ALL_INCOME = "GetAllIncome";
-    
-    
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         List<BookingDetail> bookingDetails;
         BookingDetailDAO bookingDetailDao = new BookingDetailDAO();
-        
+
         try {
             String action = request.getParameter("action");
-            switch(action){
-                case SEARCHINCOME: 
-                    url = "home.jsp";
-                    break;                  
-                                       
-                case GET_ALL_INCOME:
-                    url ="incomeReportAdmin.jsp";
+            switch (action) {
+                case SEARCHINCOME:
+
+                    String fieldID = request.getParameter("fieldID");
+                    String datefilter = request.getParameter("datefilter");
+
+                        bookingDetails = bookingDetailDao.getListBookingDetailByID(fieldID);
+                    
+                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
+                    url = "incomeReportAdmin.jsp";
+                    break;
+
+                case GET_ALL_INCOME:                   
+                    url = "incomeReportAdmin.jsp";
                     bookingDetails = bookingDetailDao.getAllBookingDetail();
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
                     url = "incomeReportAdmin.jsp";
                     break;
             }
         } catch (Exception e) {
-        }
-        finally {
+        } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
