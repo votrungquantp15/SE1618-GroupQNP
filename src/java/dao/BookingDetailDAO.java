@@ -14,11 +14,21 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
 public class BookingDetailDAO {
+
+    private static final String PLAYED = "Played";
+    private static final String CANCELED = "Canceled";
+    private static final String DELETE = "Delete";
+    private static final String ON_GOING = "On-Going";
 
     private static final String GET_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ?  ";
@@ -81,6 +91,32 @@ public class BookingDetailDAO {
             }
         }
         return bookingDetail;
+    }
+
+    public boolean checkValidDate(String bookingStatus, BookingDetail bookingDetail) throws SQLException, ParseException {
+        boolean check = false;
+
+        LocalDate currentDate = LocalDateTime.now().toLocalDate();
+
+        String getPlayDate = bookingDetail.getPlayDate();
+        LocalDate playDate = LocalDate.parse(getPlayDate);
+        
+//        String timeEnd = bookingDetail.getSlotDetail().getSlot().getTimeEnd();
+//        String time[] = timeEnd.split(":");
+//        int timeEndHour = Integer.parseInt(time[0]);
+        if (ON_GOING.equals(bookingStatus)) {
+            if (currentDate.isBefore(playDate)) {
+                check = true;
+            }
+        } else if (PLAYED.equals(bookingStatus)) {
+            if (currentDate.isAfter(playDate)) {
+                check = true;
+            }
+        } else if (CANCELED.equals(bookingStatus)
+                || DELETE.equals(bookingStatus)) {
+            check = true;
+        }
+        return check;
     }
 
     public List<BookingDetail> getAllBookingDetail() throws SQLException {

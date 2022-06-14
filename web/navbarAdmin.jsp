@@ -71,6 +71,7 @@ Chat box End
                     </div>
                 </li>
             </ul>
+        </nav>
     </div>
     <div class="sub-header">
         <div class="d-flex align-items-center flex-wrap mr-auto">
@@ -100,10 +101,11 @@ Chat box End
             <li class="nav-label first">Main Menu</li>
             <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
             <li><a href="MainController?action=Print">Fields Management</a></li>
+            <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
             <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
             <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
 
         </ul>
     </div>
-        
+
 </div>

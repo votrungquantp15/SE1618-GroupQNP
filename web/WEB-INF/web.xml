@@ -53,6 +53,12 @@
         <servlet-class>controllers.SearchFieldByNameController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <servlet-class>controllers.UpdateBookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSlotController</servlet-name>
+        <servlet-class>controllers.SearchSlotController</servlet-class>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
     </servlet>
@@ -117,6 +123,12 @@
         <url-pattern>/SearchFieldByNameController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <url-pattern>/UpdateBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSlotController</servlet-name>
+        <url-pattern>/SearchSlotController</url-pattern>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <url-pattern>/SearchFieldByAdminController</url-pattern>
     </servlet-mapping>

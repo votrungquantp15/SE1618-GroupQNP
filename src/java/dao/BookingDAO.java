@@ -27,6 +27,7 @@ public class BookingDAO {
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
     private static final String DELETE_BOOKING_BY_BOOKING_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
+    private static final String UPDATE_BOOKING_STATUS_BY_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
 
     public List<Booking> getListBookingByID(String userID, String search, String status) throws SQLException {
         List<Booking> booking = new ArrayList<>();
@@ -116,6 +117,31 @@ public class BookingDAO {
                 ptm = conn.prepareStatement(DELETE_BOOKING_BY_BOOKING_ID);
                 status = checkStatus(status);
                 ptm.setString(1, status);
+                ptm.setString(2, bookingID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean updateBookingStatusByID(String bookingID, String bookingStatus) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_BOOKING_STATUS_BY_ID);
+                ptm.setString(1, bookingStatus);
                 ptm.setString(2, bookingID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }

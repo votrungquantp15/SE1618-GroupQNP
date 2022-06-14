@@ -12,6 +12,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import utils.DBUtils;
 
 /**
@@ -20,7 +22,7 @@ import utils.DBUtils;
  */
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
-            + "FROM tblSlotDetail WHERE slotDetailID = ? ";
+            + "FROM tblSlotDetail WHERE slotDetailID like ? ";
     
     public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
         SlotDetail slotDetail = null;
@@ -63,5 +65,48 @@ public class SlotDetailDAO {
             }
         }
         return slotDetail;
+    }
+    
+    public List<SlotDetail> getListSlotDetailByID(String search) throws SQLException{
+        List<SlotDetail> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm.setString(1, "%" + search + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getSlotDetailID = rs.getString("slotDetailID");
+                    
+                    String slotID = rs.getString("slotID");
+                    SlotDAO slotDAO = new SlotDAO();
+                    Slot slot = slotDAO.getSlotByID(slotID);
+                    
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+                    
+                    String status = rs.getString("status");
+
+                    list.add(new SlotDetail(getSlotDetailID, slot, field, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
     }
 }
