@@ -141,8 +141,9 @@
                                     </div>
                                     <div class="col-lg d-flex">
                                         <div class="form-group d-flex w-100 border-0">
-                                            <div class="form-field w-100 align-items-center d-flex">
-                                                <input type="submit" name="action" value="SearchFieldByName" class="align-self-stretch form-control btn btn-primary">
+                                            <div class="form-field w-100 justify-content-center d-flex">
+                                                <input type="hidden" name="action" value="SearchFieldByName"/>
+                                                <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
                                             </div>
                                         </div>
                                     </div>
@@ -164,7 +165,7 @@
                                 <a href="#" class="img" style="background-image: url(${field.image});">
                                     <span class="price">${field.price}00vnd/h</span>
                                 </a>
-                                <div class="text p-4">
+                                <div class="card-body text p-3">
                                     <p class="star mb-2">
                                         <span class="fa fa-star"></span>
                                         <span class="fa fa-star"></span>
@@ -175,12 +176,6 @@
                                     <span class="days">${field.city.cityName}</span>
                                     <h3><a href="#">${field.fieldName}</a></h3>
                                     <p class="location"><span class="fa fa-map-marker"></span> ${field.location.locationName}</p>
-                                    <ul>
-                                        <li><span class="flaticon-shower"></span>2</li></p>
-                                        <ul>
-                                            <li><span class="flaticon-king-size"></span>3</li>
-                                            <li><span class="flaticon-mountains"></span>Near Mountain</li>
-                                        </ul>
                                 </div>
                             </div>
                         </div>

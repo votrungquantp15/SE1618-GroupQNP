@@ -65,7 +65,7 @@
                                                 <form class="col-12 form-inline mb-3" action="MainController">
                                                     <div class="input-group col-sm-10">
                                                         <div class="input-group-prepend">
-                                                            <button class="btn btn-secondary disabled" type="button">Status</button>
+                                                            <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
                                                             <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
@@ -73,7 +73,7 @@
                                                             </select>
                                                         </div>
                                                         <div class="input-group-prepend">
-                                                            <button class="btn btn-secondary disabled" type="button">Search By</button>
+                                                            <button class="btn btn-primary disabled" type="button">Search By</button>
                                                             <select name ="searchBy">
                                                                 <option value="Name" <c:if test="${param.searchBy eq 'Name'}">selected</c:if>>Name</option>
                                                             <option value="Category" <c:if test="${param.searchBy eq 'Category'}">selected</c:if>>Category</option>
@@ -83,13 +83,14 @@
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search by name">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-secondary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-secondary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
+                                            <p style="color: green"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>

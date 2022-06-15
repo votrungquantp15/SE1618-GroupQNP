@@ -59,6 +59,8 @@
     <servlet>
         <servlet-name>SearchSlotController</servlet-name>
         <servlet-class>controllers.SearchSlotController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
     </servlet>
@@ -129,6 +131,8 @@
     <servlet-mapping>
         <servlet-name>SearchSlotController</servlet-name>
         <url-pattern>/SearchSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <url-pattern>/SearchFieldByAdminController</url-pattern>
     </servlet-mapping>
