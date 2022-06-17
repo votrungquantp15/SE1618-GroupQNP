@@ -1,9 +1,6 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+/<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
-
-
-
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="">
@@ -15,7 +12,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Zenix -   Dashboard </title>
+    <title>Field Management</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -27,6 +24,9 @@
 </head>
 
 <body>
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:redirect url="login.jsp"></c:redirect>
+    </c:if>
 
     <!--*******************
         Preloader start
@@ -60,58 +60,71 @@
                                         <h4 class="card-title">Fields Management</h4>
                                     </div>
                                     <div class="card-body">
-                                        <div class="form-row">
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="text" class="form-control" placeholder="1234 Main St">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="email" class="form-control" placeholder="Email">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="password" class="form-control" placeholder="Password">
-                                            </div>
-                                            <div class="form-group col-md-2">
-                                                <label><strong>First Name</strong></label>
-                                                <input type="text" class="form-control">
-                                            </div>
+                                        <div class="row">
+                                            <div class="form col-12">
+                                                <form class="col-12 form-inline mb-3" action="MainController">
+                                                    <div class="input-group col-sm-10">
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-primary disabled" type="button">Status</button>
+                                                            <select name="status">
+                                                                <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
+                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
+                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-primary disabled" type="button">Search By</button>
+                                                            <select name ="searchBy">
+                                                                <option value="Name" <c:if test="${param.searchBy eq 'Name'}">selected</c:if>>Name</option>
+                                                            <option value="Category" <c:if test="${param.searchBy eq 'Category'}">selected</c:if>>Category</option>
+                                                            <option value="Field Owner" <c:if test="${param.searchBy eq 'Field Owner'}">selected</c:if>>Field Owner</option>
+                                                            <option value="City" <c:if test="${param.searchBy eq 'City'}">selected</c:if>>City</option>
+                                                            </select>
+                                                        </div>
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search by name">
+                                                    <div class="input-group-append">
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
+                                            </form>
+                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
+                                            <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
+                                            <p style="color: green"> ${requestScope.CREATE_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_CITY_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                         </div>
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md">
-                                                <thead>
-                                                    <tr>
-                                                        <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Field ID</strong></th>
-                                                        <th><strong>Field Name</strong></th>
-                                                        <th><strong>CategoryFieldID</strong></th>
-                                                        <th><strong>UserID</strong></th>
-                                                        <th><strong>LocationID</strong></th>
-                                                        <th><strong>CityID</strong></th>
-                                                        <th><strong>Status</strong></th>
-                                                        <th><strong>Action</strong></th>
-                                                        <th></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <tr>
+                                    </div>
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <thead>
+                                                <tr>
+                                                    <th style="width:80px;"><strong>#</strong></th>
+                                                    <th><strong>Field ID</strong></th>
+                                                    <th><strong>Field Name</strong></th>
+                                                    <th><strong>Category</strong></th>
+                                                    <th><strong>Price</strong></th>
+                                                    <th><strong>Field Owner</strong></th>
+                                                    <th><strong>City Name</strong></th>
+                                                    <th><strong>Status</strong></th>
+                                                    <th></th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <tr>
                                                     <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
                                                     <tr>
                                                         <td><strong>${counter.count}</strong></td>
                                                         <td>${field.fieldId}</td>
-                                                        <td><a title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
-                                                        <td>${field.fieldCate.fieldCateId}</td>
-                                                        <td>${field.user.userID}</td>
-                                                        <td>${field.location.locationId}</td>
-                                                        <td>${field.city.cityId}</td>
+                                                        <td><a class="text-primary" title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
+                                                        <td>${field.fieldCate.fieldCateName}</td>
+                                                        <td>${field.price}</td>
+                                                        <td>${field.user.fullName}</td>
+                                                        <td>${field.city.cityName}</td>
                                                         <td>${field.status}</td>
-                                                        <td>
-                                                            <div class="d-flex">
-                                                                <a href="#" class="btn btn-primary shadow btn-xs sharp mr-1"><i class="fa fa-pencil"></i></a>
-                                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>
@@ -122,37 +135,83 @@
                         </div>
                     </div>
                 </div>
+            </div>
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="createNewField" tabindex="-1" aria-labelledby="createNewField" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
 
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new field</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
 
+                                                                <tr>
+                                                                    <th>Field Name:</th>
+                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Description:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description"></textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Image:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image"></textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Category:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="categoryFieldId" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Price:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="price" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Owner:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="userId" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Address:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="locationId" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>City:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="cityId" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="action" value="CreateField"/>
+                                <input class="btn btn-primary" type="submit" value="Accept"/>
+                            </div>
 
-
-                <div class="footer">
-                    <div class="copyright">
-                        <p>Copyright Â© Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
+                        </div>
                     </div>
                 </div>
-                <!--**********************************
-                    Footer end
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button start
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button end
-                ***********************************-->
-            </div>
-
+            </form>
         </div>
     </div>
-    <!--**********************************
-        Main wrapper end
-    ***********************************-->
-
-    <!--**********************************
-        Scripts
-    ***********************************-->
     <!-- Required vendors -->
     <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

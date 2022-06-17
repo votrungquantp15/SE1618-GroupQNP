@@ -2,7 +2,6 @@ package controllers;
 
 import dao.FieldDAO;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -12,7 +11,7 @@ public class DeleteFieldController extends HttpServlet {
 
     private static final String ERROR = "PrintFieldDetailController";
     private static final String SUCCESS = "PrintFieldDetailController";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -20,12 +19,17 @@ public class DeleteFieldController extends HttpServlet {
         try {
             String fieldID = request.getParameter("fieldId");
             FieldDAO dao = new FieldDAO();
-            boolean check = dao.deleteField(fieldID);
-            if (check) {
-                url = SUCCESS;
-                request.setAttribute("DELETE_SUCCESS", "Delete field success!");
+            boolean checkDelete = dao.checkDeleteField(fieldID);
+            if (checkDelete == false) {
+                boolean check = dao.deleteField(fieldID);
+                if (check) {
+                    url = SUCCESS;
+                    request.setAttribute("DELETE_SUCCESS", "Delete field success!");
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete field unsuccess! Please try again!");
+                }
             } else {
-                request.setAttribute("DELETE_UNSUCCESS", "Delete field unsuccess! Please try again!");
+                request.setAttribute("DELETE_UNSUCCESS", "This field being booked cannot be deleted! Delete unsuccess!");
             }
         } catch (Exception e) {
             log("Error at DeleteFieldController: " + e.toString());

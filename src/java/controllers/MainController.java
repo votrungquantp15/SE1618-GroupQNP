@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
 import java.io.IOException;
@@ -11,25 +6,27 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author votr
- */
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
     //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
+    //Search Slot
+    private static final String SEARCH_SLOT = "SearchSlot";
+    private static final String SEARCH_SLOT_CONTROLLER = "SearchSlotController";
     //Search Booking Order History
-    private static final String SEARCH_BOOKING = "SearchHistory";
+    private static final String SEARCH_BOOKING = "SearchBooking";
     private static final String SEARCH_BOOKING_CONTROLLER = "SearchBookingController";
+    //Cancle, Delete Booking
+    private static final String DELETE_BOOKING = "DeleteBooking";
+    private static final String DELETE_BOOKING_CONTROLLER = "DeleteBookingController";
+    //Update Booking
+    private static final String UPDATE_BOOKING = "UpdateBooking";
+    private static final String UPDATE_BOOKING_CONTROLLER = "UpdateBookingController";
     //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
-    //Search Product
-    private static final String SEARCH_PRODUCT = "SearchProduct";
-    private static final String SEARCH_PRODUCT_CONTROLLER = "SearchProductController";
     //Search Account (ADMIN)
     private static final String SEARCH_ACCOUNT_BY_ADMIN = "SearchAccountByAdmin";
     private static final String SEARCH_ACCOUNT_BY_ADMIN_CONTROLLER = "SearchAccountByAdminController";
@@ -78,9 +75,22 @@ public class MainController extends HttpServlet {
     //View Account List
     private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
     private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+
+    //Account Editor
+    private static final String ACCOUNT_EDITOR = "AccountEditor";
+    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
+
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+    
+    //Search Field By Admin
+    private static final String SEARCH_FIELD_BY_ADMIN = "SearchFieldByAdmin";
+    private static final String SEARCH_FIELD_BY_ADMIN_CONTROLLER = "SearchFieldByAdminController";
+    
+    //Create field
+    private static final String CREATE_FIELD = "CreateField";
+    private static final String CREATE_FIELD_BY_ADMIN_CONTROLLER = "CreateFieldController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -100,6 +110,9 @@ public class MainController extends HttpServlet {
                 case SEARCH_BOOKING:
                     url = SEARCH_BOOKING_CONTROLLER;
                     break;
+                case SEARCH_SLOT:
+                    url = SEARCH_SLOT_CONTROLLER;
+                    break;
                 case SEARCH_BOOKING_DETAIL:
                     url = SEARCH_BOOKING_DETAIL_CONTROLLER;
                     break;
@@ -117,9 +130,6 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_ACCOUNT_FOR_USER:
                     url = CREATE_CONTROLLER;
-                    break;
-                case SEARCH_PRODUCT:
-                    url = SEARCH_PRODUCT_CONTROLLER;
                     break;
                 case RESET_PASSWORD:
                     url = RESET_PASSWORD_CONTROLLER;
@@ -142,10 +152,26 @@ public class MainController extends HttpServlet {
                 case UPDATE_PROFILE_USER:
                     url = UPDATE_PROFILE_USER_CONTROLLER;
                     break;
+                case DELETE_BOOKING:
+                    url = DELETE_BOOKING_CONTROLLER;
+                    break;
+                case UPDATE_BOOKING:
+                    url = UPDATE_BOOKING_CONTROLLER;
+                    break;
                 case VIEW_ACCOUNT_LIST:
                     url = VIEW_ACCOUNT_LIST_CONTROLLER;
+                    break;
                 case SEARCH_FIELD_BY_NAME:
                     url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                    break;
+                case ACCOUNT_EDITOR:
+                    url = ACCOUNT_EDITOR_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_BY_ADMIN:
+                    url = SEARCH_FIELD_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_FIELD:
+                    url = CREATE_FIELD_BY_ADMIN_CONTROLLER;
                     break;
             }
         

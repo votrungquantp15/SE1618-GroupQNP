@@ -1,30 +1,25 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
+import dao.CityDAO;
 import dao.RoleDAO;
 import dao.UserDAO;
+import dto.City;
 import dto.Role;
 import dto.User;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author predator
- */
 @WebServlet(name = "UpdateAccountByAdminController", urlPatterns = {"/UpdateAccountByAdminController"})
 public class UpdateAccountByAdminController extends HttpServlet {
 
-    public static final String ERROR = "accountEditor.jsp";
-    public static final String SUCCESS = "accountEditor.jsp";
+    public static final String ERROR = "AccountEditorController";
+    public static final String SUCCESS = "AccountEditorController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -32,12 +27,21 @@ public class UpdateAccountByAdminController extends HttpServlet {
         String url = ERROR;
         try {
             String userID = request.getParameter("userID");
-            String fullName = request.getParameter("fullname");
+            String fullName = request.getParameter("fullName");
+            fullName = URLEncoder.encode(fullName, "ISO-8859-1");
+            fullName = URLDecoder.decode(fullName, "UTF-8");
             String address = request.getParameter("address");
+            address = URLEncoder.encode(address, "ISO-8859-1");
+            address = URLDecoder.decode(address, "UTF-8");
+            String id_of_city = request.getParameter("cityId");
+            CityDAO cityDAO = new CityDAO();
+            City city = cityDAO.getCityByID(id_of_city);
             String birthday = request.getParameter("birthday");
-            String phone = request.getParameter("quantity");
+            String phone = request.getParameter("phone");
             String email = request.getParameter("email");
             String accName = request.getParameter("accName");
+            accName = URLEncoder.encode(accName, "ISO-8859-1");
+            accName = URLDecoder.decode(accName, "UTF-8");
             String password = request.getParameter("password");
             
             String id_of_role = request.getParameter("roleId");
@@ -45,13 +49,13 @@ public class UpdateAccountByAdminController extends HttpServlet {
             Role roleID = role.getRole(id_of_role);
             String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, birthday, phone, email, accName, password, roleID, status);
+            User user = new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                              
+            if (checkUpdate) {                
                 url = SUCCESS;
-                request.setAttribute("UPDATE_SUCCESS", "Update account successfully!!!");
+                request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {
-                request.setAttribute("UPDATE_FAILED", "Update account FAILED!!!");
+                request.setAttribute("UPDATE_FAILED", "Cập nhật thất bại!!!");
             }
         } catch (Exception e) {
             log("Error at UpdateAccountByAdminController: " + e.toString());

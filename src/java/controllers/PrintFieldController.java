@@ -2,6 +2,7 @@ package controllers;
 
 import dao.FieldDAO;
 import dto.Field;
+import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
@@ -9,22 +10,29 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class PrintFieldController extends HttpServlet {
 
-    private static final String ERROR = "fieldManagement.jsp";
-    private static final String SUCCESS = "fieldManagement.jsp";
+    private static final String USER_PAGE = "home.jsp";
+    private static final String ADMIN_PAGE = "fieldManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = USER_PAGE;
         try {
+            HttpSession session = request.getSession();
             FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getListProduct();
+            User user = (User)session.getAttribute("LOGIN_USER");
+            List<Field> listField = dao.getListField();
             if (listField.size() > 0) {
                 request.setAttribute("LIST_FIELD", listField);
-                url = SUCCESS;
+                if (user.getRole().getRoleId().equals("US")) {
+                    url = USER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());

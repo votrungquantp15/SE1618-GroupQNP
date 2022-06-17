@@ -20,7 +20,7 @@ import javax.servlet.http.HttpSession;
 public class LoginController extends HttpServlet {
 
     public static final String ERROR = "login.jsp";
-    public static final String USER_PAGE = "home.jsp";
+    public static final String USER_PAGE = "PrintFieldController";
     public static final String ADMIN_PAGE = "adminDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -34,20 +34,20 @@ public class LoginController extends HttpServlet {
             UserDAO dao = new UserDAO();
             User cus = dao.checkLogin(email, password);
 
-            //Get category 
-            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-
-            //Get city
-            List<City> listCitys = new ArrayList<>();
-            CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getALLCity();
+//            //Get category 
+//            List<FieldCategory> listFieldCategorys = new ArrayList<>();
+//            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+//            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
+//
+//            //Get city
+//            List<City> listCitys = new ArrayList<>();
+//            CityDAO cityDao = new CityDAO();
+//            listCitys = cityDao.getAllCity();
 
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getListProduct();
+            listFields = fieldDao.getListField();
 
             if (cus != null) {
                 session.setAttribute("LOGIN_USER", cus);

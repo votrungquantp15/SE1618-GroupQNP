@@ -45,8 +45,32 @@
         <servlet-class>controllers.UpdateProfileUserController</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteBookingController</servlet-name>
+        <servlet-class>controllers.DeleteBookingController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SearchFieldByNameController</servlet-name>
         <servlet-class>controllers.SearchFieldByNameController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <servlet-class>controllers.UpdateBookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchSlotController</servlet-name>
+        <servlet-class>controllers.SearchSlotController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFieldByAdminController</servlet-name>
+        <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateFieldController</servlet-name>
+        <servlet-class>controllers.CreateFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <servlet-class>controllers.AdminIncomeManagement</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -93,8 +117,32 @@
         <url-pattern>/UpdateProfileUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DeleteBookingController</servlet-name>
+        <url-pattern>/DeleteBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SearchFieldByNameController</servlet-name>
         <url-pattern>/SearchFieldByNameController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateBookingController</servlet-name>
+        <url-pattern>/UpdateBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchSlotController</servlet-name>
+        <url-pattern>/SearchSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFieldByAdminController</servlet-name>
+        <url-pattern>/SearchFieldByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFieldController</servlet-name>
+        <url-pattern>/CreateFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AdminIncomeManagement</servlet-name>
+        <url-pattern>/AdminIncomeManagement</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -6,6 +6,7 @@ public class Field {
     private String description;
     private String image;
     private FieldCategory fieldCate;
+    private double price;
     private User user;
     private Location location;
     private City city;
@@ -17,18 +18,20 @@ public class Field {
         this.description = "";
         this.image = "";
         this.fieldCate = null;
+        this.price = 0;
         this.user = null;
         this.location = null;
         this.city = null;
         this.status = "";
     }
 
-    public Field(String fieldId, String fieldName, String description, String image, FieldCategory fieldCate, User user, Location location, City city, String status) {
+    public Field(String fieldId, String fieldName, String description, String image, FieldCategory fieldCate, double price, User user, Location location, City city, String status) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.description = description;
         this.image = image;
         this.fieldCate = fieldCate;
+        this.price = price;
         this.user = user;
         this.location = location;
         this.city = city;
@@ -73,6 +76,14 @@ public class Field {
 
     public void setFieldCate(FieldCategory fieldCate) {
         this.fieldCate = fieldCate;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(double price) {
+        this.price = price;
     }
 
     public User getUser() {
