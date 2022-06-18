@@ -1,7 +1,7 @@
-﻿CREATE DATABASE FootballBookingManagement
-USE FootballBookingManagement
+﻿CREATE DATABASE FootballBookingManagement1
+USE FootballBookingManagement1
 
-DROP DATABASE FootballBookingManagement
+DROP DATABASE FootballBookingManagement1
 
 CREATE TABLE tblRoles
 (
@@ -51,28 +51,28 @@ CREATE TABLE tblFields
 	fieldId varchar(10) PRIMARY KEY,
 	fieldName nvarchar(100) NOT NULL,
 	[description] nvarchar(500),
-	[image] [nvarchar](max) NULL,
+	[image] [nvarchar](max) NOT NULL,
 	categoryFieldId varchar(10) FOREIGN KEY REFERENCES tblFieldCategory(categoryFieldId),
+	price money NOT NULL,
 	userId varchar(10) FOREIGN KEY REFERENCES tblUsers(userId),
 	locationId varchar(10) FOREIGN KEY REFERENCES tblLocation(locationId),
 	cityId varchar(10) FOREIGN KEY REFERENCES tblCity(cityId),
 	[status] [bit] default '0'
 )
 
-CREATE TABLE tblSlot
+CREATE TABLE tblSlots
 (
 	slotId varchar(10) PRIMARY KEY,
-	timeStart time,
-	timeEnd time,
+	timeStart time NOT NULL,
+	timeEnd time NOT NULL,
 	[status] [bit] default '1'
 )
 
 CREATE TABLE tblSlotDetail
 (
 	slotDetailId varchar(10) PRIMARY KEY,
-	slotId varchar(10) FOREIGN KEY REFERENCES tblSlot(slotId),
+	slotId varchar(10) FOREIGN KEY REFERENCES tblSlots(slotId),
 	fieldId varchar(10) FOREIGN KEY REFERENCES tblFields(fieldId),
-	price money,
 	[status] [bit] default '1'
 )
 
@@ -87,7 +87,7 @@ CREATE TABLE tblFoods
 (
 	foodId varchar(10) PRIMARY KEY,
 	foodName nvarchar(100) NOT NULL,
-	[image] [nvarchar](max) NULL,
+	[image] [nvarchar](max) NOT NULL,
 	categoryFoodId varchar(10) FOREIGN KEY REFERENCES tblFoodCategory(categoryFoodId),
 	[status] [bit] default '1'
 )
@@ -97,8 +97,8 @@ CREATE TABLE tblFoodDetail
 	foodDetailId varchar(10) PRIMARY KEY,
 	foodId varchar(10) FOREIGN KEY REFERENCES tblFoods(foodId),
 	fieldId varchar(10) FOREIGN KEY REFERENCES tblFields(fieldId),
-	price money,
-	quantity int,
+	price money NOT NULL,
+	quantity int NOT NULL,
 	[status] [bit] default '1'
 )
 
@@ -118,7 +118,7 @@ CREATE TABLE tblBooking
 	bookingDate date NOT NULL,
 	userId varchar(10) FOREIGN KEY REFERENCES tblUsers(userId),
 	totalprice money,
-	[status] [bit] default '1'
+	[status] varchar(10) default 'on-going'
 )
 
 CREATE TABLE tblBookingDetail
@@ -132,7 +132,7 @@ CREATE TABLE tblBookingDetail
 	foodDetailId varchar(10) FOREIGN KEY REFERENCES tblFoodDetail(foodDetailId),
 	foodPrice money,
 	foodQuantity int,
-	[status] [bit] default '1',
+	[status] [bit] default '1'
 )
 
 INSERT INTO tblRoles (roleID, roleName, [status]) VALUES ('AD', 'Admin', 1)
@@ -159,31 +159,31 @@ INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO1', N'20/
 INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO2', N'30/2 ĐƯỜNG SỐ 40, HIỆP BÌNH CHÁNH', 1)
 INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO3', N'SỐ 70 ĐƯỜNG TTN 02, P. TÂN THỚI NHẤT, QUẬN 12', 1)
 
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, userId, locationId, cityId, [status]) VALUES ('FI1', N'Sân bóng thống nhất', N'Sân bóng ở trong hẻm phía sau trường Đại học Công nghệ thông tin, khu làng đại học Quốc gia, TP. Hồ Chí Minh. Liên hệ chủ sân: Anh Quân'
-			, 'https://sporta.s3.ap-southeast-1.amazonaws.com/uploads/production/image/image/123/15400969_220533135055086_6278862748727258901_n.jpg?X-Amz-Expires=600&X-Amz-Date=20220529T164839Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIQW3XISBSHKJGJBQ%2F20220529%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=926157dc3c81ce995cd91349efb0817365aba1b1d5e27381d0a0a5e3cb6b3f77'
-			, 'FC1', 'U2', 'LO1', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, userId, locationId, cityId, [status]) VALUES ('FI2', N'Sân bóng Toàn Thắng', ''
-			, 'https://sporta.s3.ap-southeast-1.amazonaws.com/uploads/production/image/image/491/fa655162-d736-437d-adb8-9a5980f92ec5.jpg?X-Amz-Expires=600&X-Amz-Date=20220529T164935Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIQW3XISBSHKJGJBQ%2F20220529%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=522d840a33666c11c89ece42bfaed5b929aefbd529ad2a6aa73520eb80a345f3'
-			, 'FC2', 'U2', 'LO1', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, userId, locationId, cityId, [status]) VALUES ('FI3', N'Sân bóng cỏ nhân tạo CR7', N'Sân bóng mini cỏ nhân tạo Tp Hồ Chí Minh. Anh em có nhu cầu liện hệ...'
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI1', N'Sân bóng thống nhất', N'Sân bóng ở trong hẻm phía sau trường Đại học Công nghệ thông tin, khu làng đại học Quốc gia, TP. Hồ Chí Minh. Liên hệ chủ sân: Anh Quân'
+			, 'https://phuongthanhngoc.com/media/data/tin-tuc/danh-cho-nha-dau-tu/chieu-dai-san-bong-da-2.jpg'
+			, 'FC1', '10', 'U2', 'LO1', 'CT5', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI2', N'Sân bóng Toàn Thắng', ''
+			, 'https://topsaigon.vn/upload/data/images/tieu-ngu.jpg'
+			, 'FC2', '12', 'U2', 'LO1', 'CT5', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI3', N'Sân bóng cỏ nhân tạo CR7', N'Sân bóng mini cỏ nhân tạo Tp Hồ Chí Minh. Anh em có nhu cầu liện hệ...'
 			, 'https://dabong.online/wp-content/uploads/2019/07/A%CC%89nh-chu%CC%A3p-Ma%CC%80n-hi%CC%80nh-2019-07-25-lu%CC%81c-11.25.34.png'
-			, 'FC3', 'U3', 'LO2', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, userId, locationId, cityId, [status]) VALUES ('FI4', N'Sân bóng mini 49', N'Là sân 11 người, chuyên dùng để đào tạo và huấn luyện. Mặt cỏ còn mới'
-			, 'https://sporta.s3.ap-southeast-1.amazonaws.com/uploads/production/image/image/123/15400969_220533135055086_6278862748727258901_n.jpg?X-Amz-Expires=600&X-Amz-Date=20220529T164839Z&X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIQW3XISBSHKJGJBQ%2F20220529%2Fap-southeast-1%2Fs3%2Faws4_request&X-Amz-SignedHeaders=host&X-Amz-Signature=926157dc3c81ce995cd91349efb0817365aba1b1d5e27381d0a0a5e3cb6b3f77'
-			, 'FC3', 'U3', 'LO3', 'CT1', 1)
+			, 'FC3', '15', 'U3', 'LO2', 'CT5', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI4', N'Sân bóng mini 49', N'Là sân 11 người, chuyên dùng để đào tạo và huấn luyện. Mặt cỏ còn mới'
+			, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQpkohiUUT73hWZ9awadw4uJy9EfYIbfKquOLgZJu2W8XRFJAv61Lg4wkYxpgudwdMM24&usqp=CAU'
+			, 'FC3', '15', 'U3', 'LO3', 'CT1', 1)
 
-INSERT INTO tblSlot(slotId, timeStart, timeEnd, [status]) VALUES ('SL1', '07:00:00', '08:00:00', 1)
-INSERT INTO tblSlot(slotId, timeStart, timeEnd, [status]) VALUES ('SL2', '08:00:00', '09:00:00', 1)
-INSERT INTO tblSlot(slotId, timeStart, timeEnd, [status]) VALUES ('SL3', '09:00:00', '10:00:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL1', '07:00:00', '08:00:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL2', '08:00:00', '09:00:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL3', '09:00:00', '10:00:00', 1)
 
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD1', 'SL1', 'FI1', '10', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD2', 'SL1', 'FI2', '12', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD3', 'SL1', 'FI3', '15', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD4', 'SL1', 'FI4', '20', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD5', 'SL2', 'FI1', '10', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD6', 'SL2', 'FI2', '12', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD7', 'SL3', 'FI3', '15', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, price, [status]) VALUES ('SD8', 'SL3', 'FI4', '20', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD1', 'SL1', 'FI1', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD2', 'SL1', 'FI2', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD3', 'SL1', 'FI3', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD4', 'SL1', 'FI4', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD5', 'SL2', 'FI1', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD6', 'SL2', 'FI2', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD7', 'SL3', 'FI3', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD8', 'SL3', 'FI4', 1)
 
 INSERT INTO tblFoodCategory(categoryFoodId, categoryFoodName, [status]) VALUES ('OC1', N'Bánh mì', 1)
 INSERT INTO tblFoodCategory(categoryFoodId, categoryFoodName, [status]) VALUES ('OC2', N'Bánh snack', 1)
@@ -210,8 +210,8 @@ INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [statu
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD6', 'FO4', 'FI2', '5', '3', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD7', 'FO6', 'FI2', '15', '15', 1)
 
-INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO1', '2022-01-24', 'U4', '50', 1)
-INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO2', '2022-03-12', 'U5', '12', 1)
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO1', '2022-01-24', 'U4', '50', 'on-going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO2', '2022-03-12', 'U5', '12', 'on-going')
 
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD1', 'BO1', 'FI1', '2022-01-25', 'SD1', '10', 'FD1', '20', '2', 1)
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD2', 'BO2', 'FI2', '2022-03-14', 'SD2', '12', NULL, NULL, NULL, 1)
