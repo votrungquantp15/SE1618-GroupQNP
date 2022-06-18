@@ -59,6 +59,8 @@
     <servlet>
         <servlet-name>SearchSlotController</servlet-name>
         <servlet-class>controllers.SearchSlotController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <servlet-class>controllers.SearchFieldByAdminController</servlet-class>
     </servlet>
@@ -69,6 +71,14 @@
     <servlet>
         <servlet-name>AdminIncomeManagement</servlet-name>
         <servlet-class>controllers.AdminIncomeManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteSlotController</servlet-name>
+        <servlet-class>controllers.DeleteSlotController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <servlet-class>controllers.UpdateSlotController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -129,6 +139,8 @@
     <servlet-mapping>
         <servlet-name>SearchSlotController</servlet-name>
         <url-pattern>/SearchSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>SearchFieldByAdminController</servlet-name>
         <url-pattern>/SearchFieldByAdminController</url-pattern>
     </servlet-mapping>
@@ -139,6 +151,14 @@
     <servlet-mapping>
         <servlet-name>AdminIncomeManagement</servlet-name>
         <url-pattern>/AdminIncomeManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteSlotController</servlet-name>
+        <url-pattern>/DeleteSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <url-pattern>/UpdateSlotController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

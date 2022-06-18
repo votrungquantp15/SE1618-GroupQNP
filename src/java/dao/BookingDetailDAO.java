@@ -32,7 +32,7 @@ public class BookingDetailDAO {
 
     private static final String GET_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ?  ";
-     private static final String GET_LIST_BOOKING_DETAIL_BY_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
+    private static final String GET_LIST_BOOKING_DETAIL_BY_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE fieldID like  ? ";
 
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, status "
@@ -100,17 +100,29 @@ public class BookingDetailDAO {
 
         String getPlayDate = bookingDetail.getPlayDate();
         LocalDate playDate = LocalDate.parse(getPlayDate);
-        
-//        String timeEnd = bookingDetail.getSlotDetail().getSlot().getTimeEnd();
-//        String time[] = timeEnd.split(":");
-//        int timeEndHour = Integer.parseInt(time[0]);
+        int localHour = LocalDateTime.now().getHour();
+        if (localHour == 0) {
+            localHour = 24;
+        }
+
+        String timeEnd = bookingDetail.getSlotDetail().getSlot().getTimeEnd();
+        String time[] = timeEnd.split(":");
+        int timeEndHour = Integer.parseInt(time[0]);
+        if (timeEndHour == 0) {
+            timeEndHour = 24;
+        }
+
         if (ON_GOING.equals(bookingStatus)) {
-            if (currentDate.isBefore(playDate)) {
-                check = true;
+            if (currentDate.isBefore(playDate) || currentDate.isEqual(playDate)) {
+                if (localHour < timeEndHour) {
+                    check = true;
+                }
             }
         } else if (PLAYED.equals(bookingStatus)) {
-            if (currentDate.isAfter(playDate)) {
-                check = true;
+            if (currentDate.isAfter(playDate) || currentDate.isEqual(playDate)) {
+                if (localHour > timeEndHour) {
+                    check = true;
+                }
             }
         } else if (CANCELED.equals(bookingStatus)
                 || DELETE.equals(bookingStatus)) {
@@ -146,22 +158,20 @@ public class BookingDetailDAO {
                     String slotDetailID = rs.getString("slotDetailID");
                     SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
                     SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
-                    
+
                     double foodTotalPrice;
                     int foodTotalQuantity;
                     FoodDetail foodDetail = null;
                     String foodDetailID = rs.getString("foodDetailID");
-                    if(foodDetailID != null){
+                    if (foodDetailID != null) {
                         FoodDetailDAO foodDetailDAO = new FoodDetailDAO();
                         foodDetail = foodDetailDAO.getFoodDetailByID(foodDetailID);
                         foodTotalPrice = rs.getDouble("foodPrice");
                         foodTotalQuantity = rs.getInt("foodQuantity");
-                    }
-                    else{
+                    } else {
                         foodTotalPrice = 0;
                         foodTotalQuantity = 0;
                     }
-                   
 
                     String playDate = rs.getString("playDate");
                     boolean status = rs.getBoolean("status");
@@ -185,7 +195,7 @@ public class BookingDetailDAO {
 
         return bookingDetails;
     }
-    
+
     public List<BookingDetail> getListBookingDetailByID(String id) throws SQLException {
         List<BookingDetail> bookingDetails = new ArrayList<>();
         Connection connect = null;
@@ -195,7 +205,7 @@ public class BookingDetailDAO {
             connect = DBUtils.getConnection();
             if (connect != null) {
                 ptm = connect.prepareStatement(GET_LIST_BOOKING_DETAIL_BY_ID);
-                ptm.setString(1,"%" + id + "%");
+                ptm.setString(1, "%" + id + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String bookingDetailID = rs.getString("bookingDetailID");
@@ -241,5 +251,5 @@ public class BookingDetailDAO {
         }
         return bookingDetails;
 
-}
+    }
 }

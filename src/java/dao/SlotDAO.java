@@ -21,6 +21,7 @@ import utils.DBUtils;
 public class SlotDAO {
 
     private static final String GET_ALL_INFO = "SELECT slotID, timeStart, timeEnd, status FROM tblSlots WHERE slotID like ?";
+    private static final String DELETE_SLOT = "UPDATE tblSlots SET status = ? WHERE slotID like ?";
 
     public Slot getSlotByID(String slotID) throws SQLException {
         Slot slot = new Slot();
@@ -38,7 +39,7 @@ public class SlotDAO {
                     String timeStart = rs.getString("timeStart");
                     String timeEnd = rs.getString("timeEnd");
                     String status = rs.getString("status");
-                    slot= new Slot(getSlotID, timeStart, timeEnd, status);
+                    slot = new Slot(getSlotID, timeStart, timeEnd, status);
                 }
             }
         } catch (Exception e) {
@@ -56,7 +57,7 @@ public class SlotDAO {
         }
         return slot;
     }
-    
+
     public List<Slot> getListSlotByID(String search) throws SQLException {
         List<Slot> list = new ArrayList<>();
         Connection conn = null;
@@ -73,9 +74,9 @@ public class SlotDAO {
                     String timeStart = rs.getString("timeStart");
                     String timeEnd = rs.getString("timeEnd");
                     String status = rs.getString("status");
-                    if(status.equals("1")){
+                    if (status.equals("1")) {
                         status = "True";
-                    }else {
+                    } else {
                         status = "False";
                     }
                     list.add(new Slot(getSlotID, timeStart, timeEnd, status));
@@ -95,5 +96,30 @@ public class SlotDAO {
             }
         }
         return list;
+    }
+
+    public boolean deleteSlotByID(String slotID, String status) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_SLOT);
+                ptm.setBoolean(1, false);
+                ptm.setString(2, slotID);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

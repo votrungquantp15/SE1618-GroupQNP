@@ -144,19 +144,34 @@
                                                                         </div>
                                                                 </td>
                                                                 <td>
+                                                                    <c:url var="DeleteSlot" value="MainController">
+                                                                        <c:param name="action" value="DeleteSlot"></c:param>
+                                                                        <c:param name="search" value="${search}"></c:param>
+                                                                        <c:param name="slotID" value="${slot.slotId}"></c:param>
+                                                                        <c:param name="status" value="${slot.status}"></c:param>
+                                                                    </c:url> 
+                                                                    <c:url var="UpdateSlot" value="MainController">
+                                                                        <c:param name="action" value="UpdateSlot"></c:param>
+                                                                        <c:param name="search" value="${search}"></c:param>
+                                                                        <c:param name="slotID" value="${slot.slotId}"></c:param>
+                                                                        <c:param name="status" value="${slot.status}"></c:param>
+                                                                    </c:url> 
                                                                     <div class="d-flex justify-content-center">
                                                                         <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
                                                                         <div class="modal fade" id="basicModalDelete${counter}">
                                                                             <div class="modal-dialog" role="document">
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                        <h3 class="modal-title">Delete Slot ${slotDetail.slot.slotId}</h3>
+                                                                                        <h3 class="modal-title">Delete Slot ${slot.slotId}</h3>
                                                                                         <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
                                                                                         </button>
                                                                                     </div>
+                                                                                    <div class="modal-body"  style="background-color: #f7f3e6">
+                                                                                        <h3>Do you want to Delete ${slot.slotId}</h3>
+                                                                                    </div>
                                                                                     <div class="modal-footer" style="background-color: #f7f3e6">
                                                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                        <a href="" type="button" class="btn btn-primary">Confirm</a>
+                                                                                        <a href="${DeleteSlot}" type="button" class="btn btn-primary">Confirm</a>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
