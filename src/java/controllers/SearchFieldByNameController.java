@@ -1,10 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
-
 
 import dao.CityDAO;
 import dao.FieldCategoryDAO;
@@ -23,25 +17,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-
-/**
- *
- * @author votru
- */
 public class SearchFieldByNameController extends HttpServlet {
-    
-        private static final String SEARCH_SUCCES = "home.jsp";
-        private static final String SEARCH_ERROR = "home.jsp";
 
-    /**
-     * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
-     * methods.
-     *
-     * @param request servlet request
-     * @param response servlet response
-     * @throws ServletException if a servlet-specific error occurs
-     * @throws IOException if an I/O error occurs
-     */
+    private static final String SEARCH_SUCCES = "home.jsp";
+    private static final String SEARCH_ERROR = "home.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -57,24 +37,24 @@ public class SearchFieldByNameController extends HttpServlet {
             List<City> listCitys = new ArrayList<>();
             CityDAO cityDao = new CityDAO();
             listCitys = cityDao.getAllCity();
-            
+
             fieldName = request.getParameter("name");
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
             listFields = fieldDao.getFieldDetailByName(fieldName);
 
-            if (listFields != null) {
+            if (listFields.size() != 0) {
                 //setAttribute citys
 
                 //setAttribute Fields
                 url = SEARCH_SUCCES;
-                
+
                 request.setAttribute("FIELD", listFields);
-                               
+
                 //setAttribute category
             } else {
-
+                request.setAttribute("FIELD_NOT_FOUND", "Không tìm thấy sân bóng");
             }
         } catch (Exception e) {
             log("Error at LoginController: " + e.toString());

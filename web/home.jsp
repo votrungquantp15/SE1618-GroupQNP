@@ -1,275 +1,235 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page contentType="text/html; charset=UTF-8" %>
-<!DOCTYPE html>
-<html lang="en">
-    <head>
-        <title>Home</title>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
-        <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600,700,800,900" rel="stylesheet">
-        <link href="https://fonts.googleapis.com/css2?family=Arizonia&display=swap" rel="stylesheet">
-
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
-        <link rel="stylesheet" href="css/animate.css">
-
-        <link rel="stylesheet" href="css/owl.carousel.min.css">
-        <link rel="stylesheet" href="css/owl.theme.default.min.css">
-        <link rel="stylesheet" href="css/magnific-popup.css">
-
-        <link rel="stylesheet" href="css/jquery.timepicker.css">
-
-
-        <link rel="stylesheet" href="css/flaticon.css">
-        <link rel="stylesheet" href="css/homestyles.css">
-    </head>
-    <body>
-        <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-            <div class="container">
-                <a class="navbar-brand" href="home.jsp">FBS<span>Booking football field</span></a>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="oi oi-menu"></span> Menu
+<!doctype html>
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="icon" href="data:image/png;base64,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">
+    <title>Home</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="vendors/linericon/style.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
+    <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
+    <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
+    <!-- main css -->
+    <link rel="stylesheet" href="css/homestyle.css">
+    <link rel="stylesheet" href="css/responsive.css">
+</head>
+<body>
+    <!--================Header Area =================-->
+    <header class="header_area">
+        <div class="container">
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <a class="navbar-brand logo_h" href="MainController?action=Print"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
                 </button>
-
-                <div class="collapse navbar-collapse" id="ftco-nav">
-                    <ul class="navbar-nav ml-auto">
-                        <li class="nav-item"><a href="home.jsp" class="nav-link">Home</a></li>
-                        <li class="nav-item"><a href="contact.html" class="nav-link">Contact</a></li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <c:choose>
-                            <c:when test="${sessionScope.LOGIN_USER == null}">
-                                <li class="nav-item active"><a href="login.jsp" class="nav-link">Login</a></li>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                    <ul class="nav navbar-nav menu_nav ml-auto">
+                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item submenu dropdown">
+                            <c:choose>
+                                <c:when test="${sessionScope.LOGIN_USER == null}">
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
                                 </c:when>
                                 <c:otherwise>
-                                <li class="nav-item dropdown ">
-                                    <a href="#" data-toggle="dropdown">
-                                        <div class="header-info">
-                                            <span>${sessionScope.LOGIN_USER.fullName}</span>
-                                        </div>
-                                    </a>
-                                    <div class="dropdown-menu">
-                                        <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="dropdown-item ai-icon">
-                                            <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                            <span class="ml-2">Profile</span>
-                                        </a>
-                                        <a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="dropdown-item ai-icon">
-                                            <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                                            <span class="ml-2">Booking History</span>
-                                        </a>
-                                        <a href="page-login.html" class="dropdown-item ai-icon">
-                                            <a href="MainController?action=Logout" class="dropdown-item ai-icon">
-                                                <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                                                <span class="ml-2">Logout</span>
-                                            </a>
-                                    </div>
-                                </li>
-                            </c:otherwise>
-                        </c:choose>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
+                                    <ul class="dropdown-menu">
+                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link" href="blog.html">Profile</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link" href="blog-single.html">Booking history</a></li>
+                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link" href="blog-single.html">Log out</a></li>
+                                    </ul>
+                                </c:otherwise>
+                            </c:choose>
+                        </li> 
                     </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- END nav -->
+                </div> 
+            </nav>
+        </div>
+    </header>
+    <!--================Header Area =================-->
 
-        <section class="hero-wrap hero-wrap-2 js-fullheight" style="background-image: url('https://wallpaper.dog/large/17048551.jpg');">
-            <div class="overlay"></div>
-            <div class="container">
-                <div class="row no-gutters slider-text js-fullheight align-items-end justify-content-center">
-                    <div class="col-md-7 ftco-animate">
-                        <span class="subheading" style="font-family: Arial, Helvetica, sans-serif;">Welcome to FBS</span>
-                        <h1 class="mb-4">Discover Your Favorite Football Field with Us</h1>
-                    </div>
-                    <div class="col-md-9 ftco-animate pb-5 text-center">
-                        <h1 class="mb-0 bread">Home</h1>
-                    </div>
-                </div>
+    <!--================Breadcrumb Area =================-->
+    <section class="breadcrumb_area">
+        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
+        <div class="container">
+            <div class="page-cover breadcrumb-text text-center">
+                <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
+                <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
             </div>
-        </section>
+        </div>
+    </section>
+    <!--================Breadcrumb Area =================-->
 
-        <section class="ftco-section ftco-no-pb">
-            <div class="container">
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="search-wrap-1 ftco-animate">
-                            <form action="#" class="search-property-1">
-                                <div class="row no-gutters">
-                                    <div class="col-lg d-flex">
-                                        <div class="form-group p-4 border-0">
-                                            <label for="#">Name</label>
-                                            <div class="form-field">
-                                                <div class="icon"><span class="fa fa-search"></span></div>
-                                                <input type="text" class="form-control" name="name" value="${param.name}" placeholder="Nhập tên sân">
+    <!--================ Accomodation Area  =================-->
+
+    <section class="hotel_booking_area">
+        <div class="container">
+            <div class="row hotel_booking_table">
+                <div class="col-md-3">
+                    <h2>TÌM<br> SÂN BÓNG</h2>
+                </div>
+
+                <div class="col-md-9">
+                    <div class="boking_table">
+                        <form action="MainController">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="book_tabel_item">
+                                        <div class="form-group">
+                                            <div class='input-group'>
+                                                <input name="name" value="${param.name}" style="color: white;" type='text' class="form-control" placeholder="Name"/>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                            <label for="#">City</label>
-                                            <div class="form-field">
-                                                <div class="icon"><span class="fa fa-search"></span></div>
-                                                <input type="text" class="form-control" placeholder="Search city">
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg d-flex">
-                                        <div class="form-group p-4">
-                                            <label for="#">Price Limit</label>
-                                            <div class="form-field">
-                                                <div class="select-wrap">
-                                                    <div class="icon"><span class="fa fa-chevron-down"></span></div>
-                                                    <select name="" id="" class="form-control">
-                                                        <option value="">$5,000</option>
-                                                        <option value="">$10,000</option>
-                                                        <option value="">$50,000</option>
-                                                        <option value="">$100,000</option>
-                                                        <option value="">$200,000</option>
-                                                        <option value="">$300,000</option>
-                                                        <option value="">$400,000</option>
-                                                        <option value="">$500,000</option>
-                                                        <option value="">$600,000</option>
-                                                        <option value="">$700,000</option>
-                                                        <option value="">$800,000</option>
-                                                        <option value="">$900,000</option>
-                                                        <option value="">$1,000,000</option>
-                                                        <option value="">$2,000,000</option>
-                                                    </select>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg d-flex">
-                                        <div class="form-group d-flex w-100 border-0">
-                                            <div class="form-field w-100 justify-content-center d-flex">
-                                                <input type="hidden" name="action" value="SearchFieldByName"/>
-                                                <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
+                                        <div class="form-group">
+                                            <div class='input-group date' id='datetimepicker1'>
+                                                <input type='text' class="form-control" placeholder="Departure Date"/>
+                                                <span class="input-group-addon">
+                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                                                </span>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-md-4">
+                                    <div class="book_tabel_item">
+                                        <div class="input-group">
+                                            <select class="wide">
+                                                <option data-display="Adult">Adult</option>
+                                                <option value="1">Old</option>
+                                                <option value="2">Younger</option>
+                                                <option value="3">Potato</option>
+                                            </select>
+                                        </div>
+                                        <div class="input-group">
+                                            <select class="wide">
+                                                <option data-display="Child">Child</option>
+                                                <option value="1">Child</option>
+                                                <option value="2">Baby</option>
+                                                <option value="3">Child</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="book_tabel_item">
+                                        <div class="input-group">
+                                            <select class="wide">
+                                                <option data-display="Child">Number of Rooms</option>
+                                                <option value="1">Room 01</option>
+                                                <option value="2">Room 02</option>
+                                                <option value="3">Room 03</option>
+                                            </select>
+                                        </div>
+                                        <!-- <a class="book_now_btn button_hover" href="#">Search</a> -->
+                                        <div class="form-field w-100 justify-content-center d-flex">
+                                            <input type="hidden" name="action" value="SearchFieldByName"/>
+                                            <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!--================Booking Tabel Area  =================-->
+    <!--================ Accomodation Area  =================-->
+    <section class="accomodation_area section_gap">
+        <div class="container">
+            <div class="section_title text-center">
+                <h2 class="title_color">Sân bóng đá</h2>
+                <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
+            </div>
+            <div class="row accomodation_two">
+                <h4 style="color: red"> ${requestScope.FIELD_NOT_FOUND} </h4>
+                <c:forEach var="field" items="${requestScope.LIST_FIELD}">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img class="img_field" src="${field.image}" alt="">
+                                <a href="#" class="btn theme_btn button_hover rounded">Đặt ngay</a>
+                            </div>
+                            <a href="MainController?action=UserPrintFieldDetail&fieldName=${field.fieldName}"><h4 class="sec_h4">${field.fieldName}</h4></a>
+                            <h6>${field.city.cityName}</h6>
+                            <h5>${field.price}00<small> vnd/h</small></h5>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </section>
+    <!--================ Accomodation Area  =================-->
+    <!--================ start footer Area  =================-->	
+    <footer class="footer-area section_gap">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6 class="footer_title">About Agency</h6>
+                        <p>The world has become so fast paced that people don't want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
+                    </div>
+                </div>					
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <ul>
+                        <li><span class="icon fa fa-map-marker"></span><span class="text"> 203 Fake St. Mountain View, San Francisco, California, USA</span></li>
+                        <li><a href="#"><span class="icon fa fa-phone"></span><span class="text"> +2 392 3929 210</span></a></li>
+                        <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text"> info@yourdomain.com</span></a></li>
+                    </ul>
+                </div>	
+                <div class="col-lg-3 col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6 class="footer_title">Newsletter</h6>
+                        <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>		
+                        <div id="mc_embed_signup">
+                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
+                                <div class="input-group d-flex flex-row">
+                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
+                                    <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>		
+                                </div>									
+                                <div class="mt-10 info"></div>
                             </form>
                         </div>
                     </div>
+                </div>				
+            </div>
+            <div class="border_line"></div>
+            <div class="row footer-bottom d-flex justify-content-between align-items-center">
+                <p class="col-lg-8 col-sm-12 footer-text m-0"></p>
+                <div class="col-lg-4 col-sm-12 footer-social">
+                    <a href="#"><i class="fa fa-facebook"></i></a>
+                    <a href="#"><i class="fa fa-twitter"></i></a>
+                    <a href="#"><i class="fa fa-instagram"></i></a>
                 </div>
             </div>
-        </section>
+        </div>
+    </footer>
+    <!--================ End footer Area  =================-->
 
 
-        <section class="ftco-section" style="background-color: ghostwhite">
-            <div class="container">
-                <div class="row">
-                    <c:forEach var="field" items="${requestScope.FIELD}">
-                        <div class="col-md-4 ftco-animate">
-                            <div class="project-wrap hotel">
-                                <a href="#" class="img" style="background-image: url(${field.image});">
-                                    <span class="price">${field.price}00vnd/h</span>
-                                </a>
-                                <div class="card-body text p-3">
-                                    <p class="star mb-2">
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                        <span class="fa fa-star"></span>
-                                    </p>
-                                    <span class="days">${field.city.cityName}</span>
-                                    <h3><a href="#">${field.fieldName}</a></h3>
-                                    <p class="location"><span class="fa fa-map-marker"></span> ${field.location.locationName}</p>
-                                </div>
-                            </div>
-                        </div>
-                    </c:forEach>
-                </div>
-                <div class="row mt-5">
-                    <div class="col text-center">
-                        <div class="block-27">
-                            <ul>
-                                <li><a href="#">&lt;</a></li>
-                                <li class="active"><span>1</span></li>
-                                <li><a href="#">2</a></li>
-                                <li><a href="#">3</a></li>
-                                <li><a href="#">4</a></li>
-                                <li><a href="#">5</a></li>
-                                <li><a href="#">&gt;</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="ftco-footer bg-bottom ftco-no-pt" style="background-image: url(homeimages/bg_3.jpg);">
-            <div class="container">
-                <div class="row mb-5">
-                    <div class="col-md pt-5">
-                        <div class="ftco-footer-widget pt-md-5 mb-4">
-                            <h2 class="ftco-heading-2">About</h2>
-                            <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the blind texts.</p>
-                            <ul class="ftco-footer-social list-unstyled float-md-left float-lft">
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-twitter"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-facebook"></span></a></li>
-                                <li class="ftco-animate"><a href="#"><span class="fa fa-instagram"></span></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md pt-5 border-left">
-                        <div class="ftco-footer-widget pt-md-5 mb-4 ml-md-5">
-                            <h2 class="ftco-heading-2">Infromation</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">Online Enquiry</a></li>
-                                <li><a href="#" class="py-2 d-block">General Enquiries</a></li>
-                                <li><a href="#" class="py-2 d-block">Booking Conditions</a></li>
-                                <li><a href="#" class="py-2 d-block">Privacy and Policy</a></li>
-                                <li><a href="#" class="py-2 d-block">Refund Policy</a></li>
-                                <li><a href="#" class="py-2 d-block">Call Us</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md pt-5 border-left">
-                        <div class="ftco-footer-widget pt-md-5 mb-4">
-                            <h2 class="ftco-heading-2">Experience</h2>
-                            <ul class="list-unstyled">
-                                <li><a href="#" class="py-2 d-block">Adventure</a></li>
-                                <li><a href="#" class="py-2 d-block">Hotel and Restaurant</a></li>
-                                <li><a href="#" class="py-2 d-block">Beach</a></li>
-                                <li><a href="#" class="py-2 d-block">Nature</a></li>
-                                <li><a href="#" class="py-2 d-block">Camping</a></li>
-                                <li><a href="#" class="py-2 d-block">Party</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md pt-5 border-left">
-                        <div class="ftco-footer-widget pt-md-5 mb-4">
-                            <h2 class="ftco-heading-2">Have a Questions?</h2>
-                            <div class="block-23 mb-3">
-                                <ul>
-                                    <li><span class="icon fa fa-map-marker"></span><span class="text">203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                                    <li><a href="#"><span class="icon fa fa-phone"></span><span class="text">+2 392 3929 210</span></a></li>
-                                    <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text">info@yourdomain.com</span></a></li>
-                                </ul>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </footer>
-
-        <script src="homejs/jquery.min.js"></script>
-        <script src="homejs/jquery-migrate-3.0.1.min.js"></script>
-        <script src="homejs/popper.min.js"></script>
-        <script src="homejs/bootstrap.min.js"></script>
-        <script src="homejs/jquery.easing.1.3.js"></script>
-        <script src="homejs/jquery.waypoints.min.js"></script>
-        <script src="homejs/jquery.stellar.min.js"></script>
-        <script src="homejs/owl.carousel.min.js"></script>
-        <script src="homejs/jquery.magnific-popup.min.js"></script>
-        <script src="homejs/jquery.animateNumber.min.js"></script>
-        <script src="homejs/bootstrap-datepicker.js"></script>
-        <script src="homejs/scrollax.min.js"></script>
-        <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBVWaKrjvy3MaE7SQ74_uJiULgl1JY0H2s&sensor=false"></script>
-        <script src="homejs/google-map.js"></script>
-        <script src="homejs/main.js"></script>
-
-    </body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+    <script src="js/jquery.ajaxchimp.min.js"></script>
+    <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
+    <script src="js/mail-script.js"></script>
+    <script src="js/stellar.js"></script>
+    <script src="vendors/lightbox/simpleLightbox.min.js"></script>
+    <script src="js/custom.js"></script>
+</body>
 </html>

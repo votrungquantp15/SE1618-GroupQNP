@@ -91,6 +91,10 @@ public class MainController extends HttpServlet {
     //Create field
     private static final String CREATE_FIELD = "CreateField";
     private static final String CREATE_FIELD_BY_ADMIN_CONTROLLER = "CreateFieldController";
+    
+    //Print User Field Detail
+    private static final String PRINT_USER_FIELD_DETAIL = "UserPrintFieldDetail";
+    private static final String PRINT_USER_FIELD_DETAIL_CONTROLLER = "UserPrintFieldDetailController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -172,6 +176,9 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_FIELD:
                     url = CREATE_FIELD_BY_ADMIN_CONTROLLER;
+                    break;
+                case PRINT_USER_FIELD_DETAIL:
+                    url = PRINT_USER_FIELD_DETAIL_CONTROLLER;
                     break;
             }
         

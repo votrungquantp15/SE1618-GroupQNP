@@ -72,6 +72,10 @@
         <servlet-name>AdminIncomeManagement</servlet-name>
         <servlet-class>controllers.AdminIncomeManagement</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserPrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -143,6 +147,10 @@
     <servlet-mapping>
         <servlet-name>AdminIncomeManagement</servlet-name>
         <url-pattern>/AdminIncomeManagement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserPrintFieldDetailController</servlet-name>
+        <url-pattern>/UserPrintFieldDetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
