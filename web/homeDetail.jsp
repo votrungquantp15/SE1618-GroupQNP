@@ -65,7 +65,7 @@
                 <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
                 <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
                  <ol class="breadcrumb">
-                    <li><a href="index.html">Home</a></li>
+                    <li><a href="MainController?action=Print">Home</a></li>
                     <li class="active">Accomodation</li>
                 </ol> 
             </div>
@@ -82,7 +82,7 @@
                         <div class="card-body">
                             <div class="row">
                                 <c:if test="${requestScope.FIELD_DETAIL == null}">
-                                    <strong>No Result</strong>
+                                    <strong>Không có kết quả</strong>
                                 </c:if>
                                 <c:if test="${requestScope.FIELD_DETAIL != null}">
                                     <c:if test="${not empty requestScope.FIELD_DETAIL}">
@@ -96,15 +96,14 @@
                                                 <div style="color: black" class="new-arrival-content pr row">
                                                     <div class="col-12 col-md-12">
                                                         <div class="card-header">
-                                                            <h3><strong>Field</strong></h3>
+                                                            <h3><strong>Sân bóng</strong></h3>
                                                         </div>
                                                         <div class="card-body">
-                                                            <p>Field Name: ${requestScope.FIELD_DETAIL.fieldName}</p>
-                                                            <p>Description: ${requestScope.FIELD_DETAIL.description}</p>
-                                                            <p>Field Cate: ${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p>
-                                                            <p>Field Owner: ${requestScope.FIELD_DETAIL.user.fullName}</p>
-                                                            <p>Address: ${requestScope.FIELD_DETAIL.location.locationName}</p>
-                                                            <p>Field Cate: ${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p>
+                                                            <p>Tên sân: ${requestScope.FIELD_DETAIL.fieldName}</p>
+                                                            <p>Mô tả: ${requestScope.FIELD_DETAIL.description}</p>
+                                                            <p>Loại sân: ${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p>
+                                                            <p>Chủ sân: ${requestScope.FIELD_DETAIL.user.fullName}</p>
+                                                            <p>Địa chỉ: ${requestScope.FIELD_DETAIL.location.locationName}</p>
                                                         </div>
                                                     </div>
                                                 </div>
