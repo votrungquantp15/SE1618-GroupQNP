@@ -340,7 +340,6 @@ public class FieldDAO {
                     String description = rs.getString("description");
                     String image = rs.getString("image");
                     String fieldName = rs.getString("fieldName");
-
                     String id_of_field_category = rs.getString("categoryFieldId");
                     FieldCategoryDAO fieldCate = new FieldCategoryDAO();
                     FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
@@ -371,6 +370,54 @@ public class FieldDAO {
             }
         }
         return listField;
+    }
+    
+    public Field getUserFieldDetailByName(String name) throws SQLException {
+        Field fieldDetail = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(PRINT_FIELD_DETAIL_BY_NAME);
+                ptm.setString(1, "%" + name + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String fieldId = rs.getString("fieldId");
+                    String description = rs.getString("description");
+                    String image = rs.getString("image");
+                    String fieldName = rs.getString("fieldName");
+                    String id_of_field_category = rs.getString("categoryFieldId");
+                    FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+                    double price = rs.getDouble("price");
+                    String id_of_user = rs.getString("userId");
+                    UserDAO user = new UserDAO();
+                    User userID = user.getUserByID(id_of_user);
+                    String id_of_location = rs.getString("locationId");
+                    LocationDAO location = new LocationDAO();
+                    Location locationID = location.getLocationByID(id_of_location);
+                    String id_of_city = rs.getString("cityId");
+                    CityDAO city = new CityDAO();
+                    City cityID = city.getCityByID(id_of_city);
+                    String status = rs.getString("status");
+                    fieldDetail = new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status);
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return fieldDetail;
     }
 
 //    public List<Field> getListFieldByAdmin() throws SQLException {

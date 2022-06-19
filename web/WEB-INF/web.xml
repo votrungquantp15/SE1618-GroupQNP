@@ -80,6 +80,10 @@
         <servlet-name>UpdateSlotController</servlet-name>
         <servlet-class>controllers.UpdateSlotController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserPrintFieldDetailController</servlet-name>
+        <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -159,6 +163,10 @@
     <servlet-mapping>
         <servlet-name>UpdateSlotController</servlet-name>
         <url-pattern>/UpdateSlotController</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
+        <servlet-name>UserPrintFieldDetailController</servlet-name>
+        <url-pattern>/UserPrintFieldDetailController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

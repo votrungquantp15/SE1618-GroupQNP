@@ -1,63 +1,30 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
 import dao.FieldDAO;
-
-import dto.City;
 import dto.Field;
-import dto.FieldCategory;
-
 import java.io.IOException;
-
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SearchFieldByNameController extends HttpServlet {
+public class UserPrintFieldDetailController extends HttpServlet {
 
-    private static final String SEARCH_SUCCES = "home.jsp";
-    private static final String SEARCH_ERROR = "home.jsp";
-
+    private static final String ERROR = "homeDetail.jsp";
+    private static final String SUCCESS = "homeDetail.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = SEARCH_ERROR;
-        String fieldName;
+        String url = ERROR;
         try {
-            //Get category 
-            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-
-            //Get city
-            List<City> listCitys = new ArrayList<>();
-            CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getAllCity();
-
-            fieldName = request.getParameter("name");
-            //Get price 
-            List<Field> listFields = new ArrayList<>();
-            FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getFieldDetailByName(fieldName);
-
-            if (listFields.size() != 0) {
-                //setAttribute citys
-
-                //setAttribute Fields
-                url = SEARCH_SUCCES;
-
-                request.setAttribute("FIELD", listFields);
-
-                //setAttribute category
-            } else {
-                request.setAttribute("FIELD_NOT_FOUND", "Không tìm thấy sân bóng");
-            }
+            String name_of_field = request.getParameter("fieldName");
+            FieldDAO daoField = new FieldDAO();
+            Field listField = daoField.getUserFieldDetailByName(name_of_field);
+            request.setAttribute("FIELD_DETAIL", listField);
+            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at PrintFieldDeatailController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
