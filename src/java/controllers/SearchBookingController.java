@@ -6,9 +6,14 @@
 package controllers;
 
 import dao.BookingDAO;
+import dao.BookingDetailDAO;
+import dao.FieldDAO;
 import dto.Booking;
+import dto.BookingDetail;
+import dto.Field;
 import dto.User;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -24,9 +29,11 @@ public class SearchBookingController extends HttpServlet {
 
     private static final String ADMIN = "AD";
     private static final String USER = "US";
+    private static final String MANAGER = "MA";
 
     private static final String SUCCESS_ADMIN = "bookingHistoryAdmin.jsp";
     private static final String SUCCESS_USER = "bookingHistoryUser.jsp";
+    private static final String SUCCESS_MANAGER = "bookingHistoryFieldOwner.jsp";
     private static final String ERROR = "error.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -51,11 +58,44 @@ public class SearchBookingController extends HttpServlet {
                 List<Booking> list = dao.getListBookingByID(UserID, search, status);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 url = SUCCESS_USER;
+            } else if (MANAGER.equals(roleID)) {
+                String UserID = loginUser.getUserID();
+                FieldDAO fieldDAO = new FieldDAO();
+                List<Field> listField = fieldDAO.getListFieldByUserID(UserID);
+
+                BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
+                BookingDAO bookingDAO = new BookingDAO();
+                List<Booking> list = new ArrayList<>();
+                if (!listField.isEmpty()) {
+                    if (listField.size() > 0) {
+                        for (Field field : listField) {
+                            List<BookingDetail> listBookingDetail = bookingDetailDAO.getListBookingDetailByID(field.getFieldId());
+                            if (!listBookingDetail.isEmpty()) {
+                                if (listBookingDetail.size() > 0) {
+                                    for (BookingDetail bookingDetail : listBookingDetail) {
+                                        List<Booking> listBooking = bookingDAO.getListBookingByBookingID(bookingDetail.getBooking().getBookingId(), search, status);
+                                        if (!listBooking.isEmpty()) {
+                                            if (listBooking.size() > 0) {
+                                                for (Booking booking : listBooking) {
+                                                    list.add(booking);
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+                request.setAttribute("LIST_BOOKING_HISTORY", list);
+                url = SUCCESS_MANAGER;
             }
         } catch (Exception e) {
             log("Error at SearchBookingController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
+            response.setContentType("text/html;charset=UTF-8");
+            request.setCharacterEncoding("utf-8");
         }
     }
 

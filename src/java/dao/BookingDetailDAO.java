@@ -17,8 +17,6 @@ import java.sql.SQLException;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
@@ -32,7 +30,7 @@ public class BookingDetailDAO {
 
     private static final String GET_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE bookingID like ?  ";
-    private static final String GET_LIST_BOOKING_DETAIL_BY_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
+    private static final String GET_LIST_BOOKING_DETAIL_BY_FIELD_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, playDate, status "
             + "FROM tblBookingDetail WHERE fieldID like  ? ";
 
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, status "
@@ -196,7 +194,7 @@ public class BookingDetailDAO {
         return bookingDetails;
     }
 
-    public List<BookingDetail> getListBookingDetailByID(String id) throws SQLException {
+    public List<BookingDetail> getListBookingDetailByID(String fieldID) throws SQLException {
         List<BookingDetail> bookingDetails = new ArrayList<>();
         Connection connect = null;
         PreparedStatement ptm = null;
@@ -204,8 +202,8 @@ public class BookingDetailDAO {
         try {
             connect = DBUtils.getConnection();
             if (connect != null) {
-                ptm = connect.prepareStatement(GET_LIST_BOOKING_DETAIL_BY_ID);
-                ptm.setString(1, "%" + id + "%");
+                ptm = connect.prepareStatement(GET_LIST_BOOKING_DETAIL_BY_FIELD_ID);
+                ptm.setString(1, "%" + fieldID + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String bookingDetailID = rs.getString("bookingDetailID");
@@ -214,10 +212,9 @@ public class BookingDetailDAO {
                     BookingDAO bookingDAO = new BookingDAO();
                     Booking booking = bookingDAO.getBookingByID(getBookingID);
 
-                    String fieldID = rs.getString("fieldID");
-
+                    String getFieldID = rs.getString("fieldID");
                     FieldDAO fieldDAO = new FieldDAO();
-                    Field field = fieldDAO.getFieldByID(fieldID);
+                    Field field = fieldDAO.getFieldByID(getFieldID);
 
                     double fieldPrice = rs.getDouble("fieldPrice");
 

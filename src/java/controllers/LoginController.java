@@ -22,6 +22,7 @@ public class LoginController extends HttpServlet {
     public static final String ERROR = "login.jsp";
     public static final String USER_PAGE = "PrintFieldController";
     public static final String ADMIN_PAGE = "adminDashboard.jsp";
+    public static final String MANAGER_PAGE = "fieldOwnerDashboard.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -43,7 +44,6 @@ public class LoginController extends HttpServlet {
 //            List<City> listCitys = new ArrayList<>();
 //            CityDAO cityDao = new CityDAO();
 //            listCitys = cityDao.getAllCity();
-
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
@@ -55,15 +55,15 @@ public class LoginController extends HttpServlet {
                 //setAttribute citys
 
                 //setAttribute Fields
-                
                 request.setAttribute("FIELD", listFields);
-                
-                
+
                 //setAttribute category
                 if (roleID.equals("US")) {
                     url = USER_PAGE;
                 } else if (roleID.equals("AD")) {
                     url = ADMIN_PAGE;
+                } else if (roleID.equals("MA")) {
+                    url = MANAGER_PAGE;
                 } else {
                     request.setAttribute("ERROR_MESSAGE", "Wrong Role!");
                 }
