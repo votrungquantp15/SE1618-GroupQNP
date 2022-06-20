@@ -101,6 +101,26 @@ public class MainController extends HttpServlet {
     //Print User Field Detail
     private static final String PRINT_USER_FIELD_DETAIL = "UserPrintFieldDetail";
     private static final String PRINT_USER_FIELD_DETAIL_CONTROLLER = "UserPrintFieldDetailController";
+    
+    //Search food for manager
+    private static final String SEARCH_FOOD_BY_MANAGER = "SearchFoodByManager";
+    private static final String SEARCH_FOOD_BY_MANAGER_CONTROLLER = "SearchFoodByManagerController";
+    
+    //View Food List for manager
+    private static final String VIEW_FOOD_LIST = "ViewFoodList";
+    private static final String VIEW_FOOD_LIST_CONTROLLER = "ViewFoodListController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String DELETE_FOOD_BY_MANAGER = "DeleteFoodByManager";
+    private static final String DELETE_FOOD_BY_MANAGER_CONTROLLER = "DeleteFoodByManagerController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String UPDATE_FOOD_BY_MANAGER = "UpdateFoodByManager";
+    private static final String UPDATE_FOOD_BY_MANAGER_CONTROLLER = "UpdateFoodByManagerController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String CREATE_FOOD_BY_MANAGER = "CreateFoodByManager";
+    private static final String CREATE_FOOD_BY_MANAGER_CONTROLLER = "CreateFoodByManagerController";
 
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -191,6 +211,21 @@ public class MainController extends HttpServlet {
                     break;
                 case PRINT_USER_FIELD_DETAIL:
                     url = PRINT_USER_FIELD_DETAIL_CONTROLLER;
+                    break;
+                case SEARCH_FOOD_BY_MANAGER:
+                    url = SEARCH_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case VIEW_FOOD_LIST:
+                    url = VIEW_FOOD_LIST_CONTROLLER;
+                    break;
+                case DELETE_FOOD_BY_MANAGER:
+                    url = DELETE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case UPDATE_FOOD_BY_MANAGER:
+                    url = UPDATE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case CREATE_FOOD_BY_MANAGER:
+                    url = CREATE_FOOD_BY_MANAGER_CONTROLLER;
                     break;
             }
         

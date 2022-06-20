@@ -108,7 +108,7 @@ Chat box End
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
 
-            <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
+            <li><a href="MainController?action=ViewFoodList&viewFoodList=">Food Management</a></li>
             <li><a href="MainController?action=Print">Fields Management</a></li>
             <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
 
