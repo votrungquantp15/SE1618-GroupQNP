@@ -73,6 +73,14 @@
         <servlet-class>controllers.AdminIncomeManagement</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>DeleteSlotController</servlet-name>
+        <servlet-class>controllers.DeleteSlotController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <servlet-class>controllers.UpdateSlotController</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
     </servlet>
@@ -169,6 +177,14 @@
         <url-pattern>/AdminIncomeManagement</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
+        <servlet-name>DeleteSlotController</servlet-name>
+        <url-pattern>/DeleteSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <url-pattern>/UpdateSlotController</url-pattern>
+        </servlet-mapping>
+        <servlet-mapping>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <url-pattern>/UserPrintFieldDetailController</url-pattern>
     </servlet-mapping>

@@ -19,9 +19,8 @@ public class FieldDAO {
             + "FROM tblFields WHERE fieldID like ? ";
     private static final String PRINT_FIELD_DETAIL_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE fieldName like ?";
 
-//    private static final String GET_ALL_INFO = "SELECT fieldID, fieldName, description, image, categoryFieldID, UserID, LocationID, cityID, status "
-//            + "FROM tblFields WHERE fieldID like ? ";
-    private static final String GET_FIELD = "SELECT fieldName FROM tblFields WHERE fieldID like ?";
+
+    private static final String PRINT_ALL_OWNER_FIELD = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE userID like ? ";
     private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields";
     private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE fieldId like ?";
     private static final String UPDATE_STATUS_FIELD_BY_ADMIN = "UPDATE tblFields SET fieldName = ?, [description] = ?, [image] = ?, categoryFieldId = ?, price = ?, userId = ?, locationId = ?, cityId = ?, [status] = ? WHERE fieldId = ?";
@@ -174,6 +173,58 @@ public class FieldDAO {
                     City cityID = city.getCityByID(id_of_city);
                     String status = rs.getString("status");
                     listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listField;
+    }
+    
+    public List<Field> getListFieldByUserID(String userID) throws SQLException {
+        List<Field> listField = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(PRINT_ALL_OWNER_FIELD);
+                ptm.setString(1, userID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String fieldId = rs.getString("fieldId");
+                    String fieldName = rs.getString("fieldName");
+                    String description = rs.getString("description");
+                    String image = rs.getString("image");
+                    String id_of_field_category = rs.getString("categoryFieldId");
+                    FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+                    
+                    double price = rs.getDouble("price");
+                    String getUserID = rs.getString("userID");
+                    UserDAO userDAO = new UserDAO();
+                    User user = userDAO.getUserByID(getUserID);
+                    
+                    String id_of_location = rs.getString("locationId");
+                    LocationDAO location = new LocationDAO();
+                    Location locationID = location.getLocationByID(id_of_location);
+                    
+                    String id_of_city = rs.getString("cityId");
+                    CityDAO city = new CityDAO();
+                    City cityID = city.getCityByID(id_of_city);
+                    
+                    String status = rs.getString("status");
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, user, locationID, cityID, status));
                 }
             }
         } catch (Exception e) {

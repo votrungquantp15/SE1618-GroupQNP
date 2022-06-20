@@ -5,32 +5,27 @@
  */
 package controllers;
 
-import dao.SlotDAO;
-import dto.Slot;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SearchSlotController extends HttpServlet {
-
-    private static final String SUCCESS = "slotManagementAdmin.jsp";
-    private static final String ERROR = "slotManagementAdmin.jsp";
-
+/**
+ *
+ * @author NITRO 5
+ */
+public class UpdateSlotController extends HttpServlet {
+    private static final String SUCCESS = "SearchSlotController";
+    private static final String ERROR = "SearchSlotController";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
-            SlotDAO slotDAO = new SlotDAO();
-            List<Slot> list = slotDAO.getListSlotByID(search);
-            request.setAttribute("LIST_SLOT", list);
-            url = SUCCESS;
+            
         } catch (Exception e) {
-            log("Error at SearchSlotController: " + e.toString());
+            log("Error at UpdateSlotController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -26,10 +26,10 @@
     </head>
     <body>
 
-        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
             <c:redirect url="login.jsp"></c:redirect>
         </c:if>
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
 
         <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
         <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>

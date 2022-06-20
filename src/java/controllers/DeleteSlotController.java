@@ -8,29 +8,42 @@ package controllers;
 import dao.SlotDAO;
 import dto.Slot;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class SearchSlotController extends HttpServlet {
+/**
+ *
+ * @author NITRO 5
+ */
+public class DeleteSlotController extends HttpServlet {
 
-    private static final String SUCCESS = "slotManagementAdmin.jsp";
-    private static final String ERROR = "slotManagementAdmin.jsp";
+    private static final String SUCCESS = "SearchSlotController";
+    private static final String ERROR = "SearchSlotController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String search = request.getParameter("search");
+            String slotID = request.getParameter("slotID");
             SlotDAO slotDAO = new SlotDAO();
-            List<Slot> list = slotDAO.getListSlotByID(search);
-            request.setAttribute("LIST_SLOT", list);
-            url = SUCCESS;
+            Slot slot = slotDAO.getSlotByID(slotID);
+            String status = request.getParameter("status");
+            if ("True".equals(status)) {
+                boolean check = slotDAO.deleteSlotByID(slot.getSlotId(), status);
+                if (check == true) {
+                    request.setAttribute("DELETE_SUCCESS", "Delete " + slotID + " Successfully");
+                    url = SUCCESS;
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete " + slotID + " Failed");
+                }
+            } else {
+                request.setAttribute("DELETE_UNSUCCESS", slot.getSlotId() + " Already Has Status: " + status );
+            }
         } catch (Exception e) {
-            log("Error at SearchSlotController: " + e.toString());
+            log("Error at DeleteSlotController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

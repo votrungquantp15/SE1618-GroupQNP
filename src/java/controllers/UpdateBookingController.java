@@ -10,7 +10,6 @@ import dao.BookingDetailDAO;
 import dto.Booking;
 import dto.BookingDetail;
 import java.io.IOException;
-import java.time.LocalDateTime;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
