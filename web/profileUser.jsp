@@ -48,7 +48,19 @@
                                 <div class="col-md-12"><label class="labels">Mobile Number</label><input type="text" required="" name="phone" class="form-control" placeholder="enter phone number" value="${requestScope.PROFILE_USER.phone}" ></div>
                                 <div class="col-md-12"><label class="labels">Email</label><input readonly="" type="email" required="" class="form-control" name="email" placeholder="Email" value="${requestScope.PROFILE_USER.email}" ></div>
                                 <div class="col-md-12"><label class="labels">Address</label><input type="text" required=""  class="form-control" name="address" placeholder="enter address line 1" value="${requestScope.PROFILE_USER.address}"></div>
-                                <div class="mt-5 text-center"><button class="btn btn-primary profile-button" type="submit" name="action" value="UpdateProfileUser" >Save Profile</button></div>
+                                <div class="mt-5 text-center">
+                                    <a class="btn btn-primary profile-button" href="
+                                       <c:choose>
+                                           <c:when test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'US'}">
+                                               adminDashboard.jsp
+                                           </c:when>
+                                           <c:when test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+                                               MainController?action=Print
+                                           </c:when>
+                                       </c:choose>
+                                       ">Back</a>
+                                    <button class="btn btn-primary profile-button" type="submit" name="action" value="UpdateProfileUser" >Save Profile</button>
+                                </div>
                             </div>
                         </form>
                     </div>
