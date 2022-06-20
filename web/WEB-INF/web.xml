@@ -84,6 +84,26 @@
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintCityController</servlet-name>
+        <servlet-class>controllers.PrintCityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCityByAdminController</servlet-name>
+        <servlet-class>controllers.SearchCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCityByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCityByAdminController</servlet-name>
+        <servlet-class>controllers.DeleteCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateCityByAdminController</servlet-name>
+        <servlet-class>controllers.CreateCityByAdminController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -167,6 +187,26 @@
         <servlet-mapping>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <url-pattern>/UserPrintFieldDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintCityController</servlet-name>
+        <url-pattern>/PrintCityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCityByAdminController</servlet-name>
+        <url-pattern>/SearchCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCityByAdminController</servlet-name>
+        <url-pattern>/UpdateCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCityByAdminController</servlet-name>
+        <url-pattern>/DeleteCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCityByAdminController</servlet-name>
+        <url-pattern>/CreateCityByAdminController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

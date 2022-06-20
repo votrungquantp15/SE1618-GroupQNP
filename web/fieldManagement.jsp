@@ -1,4 +1,4 @@
-/<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <head>
@@ -68,8 +68,8 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                                <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
+                                                                <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <div class="input-group-prepend">
@@ -81,7 +81,7 @@
                                                             <option value="City" <c:if test="${param.searchBy eq 'City'}">selected</c:if>>City</option>
                                                             </select>
                                                         </div>
-                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search by name">
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
                                                     </div>
@@ -90,7 +90,7 @@
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: green"> ${requestScope.CREATE_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
@@ -157,35 +157,35 @@
 
                                                                 <tr>
                                                                     <th>Field Name:</th>
-                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" required=""></th>
+                                                                    <th class="col-10"><input class="col-12" title="Input information here" type="text" name="fieldName" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Description:</th>
-                                                                    <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description"></textarea></th>
+                                                                    <th><textarea title="Input information here" class="col-12" cols="500" rows="3" name="description"></textarea></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Image:</th>
-                                                                    <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image"></textarea></th>
+                                                                    <th><textarea title="Input information here" class="col-12" rows="6" name="image"></textarea></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Field Category:</th>
-                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="categoryFieldId" required=""></th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="categoryFieldId" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Field Price:</th>
-                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="price" required=""></th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="price" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Field Owner:</th>
-                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="userId" required=""></th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="userId" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Address:</th>
-                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="locationId" required=""></th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationId" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>City:</th>
-                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="cityId" required=""></th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="cityId" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th></th>
@@ -221,6 +221,5 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
-    <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

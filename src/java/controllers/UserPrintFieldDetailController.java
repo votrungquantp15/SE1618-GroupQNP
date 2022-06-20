@@ -24,7 +24,7 @@ public class UserPrintFieldDetailController extends HttpServlet {
             request.setAttribute("FIELD_DETAIL", listField);
             url = SUCCESS;
         } catch (Exception e) {
-            log("Error at PrintFieldDeatailController: " + e.toString());
+            log("Error at UserPrintFieldDetailController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
