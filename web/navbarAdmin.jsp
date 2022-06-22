@@ -107,7 +107,7 @@ Chat box End
                     <li><a href="MainController?action=Print">Field</a></li>
                     <li><a href="#">Field Category</a></li>
                     <li><a href="MainController?action=PrintCity">City</a></li>
-                    <li><a href="#">Location</a></li>
+                    <li><a href="MainController?action=PrintLocation">Location</a></li>
                     <li><a href="#">Food</a></li>
                 </ul>
             </li>
