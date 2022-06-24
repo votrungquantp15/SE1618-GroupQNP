@@ -56,13 +56,13 @@ public class CreateFieldController extends HttpServlet {
             City cityID = city.getCityByID(id_of_city);
 
             boolean checkValidation = true;
-            if (fieldName.length() <= 0 || fieldName.length() >= 15) {
+            if (fieldName.trim().length() == 0 || fieldName.length() >= 15) {
                 request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be < 15");
                 checkValidation = false;
             }
 
-            if (description.length() <= 0) {
-                request.setAttribute("CREATE_ERROR", "Description cannot be left blank");
+            if (image.trim().length() == 0) {
+                request.setAttribute("CREATE_ERROR", "Image cannot be left blank");
                 checkValidation = false;
             }
 

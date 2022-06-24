@@ -29,7 +29,7 @@ public class UpdateFoodByManagerController extends HttpServlet {
             foodName = URLEncoder.encode(foodName, "ISO-8859-1");
             foodName = URLDecoder.decode(foodName, "UTF-8");       
             String image = request.getParameter("image");
-            String foodCate = request.getParameter("foodCate");
+            String foodCate = request.getParameter("categoryFoodId");
             FoodCategoryDAO fCate = new FoodCategoryDAO();
             FoodCategory f_Cate = fCate.getFoodCategoryByID(foodCate);
             String status = request.getParameter("status");

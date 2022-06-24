@@ -38,28 +38,35 @@ public class UpdateProfileUserController extends HttpServlet {
             Date localDate = java.sql.Date.valueOf(todayDate);
             Date prevDate = localDate;
 
-            String userID = request.getParameter("userID");
-            double time = TimeUnit.MILLISECONDS.toDays(prevDate.getTime() - currentDate.getTime()) ;
-            if (time <= 3650) {
-                request.setAttribute("UPDATE_PROFILE_FAIL", "10 tuổi trở lên để có thể dùng Web, Cập nhật thất bại");
-                user = userDAO.getUserByID(userID);
-                request.setAttribute("PROFILE_USER", user);
-                request.getRequestDispatcher(url).forward(request, response);
-            } else {
-                String dateUpdate = formatDate.format(currentDate.getTime());
-                String phone = request.getParameter("phone");
-                String email = request.getParameter("email");
-                String address = request.getParameter("address");
-                address = URLEncoder.encode(address, "ISO-8859-1");
-                address = URLDecoder.decode(address, "UTF-8");
-                user = new User(userID, name, address, null, dateUpdate, phone, email, "", "", null, "");
-                check = userDAO.updateProfileUser(user);
+            boolean checkValidation = true;
+            if (name.trim().length() == 0) {
+                request.setAttribute("UPDATE_ERROR", "Field name cannot be left blank");
+                checkValidation = false;
             }
+            if (checkValidation) {
+                String userID = request.getParameter("userID");
+                double time = TimeUnit.MILLISECONDS.toDays(prevDate.getTime() - currentDate.getTime());
+                if (time <= 3650) {
+                    request.setAttribute("UPDATE_PROFILE_FAIL", "10 tuổi trở lên để có thể dùng Web, Cập nhật thất bại");
+                    user = userDAO.getUserByID(userID);
+                    request.setAttribute("PROFILE_USER", user);
+                    request.getRequestDispatcher(url).forward(request, response);
+                } else {
+                    String dateUpdate = formatDate.format(currentDate.getTime());
+                    String phone = request.getParameter("phone");
+                    String email = request.getParameter("email");
+                    String address = request.getParameter("address");
+                    address = URLEncoder.encode(address, "ISO-8859-1");
+                    address = URLDecoder.decode(address, "UTF-8");
+                    user = new User(userID, name, address, null, dateUpdate, phone, email, "", "", null, "");
+                    check = userDAO.updateProfileUser(user);
+                }
 
-            if (check == true) {
-                request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));
-                request.setAttribute("UPDATE_PROFILE_SUCCESS", "Cập nhật thông tin thành công");
-                url = UPDATE_PROFILE_USER_SUCCESS;
+                if (check == true) {
+                    request.setAttribute("PROFILE_USER", userDAO.getUserByID(userID));
+                    request.setAttribute("UPDATE_PROFILE_SUCCESS", "Cập nhật thông tin thành công");
+                    url = UPDATE_PROFILE_USER_SUCCESS;
+                }
             }
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());

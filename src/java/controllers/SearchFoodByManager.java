@@ -36,7 +36,7 @@ public class SearchFoodByManager extends HttpServlet {
             } else 
                 request.setAttribute("SEARCH_FAILED", "KHÔNG TÌM THẤY THỨC ĂN NÀY");
         } catch (Exception e) {
-            log("Error at SearchAccountByAdminController" + e.toString());
+            log("Error at SearchFoodByManagerController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

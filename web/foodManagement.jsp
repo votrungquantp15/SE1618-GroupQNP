@@ -62,7 +62,7 @@
                                                         <input name="searchFoodByManager" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodByManager}">                                                                                             
                                                 </div>
                                                 <div class ="col-md-6">
-                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByManager">SEARCH</button>
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodByManager">SEARCH</button>
                                                 </div>
                                             </div>                              
                                         </div>                                                                                  
@@ -101,7 +101,7 @@
                                                         <td>
                                                             <div class="d-flex">
                                                                 
-                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
+                                                                <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
                                                                 <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
                                                             </div>
@@ -149,6 +149,5 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

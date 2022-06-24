@@ -19,12 +19,13 @@ import utils.DBUtils;
  */
 public class FoodDAO {
 
-    private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodID, status "
+    private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodId, status "
             + "FROM tblFoods WHERE foodID like ?";
-    private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, foodCate, status FROM tblFoods WHERE foodName LIKE ? ";
+    private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodName LIKE ? ";
+    private static final String SEARCH_FOOD_BY_ID_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodId LIKE ? ";
     private static final String DELETE_FOOD = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String VIEW_FOOD_LIST = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods";
-    private static final String UPDATE_FOOD = "UPDATE tblFoods SET foodName = ?, image = ?, categoryFoodName = ?, status = ? WHERE foodId = ?";
+    private static final String UPDATE_FOOD = "UPDATE tblFoods SET foodName = ?, image = ?, categoryFoodId = ?, status = ? WHERE foodId = ?";
 
     public Food getFoodByID(String foodID) throws SQLException {
         Food food = new Food();
@@ -42,7 +43,7 @@ public class FoodDAO {
                     String foodName = rs.getString("foodName");
                     String image = rs.getString("image");
 
-                    String categoryFoodID = rs.getString("categoryFoodID");
+                    String categoryFoodID = rs.getString("categoryFoodId");
                     FoodCategoryDAO foodCategoryDAO = new FoodCategoryDAO();
                     FoodCategory foodCategory = foodCategoryDAO.getFoodCategoryByID(categoryFoodID);
 
@@ -76,6 +77,54 @@ public class FoodDAO {
             try {
                 if (conn != null) {
                     ptm = conn.prepareStatement(SEARCH_FOOD_BY_NAME_FOR_MANAGER);
+                    ptm.setString(1, "%" + search + "%");
+                    rs = ptm.executeQuery();
+
+                    while (rs.next()) {
+                        String foodId = rs.getString("foodId");
+                        String foodName = rs.getString("foodName");
+                        String image = rs.getString("image");
+                        String foodCate = rs.getString("categoryFoodId");
+                        FoodCategoryDAO fCate = new FoodCategoryDAO();
+                        FoodCategory fCateId = fCate.getFoodCategoryByID(foodCate);
+                        String status = rs.getString("status");
+                        if (status.equals("1")) {
+                            status = "Active";
+                        } else {
+                            status = "In-active";
+                        }
+                        list.add(new Food(foodId, foodName, image, fCateId, status));
+                    }
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    public List<Food> searchFoodByIdForManager(String search) throws SQLException {
+        List<Food> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            try {
+                if (conn != null) {
+                    ptm = conn.prepareStatement(SEARCH_FOOD_BY_ID_FOR_MANAGER);
                     ptm.setString(1, "%" + search + "%");
                     rs = ptm.executeQuery();
 

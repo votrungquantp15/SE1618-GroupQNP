@@ -2,8 +2,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-
-
 <head>
     <meta charset="utf-8">
     <meta name="keywords" content="">
@@ -85,7 +83,6 @@
                                         <table class="table table-responsive-md">
                                             <thead>
                                                 <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
                                                     <th><strong>User ID</strong></th>
                                                     <th><strong>Full Name</strong></th>
                                                     <th><strong>Address</strong></th>
@@ -104,7 +101,6 @@
                                                 <tr>
                                                     <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}" varStatus="counter">
                                                     <tr>
-                                                        <td><strong>${counter.count}</strong></td>
                                                         <td>${user.userID}</td>
                                                         <td>${user.fullName}</td>
                                                         <td>${user.address}</td>
@@ -128,8 +124,9 @@
 
                                                 </tr>
                                         </table>
-
-
+                                        <c:forEach begin="1" end="${END_PAGE}" var ="page">
+                                            <a href="MainController?action=AccountList&index=${page}">${page}</a>
+                                        </c:forEach>
                                     </div>
                                 </div>
                             </div>
@@ -166,6 +163,5 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

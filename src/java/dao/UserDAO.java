@@ -30,9 +30,9 @@ public class UserDAO {
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
 
     private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
-    
+
     // check email tồn tại
-    private static final String  CHECK_EMAIL_EXISTED = "SELECT email FROM tblUsers WHERE email = ?" ;
+    private static final String CHECK_EMAIL_EXISTED = "SELECT email FROM tblUsers WHERE email = ?";
 
     // Update Profile User
     public User getUserByID(String userID) throws SQLException {
@@ -206,12 +206,12 @@ public class UserDAO {
                 ptm.setString(9, cus.getStatus());
                 ptm.setString(10, cus.getPassword());
                 String a1 = cus.getUserID();
-                String a2 =cus.getFullName();
+                String a2 = cus.getFullName();
                 String a3 = cus.getCity().getCityId();
                 String a4 = cus.getBirth();
                 String a5 = cus.getPhone();
                 String a6 = cus.getAccName();
-                String a7 =cus.getEmail();
+                String a7 = cus.getEmail();
                 String a8 = cus.getRole().getRoleId();
                 String a9 = cus.getStatus();
                 String a10 = cus.getPassword();
@@ -604,8 +604,8 @@ public class UserDAO {
         }
         return list;
     }
-    
-    public boolean checkEmailExisted (String email) throws SQLException {
+
+    public boolean checkEmailExisted(String email) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -635,7 +635,71 @@ public class UserDAO {
         }
         return check;
     }
-        
+
+    public List<User> pagingAccount(int index) {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<User> list = new ArrayList<>();
+        String query = "SELECT * FROM tblUsers\n"
+                + "ORDER BY userId\n"
+                + "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setInt(1, (index - 1) * 10);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                String userID = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String address = rs.getString("address");
+                String cityId = rs.getString("cityId");
+                CityDAO cityDao = new CityDAO();
+                City city = cityDao.getCityByID(cityId);
+                String birthday = rs.getString("birthday");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String accName = rs.getString("accName");
+                String password = rs.getString("password");
+                String id_of_role = rs.getString("roleID");
+                RoleDAO role = new RoleDAO();
+                Role roleID = role.getRoleByID(id_of_role);
+                String status = rs.getString("status");
+                if (status.equals("1")) {
+                    status = "Active";
+                } else {
+                    status = "In-active";
+                }
+                list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
+            }
+        } catch (Exception e) {
+        }
+        return list;
     }
 
+    public int getTotalAccount() throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String query = "select count(*) from tblUsers";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
 
+        }
+        return 0;
+
+    }
+    public static void main(String[] args) {
+        UserDAO dao = new UserDAO();
+        List<User> list = dao.pagingAccount(1);
+        for (User user : list) {
+            System.out.println(user);
+        }
+    }
+}

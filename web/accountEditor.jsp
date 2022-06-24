@@ -106,7 +106,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Account Name</label>
-                                            <input type="text" class="form-control" name="accName" value="${user.accName}" required=""/>
+                                            <input type="text" class="form-control" name="accName" value="${user.accName}" readonly=""/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Password</label>
@@ -169,6 +169,5 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
-    <script src="js/styleSwitcher.js"></script>
 </body>
 </html>
