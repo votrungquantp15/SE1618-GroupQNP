@@ -1,15 +1,8 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
 import dao.FieldDAO;
-import dao.UserDAO;
-import dto.City;
 import dto.Field;
-import dto.FieldCategory;
-import dto.User;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,7 +24,7 @@ public class SearchFieldByAdminController extends HttpServlet {
             String status = request.getParameter("status");
             FieldDAO fieldDao = new FieldDAO();
             List<Field> listField = fieldDao.searchFieldByAdmin(searchBy, fieldName, status);
-            if (listField != null) {
+            if (!listField.isEmpty()) {
                 url = SUCCESS;
                 request.setAttribute("LIST_FIELD", listField);
             } else {

@@ -72,93 +72,98 @@
                                                                 <div class="card-header">
                                                                     <h3><strong>Field</strong></h3>
                                                                 </div>
-                                                                <div class="card-body">
-                                                                    <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
-                                                                    <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                                                    <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                                                                    <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                                                                    <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
-                                                                    <div class="table row">
-                                                                        <table class="col-12">
-                                                                            <form action="MainController" method="POST" accept-charset="utf-8"> 
-                                                                                <tr>
-                                                                                    <th>Field Id:</th>
-                                                                                    <th style="color: black">${requestScope.FIELD_DETAIL.fieldId}</th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Field Name:</th>
-                                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" value="${requestScope.FIELD_DETAIL.fieldName}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Description:</th>
-                                                                                    <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description">${requestScope.FIELD_DETAIL.description}</textarea></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Image:</th>
-                                                                                    <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image">${requestScope.FIELD_DETAIL.image}</textarea></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Field Category:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="categoryFieldId" value="${requestScope.FIELD_DETAIL.fieldCate.fieldCateId}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Field Price:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="price" value="${requestScope.FIELD_DETAIL.price}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Field Owner:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="userId" value="${requestScope.FIELD_DETAIL.user.userID}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Address:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="locationId" value="${requestScope.FIELD_DETAIL.location.locationId}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>City:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="cityId" value="${requestScope.FIELD_DETAIL.city.cityId}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Status:</th>
-                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="status" value="${requestScope.FIELD_DETAIL.status}" required=""></th>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>
-                                                                                        <div class="d-flex">
-                                                                                            <input style="color: white" class="btn btn-primary btn-sm" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
-                                                                                            <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
-                                                                                            <c:url var="delete" value="MainController">
-                                                                                                <c:param name="action" value="DeleteField"></c:param>
-                                                                                                <c:param name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"></c:param>
-                                                                                            </c:url>
-                                                                                            <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+                                                                <div class="row">
+                                                                    <div class="card-body col-6 col-sm-5">
+                                                                        <img src="${requestScope.FIELD_DETAIL.image}" alt="Field image" width="100%" height="50%">
+                                                                    </div>
+                                                                    <div class="card-body col-6 col-sm-7">
+                                                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
+                                                                        <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                                                                        <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                                                                        <p style="color: red">${requestScope.UPDATE_ERROR} </p>
+                                                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                                                        <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
+                                                                        <div class="table row">
+                                                                            <table class="col-12">
+                                                                                <form action="MainController" method="POST" accept-charset="utf-8"> 
+                                                                                    <tr>
+                                                                                        <th style="color: black">Field Id:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.fieldId}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Field Name:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.fieldName}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Description:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.description}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Image:</th>
+                                                                                        <th style="word-break: break-all">${requestScope.FIELD_DETAIL.image}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Field Category:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.fieldCate.fieldCateId}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Field Price:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.price}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Field Owner:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.user.userID}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Address:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.location.locationId}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">City:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.city.cityId}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Status:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.status}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th></th>
+                                                                                        <th>
+                                                                                            <div class="d-flex justify-content-end">
+                                                                                                <button class="btn btn-primary btn-sm" type="button" data-toggle="modal" data-target="#updateField">Update field</button>
+
+                                                                                                <c:url var="delete" value="MainController">
+                                                                                                    <c:param name="action" value="DeleteField"></c:param>
+                                                                                                    <c:param name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"></c:param>
+                                                                                                </c:url>
+                                                                                                <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+
+                                                                                            </div>
+                                                                                            <div class="d-flex justify-content-end">
+                                                                                                <a class="btn btn-primary mt-2" href="MainController?action=Print">Back</a>
+                                                                                            </div>
+                                                                                        </th>
+                                                                                    </tr>
+                                                                            </table>
+                                                                            <div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
+                                                                                <div class="modal-dialog">
+                                                                                    <div class="modal-content">
+                                                                                        <div class="modal-header">
+                                                                                            <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+                                                                                            <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
                                                                                         </div>
-                                                                                        <div class="d-flex">
-                                                                                            <form>
-                                                                                                <input class="btn btn-primary btn-sm mt-2" title="Click here to back previous page" type="button" value="Back" onclick="history.go(-1)">
-                                                                                            </form>
+                                                                                        <div class="modal-body">
+                                                                                            Do you really want to delete?
                                                                                         </div>
-                                                                                    </th>
-                                                                                    <th></th>
-                                                                                </tr>
-                                                                        </table>
-                                                                        <div class="modal fade" id="deleteConfirm" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
-                                                                            <div class="modal-dialog">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header">
-                                                                                        <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
-                                                                                        <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                                                                                    </div>
-                                                                                    <div class="modal-body">
-                                                                                        Do you really want to delete?
-                                                                                    </div>
-                                                                                    <div class="modal-footer">
-                                                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                        <a class="btn btn-primary" href="${delete}">Accept</a>
+                                                                                        <div class="modal-footer">
+                                                                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                            <a class="btn btn-primary" href="${delete}">Accept</a>
+                                                                                        </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
+                                                                            </form>
                                                                         </div>
-                                                                        </form>
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -174,15 +179,88 @@
                     </div>
                 </div>
             </div> 
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="updateField" tabindex="-1" aria-labelledby="updateField" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Update field</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+
+                                                                <tr>
+                                                                    <th>Field Name:</th>
+                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" value="${requestScope.FIELD_DETAIL.fieldName}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Description:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description">${requestScope.FIELD_DETAIL.description}</textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Image:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image">${requestScope.FIELD_DETAIL.image}</textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Category:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="categoryFieldId" value="${requestScope.FIELD_DETAIL.fieldCate.fieldCateId}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Price:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="price" value="${requestScope.FIELD_DETAIL.price}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Owner:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="userId" value="${requestScope.FIELD_DETAIL.user.userID}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Address:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="locationId" value="${requestScope.FIELD_DETAIL.location.locationId}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>City:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="cityId" value="${requestScope.FIELD_DETAIL.city.cityId}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Status:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="status" value="${requestScope.FIELD_DETAIL.status}" required=""></th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input style="color: white" class="btn btn-primary" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
+                                <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
-        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="js/plugins-init/datatables.init.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
+    </div>
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
 </body>
 </html>

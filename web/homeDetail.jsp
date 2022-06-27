@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
     <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
     <!-- main css -->
-    <link rel="stylesheet" href="css/homestyle.css">
+    <link rel="stylesheet" href="css/homestyles.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>

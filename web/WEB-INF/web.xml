@@ -84,6 +84,46 @@
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintCityController</servlet-name>
+        <servlet-class>controllers.PrintCityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchCityByAdminController</servlet-name>
+        <servlet-class>controllers.SearchCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateCityByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCityByAdminController</servlet-name>
+        <servlet-class>controllers.DeleteCityByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateCityController</servlet-name>
+        <servlet-class>controllers.CreateCityController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintLocationController</servlet-name>
+        <servlet-class>controllers.PrintLocationController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchLocationByAdminController</servlet-name>
+        <servlet-class>controllers.SearchLocationByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteLocationByAdminController</servlet-name>
+        <servlet-class>controllers.DeleteLocationByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateLocationByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateLocationByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateLocationController</servlet-name>
+        <servlet-class>controllers.CreateLocationController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -163,10 +203,50 @@
     <servlet-mapping>
         <servlet-name>UpdateSlotController</servlet-name>
         <url-pattern>/UpdateSlotController</url-pattern>
-        </servlet-mapping>
-        <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <url-pattern>/UserPrintFieldDetailController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintCityController</servlet-name>
+        <url-pattern>/PrintCityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchCityByAdminController</servlet-name>
+        <url-pattern>/SearchCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateCityByAdminController</servlet-name>
+        <url-pattern>/UpdateCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCityByAdminController</servlet-name>
+        <url-pattern>/DeleteCityByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateCityController</servlet-name>
+        <url-pattern>/CreateCityController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintLocationController</servlet-name>
+        <url-pattern>/PrintLocationController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchLocationByAdminController</servlet-name>
+        <url-pattern>/SearchLocationByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteLocationByAdminController</servlet-name>
+        <url-pattern>/DeleteLocationByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateLocationByAdminController</servlet-name>
+        <url-pattern>/UpdateLocationByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateLocationController</servlet-name>
+        <url-pattern>/CreateLocationController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
