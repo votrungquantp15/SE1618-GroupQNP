@@ -1,51 +1,49 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.UserDAO;
-import dto.User;
+import dao.FoodCategoryDAO;
+import dao.FoodDAO;
+import dto.FoodCategory;
+import dto.Food;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author predator
- */
-@WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
-public class DeleteAccountByAdminController extends HttpServlet {
+@WebServlet(name = "UpdateFoodByManagerController", urlPatterns = {"/UpdateFoodByManagerController"})
+public class UpdateFoodByManagerController extends HttpServlet {
 
-    private static final String ERROR = "AccountListController";
-    private static final String SUCCESS = "AccountListController";
+    public static final String ERROR = "FoodEditorController";
+    public static final String SUCCESS = "FoodEditorController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");            ;
-            HttpSession session = request.getSession();
-            User loginUser = (User) session.getAttribute("LOGIN_USER");
-            if (userID.equals(loginUser.getUserID())) {
-                request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
+            String foodID = request.getParameter("foodId");
+            String foodName = request.getParameter("foodName");
+            foodName = URLEncoder.encode(foodName, "ISO-8859-1");
+            foodName = URLDecoder.decode(foodName, "UTF-8");       
+            String image = request.getParameter("image");
+            String foodCate = request.getParameter("categoryFoodId");
+            FoodCategoryDAO fCate = new FoodCategoryDAO();
+            FoodCategory f_Cate = fCate.getFoodCategoryByID(foodCate);
+            String status = request.getParameter("status");
+            FoodDAO dao = new FoodDAO();
+            Food food = new Food(foodID, foodName, image, f_Cate, status);
+            boolean checkUpdate = dao.updateFood(food);
+            if (checkUpdate) {                
+                url = SUCCESS;
+                request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {
-                UserDAO dao = new UserDAO();                   
-                boolean check = dao.deleteUser(userID);
-                if (check) {
-                    request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
-                    url = SUCCESS;               
-                } else 
-                    request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
+                request.setAttribute("UPDATE_FAILED", "Cập nhật thất bại!!!");
             }
         } catch (Exception e) {
-            log("Error at DeleteAccountByAdminController: " + e.toString());
+            log("Error at UpdateFoodByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

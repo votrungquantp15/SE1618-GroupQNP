@@ -5,48 +5,54 @@
  */
 package controllers;
 
+import static controllers.AccountListController.SUCCESS;
+import dao.FoodDAO;
 import dao.UserDAO;
+import dto.Food;
 import dto.User;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
 /**
  *
  * @author predator
  */
-@WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
-public class DeleteAccountByAdminController extends HttpServlet {
+@WebServlet(name = "ViewFoodListController", urlPatterns = {"/ViewFoodListController"})
+public class ViewFoodListController extends HttpServlet {
 
-    private static final String ERROR = "AccountListController";
-    private static final String SUCCESS = "AccountListController";
-
+    private static final String ERROR = "foodManagement.jsp";
+    private static final String SUCCESS = "foodManagement.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        
         try {
-            String userID = request.getParameter("userID");            ;
-            HttpSession session = request.getSession();
-            User loginUser = (User) session.getAttribute("LOGIN_USER");
-            if (userID.equals(loginUser.getUserID())) {
-                request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
-            } else {
-                UserDAO dao = new UserDAO();                   
-                boolean check = dao.deleteUser(userID);
-                if (check) {
-                    request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
-                    url = SUCCESS;               
-                } else 
-                    request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
+            String indexPage = request.getParameter("index");
+            if(indexPage == null)
+                indexPage="1";
+            int index = Integer.parseInt(indexPage);
+            FoodDAO dao = new FoodDAO();
+            int count = dao.getTotalFood();
+            int endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
             }
+            List<Food> listFood = dao.pagingFood(index);
+            List<Food> list = dao.viewFoodList();
+            request.setAttribute("VIEW_FOOD", list);
+            request.setAttribute("VIEW_FOOD", listFood);
+            request.setAttribute("END_PAGE", endPage);
+            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at DeleteAccountByAdminController: " + e.toString());
+            log("Error at ViewFoodListController: " + e.toString());
         } finally {
+
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
