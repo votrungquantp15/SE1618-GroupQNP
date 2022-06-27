@@ -28,7 +28,7 @@
 
 <body>
 
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'US'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
     <!--*******************
@@ -119,11 +119,15 @@
                                                                 <div class="card-header">
                                                                     <h3><strong>Food</strong></h3>
                                                                 </div>
+
                                                                 <div class="card-body">
-                                                                    <p>Food Name: ${requestScope.BOOKING_DETAIL.foodDetail.food.foodName}</p>
-                                                                    <p>Food Total Price: ${requestScope.BOOKING_DETAIL.foodTotalPrice}</p>
-                                                                    <p>Food Total Quantity: ${requestScope.BOOKING_DETAIL.foodTotalQuantity}</p>
+                                                                    <c:forEach var="listFood" items="${requestScope.LIST_FOOD_DETAIL}">
+                                                                        <p>${listFood.foodDetail.food.foodName}</p>
+                                                                        <p>Số lượng: ${listFood.foodTotalQuantity} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Giá tiền: ${listFood.foodTotalPrice}</p>
+                                                                        <br>
+                                                                    </c:forEach>
                                                                 </div>
+
                                                             </div>
                                                         </div>
                                                     </div>

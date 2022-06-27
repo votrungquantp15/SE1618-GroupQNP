@@ -178,6 +178,13 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <ul class="pagination">
+                                            <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                <li>
+                                                    <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
