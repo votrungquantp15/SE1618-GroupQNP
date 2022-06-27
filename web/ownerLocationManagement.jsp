@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
 
@@ -48,7 +48,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
@@ -77,6 +77,7 @@
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchLocationByAdmin">Search</button>
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewLocation">Create new Location</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
@@ -140,7 +141,7 @@
                                                             <td> 
                                                                 <form action="MainController" method="POST" accept-charset="utf-8">
                                                                     <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                                             <div class="modal-content">
 
                                                                                 <div class="modal-header">
@@ -157,13 +158,8 @@
                                                                                                             <div class="table row">
                                                                                                                 <table class="col-12">
                                                                                                                     <tr>
-                                                                                                                        <th style="position: relative; top: 15px;">Status:</th>
-                                                                                                                        <th>
-                                                                                                                            <select class="form-control" name ="status">
-                                                                                                                                <option value="1">Active</option>
-                                                                                                                                <option value="0">In-Active</option>
-                                                                                                                            </select>
-                                                                                                                        </th>
+                                                                                                                        <th>Location Name:</th>
+                                                                                                                        <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="locationName" value="${location.locationName}" required=""></th>
                                                                                                                     </tr>
                                                                                                                 </table>
                                                                                                             </div>
@@ -197,6 +193,53 @@
                     </div>
                 </div>
             </div>
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="createNewLocation" tabindex="-1" aria-labelledby="createNewLocation" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new location</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+                                                                <tr>
+                                                                    <th>Location Name:</th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationName" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="action" value="CreateLocation"/>
+                                <input class="btn btn-primary" type="submit" value="Accept"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+
         </div>
     </div>
     <!-- Required vendors -->

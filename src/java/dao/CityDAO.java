@@ -16,9 +16,10 @@ public class CityDAO {
     private static final String CHECK_CITY_ID = "SELECT cityID FROM tblCity WHERE cityID = ?";
     private static final String CHECK_CITY_NAME = "SELECT cityName FROM tblCity WHERE cityName = ?";
     private static final String SEARCH_CITY_BY_ADMIN = "SELECT cityID, cityName, status FROM tblCity WHERE cityName like ? AND status like ?";
-    private static final String UPDATE_STATUS_CITY_BY_ADMIN = "UPDATE tblCity SET cityName = ?, [status] = ? WHERE cityID = ?";
+    private static final String UPDATE_STATUS_CITY_BY_ADMIN = "UPDATE tblCity SET [status] = ? WHERE cityID = ?";
+    private static final String UPDATE_CITY_BY_OWNER = "UPDATE tblCity SET cityName = ? WHERE cityID = ?";
     private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblCity SET [status] = 'false' WHERE cityID = ?";
-    private static final String CHECK_DELETE_CITY = "SELECT cityID FROM tblFields WHERE cityID = ?";
+    private static final String CHECK_EXIST_CITY = "SELECT cityID FROM tblFields WHERE cityID = ?";
     private static final String CREATE_CITY = "INSERT INTO tblCity(cityID, cityName) VALUES(?,?)";
 
     public City getCityByID(String cityID) throws SQLException {
@@ -39,7 +40,8 @@ public class CityDAO {
                         String getCityID = rs.getString("cityID");
                         String cityName = rs.getString("cityName");
                         String status = rs.getString("status");
-                        city = new City(getCityID, cityName, status);
+                        String statusAfter = changeNumberStatus(status);
+                        city = new City(getCityID, cityName, statusAfter);
                     }
                 }
             }
@@ -73,12 +75,8 @@ public class CityDAO {
                     String getCityID = rs.getString("cityID");
                     String cityName = rs.getString("cityName");
                     String status = rs.getString("status");
-                    if (status.equals("1")) {
-                        status = "Active";
-                    } else {
-                        status = "In-active";
-                    }
-                    listCity.add(new City(getCityID, cityName, status));
+                    String statusAfter = changeNumberStatus(status);
+                    listCity.add(new City(getCityID, cityName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -127,7 +125,7 @@ public class CityDAO {
         }
         return check;
     }
-    
+
     public boolean checkCityName(String cityName) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -175,7 +173,8 @@ public class CityDAO {
                     String cityID = rs.getString("cityID");
                     String cityName = rs.getString("cityName");
                     String statusOfCity = rs.getString("status");
-                    listCity.add(new City(cityID, cityName, statusOfCity));
+                    String statusAfter = changeNumberStatus(statusOfCity);
+                    listCity.add(new City(cityID, cityName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -193,8 +192,8 @@ public class CityDAO {
         }
         return listCity;
     }
-    
-    public boolean updateStatusCity(City city) throws SQLException {
+
+    public boolean updateStatusCity(String cityId, String status) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -202,9 +201,8 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_STATUS_CITY_BY_ADMIN);
-                ptm.setString(1, city.getCityName());
-                ptm.setString(2, city.getStatus());
-                ptm.setString(3, city.getCityId());
+                ptm.setString(1, status);
+                ptm.setString(2, cityId);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -219,6 +217,30 @@ public class CityDAO {
         return check;
     }
     
+    public boolean updateCityByOwner(City city) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_CITY_BY_OWNER);
+                ptm.setString(1, city.getCityName());
+                ptm.setString(2, city.getCityId());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+
     public boolean deleteCity(String cityID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -242,7 +264,7 @@ public class CityDAO {
         return check;
     }
 
-    public boolean checkDeleteCity(String cityID) throws SQLException {
+    public boolean checkExistCity(String cityID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -250,7 +272,7 @@ public class CityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(CHECK_DELETE_CITY);
+                ptm = conn.prepareStatement(CHECK_EXIST_CITY);
                 ptm.setString(1, cityID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
@@ -268,7 +290,7 @@ public class CityDAO {
         }
         return check;
     }
-    
+
     public String handleCityId() {
         int max = 999999;
         int min = 1;
@@ -288,24 +310,46 @@ public class CityDAO {
         } while (check);
         return cityID;
     }
-    
+
     public boolean createCity(City city) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
         try {
             conn = DBUtils.getConnection();
-            if(conn != null) {
+            if (conn != null) {
                 ptm = conn.prepareStatement(CREATE_CITY);
                 ptm.setString(1, city.getCityId());
                 ptm.setString(2, city.getCityName());
-                check = ptm.executeUpdate()>0?true:false;
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
         } finally {
-            if(ptm!= null) ptm.close();
-            if(conn!= null) conn.close();
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
         }
         return check;
+    }
+    
+    public String changeNumberStatus(String status) {
+        if (status.equals("1")) {
+            status = "Active";
+        } else {
+            status = "In-active";
+        }
+        return status;
+    }
+    
+    public String changeStringStatus(String status) {
+        if (status.equals("Active")) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return status;
     }
 }

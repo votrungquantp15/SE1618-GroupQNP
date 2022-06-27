@@ -12,7 +12,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Location Management</title>
+    <title>City Management</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -24,7 +24,7 @@
 </head>
 
 <body>
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
 
@@ -48,7 +48,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Locations Management</h4>
+                                        <h4 class="card-title">Citys Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -74,11 +74,12 @@
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchLocationByAdmin">Search</button>
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchCityByAdmin">Search</button>
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewCity">Create new city</button>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_CITY_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
                                             <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
@@ -95,8 +96,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Location ID</strong></th>
-                                                        <th><strong>Location Name</strong></th>
+                                                        <th><strong>City ID</strong></th>
+                                                        <th><strong>City Name</strong></th>
                                                         <th><strong>Status</strong></th>
                                                         <th><strong>Action</strong></th>
                                                         <th></th>
@@ -104,21 +105,21 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <c:forEach var="location" items="${requestScope.LIST_LOCATION}">
+                                                        <c:forEach var="city" items="${requestScope.LIST_CITY}">
                                                             <c:set var="counter" scope="page" value="${counter + 1}"/>
                                                         <tr>
                                                             <td><strong>${counter}</strong></td>
-                                                            <td>${location.locationId}</td>
-                                                            <td>${location.locationName}</td>
-                                                            <td>${location.status}</td>
+                                                            <td>${city.cityId}</td>
+                                                            <td>${city.cityName}</td>
+                                                            <td>${city.status}</td>
                                                             <td>
-                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateLocation${counter}"><i class="fa fa-pencil"></i></a>
+                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateCity${counter}"><i class="fa fa-pencil"></i></a>
 
                                                                 <c:url var="delete" value="MainController">
-                                                                    <c:param name="action" value="DeleteLocation"></c:param>
-                                                                    <c:param name="locationId" value="${location.locationId}"></c:param>
+                                                                    <c:param name="action" value="DeleteCity"></c:param>
+                                                                    <c:param name="cityId" value="${city.cityId}"></c:param>
                                                                 </c:url>
-                                                                <a title="Click here to delete location" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
+                                                                <a title="Click here to delete city" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
                                                                 <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -139,12 +140,12 @@
                                                             </td>
                                                             <td> 
                                                                 <form action="MainController" method="POST" accept-charset="utf-8">
-                                                                    <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                                    <div class="modal fade" id="updateCity${counter}" tabindex="-1" aria-labelledby="updateCity" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
                                                                             <div class="modal-content">
 
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update city</h5>
                                                                                     <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
                                                                                 </div>
                                                                                 <div class="modal-body" style="margin-top: -20px">
@@ -157,13 +158,8 @@
                                                                                                             <div class="table row">
                                                                                                                 <table class="col-12">
                                                                                                                     <tr>
-                                                                                                                        <th style="position: relative; top: 15px;">Status:</th>
-                                                                                                                        <th>
-                                                                                                                            <select class="form-control" name ="status">
-                                                                                                                                <option value="1">Active</option>
-                                                                                                                                <option value="0">In-Active</option>
-                                                                                                                            </select>
-                                                                                                                        </th>
+                                                                                                                        <th>City Name:</th>
+                                                                                                                        <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="cityName" value="${city.cityName}" required=""></th>
                                                                                                                     </tr>
                                                                                                                 </table>
                                                                                                             </div>
@@ -176,8 +172,8 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
-                                                                                    <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update city" type="submit" name="action" value="UpdateCity"/>
+                                                                                    <input type="hidden" name="id_city" value="${city.cityId}"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -197,6 +193,51 @@
                     </div>
                 </div>
             </div>
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="createNewCity" tabindex="-1" aria-labelledby="createNewCity" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new city</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+                                                                <tr>
+                                                                    <th>City Name:</th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="cityName" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="action" value="CreateCity"/>
+                                <input class="btn btn-primary" type="submit" value="Accept"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- Required vendors -->

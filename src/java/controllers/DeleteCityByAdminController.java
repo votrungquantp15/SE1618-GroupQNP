@@ -19,7 +19,7 @@ public class DeleteCityByAdminController extends HttpServlet {
         try {
             String cityId = request.getParameter("cityId");
             CityDAO cityDao = new CityDAO();
-            boolean checkDelete = cityDao.checkDeleteCity(cityId);
+            boolean checkDelete = cityDao.checkExistCity(cityId);
             if (checkDelete == false) {
                 boolean check = cityDao.deleteCity(cityId);
                 if (check) {
