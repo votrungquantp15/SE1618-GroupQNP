@@ -44,10 +44,19 @@ public class SearchBookingController extends HttpServlet {
         String roleID = loginUser.getRole().getRoleId();
         String url = ERROR;
         try {
+            String datefilter = request.getParameter("datefilter");
             String search = request.getParameter("search");
             String status = request.getParameter("status");
             String indexPage = request.getParameter("index");
+            
+            
+                String[] parts = datefilter.replaceAll("\\s", "").split("[\\W]");
 
+            int[] searchDate = new int[parts.length];
+            for (int i = 0; i < parts.length; i++) {
+                searchDate[i] = Integer.parseInt(parts[i]);
+            }
+            
             BookingDAO dao = new BookingDAO();
             if (indexPage == null) {
                 indexPage = "1";
@@ -56,7 +65,7 @@ public class SearchBookingController extends HttpServlet {
 
             if (ADMIN.equals(roleID)) {
                 String UserID = "U";
-                int count = dao.getTotalBooking(UserID, search, status);
+                int count = dao.getTotalBooking(UserID, searchDate, status);
                 int endPage = count / 10;
                 if (endPage == 0) {
                     endPage = 1;
@@ -64,13 +73,13 @@ public class SearchBookingController extends HttpServlet {
                 if (count % 10 != 0) {
                     endPage++;
                 }
-                List<Booking> list = dao.getListBookingByID(UserID, search, status, index);
+                List<Booking> list = dao.getListBookingByID(UserID, searchDate, status, index);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 String UserID = loginUser.getUserID();
-                int count = dao.getTotalBooking(UserID, search, status);
+                int count = dao.getTotalBooking(UserID, searchDate, status);
                 int endPage = count / 10;
                 if (endPage == 0) {
                     endPage = 1;
@@ -78,7 +87,7 @@ public class SearchBookingController extends HttpServlet {
                 if (count % 10 != 0) {
                     endPage++;
                 }
-                List<Booking> list = dao.getListBookingByID(UserID, search, status, index);
+                List<Booking> list = dao.getListBookingByID(UserID, searchDate, status, index);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
                 url = SUCCESS_USER;
@@ -96,7 +105,7 @@ public class SearchBookingController extends HttpServlet {
                             if (!listBookingDetail.isEmpty()) {
                                 if (listBookingDetail.size() > 0) {
                                     for (BookingDetail bookingDetail : listBookingDetail) {
-                                        int count = dao.getTotalBooking(bookingDetail.getBooking().getBookingId(), search, status);
+                                        int count = dao.getTotalBooking(bookingDetail.getBooking().getBookingId(), searchDate, status);
                                         int endPage = count / 10;
                                         if (endPage == 0) {
                                             endPage = 1;
