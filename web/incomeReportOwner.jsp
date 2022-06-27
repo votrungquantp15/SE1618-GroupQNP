@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Admin Income Dashboard</title>
+    <title>Owner Income Dashboard</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Custom Stylesheet -->
@@ -57,7 +57,7 @@
 </script>
 <body>
 
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA' }">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
     <!--*******************
@@ -80,7 +80,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">

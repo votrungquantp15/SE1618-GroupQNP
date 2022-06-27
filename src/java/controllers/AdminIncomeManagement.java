@@ -7,6 +7,7 @@ package controllers;
 
 import dao.BookingDetailDAO;
 import dto.BookingDetail;
+import dto.User;
 import java.io.IOException;
 import java.util.List;
 
@@ -14,6 +15,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -35,6 +37,8 @@ public class AdminIncomeManagement extends HttpServlet {
         BookingDetailDAO bookingDetailDao = new BookingDetailDAO();
 
         try {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
             String action = request.getParameter("action");
             switch (action) {
                 case SEARCHINCOME:
@@ -42,17 +46,20 @@ public class AdminIncomeManagement extends HttpServlet {
                     String fieldID = request.getParameter("fieldID");
                     String datefilter = request.getParameter("datefilter");
 
-                        bookingDetails = bookingDetailDao.getListBookingDetailByID(fieldID);
-                    
+                    bookingDetails = bookingDetailDao.getListBookingDetailByID(fieldID);
+
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
                     url = "incomeReportAdmin.jsp";
                     break;
 
-                case GET_ALL_INCOME:                   
-                    url = "incomeReportAdmin.jsp";
+                case GET_ALL_INCOME:
                     bookingDetails = bookingDetailDao.getAllBookingDetail();
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    url = "incomeReportAdmin.jsp";
+                    if (user.getRole().getRoleId().equals("MA")) {
+                        url = "incomeReportOwner.jsp";
+                    } else if (user.getRole().getRoleId().equals("AD")) {
+                        url = "incomeReportAdmin.jsp";
+                    }
                     break;
             }
         } catch (Exception e) {
