@@ -67,8 +67,6 @@
                                     <form action="MainController" method="POST">
                                         <div class="form-group">
                                             <div class="row">
-
-                                                <label class="col-sm-2 control-label">Search by Slot ID</label>
                                                 <div class="col-sm-6">
                                                     <input class="form-control" type="text" name="search" value="${param.search}" placeholder="Search by slotID" />
                                                 </div>
@@ -92,8 +90,6 @@
                                                     <th><strong>Time Start</strong></th>
                                                     <th><strong>Time End</strong></th>
                                                     <th><strong>Status</strong></th>
-                                                    <th class="d-flex justify-content-center"><strong>Update</strong></th>
-                                                    <th><strong>Delete</strong></th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -108,61 +104,6 @@
                                                                 <td>${slot.timeStart}</td>
                                                                 <td>${slot.timeEnd}</td>
                                                                 <td>${slot.status}</td>
-                                                                <td>
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalUpdate${counter}" title="Update"><i class="fa fa-pencil"></i></button>
-                                                                        <div class="modal fade" id="basicModalUpdate${counter}">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                        <h3 class="modal-title">Update Slot ${slotDetail.slot.slotID}</h3>
-                                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body" style="background-color: #f7f3e6">                                                                                      
-                                                                                        <form action="MainController" method="POST">
-                                                                                            <input type="hidden" name="slotID" value="${slotDetail.slot.slotID}">
-                                                                                            <input type="hidden" name="search" value="${param.search}">
-
-                                                                                            <div class="form-row">
-
-                                                                                                <h4>Slot ${slot.slotId}: ${slot.timeStart} - ${slot.timeEnd}</h4>
-
-                                                                                                <input type="time" name="timeStart" value="">
-
-                                                                                            </div>
-                                                                                        </form>
-                                                                                    </div>
-                                                                                    <div class="modal-footer">                                                                                       
-                                                                                        <div class="form-row d-inline-block">
-                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                            <input type="submit" class="btn btn-primary" name="action" value="UpdateBooking">
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                </td>
-                                                                <td>
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
-                                                                        <div class="modal fade" id="basicModalDelete${counter}">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                        <h3 class="modal-title">Delete Slot ${slotDetail.slot.slotId}</h3>
-                                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-footer" style="background-color: #f7f3e6">
-                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                        <a href="" type="button" class="btn btn-primary">Confirm</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </td>
                                                             </tr>
                                                         </c:forEach>
                                                     </c:if>
@@ -170,6 +111,16 @@
                                             </tbody>
                                         </table>
                                     </div>
+
+                                    <ul class="pagination">
+
+                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                            <li>
+                                                <a href="MainController?action=SearchSlot&search=${param.search}&index=${i}" class="page-link">${i}</a>
+                                            </li>
+                                        </c:forEach>
+
+                                    </ul>    
                                 </div>
                             </div>
                         </div>
@@ -186,6 +137,5 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
-    <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

@@ -96,7 +96,6 @@
                                                                 <p>Field Cate: ${requestScope.BOOKING_DETAIL.field.fieldCate.fieldCateName}</p>
                                                                 <p>Field Owner: ${requestScope.BOOKING_DETAIL.field.user.fullName}</p>
                                                                 <p>Address: ${requestScope.BOOKING_DETAIL.field.location.locationName}</p>
-                                                                <p>Field Cate: ${requestScope.BOOKING_DETAIL.field.fieldCate.fieldCateName}</p>
                                                             </div>
                                                         </div>
                                                     </div>
@@ -139,7 +138,6 @@
             </div>
         </div>
     </div>
-</div>
 <!--**********************************
     Main wrapper end
 ***********************************-->
@@ -156,6 +154,5 @@
 <script src="js/custom.min.js"></script>
 <script src="js/deznav-init.js"></script>
 <script src="js/demo.js"></script>
-<script src="js/styleSwitcher.js"></script>
 </body>
 </html>

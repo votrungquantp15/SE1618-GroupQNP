@@ -28,7 +28,7 @@
 
 <body>
 
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD' or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
     <!--*******************
@@ -166,6 +166,5 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
 </body>
 </html>

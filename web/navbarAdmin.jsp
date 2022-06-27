@@ -100,12 +100,20 @@ Chat box End
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
             <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
-            <li><a href="MainController?action=Print">Fields Management</a></li>
+            <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
+                    <span>Fields Management</span>
+                </a>
+                <ul aria-expanded="false">
+                    <li><a href="MainController?action=Print">Field</a></li>
+                    <li><a href="#">Field Category</a></li>
+                    <li><a href="MainController?action=PrintCity">City</a></li>
+                    <li><a href="MainController?action=PrintLocation">Location</a></li>
+                    <li><a href="#">Food</a></li>
+                </ul>
+            </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
             <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
-
+            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li
         </ul>
     </div>
-
 </div>

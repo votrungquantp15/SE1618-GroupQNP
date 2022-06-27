@@ -17,16 +17,31 @@ import javax.servlet.http.HttpServletResponse;
 public class SearchSlotController extends HttpServlet {
 
     private static final String SUCCESS = "slotManagementAdmin.jsp";
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "slotManagementAdmin.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
+        String indexPage = request.getParameter("index");
         try {
             String search = request.getParameter("search");
             SlotDAO slotDAO = new SlotDAO();
-            List<Slot> list = slotDAO.getListSlotByID(search);
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int count = slotDAO.getTotalSlot(search);
+            int endPage = count / 12;
+            if (endPage == 0) {
+                endPage = 1;
+            }
+            if (count % 12 != 0) {
+                endPage++;
+            }
+
+            List<Slot> list = slotDAO.getListSlotByID(search, index);
+            request.setAttribute("END_PAGE", endPage);
             request.setAttribute("LIST_SLOT", list);
             url = SUCCESS;
         } catch (Exception e) {

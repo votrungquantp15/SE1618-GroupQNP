@@ -34,7 +34,7 @@
     <!--*******************
         Preloader start
     ********************-->
-        <div id="preloader">
+    <div id="preloader">
         <div class="sk-three-bounce">
             <div class="sk-child sk-bounce1"></div>
             <div class="sk-child sk-bounce2"></div>
@@ -161,7 +161,7 @@
                                                                                                         </select>
                                                                                                     </div>
 
-                                                                                                        <div class="form-row d-inline-block">
+                                                                                                    <div class="form-row d-inline-block">
                                                                                                         <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
                                                                                                         <input type="submit" class="btn btn-primary" name="action" value="UpdateBooking">
                                                                                                     </div>
@@ -226,6 +226,13 @@
                                             </tbody>
                                         </table>
                                     </div>
+                                    <ul class="pagination">
+                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                            <li>
+                                                <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
                                 </div>
                             </div>
                         </div>
@@ -261,6 +268,5 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
 </body>
 </html>
