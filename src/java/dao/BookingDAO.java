@@ -20,17 +20,19 @@ public class BookingDAO {
     private static final String ON_GOING_STATUS = "On-Going";
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
-
-    private static final String GET_LIST_BOOKING_BY_USER_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
-            + "FROM tblBooking WHERE userID like ? AND bookingID like ? AND status like ? ";
+    
     private static final String GET_LIST_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? AND status like ? ";
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
     private static final String DELETE_BOOKING_BY_BOOKING_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
     private static final String UPDATE_BOOKING_STATUS_BY_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
-
-    public List<Booking> getListBookingByID(String userID, String search, String status) throws SQLException {
+    private static final String COUNT_ALL_BOOKING = "SELECT COUNT(*) as totalBooking FROM tblBooking WHERE userID like ? AND bookingID like ? AND status like ? ";
+    
+    private static final String PAGING_LIST_BOOKING = "SELECT * FROM tblBooking WHERE userID like ? AND bookingID like ? AND status like ? ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
+    private static final String PAGING_LIST_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? AND status like ? ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
+    
+    public List<Booking> getListBookingByID(String userID, String search, String status, int index) throws SQLException {
         List<Booking> booking = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -38,10 +40,11 @@ public class BookingDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_LIST_BOOKING_BY_USER_ID);
+                ptm = conn.prepareStatement(PAGING_LIST_BOOKING);
                 ptm.setString(1, "%" + userID + "%");
                 ptm.setString(2, "%" + search + "%");
                 ptm.setString(3, "%" + status + "%");
+                ptm.setInt(4, (index - 1) * 10);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getBookingID = rs.getString("bookingID");
@@ -70,7 +73,7 @@ public class BookingDAO {
         return booking;
     }
 
-    public List<Booking> getListBookingByBookingID(String bookingID, String search, String status) throws SQLException {
+    public List<Booking> getListBookingByBookingID(String bookingID, String search, String status, int index) throws SQLException {
         List<Booking> booking = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -78,9 +81,10 @@ public class BookingDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_LIST_BOOKING_BY_BOOKING_ID);
+                ptm = conn.prepareStatement(PAGING_LIST_BOOKING_MANAGER);
                 ptm.setString(1, "%" + bookingID + "%");
                 ptm.setString(2, "%" + status + "%");
+                ptm.setInt(3, (index - 1) * 10);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getBookingID = rs.getString("bookingID");
@@ -151,6 +155,40 @@ public class BookingDAO {
         return booking;
     }
 
+    public int getTotalBooking(String userID, String search, String status) throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_BOOKING);
+                ptm.setString(1, "%" + userID + "%");
+                ptm.setString(2, "%" + search + "%");
+                ptm.setString(3, "%" + status + "%");
+                rs = ptm.executeQuery();
+                if(rs.next()){
+                    index = rs.getInt("totalBooking");
+                }
+                
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return index;
+    }
+    
     public boolean deleteBookingByID(String bookingID, String status) throws SQLException {
         boolean check = false;
         Connection conn = null;

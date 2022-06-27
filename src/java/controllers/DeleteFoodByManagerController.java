@@ -5,6 +5,7 @@
  */
 package controllers;
 
+import dao.FoodDAO;
 import dao.UserDAO;
 import dto.User;
 import java.io.IOException;
@@ -19,33 +20,30 @@ import javax.servlet.http.HttpSession;
  *
  * @author predator
  */
-@WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
-public class DeleteAccountByAdminController extends HttpServlet {
+@WebServlet(name = "DeleteFoodByManagerController", urlPatterns = {"/DeleteFoodByManagerController"})
+public class DeleteFoodByManagerController extends HttpServlet {
 
-    private static final String ERROR = "AccountListController";
-    private static final String SUCCESS = "AccountListController";
+    private static final String ERROR = "ViewFoodListController";
+    private static final String SUCCESS = "ViewFoodListController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");            ;
-            HttpSession session = request.getSession();
-            User loginUser = (User) session.getAttribute("LOGIN_USER");
-            if (userID.equals(loginUser.getUserID())) {
-                request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
+            String foodId = request.getParameter("foodId");;
+
+            FoodDAO dao = new FoodDAO();
+            boolean check = dao.deleteFood(foodId);
+            if (check) {
+                request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
+                url = SUCCESS;
             } else {
-                UserDAO dao = new UserDAO();                   
-                boolean check = dao.deleteUser(userID);
-                if (check) {
-                    request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
-                    url = SUCCESS;               
-                } else 
-                    request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
+                request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
             }
+
         } catch (Exception e) {
-            log("Error at DeleteAccountByAdminController: " + e.toString());
+            log("Error at DeleteFoodByManagerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

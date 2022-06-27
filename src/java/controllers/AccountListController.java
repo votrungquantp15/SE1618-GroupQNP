@@ -8,7 +8,10 @@ package controllers;
 import dao.UserDAO;
 import dto.User;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -19,30 +22,41 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author predator
  */
-@WebServlet(name = "ViewAccountListController", urlPatterns = {"/ViewAccountListController"})
-public class ViewAccountListController extends HttpServlet {
+@WebServlet(name = "AccountListController", urlPatterns = {"/AccountListController"})
+public class AccountListController extends HttpServlet {
 
-    private static final String ERROR = "accountManagement.jsp";
-    private static final String SUCCESS = "accountManagement.jsp";
+    public static final String SUCCESS = "accountManagement.jsp";
+    public static final String ERROR = "accountManagement.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException, ClassNotFoundException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         
         try {
-            String viewAll = request.getParameter("viewAccountList");
-            UserDAO userDao = new UserDAO();
-            List<User> list = userDao.viewAccountList();
-            
+            String indexPage = request.getParameter("index");
+            if(indexPage == null)
+                indexPage="1";
+            int index = Integer.parseInt(indexPage);
+            UserDAO dao = new UserDAO();
+            int count = dao.getTotalAccount();
+            int endPage = count / 10;
+            if (count % 10 != 0) {
+                endPage++;
+            }
+            List<User> listUser = dao.pagingAccount(index);
+            List<User> list = dao.viewAccountList();
             request.setAttribute("VIEW_ACCOUNT", list);
+            request.setAttribute("VIEW_ACCOUNT", listUser);
+            request.setAttribute("END_PAGE", endPage);
             url = SUCCESS;
-            
         } catch (Exception e) {
-            log("Error at ViewAccountListController: " + e.toString());
+            e.printStackTrace();
         } finally {
-
             request.getRequestDispatcher(url).forward(request, response);
+                    
         }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -57,7 +71,13 @@ public class ViewAccountListController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountListController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -71,7 +91,13 @@ public class ViewAccountListController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AccountListController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(AccountListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

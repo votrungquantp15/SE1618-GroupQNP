@@ -94,7 +94,7 @@
                                                 <thead style="background-color: #fcd15b">
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Booknig ID</strong></th>
+                                                        <th><strong>Booking ID</strong></th>
                                                         <th><strong>Booking Date</strong></th>
                                                         <th><strong>Booker</strong></th>
                                                         <th><strong>Total Price</strong></th>
@@ -106,7 +106,6 @@
                                                         <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
                                                             <c:set var="counter" scope="page" value="0"/>
                                                             <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
-
                                                                 <c:set var="counter" scope="page" value="${counter + 1}"/>
                                                                 <tr>
                                                                     <td><strong>${counter}</strong></td>
@@ -122,6 +121,13 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <ul class="pagination">
+                                            <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                <li>
+                                                    <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>

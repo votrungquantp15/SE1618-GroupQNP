@@ -24,12 +24,6 @@ public class MainController extends HttpServlet {
     //Update Booking
     private static final String UPDATE_BOOKING = "UpdateBooking";
     private static final String UPDATE_BOOKING_CONTROLLER = "UpdateBookingController";
-    //Update Slot
-    private static final String UPDATE_SLOT = "UpdateSlot";
-    private static final String UPDATE_SLOT_CONTROLLER = "UpdateSlotController";
-    //Delete Slot
-    private static final String DELETE_SLOT = "DeleteSlot";
-    private static final String DELETE_SLOT_CONTROLLER = "DeleteSlotController";
     //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
@@ -90,10 +84,6 @@ public class MainController extends HttpServlet {
     private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
     private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
 
-    //View Account List
-    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
-    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
-
     //Account Editor
     private static final String ACCOUNT_EDITOR = "AccountEditor";
     private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
@@ -114,6 +104,30 @@ public class MainController extends HttpServlet {
     private static final String PRINT_USER_FIELD_DETAIL = "UserPrintFieldDetail";
     private static final String PRINT_USER_FIELD_DETAIL_CONTROLLER = "UserPrintFieldDetailController";
     
+    //Search food for manager
+    private static final String SEARCH_FOOD_BY_MANAGER = "SearchFoodByManager";
+    private static final String SEARCH_FOOD_BY_MANAGER_CONTROLLER = "SearchFoodByManagerController";
+    
+    //View Food List for manager
+    private static final String VIEW_FOOD_LIST = "ViewFoodList";
+    private static final String VIEW_FOOD_LIST_CONTROLLER = "ViewFoodListController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String DELETE_FOOD_BY_MANAGER = "DeleteFoodByManager";
+    private static final String DELETE_FOOD_BY_MANAGER_CONTROLLER = "DeleteFoodByManagerController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String UPDATE_FOOD_BY_MANAGER = "UpdateFoodByManager";
+    private static final String UPDATE_FOOD_BY_MANAGER_CONTROLLER = "UpdateFoodByManagerController";
+    
+    //FOOD EDITOR
+    private static final String FOOD_EDITOR = "FoodEditor";
+    private static final String FOOD_EDITOR_CONTROLLER = "FoodEditorController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String CREATE_FOOD_BY_MANAGER = "CreateFoodByManager";
+    private static final String CREATE_FOOD_BY_MANAGER_CONTROLLER = "CreateFoodByManagerController";
+
     //Search City By Admin
     private static final String SEARCH_CITY_BY_ADMIN = "SearchCityByAdmin";
     private static final String SEARCH_CITY_BY_ADMIN_CONTROLLER = "SearchCityByAdminController";
@@ -128,7 +142,11 @@ public class MainController extends HttpServlet {
     
     //Delete City By Admin
     private static final String CREATE_CITY_BY_ADMIN = "CreateCity";
-    private static final String CREATE_CITY_BY_ADMIN_CONTROLLER = "CreateCityController";
+    private static final String CREATE_CITY_BY_ADMIN_CONTROLLER = "CreateCityByAdminController";
+    
+    //Paging
+    private static final String ACCOUNT_LIST = "AccountList";
+    private static final String ACCOUNT_LIST_CONTROLLER = "AccountListController";
     
     //Print Location list By Admin
     private static final String PRINT_LIST_LOCATION = "PrintLocation";
@@ -149,6 +167,10 @@ public class MainController extends HttpServlet {
     //Create Location By Admin
     private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
     private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
+    
+    //Create Manager Account
+    private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
+    private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -169,12 +191,6 @@ public class MainController extends HttpServlet {
                     break;
                 case SEARCH_SLOT:
                     url = SEARCH_SLOT_CONTROLLER;
-                    break;
-                case DELETE_SLOT:
-                    url = DELETE_SLOT_CONTROLLER;
-                    break;
-                case UPDATE_SLOT:
-                    url = UPDATE_SLOT_CONTROLLER;
                     break;
                 case SEARCH_BOOKING_DETAIL:
                     url = SEARCH_BOOKING_DETAIL_CONTROLLER;
@@ -221,9 +237,6 @@ public class MainController extends HttpServlet {
                 case UPDATE_BOOKING:
                     url = UPDATE_BOOKING_CONTROLLER;
                     break;
-                case VIEW_ACCOUNT_LIST:
-                    url = VIEW_ACCOUNT_LIST_CONTROLLER;
-                    break;
                 case SEARCH_FIELD_BY_NAME:
                     url = SEARCH_FIELD_BY_NAME_CONTROLLER;
                     break;
@@ -239,6 +252,23 @@ public class MainController extends HttpServlet {
                 case PRINT_USER_FIELD_DETAIL:
                     url = PRINT_USER_FIELD_DETAIL_CONTROLLER;
                     break;
+                case SEARCH_FOOD_BY_MANAGER:
+                    url = SEARCH_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case VIEW_FOOD_LIST:
+                    url = VIEW_FOOD_LIST_CONTROLLER;
+                    break;
+                case DELETE_FOOD_BY_MANAGER:
+                    url = DELETE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case UPDATE_FOOD_BY_MANAGER:
+                    url = UPDATE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case FOOD_EDITOR:
+                    url = FOOD_EDITOR_CONTROLLER;
+                    break;
+                case CREATE_FOOD_BY_MANAGER:
+                    url = CREATE_FOOD_BY_MANAGER_CONTROLLER;
                 case PRINT_LIST_CITY:
                     url = PRINT_LIST_CITY_CONTROLLER;
                     break;
@@ -257,6 +287,9 @@ public class MainController extends HttpServlet {
                 case CREATE_CITY_BY_ADMIN:
                     url = CREATE_CITY_BY_ADMIN_CONTROLLER;
                     break;
+                case ACCOUNT_LIST:
+                    url = ACCOUNT_LIST_CONTROLLER;
+                    break;
                 case PRINT_LIST_LOCATION:
                     url = PRINT_LIST_LOCATION_CONTROLLER;
                     break;
@@ -271,6 +304,9 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_LOCATION_BY_ADMIN:
                     url = CREATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_MANAGER_ACCOUNT:
+                    url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
                     break;
             }
         } catch (Exception e) {
