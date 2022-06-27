@@ -45,6 +45,24 @@ public class MainController extends HttpServlet {
     //Change Password
     private static final String RESET_PASSWORD = "ResetPassword";
     private static final String RESET_PASSWORD_CONTROLLER = "ResetPasswordController";
+    
+    //Profile User Page
+    private static final String PROFILE_USER = "ProfileUser";
+    private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
+    //Update Profile User 
+    private static final String UPDATE_PROFILE_USER = "UpdateProfileUser";
+    private static final String UPDATE_PROFILE_USER_CONTROLLER = "UpdateProfileUserController";
+    //Home page
+    private static final String HOME = "Home";
+    private static final String HOME_CONTROLLER = "HomeController";
+
+    //
+    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
+    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
+
+    //Account Editor
+    private static final String ACCOUNT_EDITOR = "AccountEditor";
+    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
 
     //Print list field
     private static final String PRINT_LIST_FIELD = "Print";
@@ -66,28 +84,10 @@ public class MainController extends HttpServlet {
     private static final String DELETE_LIST_FIELD = "DeleteField";
     private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
 
-    //Update field
+    //Update field by admin
     private static final String UPDATE_FIELD = "UpdateField";
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
-
-    //Profile User Page
-    private static final String PROFILE_USER = "ProfileUser";
-    private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
-    //Update Profile User 
-    private static final String UPDATE_PROFILE_USER = "UpdateProfileUser";
-    private static final String UPDATE_PROFILE_USER_CONTROLLER = "UpdateProfileUserController";
-    //Home page
-    private static final String HOME = "Home";
-    private static final String HOME_CONTROLLER = "HomeController";
-
-    //
-    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
-    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
-
-    //Account Editor
-    private static final String ACCOUNT_EDITOR = "AccountEditor";
-    private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
-
+    
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
@@ -168,6 +168,17 @@ public class MainController extends HttpServlet {
     private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
     private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
     
+    //Print list of field category
+    private static final String PRINT_FIELD_CATE = "PrintFieldCate";
+    private static final String PRINT_FIELD_CATE_CONTROLLER = "PrintFieldCateController";
+    
+    //Search field category
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SearchFieldCateByAdmin";
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER = "SearchFieldCateByAdminController";
+    
+    //Delete field category
+    private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
+    private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
     //Create Manager Account
     private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
     private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
@@ -304,6 +315,15 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_LOCATION_BY_ADMIN:
                     url = CREATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case PRINT_FIELD_CATE:
+                    url = PRINT_FIELD_CATE_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_CATE_BY_ADMIN:
+                    url = SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_FIELD_CATE:
+                    url = DELETE_FIELD_CATE_CONTROLLER;
                     break;
                 case CREATE_MANAGER_ACCOUNT:
                     url = CREATE_MANAGER_ACCOUNT_CONTROLLER;

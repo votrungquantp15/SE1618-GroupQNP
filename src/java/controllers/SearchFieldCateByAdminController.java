@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.FieldCategoryDAO;
+import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -11,12 +11,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PrintCityController extends HttpServlet {
+public class SearchFieldCateByAdminController extends HttpServlet {
 
-    private static final String ERROR = "cityManagement.jsp";
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
-
+    private static final String ADMIN_PAGE = "fieldCategoryManagement.jsp";
+    private static final String OWNER_PAGE = "ownerFieldCategoryManagement.jsp";
+    private static final String ERROR = "fieldCategoryManagement.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -24,24 +24,24 @@ public class PrintCityController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            if (listCity.size() > 0) {
-                request.setAttribute("LIST_CITY", listCity);
+            String fieldCateName = request.getParameter("searchByAdmin");
+            String status = request.getParameter("status");
+            FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
+            List<FieldCategory> listFieldCate = fieldCateDao.searchFieldCateByAdmin(fieldCateName, status);
+            if (!listFieldCate.isEmpty()) {
+                request.setAttribute("LIST_FIELD_CATE", listFieldCate);
                 if (user.getRole().getRoleId().equals("MA")) {
                     url = OWNER_PAGE;
                 } else if (user.getRole().getRoleId().equals("AD")) {
                     url = ADMIN_PAGE;
                 }
+            } else {
+                request.setAttribute("SEARCH_CITY_ERROR", "Couldn't find any citys");
             }
         } catch (Exception e) {
-            log("Error at PrintCityController: " + e.toString());
+            log("Error at SearchFieldCateByAdminController: " + e.toString());
         } finally {
-            try {
-                request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
-                log("Error at PrintCityController: " + e.toString());
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
