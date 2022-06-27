@@ -178,6 +178,13 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <ul class="pagination">
+                                            <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                <li>
+                                                    <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                                </li>
+                                            </c:forEach>
+                                        </ul>
                                     </div>
                                 </div>
                             </div>
@@ -207,6 +214,23 @@
             Main wrapper end
         ***********************************-->
 
+<<<<<<< HEAD
+        <!--**********************************
+            Scripts
+        ***********************************-->
+        <!-- Required vendors -->
+        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <!-- Datatable -->
+        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="js/plugins-init/datatables.init.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/deznav-init.js"></script>
+        <script src="js/demo.js"></script>
+        <script src="js/styleSwitcher.js"></script>
+    </body>
+</html>
+=======
     <!--**********************************
         Scripts
     ***********************************-->
@@ -221,3 +245,4 @@
     <script src="js/demo.js"></script>
 </body>
 </html>
+>>>>>>> master

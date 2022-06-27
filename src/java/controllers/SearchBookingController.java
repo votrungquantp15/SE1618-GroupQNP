@@ -46,17 +46,41 @@ public class SearchBookingController extends HttpServlet {
         try {
             String search = request.getParameter("search");
             String status = request.getParameter("status");
+            String indexPage = request.getParameter("index");
+
+            BookingDAO dao = new BookingDAO();
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+
             if (ADMIN.equals(roleID)) {
                 String UserID = "U";
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID, search, status);
+                int count = dao.getTotalBooking(UserID, search, status);
+                int endPage = count / 10;
+                if (endPage == 0) {
+                    endPage = 1;
+                }
+                if (count % 10 != 0) {
+                    endPage++;
+                }
+                List<Booking> list = dao.getListBookingByID(UserID, search, status, index);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
+                request.setAttribute("END_PAGE", endPage);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 String UserID = loginUser.getUserID();
-                BookingDAO dao = new BookingDAO();
-                List<Booking> list = dao.getListBookingByID(UserID, search, status);
+                int count = dao.getTotalBooking(UserID, search, status);
+                int endPage = count / 10;
+                if (endPage == 0) {
+                    endPage = 1;
+                }
+                if (count % 10 != 0) {
+                    endPage++;
+                }
+                List<Booking> list = dao.getListBookingByID(UserID, search, status, index);
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
+                request.setAttribute("END_PAGE", endPage);
                 url = SUCCESS_USER;
             } else if (MANAGER.equals(roleID)) {
                 String UserID = loginUser.getUserID();
@@ -64,7 +88,6 @@ public class SearchBookingController extends HttpServlet {
                 List<Field> listField = fieldDAO.getListFieldByUserID(UserID);
 
                 BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
-                BookingDAO bookingDAO = new BookingDAO();
                 List<Booking> list = new ArrayList<>();
                 if (!listField.isEmpty()) {
                     if (listField.size() > 0) {
@@ -73,7 +96,16 @@ public class SearchBookingController extends HttpServlet {
                             if (!listBookingDetail.isEmpty()) {
                                 if (listBookingDetail.size() > 0) {
                                     for (BookingDetail bookingDetail : listBookingDetail) {
-                                        List<Booking> listBooking = bookingDAO.getListBookingByBookingID(bookingDetail.getBooking().getBookingId(), search, status);
+                                        int count = dao.getTotalBooking(bookingDetail.getBooking().getBookingId(), search, status);
+                                        int endPage = count / 10;
+                                        if (endPage == 0) {
+                                            endPage = 1;
+                                        }
+                                        if (count % 10 != 0) {
+                                            endPage++;
+                                        }
+                                        request.setAttribute("END_PAGE", endPage);
+                                        List<Booking> listBooking = dao.getListBookingByBookingID(bookingDetail.getBooking().getBookingId(), search, status, index);
                                         if (!listBooking.isEmpty()) {
                                             if (listBooking.size() > 0) {
                                                 for (Booking booking : listBooking) {
@@ -88,6 +120,7 @@ public class SearchBookingController extends HttpServlet {
                     }
                 }
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
+
                 url = SUCCESS_MANAGER;
             }
         } catch (Exception e) {
