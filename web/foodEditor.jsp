@@ -14,7 +14,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Account Editor</title>
+        <title>Food Editor</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -51,11 +51,11 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
             <c:redirect url="login.jsp"></c:redirect>
         </c:if>
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
 
             <br/>
             <br/>
@@ -65,65 +65,46 @@
             <br/>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
+            <c:forEach var="food" items="${requestScope.VIEW_FOOD}">
                 <form action="MainController" method="POST">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Account Editor</h4>
+                            <h4 class="card-title">Food Editor</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
                                 <form>
-
-                                    <div class="form-row">
-                                        <div class="form-group col-md-6">
-                                            <label>User ID</label>
-                                            <input type="text" class="form-control" name="userID" value="${user.userID}" readonly=""/>
+                                    <div class ="row">
+                                        <div class="form-row col-md-5" >
+                                            <div class="form-group">
+                                                <img width="450" height="auto" src="${food.image}">
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Full Name</label>
-                                            <input type="text" class="form-control" name="fullName" value="${user.fullName}" required=""/>
+                                        <div class="form-row col-md-7" >    
+                                            <div class="form-group col-md-6">
+                                                <label>Food ID</label>
+                                                <input type="text" class="form-control" name="foodId" value="${food.foodId}" readonly=""/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Food Name</label>
+                                                <input type="text" class="form-control" name="foodName" value="${food.foodName}" required=""/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Image Source</label>                                            
+                                                <input type="text" class="form-control" name="image" value="${food.image}" required=""/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Category</label>
+                                                <input type="text" class="form-control" name="categoryFoodId" value="${food.foodCate.foodCateId}" required=""/>
+                                            </div>
+                                            <div class="form-group col-md-6">
+                                                <label>Status</label>
+                                                <input type="text" class="form-control" name="status" value="${food.status}" required=""/>
+                                            </div>
                                         </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Address</label>
-                                            <input type="text" class="form-control" name="address" value="${user.address}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>City</label>
-                                            <input type="text" class="form-control" name="cityId" value="${user.city.cityId}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Birthday</label>
-                                            <input type="date" class="form-control" name="birthday" value="${user.birth}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" value="${user.phone}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" name="email" value="${user.email}" readonly=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Account Name</label>
-                                            <input type="text" class="form-control" name="accName" value="${user.accName}" readonly=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Password</label>
-                                            <input type="text" class="form-control" name="password" value="${user.password}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Role ID</label>
-                                            <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Status</label>
-                                            <input type="text" class="form-control" name="status" value="${user.status}" required=""/>
-                                        </div>
-
-                                    </div>                                       
-                                        <button type="submit" name="action" class="btn btn-primary" value="UpdateAccountByAdmin"/>Edit</button>
-                                    <input type="hidden" name="userID" value="${user.userID}"/>
+                                    </div>
+                                            <button type="submit" name="action" class="btn btn-primary" value="UpdateFoodByManager"/>Edit</button>
+                                    <input type="hidden" name="foodId" value="${food.foodId}"/>
                                     <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
                                     <p style="color: red">${requestScope.UPDATE_FAILED} </p>
                                 </form>

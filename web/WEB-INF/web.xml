@@ -248,6 +248,10 @@
         <servlet-name>CreateLocationController</servlet-name>
         <url-pattern>/CreateLocationController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AccountListController</servlet-name>
+        <url-pattern>/AccountListController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             30

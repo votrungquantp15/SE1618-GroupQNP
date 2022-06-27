@@ -4540,6 +4540,10 @@ a.close.disabled {
   .modal-backdrop.show {
     opacity: 0.5; }
 
+ .imageChange {
+    max-width: 400px;
+    height: auto;
+}
 .modal-header {
   display: flex;
   align-items: flex-start;

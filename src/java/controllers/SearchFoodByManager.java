@@ -5,47 +5,38 @@
  */
 package controllers;
 
-import dao.UserDAO;
-import dto.User;
+import dao.FoodDAO;
+import dto.Food;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author predator
- */
-@WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
-public class DeleteAccountByAdminController extends HttpServlet {
+@WebServlet(name = "SearchFoodByManagerController", urlPatterns = {"/SearchFoodByManagerController"})
+public class SearchFoodByManager extends HttpServlet {
 
-    private static final String ERROR = "AccountListController";
-    private static final String SUCCESS = "AccountListController";
+    private static final String ERROR = "foodManagement.jsp";
+    private static final String SUCCESS = "foodManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String userID = request.getParameter("userID");            ;
-            HttpSession session = request.getSession();
-            User loginUser = (User) session.getAttribute("LOGIN_USER");
-            if (userID.equals(loginUser.getUserID())) {
-                request.setAttribute("ERROR_MESSAGE", "Phát hiện User đang login, KHÔNG THỂ XÓA (>.<)");
-            } else {
-                UserDAO dao = new UserDAO();                   
-                boolean check = dao.deleteUser(userID);
-                if (check) {
-                    request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
-                    url = SUCCESS;               
-                } else 
-                    request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
-            }
+            String search = request.getParameter("searchFoodByManager");
+            FoodDAO dao = new FoodDAO();
+            List<Food> listFood = dao.searchFoodByNameForManager(search);
+                
+            if (listFood.size() > 0) {
+                request.setAttribute("VIEW_FOOD", listFood);
+                url = SUCCESS;
+            } else 
+                request.setAttribute("SEARCH_FAILED", "KHÔNG TÌM THẤY THỨC ĂN NÀY");
         } catch (Exception e) {
-            log("Error at DeleteAccountByAdminController: " + e.toString());
+            log("Error at SearchFoodByManagerController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
