@@ -43,7 +43,7 @@ public class UpdateFoodByManagerController extends HttpServlet {
                 request.setAttribute("UPDATE_FAILED", "Cập nhật thất bại!!!");
             }
         } catch (Exception e) {
-            log("Error at UpdateAccountByAdminController: " + e.toString());
+            log("Error at UpdateFoodByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

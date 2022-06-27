@@ -10,49 +10,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateCityByAdminController extends HttpServlet {
+public class CreateCityController extends HttpServlet {
 
     private static final String ERROR = "PrintCityController";
     private static final String SUCCESS = "PrintCityController";
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             CityDAO cityDao = new CityDAO();
-            String id_city = request.getParameter("id_city");
-            if (id_city != null) {
-                String cityName = request.getParameter("cityName");
-                cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-                cityName = URLDecoder.decode(cityName, "UTF-8");
-                String status = request.getParameter("status");
-                if (status.equals("Active")) {
-                        status = "1";
-                    } else {
-                        status = "0";
-                    }
-                boolean checkValidation = true;
-                if (cityName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "City name cannot be left blank");
-                    checkValidation = false;
-                } else if (status.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Status cannot be left blank");
-                    checkValidation = false;
+            String cityID = cityDao.createCityId();
+            String cityName = request.getParameter("cityName");
+            cityName = URLEncoder.encode(cityName, "ISO-8859-1");
+            cityName = URLDecoder.decode(cityName, "UTF-8");
+
+            boolean checkValidation = true;
+            if (cityName.trim().length() == 0) {
+                request.setAttribute("CREATE_ERROR", "City name cannot be left blank");
+                checkValidation = false;
+            } else if (cityDao.checkCityName(cityName)) {
+                request.setAttribute("CREATE_ERROR", "City name is already exist");
+                checkValidation = false;
+            }
+            if (checkValidation) {
+                City city = new City(cityID, cityName, null);
+                boolean checkCreate = cityDao.createCity(city);
+                if (checkCreate) {
+                    url = SUCCESS;
                 }
-                if (checkValidation) {
-                    City city = new City(id_city, cityName, status);
-                    boolean checkUpdate = cityDao.updateStatusCity(city);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update city success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
-                    }
-                }
+                request.setAttribute("CREATE_SUCCESS", "Create city success!");
+            } else {
+                request.setAttribute("CREATE_UNSUCCESS", "Create city unsuccess! Please try again!");
             }
         } catch (Exception e) {
-            log("Error at UpdateCityByAdminController: " + e.toString());
+            log("Error at CreateCityController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

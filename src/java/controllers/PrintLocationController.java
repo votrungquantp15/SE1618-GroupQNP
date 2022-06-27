@@ -1,59 +1,38 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import static controllers.AccountListController.SUCCESS;
-import dao.FoodDAO;
-import dao.UserDAO;
-import dto.Food;
-import dto.User;
+import dao.LocationDAO;
+import dto.Location;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author predator
- */
-@WebServlet(name = "ViewFoodListController", urlPatterns = {"/ViewFoodListController"})
-public class ViewFoodListController extends HttpServlet {
+public class PrintLocationController extends HttpServlet {
 
-    private static final String ERROR = "foodManagement.jsp";
-    private static final String SUCCESS = "foodManagement.jsp";
+    private static final String ERROR = "locationManagement.jsp";
+    private static final String SUCCESS = "locationManagement.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        
         try {
-            String indexPage = request.getParameter("index");
-            if(indexPage == null)
-                indexPage="1";
-            int index = Integer.parseInt(indexPage);
-            FoodDAO dao = new FoodDAO();
-            int count = dao.getTotalFood();
-            int endPage = count / 5;
-            if (count % 5 != 0) {
-                endPage++;
+            LocationDAO locationDao = new LocationDAO();
+            List<Location> listLocation = locationDao.getAllLocation();
+            if (listLocation.size() > 0) {
+                request.setAttribute("LIST_LOCATION", listLocation);
+                url = SUCCESS;
             }
-            List<Food> listFood = dao.pagingFood(index);
-            List<Food> list = dao.viewFoodList();
-            request.setAttribute("VIEW_FOOD", list);
-            request.setAttribute("VIEW_FOOD", listFood);
-            request.setAttribute("END_PAGE", endPage);
-            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at ViewFoodListController: " + e.toString());
+            log("Error at PrintLocationController: " + e.toString());
         } finally {
-
-            request.getRequestDispatcher(url).forward(request, response);
+            try {
+                request.getRequestDispatcher(url).forward(request, response);
+            } catch (Exception e) {
+                log("Error at PrintFieldController: " + e.toString());
+            }
         }
     }
 

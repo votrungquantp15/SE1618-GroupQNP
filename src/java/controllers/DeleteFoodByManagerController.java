@@ -1,58 +1,49 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.FoodDAO;
+import dao.UserDAO;
+import dto.User;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class UpdateCityByAdminController extends HttpServlet {
+/**
+ *
+ * @author predator
+ */
+@WebServlet(name = "DeleteFoodByManagerController", urlPatterns = {"/DeleteFoodByManagerController"})
+public class DeleteFoodByManagerController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+    private static final String ERROR = "ViewFoodListController";
+    private static final String SUCCESS = "ViewFoodListController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            CityDAO cityDao = new CityDAO();
-            String id_city = request.getParameter("id_city");
-            if (id_city != null) {
-                String cityName = request.getParameter("cityName");
-                cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-                cityName = URLDecoder.decode(cityName, "UTF-8");
-                String status = request.getParameter("status");
-                if (status.equals("Active")) {
-                        status = "1";
-                    } else {
-                        status = "0";
-                    }
-                boolean checkValidation = true;
-                if (cityName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "City name cannot be left blank");
-                    checkValidation = false;
-                } else if (status.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Status cannot be left blank");
-                    checkValidation = false;
-                }
-                if (checkValidation) {
-                    City city = new City(id_city, cityName, status);
-                    boolean checkUpdate = cityDao.updateStatusCity(city);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update city success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
-                    }
-                }
+            String foodId = request.getParameter("foodId");;
+
+            FoodDAO dao = new FoodDAO();
+            boolean check = dao.deleteFood(foodId);
+            if (check) {
+                request.setAttribute("DELETE_SUCCESS", "Xóa thành công");
+                url = SUCCESS;
+            } else {
+                request.setAttribute("DELETE_FAILED", "Xóa thất bại, thử lại giúp nha (>.<) ");
             }
+
         } catch (Exception e) {
-            log("Error at UpdateCityByAdminController: " + e.toString());
+            log("Error at DeleteFoodByManagerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

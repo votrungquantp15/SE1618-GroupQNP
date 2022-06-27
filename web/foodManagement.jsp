@@ -75,21 +75,19 @@
                                         <table class="table table-responsive-md">
                                             <thead>
                                                 <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
                                                     <th><strong>Food ID</strong></th>
                                                     <th><strong>Food Name</strong></th>
                                                     <th><strong>Image</strong></th>
                                                     <th><strong>Category</strong></th>
                                                     <th><strong>Status</strong></th>                                                  
                                                     <th><strong>Action</strong></th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <c:forEach var="food" items="${requestScope.VIEW_FOOD}" varStatus="counter">
+                                                    <c:forEach var="food" items="${requestScope.VIEW_FOOD}">
                                                     <tr>
-                                                        <td><strong>${counter.count}</strong></td>
                                                         <td>${food.foodId}</td>
                                                         <td>${food.foodName}</td>
                                                         <td>
@@ -97,12 +95,12 @@
                                                         </td>
                                                         <td>${food.foodCate.foodCateName}</td>
                                                         <td>${food.status}</td>
-                                                       
+
                                                         <td>
                                                             <div class="d-flex">
-                                                                
+
                                                                 <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="#" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>
@@ -111,6 +109,11 @@
 
                                                 </tr>
                                         </table>
+                                        <ul class="pagination pagination-sm pagination-gutter">
+                                            <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
+                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=ViewFoodList&index=${page}">${page}</a>
+                                            </c:forEach>
+                                        </ul>       
 
 
                                     </div>

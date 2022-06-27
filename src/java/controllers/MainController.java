@@ -153,6 +153,30 @@ public class MainController extends HttpServlet {
     //Paging
     private static final String ACCOUNT_LIST = "AccountList";
     private static final String ACCOUNT_LIST_CONTROLLER = "AccountListController";
+    
+    //Print Location list By Admin
+    private static final String PRINT_LIST_LOCATION = "PrintLocation";
+    private static final String PRINT_LIST_LOCATION_CONTROLLER = "PrintLocationController";
+    
+    //Search Location By Admin
+    private static final String SEARCH_LOCATION_BY_ADMIN = "SearchLocationByAdmin";
+    private static final String SEARCH_LOCATION_BY_ADMIN_CONTROLLER = "SearchLocationByAdminController";
+    
+    //Print Location By Admin
+    private static final String DELETE_LOCATION_BY_ADMIN = "DeleteLocation";
+    private static final String DELETE_LOCATION_BY_ADMIN_CONTROLLER = "DeleteLocationByAdminController";
+    
+    //Update Location By Admin
+    private static final String UPDATE_LOCATION_BY_ADMIN = "UpdateLocation";
+    private static final String UPDATE_LOCATION_BY_ADMIN_CONTROLLER = "UpdateLocationByAdminController";
+    
+    //Create Location By Admin
+    private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
+    private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
+    
+    //Create Manager Account
+    private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
+    private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -277,6 +301,24 @@ public class MainController extends HttpServlet {
                     break;
                 case ACCOUNT_LIST:
                     url = ACCOUNT_LIST_CONTROLLER;
+                    break;
+                case PRINT_LIST_LOCATION:
+                    url = PRINT_LIST_LOCATION_CONTROLLER;
+                    break;
+                case SEARCH_LOCATION_BY_ADMIN:
+                    url = SEARCH_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_LOCATION_BY_ADMIN:
+                    url = DELETE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case UPDATE_LOCATION_BY_ADMIN:
+                    url = UPDATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_LOCATION_BY_ADMIN:
+                    url = CREATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_MANAGER_ACCOUNT:
+                    url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

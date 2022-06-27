@@ -194,7 +194,7 @@ public class CityDAO {
         return listCity;
     }
     
-    public boolean updateStatusField(City city) throws SQLException {
+    public boolean updateStatusCity(City city) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;

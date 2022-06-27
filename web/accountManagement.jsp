@@ -70,15 +70,17 @@
                                                         <input name="searchAccountByAdmin" type="text" class="form-control" placeholder="Type here to search" value="${param.searchAccountByAdmin}">                                                                                             
                                                 </div>
                                                 <div class ="col-md-6">
-                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">SEARCH</button>
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">Search</button>
                                                 </div>
+
                                             </div>                              
-                                        </div>                                                                                  
-                                    </form>
-                                    <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
+                                        </div>
+                                                <a href="MainController?action=CreateManagerAccount">Click here to create new Manager's Account</a>
+                                                                      <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
                                     <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                     <p style="color: red">${requestScope.SEARCH_FAILED} </p>
-                                    <p style="color: red">${requestScope.DELETE_INACTIVE} </p>
+                                    <p style="color: red">${requestScope.DELETE_INACTIVE} </p>  </form>
+
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
                                             <thead>
@@ -99,7 +101,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}" varStatus="counter">
+                                                    <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
                                                     <tr>
                                                         <td>${user.userID}</td>
                                                         <td>${user.fullName}</td>
@@ -123,10 +125,14 @@
                                                 </c:forEach>
 
                                                 </tr>
+
                                         </table>
-                                        <c:forEach begin="1" end="${END_PAGE}" var ="page">
-                                            <a href="MainController?action=AccountList&index=${page}">${page}</a>
-                                        </c:forEach>
+                                        <ul class="pagination pagination-sm pagination-gutter">
+                                            <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
+                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=AccountList&index=${page}">${page}</a>
+                                                </c:forEach>
+                                        </ul>                                        
+
                                     </div>
                                 </div>
                             </div>
@@ -158,7 +164,6 @@
         <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
         <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
         <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
         <script src="js/plugins-init/datatables.init.js"></script>
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>

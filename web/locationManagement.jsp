@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Fields Management</h4>
+                                        <h4 class="card-title">Locations Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -72,64 +72,123 @@
                                                             <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
-                                                        <div class="input-group-prepend">
-                                                            <button class="btn btn-primary disabled" type="button">Search By</button>
-                                                            <select name ="searchBy">
-                                                                <option value="Name" <c:if test="${param.searchBy eq 'Name'}">selected</c:if>>Name</option>
-                                                            <option value="Category" <c:if test="${param.searchBy eq 'Category'}">selected</c:if>>Category</option>
-                                                            <option value="Field Owner" <c:if test="${param.searchBy eq 'Field Owner'}">selected</c:if>>Field Owner</option>
-                                                            <option value="City" <c:if test="${param.searchBy eq 'City'}">selected</c:if>>City</option>
-                                                            </select>
-                                                        </div>
-                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search by name">
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchLocationByAdmin">Search</button>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewLocation">Create new Location</button>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: green"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CITY_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
+                                            <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
+                                            <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                            <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
                                         </div>
                                     </div>
-                                    <div class="table-responsive">
-                                        <table class="table table-responsive-md">
-                                            <thead>
-                                                <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
-                                                    <th><strong>Field ID</strong></th>
-                                                    <th><strong>Field Name</strong></th>
-                                                    <th><strong>Category</strong></th>
-                                                    <th><strong>Price</strong></th>
-                                                    <th><strong>Field Owner</strong></th>
-                                                    <th><strong>City Name</strong></th>
-                                                    <th><strong>Status</strong></th>
-                                                    <th></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <tr>
-                                                    <c:forEach var="field" items="${requestScope.LIST_FIELD}" varStatus="counter">
+                                    <form action="MainController" method="POST" accept-charset="utf-8">
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-md">
+                                                <thead>
                                                     <tr>
-                                                        <td><strong>${counter.count}</strong></td>
-                                                        <td>${field.fieldId}</td>
-                                                        <td><a class="text-primary" title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
-                                                        <td>${field.fieldCate.fieldCateName}</td>
-                                                        <td>${field.price}</td>
-                                                        <td>${field.user.fullName}</td>
-                                                        <td>${field.city.cityName}</td>
-                                                        <td>${field.status}</td>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>Location ID</strong></th>
+                                                        <th><strong>Location Name</strong></th>
+                                                        <th><strong>Status</strong></th>
+                                                        <th><strong>Action</strong></th>
+                                                        <th></th>
                                                     </tr>
-                                                </c:forEach>
-                                                </tr>
-                                        </table>
-                                    </div>
+                                                </thead>
+                                                <tbody>
+                                                    <tr>
+                                                        <c:forEach var="location" items="${requestScope.LIST_LOCATION}">
+                                                            <c:set var="counter" scope="page" value="${counter + 1}"/>
+                                                        <tr>
+                                                            <td><strong>${counter}</strong></td>
+                                                            <td>${location.locationId}</td>
+                                                            <td>${location.locationName}</td>
+                                                            <td>${location.status}</td>
+                                                            <td>
+                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateLocation${counter}"><i class="fa fa-pencil"></i></a>
+
+                                                                <c:url var="delete" value="MainController">
+                                                                    <c:param name="action" value="DeleteLocation"></c:param>
+                                                                    <c:param name="locationId" value="${location.locationId}"></c:param>
+                                                                </c:url>
+                                                                <a title="Click here to delete location" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
+                                                                <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
+                                                                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Do you really want to delete?
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <a class="btn btn-primary" href="${delete}">Accept</a>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                            <td> 
+                                                                <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
+                                                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                        <div class="modal-content">
+
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
+                                                                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                                                                            </div>
+                                                                            <div class="modal-body" style="margin-top: -20px">
+                                                                                <div class="row">
+                                                                                    <div class="col-sm-12">
+                                                                                        <div class="product-detail-content">
+                                                                                            <div class="new-arrival-content pr row">
+                                                                                                <div class="col-12 col-sm-12">
+                                                                                                    <div class="card-body">
+                                                                                                        <div class="table row">
+                                                                                                            <table class="col-12">
+                                                                                                                <tr>
+                                                                                                                    <th>Location Name:</th>
+                                                                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="locationName" value="${location.locationName}" required=""></th>
+                                                                                                                </tr>
+                                                                                                                <tr>
+                                                                                                                    <th>Status:</th>
+                                                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="status" value="${location.status}" required=""></th>
+                                                                                                                </tr>
+                                                                                                            </table>
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
+                                                                                <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    </c:forEach>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </form>   
                                 </div>
                             </div>
                         </div>
@@ -137,12 +196,12 @@
                 </div>
             </div>
             <form action="MainController" method="POST" accept-charset="utf-8"> 
-                <div class="modal fade" id="createNewField" tabindex="-1" aria-labelledby="createNewField" aria-hidden="true">
+                <div class="modal fade" id="createNewLocation" tabindex="-1" aria-labelledby="createNewLocation" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-scrollable">
                         <div class="modal-content">
 
                             <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create new field</h5>
+                                <h5 class="modal-title" id="exampleModalLabel">Create new location</h5>
                                 <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
                             </div>
                             <div class="modal-body" style="margin-top: -20px">
@@ -154,38 +213,9 @@
                                                     <div class="card-body">
                                                         <div class="table row">
                                                             <table class="col-12">
-
                                                                 <tr>
-                                                                    <th>Field Name:</th>
-                                                                    <th class="col-10"><input class="col-12" title="Input information here" type="text" name="fieldName" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Description:</th>
-                                                                    <th><textarea title="Input information here" class="col-12" cols="500" rows="3" name="description"></textarea></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Image:</th>
-                                                                    <th><textarea title="Input information here" class="col-12" rows="6" name="image"></textarea></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Category:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="categoryFieldId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Price:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="price" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Owner:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="userId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Address:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>City:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="cityId" required=""></th>
+                                                                    <th>Location Name:</th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationName" required=""></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th></th>
@@ -202,7 +232,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="hidden" name="action" value="CreateField"/>
+                                <input type="hidden" name="action" value="CreateLocation"/>
                                 <input class="btn btn-primary" type="submit" value="Accept"/>
                             </div>
 
@@ -210,6 +240,8 @@
                     </div>
                 </div>
             </form>
+
+
         </div>
     </div>
     <!-- Required vendors -->

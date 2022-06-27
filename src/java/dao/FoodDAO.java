@@ -23,7 +23,7 @@ public class FoodDAO {
             + "FROM tblFoods WHERE foodID like ?";
     private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodName LIKE ? ";
     private static final String SEARCH_FOOD_BY_ID_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodId LIKE ? ";
-    private static final String DELETE_FOOD = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
+    private static final String DELETE_FOOD = "UPDATE tblFoods SET status = 0 WHERE foodId = ?";
     private static final String VIEW_FOOD_LIST = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods";
     private static final String UPDATE_FOOD = "UPDATE tblFoods SET foodName = ?, image = ?, categoryFoodId = ?, status = ? WHERE foodId = ?";
 
@@ -136,11 +136,6 @@ public class FoodDAO {
                         FoodCategoryDAO fCate = new FoodCategoryDAO();
                         FoodCategory fCateId = fCate.getFoodCategoryByID(foodCate);
                         String status = rs.getString("status");
-                        if (status.equals("1")) {
-                            status = "Active";
-                        } else {
-                            status = "In-active";
-                        }
                         list.add(new Food(foodId, foodName, image, fCateId, status));
                     }
                 }
@@ -218,8 +213,8 @@ public class FoodDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_FOOD);
                 ptm.setString(1, food.getFoodName());
-                ptm.setString(2, food.getImage());
-                ptm.setString(3, food.getFoodCate().getFoodCateName());
+                ptm.setString(2, food.getImage()); 
+                ptm.setString(3, food.getFoodCate().getFoodCateId());
                 ptm.setString(4, food.getStatus());
                 ptm.setString(5, food.getFoodId());
                 
@@ -236,5 +231,82 @@ public class FoodDAO {
             }
         }
         return check;
+    }
+    
+    public boolean deleteFood(String foodId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(DELETE_FOOD);
+                ptm.setString(1, foodId);
+                rs = ptm.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public List<Food> pagingFood(int index) {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        List<Food> list = new ArrayList<>();
+        String query = "SELECT * FROM tblFoods\n"
+                + "ORDER BY foodId\n"
+                + "OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setInt(1, (index - 1) * 5);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                    String foodId = rs.getString("foodId");
+                    String foodName = rs.getString("foodName");
+                    String image = rs.getString("image");
+                    String foodCate = rs.getString("categoryFoodId");
+                    FoodCategoryDAO fCate = new FoodCategoryDAO();
+                    FoodCategory fCateId = fCate.getFoodCategoryByID(foodCate);
+                    String status = rs.getString("status");
+                    if (status.equals("1")) {
+                        status = "Active";
+                    } else {
+                        status = "In-active";
+                    }
+                list.add(new Food(foodId, foodName, image, fCateId, status));
+            }
+        } catch (Exception e) {
+        }
+        return list;
+    }
+    
+    public int getTotalFood() throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String query = "select count(*) from tblFoods";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+
     }
 }

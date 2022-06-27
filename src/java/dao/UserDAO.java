@@ -695,6 +695,7 @@ public class UserDAO {
         return 0;
 
     }
+    
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         List<User> list = dao.pagingAccount(1);
