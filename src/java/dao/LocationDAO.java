@@ -18,8 +18,9 @@ public class LocationDAO {
     private static final String CHECK_LOCATION_NAME = "SELECT locationName FROM tblLocation WHERE locationName = ?";
     private static final String SEARCH_LOCATION_BY_ADMIN = "SELECT locationID, locationName, status FROM tblLocation WHERE locationName like ? AND status like ?";
     private static final String DELETE_LOCATION_BY_ADMIN = "UPDATE tblLocation SET [status] = 'false' WHERE locationID = ?";
-    private static final String CHECK_DELETE_LOCATION = "SELECT locationID FROM tblFields WHERE locationID = ?";
-    private static final String UPDATE_STATUS_LOCATION_BY_ADMIN = "UPDATE tblLocation SET locationName = ?, [status] = ? WHERE locationID = ?";
+    private static final String CHECK_EXIST_LOCATION = "SELECT locationID FROM tblFields WHERE locationID = ?";
+    private static final String UPDATE_STATUS_LOCATION_BY_ADMIN = "UPDATE tblLocation SET [status] = ? WHERE locationID = ?";
+    private static final String UPDATE_LOCATION_BY_OWNER = "UPDATE tblLocation SET locationName = ? WHERE locationID = ?";
     private static final String CREATE_LOCATION = "INSERT INTO tblLocation(locationID, locationName) VALUES(?,?)";
 
     public Location getLocationByID(String locationID) throws SQLException {
@@ -40,7 +41,8 @@ public class LocationDAO {
                         String getLocationID = rs.getString("locationID");
                         String locationName = rs.getString("locationName");
                         String status = rs.getString("status");
-                        location = new Location(getLocationID, locationName, status);
+                        String statusAfter = changeNumberStatus(status);
+                        location = new Location(getLocationID, locationName, statusAfter);
                     }
                 }
             }
@@ -75,12 +77,8 @@ public class LocationDAO {
                     String locationId = rs.getString("locationID");
                     String locationName = rs.getString("locationName");
                     String status = rs.getString("status");
-                    if (status.equals("1")) {
-                        status = "Active";
-                    } else {
-                        status = "In-active";
-                    }
-                    listLocation.add(new Location(locationId, locationName, status));
+                    String statusAfter = changeNumberStatus(status);
+                    listLocation.add(new Location(locationId, locationName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -177,7 +175,8 @@ public class LocationDAO {
                     String locationID = rs.getString("locationID");
                     String locationName = rs.getString("locationName");
                     String statusOfLocation = rs.getString("status");
-                    listLocation.add(new Location(locationID, locationName, statusOfLocation));
+                    String statusAfter = changeNumberStatus(statusOfLocation);
+                    listLocation.add(new Location(locationID, locationName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -219,7 +218,7 @@ public class LocationDAO {
         return check;
     }
 
-    public boolean checkDeleteLocation(String locationID) throws SQLException {
+    public boolean checkExistLocation(String locationID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -227,7 +226,7 @@ public class LocationDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(CHECK_DELETE_LOCATION);
+                ptm = conn.prepareStatement(CHECK_EXIST_LOCATION);
                 ptm.setString(1, locationID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
@@ -246,7 +245,7 @@ public class LocationDAO {
         return check;
     }
     
-    public boolean updateStatusLocation(Location location) throws SQLException {
+    public boolean updateStatusLocation(String cityId, String status) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -254,9 +253,32 @@ public class LocationDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_STATUS_LOCATION_BY_ADMIN);
+                ptm.setString(1, status);
+                ptm.setString(2, cityId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean updateLocationByOwner(Location location) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_LOCATION_BY_OWNER);
                 ptm.setString(1, location.getLocationName());
-                ptm.setString(2, location.getStatus());
-                ptm.setString(3, location.getLocationId());
+                ptm.setString(2, location.getLocationId());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -309,5 +331,22 @@ public class LocationDAO {
             if(conn!= null) conn.close();
         }
         return check;
+    }
+    public String changeNumberStatus(String status) {
+        if (status.equals("1")) {
+            status = "Active";
+        } else {
+            status = "In-active";
+        }
+        return status;
+    }
+    
+    public String changeStringStatus(String status) {
+        if (status.equals("Active")) {
+            status = "1";
+        } else {
+            status = "0";
+        }
+        return status;
     }
 }

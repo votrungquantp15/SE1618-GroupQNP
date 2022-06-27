@@ -19,7 +19,7 @@ public class DeleteFieldController extends HttpServlet {
         try {
             String fieldID = request.getParameter("fieldId");
             FieldDAO dao = new FieldDAO();
-            boolean checkDelete = dao.checkDeleteField(fieldID);
+            boolean checkDelete = dao.checkExist(fieldID);
             if (checkDelete == false) {
                 boolean check = dao.deleteField(fieldID);
                 if (check) {

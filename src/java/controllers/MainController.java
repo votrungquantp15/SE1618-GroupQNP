@@ -51,31 +51,7 @@ public class MainController extends HttpServlet {
     //Change Password
     private static final String RESET_PASSWORD = "ResetPassword";
     private static final String RESET_PASSWORD_CONTROLLER = "ResetPasswordController";
-
-    //Print list field
-    private static final String PRINT_LIST_FIELD = "Print";
-    private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
-
-    //Print field detail
-    private static final String PRINT_DETAIL_FIELD = "PrintDetail";
-    private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
-
-    //Print list city
-    private static final String PRINT_LIST_CITY = "PrintCity";
-    private static final String PRINT_LIST_CITY_CONTROLLER = "PrintCityController";
-
-    //Print city detail
-    private static final String PRINT_DETAIL_CITY = "PrintCityDetail";
-    private static final String PPRINT_DETAIL_CITY_CONTROLLER = "PrintCityDetailController";
-
-    //Delete field
-    private static final String DELETE_LIST_FIELD = "DeleteField";
-    private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
-
-    //Update field
-    private static final String UPDATE_FIELD = "UpdateField";
-    private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
-
+    
     //Profile User Page
     private static final String PROFILE_USER = "ProfileUser";
     private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
@@ -98,6 +74,30 @@ public class MainController extends HttpServlet {
     private static final String ACCOUNT_EDITOR = "AccountEditor";
     private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
 
+    //Print list field
+    private static final String PRINT_LIST_FIELD = "Print";
+    private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
+
+    //Print field detail
+    private static final String PRINT_DETAIL_FIELD = "PrintDetail";
+    private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
+
+    //Print list city
+    private static final String PRINT_LIST_CITY = "PrintCity";
+    private static final String PRINT_LIST_CITY_CONTROLLER = "PrintCityController";
+
+    //Print city detail
+    private static final String PRINT_DETAIL_CITY = "PrintCityDetail";
+    private static final String PPRINT_DETAIL_CITY_CONTROLLER = "PrintCityDetailController";
+
+    //Delete field
+    private static final String DELETE_LIST_FIELD = "DeleteField";
+    private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
+
+    //Update field by admin
+    private static final String UPDATE_FIELD = "UpdateField";
+    private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
+    
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
     private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
@@ -149,6 +149,18 @@ public class MainController extends HttpServlet {
     //Create Location By Admin
     private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
     private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
+    
+    //Print list of field category
+    private static final String PRINT_FIELD_CATE = "PrintFieldCate";
+    private static final String PRINT_FIELD_CATE_CONTROLLER = "PrintFieldCateController";
+    
+    //Search field category
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SearchFieldCateByAdmin";
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER = "SearchFieldCateByAdminController";
+    
+    //Delete field category
+    private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
+    private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -271,6 +283,15 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_LOCATION_BY_ADMIN:
                     url = CREATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case PRINT_FIELD_CATE:
+                    url = PRINT_FIELD_CATE_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_CATE_BY_ADMIN:
+                    url = SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_FIELD_CATE:
+                    url = DELETE_FIELD_CATE_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

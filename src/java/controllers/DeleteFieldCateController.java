@@ -1,47 +1,40 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
-import dto.User;
+import dao.FieldCategoryDAO;
 import java.io.IOException;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class PrintCityController extends HttpServlet {
+public class DeleteFieldCateController extends HttpServlet {
 
-    private static final String ERROR = "cityManagement.jsp";
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
-
+    private static final String ERROR = "PrintFieldCateController";
+    private static final String SUCCESS = "PrintFieldCateController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            HttpSession session = request.getSession();
-            User user = (User)session.getAttribute("LOGIN_USER");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            if (listCity.size() > 0) {
-                request.setAttribute("LIST_CITY", listCity);
-                if (user.getRole().getRoleId().equals("MA")) {
-                    url = OWNER_PAGE;
-                } else if (user.getRole().getRoleId().equals("AD")) {
-                    url = ADMIN_PAGE;
+            String fieldCateId = request.getParameter("fieldCateId");
+            FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
+            boolean checkDelete = fieldCateDao.checkExistFieldCate(fieldCateId);
+            if (checkDelete == false) {
+                boolean check = fieldCateDao.deleteFieldCate(fieldCateId);
+                if (check) {
+                    url = SUCCESS;
+                    request.setAttribute("DELETE_SUCCESS", "Delete field category success!");
+                } else {
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete field category unsuccess! Please try again!");
                 }
+            } else {
+                request.setAttribute("DELETE_UNSUCCESS", "This field category being used cannot be deleted! Delete unsuccess!");
             }
         } catch (Exception e) {
-            log("Error at PrintCityController: " + e.toString());
+            log("Error at DeleteFieldCateController: " + e.toString());
         } finally {
-            try {
-                request.getRequestDispatcher(url).forward(request, response);
-            } catch (Exception e) {
-                log("Error at PrintCityController: " + e.toString());
-            }
+            request.getRequestDispatcher(url).forward(request, response);
         }
     }
 

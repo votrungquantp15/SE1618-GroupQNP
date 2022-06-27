@@ -68,8 +68,8 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                                <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                                <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
+                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <div class="input-group-prepend">
@@ -86,16 +86,8 @@
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewField">Create new field</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
-                                            <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CITY_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -136,80 +128,6 @@
                     </div>
                 </div>
             </div>
-            <form action="MainController" method="POST" accept-charset="utf-8"> 
-                <div class="modal fade" id="createNewField" tabindex="-1" aria-labelledby="createNewField" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create new field</h5>
-                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body" style="margin-top: -20px">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="product-detail-content">
-                                            <div class="new-arrival-content pr row">
-                                                <div class="col-12 col-sm-12">
-                                                    <div class="card-body">
-                                                        <div class="table row">
-                                                            <table class="col-12">
-
-                                                                <tr>
-                                                                    <th>Field Name:</th>
-                                                                    <th class="col-10"><input class="col-12" title="Input information here" type="text" name="fieldName" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Description:</th>
-                                                                    <th><textarea title="Input information here" class="col-12" cols="500" rows="3" name="description"></textarea></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Image:</th>
-                                                                    <th><textarea title="Input information here" class="col-12" rows="6" name="image"></textarea></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Category:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="categoryFieldId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Price:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="price" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Field Owner:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="userId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Address:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>City:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="cityId" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="hidden" name="action" value="CreateField"/>
-                                <input class="btn btn-primary" type="submit" value="Accept"/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
     <!-- Required vendors -->

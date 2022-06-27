@@ -12,7 +12,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Field Detail Management</title>
+    <title>Owner Field Detail Management</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -25,7 +25,7 @@
 </head>
 
 <body>
-    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
+    <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
     <!--*******************
@@ -48,7 +48,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
@@ -130,6 +130,7 @@
                                                                                                     <c:param name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"></c:param>
                                                                                                 </c:url>
                                                                                                 <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
+
                                                                                             </div>
                                                                                             <div class="d-flex justify-content-end">
                                                                                                 <a class="btn btn-primary mt-2" href="MainController?action=Print">Back</a>
@@ -173,8 +174,9 @@
             </div> 
             <form action="MainController" method="POST" accept-charset="utf-8"> 
                 <div class="modal fade" id="updateField" tabindex="-1" aria-labelledby="updateField" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-scrollable">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
                         <div class="modal-content">
+
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Update field</h5>
                                 <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
@@ -189,11 +191,58 @@
                                                         <div class="table row">
                                                             <table class="col-12">
                                                                 <tr>
-                                                                    <th style="position: relative; top: 15px;">Status:</th>
+                                                                    <th>Field Name:</th>
+                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" value="${requestScope.FIELD_DETAIL.fieldName}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Description:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description">${requestScope.FIELD_DETAIL.description}</textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Image:</th>
+                                                                    <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image">${requestScope.FIELD_DETAIL.image}</textarea></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Category:</th>
                                                                     <th>
-                                                                        <select class="form-control" name ="status">
-                                                                            <option value="1">Active</option>
-                                                                            <option value="0">In-Active</option>
+                                                                        <select name ="categoryFieldId">
+                                                                            <c:forEach var="category" items="${requestScope.LIST_CATEGORY}">
+                                                                                <option value="${category.fieldCateId}">${category.fieldCateName}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Price:</th>
+                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="price" value="${requestScope.FIELD_DETAIL.price}" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Field Owner:</th>
+                                                                    <th>
+                                                                        <select name ="userId">
+                                                                            <c:forEach var="user" items="${requestScope.LIST_USER}">
+                                                                                <option value="${user.userID}">${user.fullName}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Address:</th>
+                                                                    <th>
+                                                                        <select name ="locationId">
+                                                                            <c:forEach var="location" items="${requestScope.LIST_LOCATION}">
+                                                                                <option value="${location.locationId}">${location.locationName}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>City:</th>
+                                                                    <th>
+                                                                        <select name ="cityId">
+                                                                            <c:forEach var="city" items="${requestScope.LIST_CITY}">
+                                                                                <option value="${city.cityId}">${city.cityName}</option>
+                                                                            </c:forEach>
                                                                         </select>
                                                                     </th>
                                                                 </tr>
@@ -217,13 +266,6 @@
             </form>
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-        if (${requestScope.UPDATE_MODAL} === "1"){
-        $('#updateField').modal('show');
-        }
-        }
-    </script>
     <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <!-- Datatable -->
