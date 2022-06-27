@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.LocationDAO;
+import dto.Location;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -10,49 +10,41 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class UpdateCityByAdminController extends HttpServlet {
+public class CreateLocationController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+    private static final String ERROR = "PrintLocationController";
+    private static final String SUCCESS = "PrintLocationController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            CityDAO cityDao = new CityDAO();
-            String id_city = request.getParameter("id_city");
-            if (id_city != null) {
-                String cityName = request.getParameter("cityName");
-                cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-                cityName = URLDecoder.decode(cityName, "UTF-8");
-                String status = request.getParameter("status");
-                if (status.equals("Active")) {
-                        status = "1";
-                    } else {
-                        status = "0";
-                    }
-                boolean checkValidation = true;
-                if (cityName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "City name cannot be left blank");
-                    checkValidation = false;
-                } else if (status.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Status cannot be left blank");
-                    checkValidation = false;
+            LocationDAO locationDao = new LocationDAO();
+            String locationID = locationDao.createLocationId();
+            String locationName = request.getParameter("locationName");
+            locationName = URLEncoder.encode(locationName, "ISO-8859-1");
+            locationName = URLDecoder.decode(locationName, "UTF-8");
+            boolean checkValidation = true;
+            if (locationName.trim().length() == 0) {
+                request.setAttribute("CREATE_ERROR", "Location name cannot be left blank");
+                checkValidation = false;
+            } else if (locationDao.checkLocationName(locationName)) {
+                request.setAttribute("CREATE_ERROR", "Location name is already exist");
+                checkValidation = false;
+            }
+            if (checkValidation) {
+                Location location = new Location(locationID, locationName, null);
+                boolean checkCreate = locationDao.createLocation(location);
+                if (checkCreate) {
+                    url = SUCCESS;
                 }
-                if (checkValidation) {
-                    City city = new City(id_city, cityName, status);
-                    boolean checkUpdate = cityDao.updateStatusCity(city);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update city success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
-                    }
-                }
+                request.setAttribute("CREATE_SUCCESS", "Create location success!");
+            } else {
+                request.setAttribute("CREATE_UNSUCCESS", "Create location unsuccess! Please try again!");
             }
         } catch (Exception e) {
-            log("Error at UpdateCityByAdminController: " + e.toString());
+            log("Error at CreateLocationController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
