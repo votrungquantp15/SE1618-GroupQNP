@@ -5,45 +5,38 @@
  */
 package controllers;
 
-import dao.SlotDAO;
-import dto.Slot;
+import dao.FoodDAO;
+import dto.Food;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author NITRO 5
- */
-public class DeleteSlotController extends HttpServlet {
+@WebServlet(name = "SearchFoodByManagerController", urlPatterns = {"/SearchFoodByManagerController"})
+public class SearchFoodByManager extends HttpServlet {
 
-    private static final String SUCCESS = "SearchSlotController";
-    private static final String ERROR = "SearchSlotController";
+    private static final String ERROR = "foodManagement.jsp";
+    private static final String SUCCESS = "foodManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String slotID = request.getParameter("slotID");
-            SlotDAO slotDAO = new SlotDAO();
-            Slot slot = slotDAO.getSlotByID(slotID);
-            String status = request.getParameter("status");
-            if ("True".equals(status)) {
-                boolean check = slotDAO.deleteSlotByID(slot.getSlotId(), status);
-                if (check == true) {
-                    request.setAttribute("DELETE_SUCCESS", "Delete " + slotID + " Successfully");
-                    url = SUCCESS;
-                } else {
-                    request.setAttribute("DELETE_UNSUCCESS", "Delete " + slotID + " Failed");
-                }
-            } else {
-                request.setAttribute("DELETE_UNSUCCESS", slot.getSlotId() + " Already Has Status: " + status );
-            }
+            String search = request.getParameter("searchFoodByManager");
+            FoodDAO dao = new FoodDAO();
+            List<Food> listFood = dao.searchFoodByNameForManager(search);
+                
+            if (listFood.size() > 0) {
+                request.setAttribute("VIEW_FOOD", listFood);
+                url = SUCCESS;
+            } else 
+                request.setAttribute("SEARCH_FAILED", "KHÔNG TÌM THẤY THỨC ĂN NÀY");
         } catch (Exception e) {
-            log("Error at DeleteSlotController: " + e.toString());
+            log("Error at SearchFoodByManagerController" + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -9,6 +9,7 @@ import dao.BookingDetailDAO;
 import dto.BookingDetail;
 import dto.User;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -40,7 +41,9 @@ public class SearchBookingDetailController extends HttpServlet {
             } else if (USER.equals(roleID)) {
                 BookingDetailDAO dao = new BookingDetailDAO();
                 BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
+                List<BookingDetail> list = dao.getListFoodBookingDetailByID(bookingID);
                 request.setAttribute("BOOKING_DETAIL", getBookingDetail);
+                request.setAttribute("LIST_FOOD_DETAIL", list);
                 url = SUCCESS_USER;
             }
         } catch (Exception e) {

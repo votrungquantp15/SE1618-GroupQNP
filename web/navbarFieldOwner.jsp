@@ -103,7 +103,12 @@ Chat box End
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
             <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li
+            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
+
+            <li><a href="MainController?action=ViewFoodList&index=1">Food Management</a></li>
+            <li><a href="MainController?action=Print">Fields Management</a></li>
+            <li><a href="MainController?action=SearchBooking&search=&status=&index=1">Booking report</a></li>
+
         </ul>
     </div>
 </div>

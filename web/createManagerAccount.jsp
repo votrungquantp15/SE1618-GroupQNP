@@ -14,7 +14,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Account Editor</title>
+        <title>Create Manager Account</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -65,11 +65,11 @@
             <br/>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}">
+
                 <form action="MainController" method="POST">
                     <div class="card">
                         <div class="card-header">
-                            <h4 class="card-title">Account Editor</h4>
+                            <h4 class="card-title">Create Manager Account</h4>
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
@@ -77,61 +77,53 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>User ID</label>
-                                            <input type="text" class="form-control" name="userID" value="${user.userID}" readonly=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
                                             <label>Full Name</label>
-                                            <input type="text" class="form-control" name="fullName" value="${user.fullName}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Address</label>
-                                            <input type="text" class="form-control" name="address" value="${user.address}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>City</label>
-                                            <input type="text" class="form-control" name="cityId" value="${user.city.cityId}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Birthday</label>
-                                            <input type="date" class="form-control" name="birthday" value="${user.birth}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Phone</label>
-                                            <input type="text" class="form-control" name="phone" value="${user.phone}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Email</label>
-                                            <input type="email" class="form-control" name="email" value="${user.email}" readonly=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Account Name</label>
-                                            <input type="text" class="form-control" name="accName" value="${user.accName}" readonly=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Password</label>
-                                            <input type="text" class="form-control" name="password" value="${user.password}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Role ID</label>
-                                            <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
-                                        </div>
-                                        <div class="form-group col-md-6">
-                                            <label>Status</label>
-                                            <input type="text" class="form-control" name="status" value="${user.status}" required=""/>
+                                            <input type="text" class="form-control" name="fullName" required=""/>
                                         </div>
 
-                                    </div>                                       
-                                        <button type="submit" name="action" class="btn btn-primary" value="UpdateAccountByAdmin"/>Edit</button>
-                                    <input type="hidden" name="userID" value="${user.userID}"/>
-                                    <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                    <p style="color: red">${requestScope.UPDATE_FAILED} </p>
-                                </form>
-                            </div>
+                                        <div class="form-group col-md-6">
+                                            <label>City</label>
+                                            <select class="form-control " name="cityId">
+
+                                                <option value="">Show all</option>
+                                            <c:forEach var="cityName" items="${requestScope.CITY_NAME}">
+                                                <option value="${cityName.cityId}">${cityName.cityName}</option>
+                                            </c:forEach>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Birthday</label>
+                                        <input type="date" class="form-control" name="birthday" required=""/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Phone</label>
+                                        <input type="text" class="form-control" name="phone" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.phoneError}</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Email</label> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.emailError}</label>
+                                        <input type="email" class="form-control" name="email" required=""/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Account Name</label>
+                                        <input type="text" class="form-control" name="accName" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.accNameError}</label>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Password</label>
+                                        <input type="text" class="form-control" name="password" required=""/>
+                                    </div>
+
+                                </div>                                       
+                                <button type="submit" name="action" class="btn btn-primary" value="CreateManagerAccount"/>Create</button>
+                                <p style="color: green">${requestScope.MANAGER_SUCCESS} </p>
+                                <p style="color: red">${requestScope.MANAGER_ERROR} </p>
+                            </form>
                         </div>
-                    </div>                                
-                </form>
-            </c:forEach>
+                    </div>s
+                </div>                                
+            </form>
+
 
 
         </div>

@@ -15,7 +15,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Admin Dashboard </title>
+    <title>Field Owner Dashboard </title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -31,13 +31,6 @@
     <!--*******************
         Preloader start
     ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
     <!--*******************
         Preloader end
     ********************-->
@@ -48,7 +41,7 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarAdmin.jsp"></jsp:include>
+        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
@@ -57,19 +50,19 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Account Management</h4>
+                                        <h4 class="card-title">Food Management</h4>
                                     </div>
 
                                     <div class="card-body">
                                         <form action="MainController">
                                             <div class="form-group col-md-6">
-                                                <label><strong>Search user by name</strong></label>
+                                                <label><strong>Search food by name</strong></label>
                                                 <div class="row">
                                                     <div class ="col-md-6">
-                                                        <input name="searchAccountByAdmin" type="text" class="form-control" placeholder="Type here to search" value="${param.searchAccountByAdmin}">                                                                                             
+                                                        <input name="searchFoodByManager" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodByManager}">                                                                                             
                                                 </div>
                                                 <div class ="col-md-6">
-                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">SEARCH</button>
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodByManager">SEARCH</button>
                                                 </div>
                                             </div>                              
                                         </div>                                                                                  
@@ -82,41 +75,32 @@
                                         <table class="table table-responsive-md">
                                             <thead>
                                                 <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
-                                                    <th><strong>User ID</strong></th>
-                                                    <th><strong>Full Name</strong></th>
-                                                    <th><strong>Address</strong></th>
-                                                    <th><strong>City</strong></th>
-                                                    <th><strong>Birthday</strong></th>
-                                                    <th><strong>Phone</strong></th>
-                                                    <th><strong>Email</strong></th>
-                                                    <th><strong>Account Name</strong></th>                                                                                                                                    
-                                                    <th><strong>Role Name</strong></th>
-                                                    <th><strong>Status</strong></th>
+                                                    <th><strong>Food ID</strong></th>
+                                                    <th><strong>Food Name</strong></th>
+                                                    <th><strong>Image</strong></th>
+                                                    <th><strong>Category</strong></th>
+                                                    <th><strong>Status</strong></th>                                                  
                                                     <th><strong>Action</strong></th>
-                                                    
+
                                                 </tr>
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <c:forEach var="user" items="${requestScope.VIEW_ACCOUNT}" varStatus="counter">
+                                                    <c:forEach var="food" items="${requestScope.VIEW_FOOD}">
                                                     <tr>
-                                                        <td><strong>${counter.count}</strong></td>
-                                                        <td>${user.userID}</td>
-                                                        <td>${user.fullName}</td>
-                                                        <td>${user.address}</td>
-                                                        <td>${user.city.cityName}</td>
-                                                        <td>${user.birth}</td>
-                                                        <td>${user.phone}</td>
-                                                        <td>${user.email}</td>
-                                                        <td>${user.accName}</td>                                                         
-                                                        <td>${user.role.roleId}</td>                                                       
-                                                        <td>${user.status}</td>
+                                                        <td>${food.foodId}</td>
+                                                        <td>${food.foodName}</td>
+                                                        <td>
+                                                            <img width="200" height="auto" src="${food.image}">
+                                                        </td>
+                                                        <td>${food.foodCate.foodCateName}</td>
+                                                        <td>${food.status}</td>
+
                                                         <td>
                                                             <div class="d-flex">
-                                                                
-                                                                <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+
+                                                                <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
+                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>
@@ -125,6 +109,11 @@
 
                                                 </tr>
                                         </table>
+                                        <ul class="pagination pagination-sm pagination-gutter">
+                                            <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
+                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=ViewFoodList&index=${page}">${page}</a>
+                                            </c:forEach>
+                                        </ul>       
 
 
                                     </div>
