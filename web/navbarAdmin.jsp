@@ -54,7 +54,7 @@ Chat box End
                 </li>				
                 <li class="nav-item dropdown header-profile">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                        <img src="images/profile/pic1.jpg" width="20" alt="">
+                        <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" width="20" alt="">
                         <div class="header-info col-12">
                             <span>${sessionScope.LOGIN_USER.fullName}</span>
                         </div>
@@ -91,7 +91,7 @@ Chat box End
     <div class="deznav-scroll">
         <div class="main-profile">
             <div class="image-bx">
-                <img src="images/Untitled-1.jpg" alt="">
+                <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
             <p class="email">${sessionScope.LOGIN_USER.email}</p>
