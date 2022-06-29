@@ -129,7 +129,8 @@
                                         </table>
                                         <ul class="pagination pagination-sm pagination-gutter">
                                             <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
-                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=AccountList&index=${page}">${page}</a>
+                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" >
+                                                    <a class="page-link" href="MainController?action=AccountList&index=${page}">${page}</a>
                                                 </c:forEach>
                                         </ul>                                        
 
