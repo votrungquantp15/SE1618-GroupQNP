@@ -110,7 +110,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already " + field.getStatus());
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + field.getStatus() + "\"");
                 }
             }
         } catch (Exception e) {

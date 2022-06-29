@@ -36,7 +36,7 @@ public class SearchFieldCateByAdminController extends HttpServlet {
                     url = ADMIN_PAGE;
                 }
             } else {
-                request.setAttribute("SEARCH_CITY_ERROR", "Couldn't find any citys");
+                request.setAttribute("SEARCH_FIELD_CATE_ERROR", "Couldn't find any field category");
             }
         } catch (Exception e) {
             log("Error at SearchFieldCateByAdminController: " + e.toString());

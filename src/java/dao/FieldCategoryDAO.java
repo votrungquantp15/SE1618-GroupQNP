@@ -15,9 +15,13 @@ public class FieldCategoryDAO {
             + "FROM tblFieldCategory WHERE categoryFieldId like ?";
     private static final String GET_ALL_CATEGORY = "SELECT  categoryFieldID, categoryFieldName, status FROM tblFieldCategory";
     private static final String CHECK_FIELD_CATE_ID = "SELECT categoryFieldID FROM tblFieldCategory WHERE categoryFieldID = ?";
+    private static final String CHECK_FIELD_CATE_NAME = "SELECT categoryFieldName FROM tblFieldCategory WHERE categoryFieldName = ?";
     private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SELECT categoryFieldID, categoryFieldName, status FROM tblFieldCategory WHERE categoryFieldName like ? AND status like ?";
     private static final String DELETE_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = 'false' WHERE categoryFieldID = ?";
     private static final String CHECK_EXIST_FIELD_CATE = "SELECT categoryFieldID FROM tblFields WHERE categoryFieldID = ?";
+    private static final String UPDATE_STATUS_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = ? WHERE categoryFieldID = ?";
+    private static final String UPDATE_FIELD_CATE_BY_OWNER = "UPDATE tblFieldCategory SET categoryFieldName = ? WHERE categoryFieldID = ?";
+    private static final String CREATE_FIELD_CATE = "INSERT INTO tblFieldCategory(categoryFieldID, categoryFieldName) VALUES(?,?)";
     
     public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
         FieldCategory fieldCategory = null;
@@ -126,6 +130,37 @@ public class FieldCategoryDAO {
         return check;
     }
     
+    public boolean checkFieldCateName(String categoryFieldName) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_FIELD_CATE_NAME);
+                ptm.setString(1, categoryFieldName);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
     public List<FieldCategory> searchFieldCateByAdmin(String search, String status) throws SQLException {
         List<FieldCategory> listFieldCate = new ArrayList<>();
         Connection conn = null;
@@ -199,6 +234,98 @@ public class FieldCategoryDAO {
                 if (rs.next()) {
                     check = true;
                 }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean updateStatusFieldCate(String fieldCateId, String status) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_STATUS_FIELD_CATE_BY_ADMIN);
+                ptm.setString(1, status);
+                ptm.setString(2, fieldCateId);
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean updateFieldCateByOwner(FieldCategory fieldCate) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(UPDATE_FIELD_CATE_BY_OWNER);
+                ptm.setString(1, fieldCate.getFieldCateName());
+                ptm.setString(2, fieldCate.getFieldCateId());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public String handleFieldCateId() {
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "FC" + s;
+    }
+
+    public String createFieldCateId() throws SQLException {
+        String fieldCateId = handleFieldCateId();
+        boolean check = false;
+        do {
+            check = checkFieldCateId(fieldCateId);
+            if (check == false) {
+                fieldCateId = handleFieldCateId();
+            }
+        } while (check);
+        return fieldCateId;
+    }
+
+    public boolean createFieldCate(FieldCategory fieldCate) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_FIELD_CATE);
+                ptm.setString(1, fieldCate.getFieldCateId());
+                ptm.setString(2, fieldCate.getFieldCateName());
+                check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
         } finally {
