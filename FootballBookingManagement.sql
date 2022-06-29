@@ -1,7 +1,9 @@
-﻿CREATE DATABASE FootballBookingManagement
+﻿
+DROP DATABASE FootballBookingManagement
+
+CREATE DATABASE FootballBookingManagement
 USE FootballBookingManagement
 
-DROP DATABASE FootballBookingManagement
 
 CREATE TABLE tblRoles
 (
@@ -63,8 +65,8 @@ CREATE TABLE tblFields
 CREATE TABLE tblSlots
 (
 	slotId varchar(10) PRIMARY KEY,
-	timeStart time NOT NULL,
-	timeEnd time NOT NULL,
+	timeStart varchar(10) NOT NULL,
+	timeEnd varchar(10) NOT NULL,
 	[status] [bit] default '1'
 )
 
@@ -172,9 +174,30 @@ INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldI
 			, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQpkohiUUT73hWZ9awadw4uJy9EfYIbfKquOLgZJu2W8XRFJAv61Lg4wkYxpgudwdMM24&usqp=CAU'
 			, 'FC3', '15', 'U3', 'LO3', 'CT1', 1)
 
-INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL1', '07:00:00', '08:00:00', 1)
-INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL2', '08:00:00', '09:00:00', 1)
-INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL3', '09:00:00', '10:00:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL1', '00:00', '01:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL2', '01:00', '02:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL3', '02:00', '03:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL4', '03:00', '04:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL5', '04:00', '05:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL6', '05:00', '06:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL7', '06:00', '07:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL8', '07:00', '08:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL9', '08:00', '09:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL10', '09:00', '10:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL11', '10:00', '11:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL12', '11:00', '12:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL13', '12:00', '13:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL14', '13:00', '14:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL15', '14:00', '15:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL16', '15:00', '16:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL17', '16:00', '17:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL18', '17:00', '18:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL19', '18:00', '19:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL20', '19:00', '20:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL21', '20:00', '21:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL22', '21:00', '22:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL23', '22:00', '23:00', 1)
+INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL24', '23:00', '00:00', 1)
 
 INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD1', 'SL1', 'FI1', 1)
 INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD2', 'SL1', 'FI2', 1)
@@ -210,8 +233,18 @@ INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [statu
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD6', 'FO4', 'FI2', '5', '3', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD7', 'FO6', 'FI2', '15', '15', 1)
 
-INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO1', '2022-01-24', 'U4', '50', 'on-going')
-INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO2', '2022-03-12', 'U5', '12', 'on-going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO1', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO2', '2022-03-12', 'U5', '12', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO3', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO4', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO5', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO6', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO7', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO8', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO9', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO10', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO11', '2022-01-24', 'U4', '50', 'On-Going')
+INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO12', '2022-01-24', 'U4', '50', 'On-Going')
 
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD1', 'BO1', 'FI1', '2022-01-25', 'SD1', '10', 'FD1', '20', '2', 1)
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD2', 'BO2', 'FI2', '2022-03-14', 'SD2', '12', NULL, NULL, NULL, 1)

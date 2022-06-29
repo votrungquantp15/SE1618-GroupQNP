@@ -182,20 +182,14 @@
                                         </div>
                                         <ul class="pagination">
                                             <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                                <li>
-                                                    <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                                <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                    <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
                                                 </li>
                                             </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="footer">
-                        <div class="copyright">
-                            <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
                         </div>
                     </div>
 
