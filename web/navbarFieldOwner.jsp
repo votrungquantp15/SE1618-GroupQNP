@@ -95,7 +95,7 @@ Chat box End
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="MainController?action=Print">Field</a></li>
-                    <!--<li><a href="MainController?action=PrintFieldCate">Field Category</a></li>-->
+                    <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
                     <li><a href="MainController?action=PrintCity">City</a></li>
                     <li><a href="MainController?action=PrintLocation">Location</a></li>
                 </ul>

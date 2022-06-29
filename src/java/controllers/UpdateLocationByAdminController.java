@@ -66,7 +66,7 @@ public class UpdateLocationByAdminController extends HttpServlet {
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already " + location.getStatus());
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + location.getStatus() + "\"");
                 }
             }
         } catch (Exception e) {

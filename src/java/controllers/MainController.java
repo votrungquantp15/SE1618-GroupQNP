@@ -179,6 +179,15 @@ public class MainController extends HttpServlet {
     //Delete field category
     private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
     private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
+    
+    //Update field category
+    private static final String UPDATE_FIELD_CATE = "UpdateFieldCate";
+    private static final String UPDATE_FIELD_CATE_CONTROLLER = "UpdateFieldCateByAdminController";
+    
+    //Create field category
+    private static final String CREATE_FIELD_CATE = "CreateFieldCate";
+    private static final String CREATE_FIELD_CATE_CONTROLLER = "CreateFieldCateController";
+    
     //Create Manager Account
     private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
     private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
@@ -327,6 +336,12 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_MANAGER_ACCOUNT:
                     url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
+                    break;
+                case UPDATE_FIELD_CATE:
+                    url = UPDATE_FIELD_CATE_CONTROLLER;
+                    break;
+                case CREATE_FIELD_CATE:
+                    url = CREATE_FIELD_CATE_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

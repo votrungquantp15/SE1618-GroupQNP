@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.FieldCategoryDAO;
+import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -12,66 +12,67 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UpdateCityByAdminController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+public class UpdateFieldCateByAdminController extends HttpServlet {
 
+    private static final String ERROR = "PrintFieldCateController";
+    private static final String SUCCESS = "PrintFieldCateController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            CityDAO cityDao = new CityDAO();
+            FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
-            String id_city = request.getParameter("id_city");
+            String id_fieldCate = request.getParameter("id_fieldCate");
             boolean checkValidation = true;
 
             if (user.getRole().getRoleId().equals("MA")) {
-                String cityName = request.getParameter("cityName");
-                cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-                cityName = URLDecoder.decode(cityName, "UTF-8");
-                if (cityName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "City name cannot be left blank");
+                String fieldCateName = request.getParameter("fieldCateName");
+                fieldCateName = URLEncoder.encode(fieldCateName, "ISO-8859-1");
+                fieldCateName = URLDecoder.decode(fieldCateName, "UTF-8");
+                if (fieldCateName.trim().length() == 0) {
+                    request.setAttribute("UPDATE_ERROR", "Field category name cannot be left blank");
                     checkValidation = false;
                 }
                 if (checkValidation) {
-                    City city = new City(id_city, cityName, null);
-                    boolean checkUpdate = cityDao.updateCityByOwner(city);
+                    FieldCategory fieldCate = new FieldCategory(id_fieldCate, fieldCateName, null);
+                    boolean checkUpdate = fieldCateDao.updateFieldCateByOwner(fieldCate);
                     if (checkUpdate) {
                         url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update city success!");
+                        request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
                     } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
+                        request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
                     }
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
-                City city = cityDao.getCityByID(id_city);
-                String statusOfCity = city.getStatus();
-                if (!cityDao.changeStringStatus(statusOfCity).equals(status)) {
-                    boolean checkExist = cityDao.checkExistCity(id_city);
+                FieldCategory fieldCate = fieldCateDao.getFieldCategoryByID(id_fieldCate);
+                String statusOfFieldCate = fieldCate.getStatus();
+                if (!fieldCateDao.changeStringStatus(statusOfFieldCate).equals(status)) {
+                    boolean checkExist = fieldCateDao.checkExistFieldCate(id_fieldCate);
                     if (checkExist) {
-                        request.setAttribute("UPDATE_ERROR", "This city being used cannot be changed status!");
+                        request.setAttribute("UPDATE_ERROR", "This field category being used cannot be changed status!");
                         checkValidation = false;
                     }
                     if (checkValidation) {
-                        boolean checkUpdate = cityDao.updateStatusCity(id_city, status);
+                        boolean checkUpdate = fieldCateDao.updateStatusFieldCate(id_fieldCate, status);
                         if (checkUpdate) {
                             url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update city success!");
+                            request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
                         } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + city.getStatus() + "\"");
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + fieldCate.getStatus() + "\"");
                 }
             }
 
         } catch (Exception e) {
-            log("Error at UpdateCityByAdminController: " + e.toString());
+            log("Error at UpdateFieldCateByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -136,6 +136,14 @@
         <servlet-name>DeleteFieldCateController</servlet-name>
         <servlet-class>controllers.DeleteFieldCateController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateFieldCateByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateFieldCateByAdminController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateFieldCateController</servlet-name>
+        <servlet-class>controllers.CreateFieldCateController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -275,6 +283,14 @@
     <servlet-mapping>
         <servlet-name>AccountListController</servlet-name>
         <url-pattern>/AccountListController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFieldCateByAdminController</servlet-name>
+        <url-pattern>/UpdateFieldCateByAdminController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFieldCateController</servlet-name>
+        <url-pattern>/CreateFieldCateController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

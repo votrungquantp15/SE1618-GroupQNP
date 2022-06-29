@@ -78,7 +78,7 @@
                                                     </div>
                                                 </div>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_CITY_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
                                             <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
@@ -118,7 +118,7 @@
                                                                     <c:param name="action" value="DeleteFieldCate"></c:param>
                                                                     <c:param name="fieldCateId" value="${fieldCate.fieldCateId}"></c:param>
                                                                 </c:url>
-                                                                <a title="Click here to delete field cate" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
+                                                                <a title="Click here to delete field category" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
                                                                 <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -176,7 +176,7 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field cate" type="submit" name="action" value="UpdateFieldCate"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
                                                                                     <input type="hidden" name="id_fieldCate" value="${fieldCate.fieldCateId}"/>
                                                                                 </div>
                                                                             </div>
