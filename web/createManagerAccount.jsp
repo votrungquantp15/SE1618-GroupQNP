@@ -120,7 +120,7 @@
                                 <p style="color: red">${requestScope.MANAGER_ERROR} </p>
                             </form>
                         </div>
-                    </div>s
+                    </div>
                 </div>                                
             </form>
 

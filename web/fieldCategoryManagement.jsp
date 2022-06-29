@@ -12,7 +12,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Location Management</title>
+    <title>Field Category Management</title>
     <!-- Favicon icon -->
     <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
     <!-- Datatable -->
@@ -57,7 +57,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Locations Management</h4>
+                                        <h4 class="card-title">Field Category Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -74,11 +74,11 @@
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchLocationByAdmin">Search</button>
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldCateByAdmin">Search</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
                                             <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
@@ -95,8 +95,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Location ID</strong></th>
-                                                        <th><strong>Location Name</strong></th>
+                                                        <th><strong>Field Cate ID</strong></th>
+                                                        <th><strong>Field Cate Name</strong></th>
                                                         <th><strong>Status</strong></th>
                                                         <th><strong>Action</strong></th>
                                                         <th></th>
@@ -104,21 +104,21 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <c:forEach var="location" items="${requestScope.LIST_LOCATION}">
+                                                        <c:forEach var="fieldCate" items="${requestScope.LIST_FIELD_CATE}">
                                                             <c:set var="counter" scope="page" value="${counter + 1}"/>
                                                         <tr>
                                                             <td><strong>${counter}</strong></td>
-                                                            <td>${location.locationId}</td>
-                                                            <td>${location.locationName}</td>
-                                                            <td>${location.status}</td>
+                                                            <td>${fieldCate.fieldCateId}</td>
+                                                            <td>${fieldCate.fieldCateName}</td>
+                                                            <td>${fieldCate.status}</td>
                                                             <td>
-                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateLocation${counter}"><i class="fa fa-pencil"></i></a>
+                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateFieldCate${counter}"><i class="fa fa-pencil"></i></a>
 
                                                                 <c:url var="delete" value="MainController">
-                                                                    <c:param name="action" value="DeleteLocation"></c:param>
-                                                                    <c:param name="locationId" value="${location.locationId}"></c:param>
+                                                                    <c:param name="action" value="DeleteFieldCate"></c:param>
+                                                                    <c:param name="fieldCateId" value="${fieldCate.fieldCateId}"></c:param>
                                                                 </c:url>
-                                                                <a title="Click here to delete location" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
+                                                                <a title="Click here to delete field category" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
                                                                 <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -139,12 +139,12 @@
                                                             </td>
                                                             <td> 
                                                                 <form action="MainController" method="POST" accept-charset="utf-8">
-                                                                    <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
+                                                                    <div class="modal fade" id="updateFieldCate${counter}" tabindex="-1" aria-labelledby="updateFieldCate" aria-hidden="true">
                                                                         <div class="modal-dialog modal-dialog-scrollable">
                                                                             <div class="modal-content">
 
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update field category</h5>
                                                                                     <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
                                                                                 </div>
                                                                                 <div class="modal-body" style="margin-top: -20px">
@@ -176,8 +176,8 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
-                                                                                    <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
+                                                                                    <input type="hidden" name="id_fieldCate" value="${fieldCate.fieldCateId}"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>

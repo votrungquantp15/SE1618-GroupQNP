@@ -1,7 +1,14 @@
 package controllers;
 
+import dao.CityDAO;
+import dao.FieldCategoryDAO;
 import dao.FieldDAO;
+import dao.LocationDAO;
+import dao.UserDAO;
+import dto.City;
 import dto.Field;
+import dto.FieldCategory;
+import dto.Location;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -15,6 +22,7 @@ public class PrintFieldController extends HttpServlet {
 
     private static final String USER_PAGE = "home.jsp";
     private static final String ADMIN_PAGE = "fieldManagement.jsp";
+    private static final String OWNER_PAGE = "ownerFieldManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -22,8 +30,25 @@ public class PrintFieldController extends HttpServlet {
         String url = USER_PAGE;
         try {
             HttpSession session = request.getSession();
-            FieldDAO dao = new FieldDAO();
             User user = (User)session.getAttribute("LOGIN_USER");
+            
+            UserDAO userDao = new UserDAO();
+            List<User> listUser = userDao.getAllUser();
+            request.setAttribute("LIST_USER", listUser);
+            
+            FieldCategoryDAO cateDao = new FieldCategoryDAO();
+            List<FieldCategory> listCate = cateDao.getAllFieldCategory();
+            request.setAttribute("LIST_CATEGORY", listCate);
+            
+            CityDAO cityDao = new CityDAO();
+            List<City> listCity = cityDao.getAllCity();
+            request.setAttribute("LIST_CITY", listCity);
+            
+            LocationDAO locationDao = new LocationDAO();
+            List<Location> listLocation = locationDao.getAllLocation();
+            request.setAttribute("LIST_LOCATION", listLocation);
+            
+            FieldDAO dao = new FieldDAO();
             List<Field> listField = dao.getListField();
             if (listField.size() > 0) {
                 request.setAttribute("LIST_FIELD", listField);
@@ -31,6 +56,8 @@ public class PrintFieldController extends HttpServlet {
                     url = USER_PAGE;
                 } else if (user.getRole().getRoleId().equals("AD")) {
                     url = ADMIN_PAGE;
+                } else if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
                 }
             }
         } catch (Exception e) {

@@ -1,12 +1,8 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.UserDAO;
-import dto.City;
 import dto.Field;
-import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
 import java.util.ArrayList;

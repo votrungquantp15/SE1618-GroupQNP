@@ -19,7 +19,7 @@ public class DeleteLocationByAdminController extends HttpServlet {
         try {
             String locationId = request.getParameter("locationId");
             LocationDAO locationDao = new LocationDAO();
-            boolean checkDelete = locationDao.checkDeleteLocation(locationId);
+            boolean checkDelete = locationDao.checkExistLocation(locationId);
             if (checkDelete == false) {
                 boolean check = locationDao.deleteLocation(locationId);
                 if (check) {

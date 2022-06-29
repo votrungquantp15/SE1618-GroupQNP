@@ -75,7 +75,7 @@ Chat box End
     </div>
     <div class="sub-header">
         <div class="d-flex align-items-center flex-wrap mr-auto">
-            <h5 class="dashboard_bar">Dashboard</h5>
+            <h5 class="dashboard_bar">Admin Dashboard</h5>
         </div>
     </div>
 </div>
@@ -92,10 +92,9 @@ Chat box End
         <div class="main-profile">
             <div class="image-bx">
                 <img src="images/Untitled-1.jpg" alt="">
-                <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p class="email"><a href="" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">${sessionScope.LOGIN_USER.email}</a></p>
+            <p class="email">${sessionScope.LOGIN_USER.email}</p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
@@ -105,10 +104,9 @@ Chat box End
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="MainController?action=Print">Field</a></li>
-                    <li><a href="#">Field Category</a></li>
+                    <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
                     <li><a href="MainController?action=PrintCity">City</a></li>
                     <li><a href="MainController?action=PrintLocation">Location</a></li>
-                    <li><a href="#">Food</a></li>
                 </ul>
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>

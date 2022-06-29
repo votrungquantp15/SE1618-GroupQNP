@@ -29,6 +29,7 @@ public class CreateFieldController extends HttpServlet {
         String url = ERROR;
         try {
             FieldDAO fieldDao = new FieldDAO();
+            boolean checkValidation = true;
             String fieldID = fieldDao.createFieldId();
             String fieldName = request.getParameter("fieldName");
             fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
@@ -40,7 +41,12 @@ public class CreateFieldController extends HttpServlet {
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
             FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
-            double price = Double.parseDouble(request.getParameter("price"));
+            String price = request.getParameter("price");
+            if(fieldDao.isNumeric(price) == false){
+                request.setAttribute("CREATE_ERROR", "Price must be a number");
+                checkValidation = false;
+            }
+            double priceOfField = Double.parseDouble(price);
             String id_of_user = request.getParameter("userId");
             UserDAO user = new UserDAO();
             User userID = user.getUserByID(id_of_user);
@@ -54,10 +60,9 @@ public class CreateFieldController extends HttpServlet {
             id_of_city = URLDecoder.decode(id_of_city, "UTF-8");
             CityDAO city = new CityDAO();
             City cityID = city.getCityByID(id_of_city);
-
-            boolean checkValidation = true;
-            if (fieldName.trim().length() == 0 || fieldName.length() >= 15) {
-                request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be < 15");
+            
+            if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
+                request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be <= 30");
                 checkValidation = false;
             }
 
@@ -66,13 +71,13 @@ public class CreateFieldController extends HttpServlet {
                 checkValidation = false;
             }
 
-            if (price < 0) {
+            if (priceOfField < 0) {
                 request.setAttribute("CREATE_ERROR", "Price must be >= 0");
                 checkValidation = false;
             }
 
             if (checkValidation) {
-                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, null);
+                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userID, locationID, cityID, null);
                 boolean checkCreate = fieldDao.createField(field);
                 if (checkCreate) {
                     url = SUCCESS;

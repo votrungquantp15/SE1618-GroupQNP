@@ -7,16 +7,19 @@ package controllers;
 
 import dao.SlotDAO;
 import dto.Slot;
+import dto.User;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class SearchSlotController extends HttpServlet {
 
-    private static final String SUCCESS = "slotManagementAdmin.jsp";
+    private static final String ADMIN_PAGE = "slotManagementAdmin.jsp";
+    private static final String OWNER_PAGE = "ownerSlotManagement.jsp";
     private static final String ERROR = "slotManagementAdmin.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -25,6 +28,8 @@ public class SearchSlotController extends HttpServlet {
         String url = ERROR;
         String indexPage = request.getParameter("index");
         try {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
             String search = request.getParameter("search");
             SlotDAO slotDAO = new SlotDAO();
             if (indexPage == null) {
@@ -43,7 +48,11 @@ public class SearchSlotController extends HttpServlet {
             List<Slot> list = slotDAO.getListSlotByID(search, index);
             request.setAttribute("END_PAGE", endPage);
             request.setAttribute("LIST_SLOT", list);
-            url = SUCCESS;
+            if (user.getRole().getRoleId().equals("MA")) {
+                url = OWNER_PAGE;
+            } else if (user.getRole().getRoleId().equals("AD")) {
+                url = ADMIN_PAGE;
+            }
         } catch (Exception e) {
             log("Error at SearchSlotController: " + e.toString());
         } finally {

@@ -1,9 +1,10 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.FieldCategoryDAO;
+import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,12 +12,12 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PrintCityController extends HttpServlet {
+public class PrintFieldCateController extends HttpServlet {
 
-    private static final String ERROR = "cityManagement.jsp";
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
-
+    private static final String ERROR = "fieldCategoryManagement.jsp";
+    private static final String ADMIN_PAGE = "fieldCategoryManagement.jsp";
+    private static final String OWNER_PAGE = "ownerFieldCategoryManagement.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -24,10 +25,10 @@ public class PrintCityController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            if (listCity.size() > 0) {
-                request.setAttribute("LIST_CITY", listCity);
+            FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
+            List<FieldCategory> listFieldCate = fieldCateDao.getAllFieldCategory();
+            if (listFieldCate.size() > 0) {
+                request.setAttribute("LIST_FIELD_CATE", listFieldCate);
                 if (user.getRole().getRoleId().equals("MA")) {
                     url = OWNER_PAGE;
                 } else if (user.getRole().getRoleId().equals("AD")) {
@@ -35,12 +36,12 @@ public class PrintCityController extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            log("Error at PrintCityController: " + e.toString());
+            log("Error at PrintFieldCateController: " + e.toString());
         } finally {
             try {
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
-                log("Error at PrintCityController: " + e.toString());
+                log("Error at PrintFieldCateController: " + e.toString());
             }
         }
     }
