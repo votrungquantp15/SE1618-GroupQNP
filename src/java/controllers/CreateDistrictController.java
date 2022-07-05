@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.DistrictDAO;
+import dto.District;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -10,42 +10,42 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CreateCityController extends HttpServlet {
+public class CreateDistrictController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+    private static final String ERROR = "PrintDistrictController";
+    private static final String SUCCESS = "PrintDistrictController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            CityDAO cityDao = new CityDAO();
-            String cityID = cityDao.createCityId();
-            String cityName = request.getParameter("cityName");
-            cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-            cityName = URLDecoder.decode(cityName, "UTF-8");
+            DistrictDAO districtDao = new DistrictDAO();
+            String districtID = districtDao.createDistrictId();
+            String districtName = request.getParameter("districtName");
+            districtName = URLEncoder.encode(districtName, "ISO-8859-1");
+            districtName = URLDecoder.decode(districtName, "UTF-8");
 
             boolean checkValidation = true;
-            if (cityName.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "City name cannot be left blank");
+            if (districtName.trim().length() == 0) {
+                request.setAttribute("CREATE_ERROR", "District name cannot be left blank");
                 checkValidation = false;
-            } else if (cityDao.checkCityName(cityName)) {
-                request.setAttribute("CREATE_ERROR", "City name is already exist");
+            } else if (districtDao.checkDistrictName(districtName)) {
+                request.setAttribute("CREATE_ERROR", "District name is already exist");
                 checkValidation = false;
             }
             if (checkValidation) {
-                City city = new City(cityID, cityName, null);
-                boolean checkCreate = cityDao.createCity(city);
+                District district = new District(districtID, districtName, null);
+                boolean checkCreate = districtDao.createDistrict(district);
                 if (checkCreate) {
                     url = SUCCESS;
                 }
-                request.setAttribute("CREATE_SUCCESS", "Create city success!");
+                request.setAttribute("CREATE_SUCCESS", "Create district success!");
             } else {
-                request.setAttribute("CREATE_UNSUCCESS", "Create city unsuccess! Please try again!");
+                request.setAttribute("CREATE_UNSUCCESS", "Create district unsuccess! Please try again!");
             }
         } catch (Exception e) {
-            log("Error at CreateCityController: " + e.toString());
+            log("Error at CreateDistrictController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

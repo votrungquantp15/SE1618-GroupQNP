@@ -1,10 +1,10 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 
@@ -33,10 +33,10 @@ public class SearchFieldByNameController extends HttpServlet {
             FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
             listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
 
-            //Get city
-            List<City> listCitys = new ArrayList<>();
-            CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getAllCity();
+            //Get district
+            List<District> listDistricts = new ArrayList<>();
+            DistrictDAO districtDao = new DistrictDAO();
+            listDistricts = districtDao.getAllDistrict();
 
             fieldName = request.getParameter("name");
             //Get price 
@@ -45,7 +45,7 @@ public class SearchFieldByNameController extends HttpServlet {
             listFields = fieldDao.getFieldDetailByName(fieldName);
 
             if (listFields.size() != 0) {
-                //setAttribute citys
+                //setAttribute districts
 
                 //setAttribute Fields
                 url = SEARCH_SUCCES;

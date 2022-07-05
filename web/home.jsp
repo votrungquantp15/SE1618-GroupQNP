@@ -154,7 +154,7 @@
             </div>
             <div class="row accomodation_two">
                 <h4 style="color: red"> ${requestScope.FIELD_NOT_FOUND} </h4>
-                <c:forEach var="field" items="${requestScope.LIST_FIELD}">
+                <c:forEach var="field" items="${requestScope.FIELD}">
                     <div class="col-lg-4 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
@@ -162,7 +162,7 @@
                                 <a href="#" class="btn theme_btn button_hover rounded">Đặt ngay</a>
                             </div>
                             <a href="MainController?action=UserPrintFieldDetail&fieldName=${field.fieldName}"><h4 class="sec_h4">${field.fieldName}</h4></a>
-                            <h6>${field.city.cityName}</h6>
+                            <h6>${field.district.districtName}</h6>
                             <h5>${field.price}00<small> vnd/h</small></h5>
                         </div>
                     </div>

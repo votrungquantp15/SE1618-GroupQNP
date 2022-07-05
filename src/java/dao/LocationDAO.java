@@ -159,7 +159,7 @@ public class LocationDAO {
         return check;
     }
     
-    public List<Location> searchCityByAdmin(String search, String status) throws SQLException {
+    public List<Location> searchLocationByAdmin(String search, String status) throws SQLException {
         List<Location> listLocation = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -245,7 +245,7 @@ public class LocationDAO {
         return check;
     }
     
-    public boolean updateStatusLocation(String cityId, String status) throws SQLException {
+    public boolean updateStatusLocation(String locationId, String status) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -254,7 +254,7 @@ public class LocationDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_STATUS_LOCATION_BY_ADMIN);
                 ptm.setString(1, status);
-                ptm.setString(2, cityId);
+                ptm.setString(2, locationId);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {

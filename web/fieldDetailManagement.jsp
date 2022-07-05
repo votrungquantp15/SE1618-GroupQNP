@@ -112,8 +112,8 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.location.locationName}</th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th style="color: black">City:</th>
-                                                                                        <th>${requestScope.FIELD_DETAIL.city.cityName}</th>
+                                                                                        <th style="color: black">District:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.district.districtName}</th>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <th style="color: black">Status:</th>

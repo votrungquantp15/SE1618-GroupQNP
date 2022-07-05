@@ -1,9 +1,9 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.RoleDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Role;
 import dto.User;
 import java.io.IOException;
@@ -33,9 +33,9 @@ public class UpdateAccountByAdminController extends HttpServlet {
             String address = request.getParameter("address");
             address = URLEncoder.encode(address, "ISO-8859-1");
             address = URLDecoder.decode(address, "UTF-8");
-            String id_of_city = request.getParameter("cityId");
-            CityDAO cityDAO = new CityDAO();
-            City city = cityDAO.getCityByID(id_of_city);
+            String id_of_district = request.getParameter("districtId");
+            DistrictDAO districtDAO = new DistrictDAO();
+            District district = districtDAO.getDistrictByID(id_of_district);
             String birthday = request.getParameter("birthday");
             String phone = request.getParameter("phone");
             String email = request.getParameter("email");
@@ -49,7 +49,7 @@ public class UpdateAccountByAdminController extends HttpServlet {
             Role roleID = role.getRole(id_of_role);
             String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
-            User user = new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status);
+            User user = new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.updateUser(user);
             if (checkUpdate) {                
                 url = SUCCESS;

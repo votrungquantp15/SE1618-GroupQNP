@@ -1,8 +1,7 @@
-﻿
-DROP DATABASE FootballBookingManagement
+﻿DROP DATABASE FootballBookingManagement1
 
-CREATE DATABASE FootballBookingManagement
-USE FootballBookingManagement
+CREATE DATABASE FootballBookingManagement1
+USE FootballBookingManagement1
 
 
 CREATE TABLE tblRoles
@@ -12,10 +11,10 @@ CREATE TABLE tblRoles
 	[status] [bit] default '1'
 )
 
-CREATE TABLE tblCity
+CREATE TABLE tblDistrict
 (
-	cityId varchar(10) PRIMARY KEY,
-	cityName nvarchar(100) NOT NULL,
+	districtId varchar(10) PRIMARY KEY,
+	districtName nvarchar(100) NOT NULL,
 	[status] [bit] default '1'
 )
 
@@ -24,7 +23,7 @@ CREATE TABLE tblUsers
 	userId varchar(10) PRIMARY KEY,
 	fullName nvarchar(50) NOT NULL,
 	[address] nvarchar(100) NULL,
-	cityId varchar(10) FOREIGN KEY REFERENCES tblCity(cityId),
+	districtId varchar(10) FOREIGN KEY REFERENCES tblDistrict(districtId),
 	birthday date NULL,
 	phone varchar(11) NULL,
 	email varchar(30) NOT NULL,
@@ -58,7 +57,7 @@ CREATE TABLE tblFields
 	price money NOT NULL,
 	userId varchar(10) FOREIGN KEY REFERENCES tblUsers(userId),
 	locationId varchar(10) FOREIGN KEY REFERENCES tblLocation(locationId),
-	cityId varchar(10) FOREIGN KEY REFERENCES tblCity(cityId),
+	districtId varchar(10) FOREIGN KEY REFERENCES tblDistrict(districtId),
 	[status] [bit] default '0'
 )
 
@@ -100,7 +99,6 @@ CREATE TABLE tblFoodDetail
 	foodId varchar(10) FOREIGN KEY REFERENCES tblFoods(foodId),
 	fieldId varchar(10) FOREIGN KEY REFERENCES tblFields(fieldId),
 	price money NOT NULL,
-	quantity int NOT NULL,
 	[status] [bit] default '1'
 )
 
@@ -136,43 +134,43 @@ CREATE TABLE tblBookingDetail
 	foodQuantity int,
 	[status] [bit] default '1'
 )
-
 INSERT INTO tblRoles (roleID, roleName, [status]) VALUES ('AD', 'Admin', 1)
 INSERT INTO tblRoles (roleID, roleName, [status]) VALUES ('MA', 'Manager', 1)
 INSERT INTO tblRoles (roleID, roleName, [status]) VALUES ('US', 'User', 1)
 
-INSERT INTO tblCity (cityId, cityName, [status]) VALUES ('CT1', N'Hồ Chí Minh', 1)
-INSERT INTO tblCity (cityId, cityName, [status]) VALUES ('CT2', N'Hà Nội', 1)
-INSERT INTO tblCity (cityId, cityName, [status]) VALUES ('CT3', N'Đà Nẵng', 1)
-INSERT INTO tblCity (cityId, cityName, [status]) VALUES ('CT4', N'Cần Thơ', 1)
-INSERT INTO tblCity (cityId, cityName, [status]) VALUES ('CT5', N'Thủ Đức', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI1', N'Quận 1', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI2', N'Quận 3', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI3', N'Quận 12', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI4', N'Tân Bình', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI5', N'Gò Vấp', 1)
+INSERT INTO tblDistrict (districtId, districtName, [status]) VALUES ('DI6', N'Tân Phú', 1)
 
-INSERT INTO tblUsers (userID, fullName, [address], cityId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U1', N'Nguyễn Đức Nhân', N'1/1 D1', 'CT1', '2001-06-24', '089x', 'DN1@gmail.com', 'nhannguyen', '1', 'AD', 1)
-INSERT INTO tblUsers (userID, fullName, [address], cityId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U2', N'Võ Trung Quân', N'12/30 D2', 'CT1', '2002-11-11', '080x', 'TQ1@gmail.com', 'quanvo', '1', 'MA', 1)
-INSERT INTO tblUsers (userID, fullName, [address], cityId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U3', N'Lê Hoàng Phúc', N'5 D3', 'CT2', '2001-12-05', '081x', 'LP1@gmail.com', 'phucle', '1', 'MA', 1)
-INSERT INTO tblUsers (userID, fullName, [address], cityId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U4', N'Trần Minh Quân', N'202/10 D4', 'CT3', '1999-10-15', '090x', 'MQ1@gmail.com', 'quantran', '1', 'US', 1)
-INSERT INTO tblUsers (userID, fullName, [address], cityId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U5', N'Trần Hữu Phúc', N'303/22 D5', 'CT2', '2003-12-31', '091x', 'HP1@gmail.com', 'phuctran', '1', 'US', 1)
+INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U1', N'Nguyễn Đức Nhân', N'1/1 D1', 'DI1', '2001-06-24', '089x', 'DN1@gmail.com', 'nhannguyen', '1', 'AD', 1)
+INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U2', N'Võ Trung Quân', N'12/30 D2', 'DI1', '2002-11-11', '080x', 'TQ1@gmail.com', 'quanvo', '1', 'MA', 1)
+INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U3', N'Lê Hoàng Phúc', N'5 D3', 'DI2', '2001-12-05', '081x', 'LP1@gmail.com', 'phucle', '1', 'MA', 1)
+INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U4', N'Trần Minh Quân', N'202/10 D4', 'DI3', '1999-10-15', '090x', 'MQ1@gmail.com', 'quantran', '1', 'US', 1)
+INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U5', N'Trần Hữu Phúc', N'303/22 D5', 'DI4', '2003-12-31', '091x', 'HP1@gmail.com', 'phuctran', '1', 'US', 1)
 
 INSERT INTO tblFieldCategory(categoryFieldId, categoryFieldName, [status]) VALUES ('FC1', N'Sân 5', 1)
 INSERT INTO tblFieldCategory(categoryFieldId, categoryFieldName, [status]) VALUES ('FC2', N'Sân 7', 1)
 INSERT INTO tblFieldCategory(categoryFieldId, categoryFieldName, [status]) VALUES ('FC3', N'Sân 11', 1)
 
-INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO1', N'20/93 TỔ 10, KHU PHỐ 6, P. LINH TRUNG', 1)
-INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO2', N'30/2 ĐƯỜNG SỐ 40, HIỆP BÌNH CHÁNH', 1)
-INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO3', N'SỐ 70 ĐƯỜNG TTN 02, P. TÂN THỚI NHẤT, QUẬN 12', 1)
+INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO1', N'20/93 TỔ 10, KHU PHỐ 6', 1)
+INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO2', N'30/2 ĐƯỜNG SỐ 40', 1)
+INSERT INTO tblLocation(locationId, locationName, [status]) VALUES ('LO3', N'SỐ 70 ĐƯỜNG TTN 02', 1)
 
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI1', N'Sân bóng thống nhất', N'Sân bóng ở trong hẻm phía sau trường Đại học Công nghệ thông tin, khu làng đại học Quốc gia, TP. Hồ Chí Minh. Liên hệ chủ sân: Anh Quân'
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, districtId, [status]) VALUES ('FI1', N'Sân bóng thống nhất', N'Sân bóng ở trong hẻm phía sau trường Đại học Công nghệ thông tin, khu làng đại học Quốc gia, TP. Hồ Chí Minh. Liên hệ chủ sân: Anh Quân'
 			, 'https://phuongthanhngoc.com/media/data/tin-tuc/danh-cho-nha-dau-tu/chieu-dai-san-bong-da-2.jpg'
-			, 'FC1', '10', 'U2', 'LO1', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI2', N'Sân bóng Toàn Thắng', ''
+			, 'FC1', '10', 'U2', 'LO1', 'DI1', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, districtId, [status]) VALUES ('FI2', N'Sân bóng Toàn Thắng', ''
 			, 'https://topsaigon.vn/upload/data/images/tieu-ngu.jpg'
-			, 'FC2', '12', 'U2', 'LO1', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI3', N'Sân bóng cỏ nhân tạo CR7', N'Sân bóng mini cỏ nhân tạo Tp Hồ Chí Minh. Anh em có nhu cầu liện hệ...'
+			, 'FC2', '12', 'U2', 'LO1', 'DI3', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, districtId, [status]) VALUES ('FI3', N'Sân bóng cỏ nhân tạo CR7', N'Sân bóng mini cỏ nhân tạo Tp Hồ Chí Minh. Anh em có nhu cầu liện hệ...'
 			, 'https://dabong.online/wp-content/uploads/2019/07/A%CC%89nh-chu%CC%A3p-Ma%CC%80n-hi%CC%80nh-2019-07-25-lu%CC%81c-11.25.34.png'
-			, 'FC3', '15', 'U3', 'LO2', 'CT5', 1)
-INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, cityId, [status]) VALUES ('FI4', N'Sân bóng mini 49', N'Là sân 11 người, chuyên dùng để đào tạo và huấn luyện. Mặt cỏ còn mới'
+			, 'FC3', '15', 'U3', 'LO2', 'DI4', 1)
+INSERT INTO tblFields(fieldId, fieldName, [description], [image], categoryFieldId, price, userId, locationId, districtId, [status]) VALUES ('FI4', N'Sân bóng mini 49', N'Là sân 11 người, chuyên dùng để đào tạo và huấn luyện. Mặt cỏ còn mới'
 			, 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQQpkohiUUT73hWZ9awadw4uJy9EfYIbfKquOLgZJu2W8XRFJAv61Lg4wkYxpgudwdMM24&usqp=CAU'
-			, 'FC3', '15', 'U3', 'LO3', 'CT1', 1)
+			, 'FC3', '15', 'U3', 'LO3', 'DI1', 1)
 
 INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL1', '00:00', '01:00', 1)
 INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL2', '01:00', '02:00', 1)
@@ -225,13 +223,13 @@ INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES
 INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO6', N'Nước chanh muối', 'https://toplist.vn/images/800px/nuoc-chanh-muoi-7up-revive-640852.jpg'
 					, 'OC3', 1)
 
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD1', 'FO1', 'FI1', '20', '10', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD2', 'FO2', 'FI1', '25', '5', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD3', 'FO5', 'FI1', '10', '20', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD4', 'FO1', 'FI2', '24', '8', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD5', 'FO3', 'FI2', '6', '30', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD6', 'FO4', 'FI2', '5', '3', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, quantity, [status]) VALUES ('FD7', 'FO6', 'FI2', '15', '15', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD1', 'FO1', 'FI1', '20', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD2', 'FO2', 'FI1', '25', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD3', 'FO5', 'FI1', '10', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD4', 'FO1', 'FI2', '24', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD5', 'FO3', 'FI2', '6', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD6', 'FO4', 'FI2', '5', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD7', 'FO6', 'FI2', '15', 1)
 
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO1', '2022-01-24', 'U4', '50', 'On-Going')
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO2', '2022-03-12', 'U5', '12', 'On-Going')

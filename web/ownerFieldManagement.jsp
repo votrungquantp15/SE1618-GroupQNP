@@ -78,7 +78,7 @@
                                                                 <option value="Name" <c:if test="${param.searchBy eq 'Name'}">selected</c:if>>Name</option>
                                                             <option value="Category" <c:if test="${param.searchBy eq 'Category'}">selected</c:if>>Category</option>
                                                             <option value="Field Owner" <c:if test="${param.searchBy eq 'Field Owner'}">selected</c:if>>Field Owner</option>
-                                                            <option value="City" <c:if test="${param.searchBy eq 'City'}">selected</c:if>>City</option>
+                                                            <option value="District" <c:if test="${param.searchBy eq 'District'}">selected</c:if>>District</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -94,7 +94,7 @@
                                             <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CITY_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.CREATE_DISTRICT_ERROR} </p>
                                             <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                         </div>
                                     </div>
@@ -108,7 +108,7 @@
                                                     <th><strong>Category</strong></th>
                                                     <th><strong>Price</strong></th>
                                                     <th><strong>Field Owner</strong></th>
-                                                    <th><strong>City Name</strong></th>
+                                                    <th><strong>District Name</strong></th>
                                                     <th><strong>Status</strong></th>
                                                     <th></th>
                                                 </tr>
@@ -123,7 +123,7 @@
                                                         <td>${field.fieldCate.fieldCateName}</td>
                                                         <td>${field.price}</td>
                                                         <td>${field.user.fullName}</td>
-                                                        <td>${field.city.cityName}</td>
+                                                        <td>${field.district.districtName}</td>
                                                         <td>${field.status}</td>
                                                     </tr>
                                                 </c:forEach>
@@ -201,11 +201,11 @@
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>City:</th>
+                                                                    <th>District:</th>
                                                                     <th>
-                                                                        <select name ="cityId">
-                                                                            <c:forEach var="city" items="${requestScope.LIST_CITY}">
-                                                                                <option value="${city.cityId}">${city.cityName}</option>
+                                                                        <select name ="districtId">
+                                                                            <c:forEach var="district" items="${requestScope.LIST_DISTRICT}">
+                                                                                <option value="${district.districtId}">${district.districtName}</option>
                                                                             </c:forEach>
                                                                         </select>
                                                                     </th>

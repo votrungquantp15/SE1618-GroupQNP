@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -40,16 +40,31 @@ public class PrintFieldController extends HttpServlet {
             List<FieldCategory> listCate = cateDao.getAllFieldCategory();
             request.setAttribute("LIST_CATEGORY", listCate);
             
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            request.setAttribute("LIST_CITY", listCity);
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("LIST_DISTRICT", listDistrict);
             
             LocationDAO locationDao = new LocationDAO();
             List<Location> listLocation = locationDao.getAllLocation();
             request.setAttribute("LIST_LOCATION", listLocation);
             
-            FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getListField();
+            FieldDAO fieldDao = new FieldDAO();
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int count = fieldDao.getTotalField();
+            int endPage = count / 5;
+                if (endPage == 0) {
+                    endPage = 1;
+                }
+                if (count % 5 != 0) {
+                    endPage++;
+                } 
+            
+            List<Field> listField = fieldDao.getListField(index);
+            request.setAttribute("END_PAGE", endPage);
             if (listField.size() > 0) {
                 request.setAttribute("LIST_FIELD", listField);
                 if (user.getRole().getRoleId().equals("US")) {

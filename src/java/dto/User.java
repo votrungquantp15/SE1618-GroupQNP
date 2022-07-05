@@ -5,7 +5,7 @@ public class User {
     private String userID;
     private String fullName;
     private String address;
-    private City city;
+    private District district;
     private String birth;
     private String phone;
     private String email;
@@ -18,7 +18,7 @@ public class User {
         this.userID = "";
         this.fullName = "";
         this.address = "";
-        this.city = null;
+        this.district = null;
         this.birth = "";
         this.phone = "";
         this.email = "";
@@ -28,11 +28,11 @@ public class User {
         this.status = "";
     }
 
-    public User(String userID, String fullName, String address, City city, String birth, String phone, String email, String accName, String password, Role role, String status) {
+    public User(String userID, String fullName, String address, District district, String birth, String phone, String email, String accName, String password, Role role, String status) {
         this.userID = userID;
         this.fullName = fullName;
         this.address = address;
-        this.city = city;
+        this.district = district;
         this.birth = birth;
         this.phone = phone;
         this.email = email;
@@ -70,12 +70,12 @@ public class User {
         return birth;
     }
 
-    public City getCity() {
-        return city;
+    public District getDistrict() {
+        return district;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public void setBirth(String birth) {

@@ -100,7 +100,7 @@
                                                             <div class="d-flex">
 
                                                                 <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>

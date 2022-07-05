@@ -96,8 +96,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>City ID</strong></th>
-                                                        <th><strong>City Name</strong></th>
+                                                        <th><strong>District ID</strong></th>
+                                                        <th><strong>District Name</strong></th>
                                                         <th><strong>Status</strong></th>
                                                         <th><strong>Action</strong></th>
                                                         <th></th>

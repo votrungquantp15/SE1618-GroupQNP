@@ -78,7 +78,7 @@
                                                                 <option value="Name" <c:if test="${param.searchBy eq 'Name'}">selected</c:if>>Name</option>
                                                             <option value="Category" <c:if test="${param.searchBy eq 'Category'}">selected</c:if>>Category</option>
                                                             <option value="Field Owner" <c:if test="${param.searchBy eq 'Field Owner'}">selected</c:if>>Field Owner</option>
-                                                            <option value="City" <c:if test="${param.searchBy eq 'City'}">selected</c:if>>City</option>
+                                                            <option value="District" <c:if test="${param.searchBy eq 'District'}">selected</c:if>>District</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -100,7 +100,7 @@
                                                     <th><strong>Category</strong></th>
                                                     <th><strong>Price</strong></th>
                                                     <th><strong>Field Owner</strong></th>
-                                                    <th><strong>City Name</strong></th>
+                                                    <th><strong>District Name</strong></th>
                                                     <th><strong>Status</strong></th>
                                                     <th></th>
                                                 </tr>
@@ -115,13 +115,22 @@
                                                         <td>${field.fieldCate.fieldCateName}</td>
                                                         <td>${field.price}</td>
                                                         <td>${field.user.fullName}</td>
-                                                        <td>${field.city.cityName}</td>
+                                                        <td>${field.district.districtName}</td>
                                                         <td>${field.status}</td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>
+
                                         </table>
+
                                     </div>
+                                    <ul class="pagination">
+                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </ul>
                                 </div>
                             </div>
                         </div>

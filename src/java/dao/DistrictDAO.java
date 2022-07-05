@@ -1,6 +1,6 @@
 package dao;
 
-import dto.City;
+import dto.District;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -9,21 +9,21 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
-public class CityDAO {
+public class DistrictDAO {
 
-    private static final String GET_ALL_INFO = "SELECT cityID, cityName, status FROM tblCity WHERE cityID = ?";
-    private static final String GET_ALL_CITY = "SELECT cityID, cityName, status FROM tblCity";
-    private static final String CHECK_CITY_ID = "SELECT cityID FROM tblCity WHERE cityID = ?";
-    private static final String CHECK_CITY_NAME = "SELECT cityName FROM tblCity WHERE cityName = ?";
-    private static final String SEARCH_CITY_BY_ADMIN = "SELECT cityID, cityName, status FROM tblCity WHERE cityName like ? AND status like ?";
-    private static final String UPDATE_STATUS_CITY_BY_ADMIN = "UPDATE tblCity SET [status] = ? WHERE cityID = ?";
-    private static final String UPDATE_CITY_BY_OWNER = "UPDATE tblCity SET cityName = ? WHERE cityID = ?";
-    private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblCity SET [status] = 'false' WHERE cityID = ?";
-    private static final String CHECK_EXIST_CITY = "SELECT cityID FROM tblFields WHERE cityID = ?";
-    private static final String CREATE_CITY = "INSERT INTO tblCity(cityID, cityName) VALUES(?,?)";
+    private static final String GET_ALL_INFO = "SELECT districtID, districtName, status FROM tblDistrict WHERE districtID = ?";
+    private static final String GET_ALL_CITY = "SELECT districtID, districtName, status FROM tblDistrict";
+    private static final String CHECK_CITY_ID = "SELECT districtID FROM tblDistrict WHERE districtID = ?";
+    private static final String CHECK_CITY_NAME = "SELECT districtName FROM tblDistrict WHERE districtName = ?";
+    private static final String SEARCH_CITY_BY_ADMIN = "SELECT districtID, districtName, status FROM tblDistrict WHERE districtName like ? AND status like ?";
+    private static final String UPDATE_STATUS_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = ? WHERE districtID = ?";
+    private static final String UPDATE_CITY_BY_OWNER = "UPDATE tblDistrict SET districtName = ? WHERE districtID = ?";
+    private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = 'false' WHERE districtID = ?";
+    private static final String CHECK_EXIST_CITY = "SELECT districtID FROM tblFields WHERE districtID = ?";
+    private static final String CREATE_CITY = "INSERT INTO tblDistrict(districtID, districtName) VALUES(?,?)";
 
-    public City getCityByID(String cityID) throws SQLException {
-        City city = null;
+    public District getDistrictByID(String districtID) throws SQLException {
+        District district = null;
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -31,17 +31,17 @@ public class CityDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                check = checkCityId(cityID);
+                check = checkDistrictId(districtID);
                 if (check) {
                     ptm = conn.prepareStatement(GET_ALL_INFO);
-                    ptm.setString(1, cityID);
+                    ptm.setString(1, districtID);
                     rs = ptm.executeQuery();
                     if (rs.next()) {
-                        String getCityID = rs.getString("cityID");
-                        String cityName = rs.getString("cityName");
+                        String getDistrictID = rs.getString("districtID");
+                        String districtName = rs.getString("districtName");
                         String status = rs.getString("status");
                         String statusAfter = changeNumberStatus(status);
-                        city = new City(getCityID, cityName, statusAfter);
+                        district = new District(getDistrictID, districtName, statusAfter);
                     }
                 }
             }
@@ -58,11 +58,11 @@ public class CityDAO {
                 conn.close();
             }
         }
-        return city;
+        return district;
     }
 
-    public List<City> getAllCity() throws SQLException {
-        List<City> listCity = new ArrayList<>();
+    public List<District> getAllDistrict() throws SQLException {
+        List<District> listDistrict = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -72,11 +72,11 @@ public class CityDAO {
                 ptm = conn.prepareStatement(GET_ALL_CITY);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    String getCityID = rs.getString("cityID");
-                    String cityName = rs.getString("cityName");
+                    String getDistrictID = rs.getString("districtID");
+                    String districtName = rs.getString("districtName");
                     String status = rs.getString("status");
                     String statusAfter = changeNumberStatus(status);
-                    listCity.add(new City(getCityID, cityName, statusAfter));
+                    listDistrict.add(new District(getDistrictID, districtName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -92,10 +92,10 @@ public class CityDAO {
                 conn.close();
             }
         }
-        return listCity;
+        return listDistrict;
     }
 
-    public boolean checkCityId(String cityID) throws SQLException {
+    public boolean checkDistrictId(String districtID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -104,7 +104,7 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(CHECK_CITY_ID);
-                ptm.setString(1, cityID);
+                ptm.setString(1, districtID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     check = true;
@@ -126,7 +126,7 @@ public class CityDAO {
         return check;
     }
 
-    public boolean checkCityName(String cityName) throws SQLException {
+    public boolean checkDistrictName(String districtName) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -135,7 +135,7 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(CHECK_CITY_NAME);
-                ptm.setString(1, cityName);
+                ptm.setString(1, districtName);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     check = true;
@@ -157,8 +157,8 @@ public class CityDAO {
         return check;
     }
 
-    public List<City> searchCityByAdmin(String search, String status) throws SQLException {
-        List<City> listCity = new ArrayList<>();
+    public List<District> searchDistrictByAdmin(String search, String status) throws SQLException {
+        List<District> listDistrict = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
         ResultSet rs = null;
@@ -170,11 +170,11 @@ public class CityDAO {
                 ptm.setString(2, "%" + status + "%");
                 rs = ptm.executeQuery();
                 while (rs.next()) {
-                    String cityID = rs.getString("cityID");
-                    String cityName = rs.getString("cityName");
-                    String statusOfCity = rs.getString("status");
-                    String statusAfter = changeNumberStatus(statusOfCity);
-                    listCity.add(new City(cityID, cityName, statusAfter));
+                    String districtID = rs.getString("districtID");
+                    String districtName = rs.getString("districtName");
+                    String statusOfDistrict = rs.getString("status");
+                    String statusAfter = changeNumberStatus(statusOfDistrict);
+                    listDistrict.add(new District(districtID, districtName, statusAfter));
                 }
             }
         } catch (Exception e) {
@@ -190,10 +190,10 @@ public class CityDAO {
                 conn.close();
             }
         }
-        return listCity;
+        return listDistrict;
     }
 
-    public boolean updateStatusCity(String cityId, String status) throws SQLException {
+    public boolean updateStatusDistrict(String districtId, String status) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -202,7 +202,7 @@ public class CityDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_STATUS_CITY_BY_ADMIN);
                 ptm.setString(1, status);
-                ptm.setString(2, cityId);
+                ptm.setString(2, districtId);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -217,7 +217,7 @@ public class CityDAO {
         return check;
     }
     
-    public boolean updateCityByOwner(City city) throws SQLException {
+    public boolean updateDistrictByOwner(District district) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -225,8 +225,8 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(UPDATE_CITY_BY_OWNER);
-                ptm.setString(1, city.getCityName());
-                ptm.setString(2, city.getCityId());
+                ptm.setString(1, district.getDistrictName());
+                ptm.setString(2, district.getDistrictId());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -241,7 +241,7 @@ public class CityDAO {
         return check;
     }
 
-    public boolean deleteCity(String cityID) throws SQLException {
+    public boolean deleteDistrict(String districtID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -249,7 +249,7 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_CITY_BY_ADMIN);
-                ptm.setString(1, cityID);
+                ptm.setString(1, districtID);
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -264,7 +264,7 @@ public class CityDAO {
         return check;
     }
 
-    public boolean checkExistCity(String cityID) throws SQLException {
+    public boolean checkExistDistrict(String districtID) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -273,7 +273,7 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(CHECK_EXIST_CITY);
-                ptm.setString(1, cityID);
+                ptm.setString(1, districtID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     check = true;
@@ -291,7 +291,7 @@ public class CityDAO {
         return check;
     }
 
-    public String handleCityId() {
+    public String handleDistrictId() {
         int max = 999999;
         int min = 1;
         int random_double = (int) (Math.random() * (max - min + 1) + min);
@@ -299,19 +299,19 @@ public class CityDAO {
         return "CT" + s;
     }
 
-    public String createCityId() throws SQLException {
-        String cityID = handleCityId();
+    public String createDistrictId() throws SQLException {
+        String districtID = handleDistrictId();
         boolean check = false;
         do {
-            check = checkCityId(cityID);
+            check = checkDistrictId(districtID);
             if (check == false) {
-                cityID = handleCityId();
+                districtID = handleDistrictId();
             }
         } while (check);
-        return cityID;
+        return districtID;
     }
 
-    public boolean createCity(City city) throws SQLException {
+    public boolean createDistrict(District district) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -319,8 +319,8 @@ public class CityDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(CREATE_CITY);
-                ptm.setString(1, city.getCityId());
-                ptm.setString(2, city.getCityName());
+                ptm.setString(1, district.getDistrictId());
+                ptm.setString(2, district.getDistrictName());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
