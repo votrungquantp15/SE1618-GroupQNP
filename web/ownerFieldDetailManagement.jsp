@@ -112,8 +112,8 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.location.locationName}</th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th style="color: black">City:</th>
-                                                                                        <th>${requestScope.FIELD_DETAIL.city.cityName}</th>
+                                                                                        <th style="color: black">District:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.district.districtName}</th>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <th style="color: black">Status:</th>
@@ -237,11 +237,11 @@
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
-                                                                    <th>City:</th>
+                                                                    <th>District:</th>
                                                                     <th>
-                                                                        <select name ="cityId">
-                                                                            <c:forEach var="city" items="${requestScope.LIST_CITY}">
-                                                                                <option value="${city.cityId}">${city.cityName}</option>
+                                                                        <select name ="districtId">
+                                                                            <c:forEach var="district" items="${requestScope.LIST_DISTRICT}">
+                                                                                <option value="${district.districtId}">${district.districtName}</option>
                                                                             </c:forEach>
                                                                         </select>
                                                                     </th>

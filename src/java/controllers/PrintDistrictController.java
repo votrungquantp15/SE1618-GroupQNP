@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.DistrictDAO;
+import dto.District;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PrintCityController extends HttpServlet {
+public class PrintDistrictController extends HttpServlet {
 
-    private static final String ERROR = "cityManagement.jsp";
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
+    private static final String ERROR = "districtManagement.jsp";
+    private static final String ADMIN_PAGE = "districtManagement.jsp";
+    private static final String OWNER_PAGE = "ownerDistrictManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,10 +24,10 @@ public class PrintCityController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            if (listCity.size() > 0) {
-                request.setAttribute("LIST_CITY", listCity);
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.getAllDistrict();
+            if (listDistrict.size() > 0) {
+                request.setAttribute("LIST_DISTRICT", listDistrict);
                 if (user.getRole().getRoleId().equals("MA")) {
                     url = OWNER_PAGE;
                 } else if (user.getRole().getRoleId().equals("AD")) {
@@ -35,12 +35,12 @@ public class PrintCityController extends HttpServlet {
                 }
             }
         } catch (Exception e) {
-            log("Error at PrintCityController: " + e.toString());
+            log("Error at PrintDistrictController: " + e.toString());
         } finally {
             try {
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
-                log("Error at PrintCityController: " + e.toString());
+                log("Error at PrintDistrictController: " + e.toString());
             }
         }
     }

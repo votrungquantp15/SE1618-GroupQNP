@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.DistrictDAO;
+import dto.District;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -11,11 +11,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SearchCityByAdminController extends HttpServlet {
+public class SearchDistrictByAdminController extends HttpServlet {
 
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
-    private static final String ERROR = "cityManagement.jsp";
+    private static final String ADMIN_PAGE = "districtManagement.jsp";
+    private static final String OWNER_PAGE = "ownerDistrictManagement.jsp";
+    private static final String ERROR = "districtManagement.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -24,22 +24,22 @@ public class SearchCityByAdminController extends HttpServlet {
         try {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
-            String cityName = request.getParameter("searchByAdmin");
+            String districtName = request.getParameter("searchByAdmin");
             String status = request.getParameter("status");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.searchCityByAdmin(cityName, status);
-            if (!listCity.isEmpty()) {
-                request.setAttribute("LIST_CITY", listCity);
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.searchDistrictByAdmin(districtName, status);
+            if (!listDistrict.isEmpty()) {
+                request.setAttribute("LIST_DISTRICT", listDistrict);
                 if (user.getRole().getRoleId().equals("MA")) {
                     url = OWNER_PAGE;
                 } else if (user.getRole().getRoleId().equals("AD")) {
                     url = ADMIN_PAGE;
                 }
             } else {
-                request.setAttribute("SEARCH_CITY_ERROR", "Couldn't find any citys");
+                request.setAttribute("SEARCH_DISTRICT_ERROR", "Couldn't find any districts");
             }
         } catch (Exception e) {
-            log("Error at SearchCityByAdminController: " + e.toString());
+            log("Error at SearchDistrictByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

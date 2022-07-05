@@ -9,7 +9,7 @@ public class Field {
     private double price;
     private User user;
     private Location location;
-    private City city;
+    private District district;
     private String status;
 
     public Field() {
@@ -21,11 +21,11 @@ public class Field {
         this.price = 0;
         this.user = null;
         this.location = null;
-        this.city = null;
+        this.district = null;
         this.status = "";
     }
 
-    public Field(String fieldId, String fieldName, String description, String image, FieldCategory fieldCate, double price, User user, Location location, City city, String status) {
+    public Field(String fieldId, String fieldName, String description, String image, FieldCategory fieldCate, double price, User user, Location location, District district, String status) {
         this.fieldId = fieldId;
         this.fieldName = fieldName;
         this.description = description;
@@ -34,7 +34,7 @@ public class Field {
         this.price = price;
         this.user = user;
         this.location = location;
-        this.city = city;
+        this.district = district;
         this.status = status;
     }
 
@@ -102,12 +102,12 @@ public class Field {
         this.location = location;
     }
 
-    public City getCity() {
-        return city;
+    public District getDistrict() {
+        return district;
     }
 
-    public void setCity(City city) {
-        this.city = city;
+    public void setDistrict(District district) {
+        this.district = district;
     }
 
     public String getStatus() {

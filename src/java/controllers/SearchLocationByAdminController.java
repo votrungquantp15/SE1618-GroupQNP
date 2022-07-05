@@ -27,7 +27,7 @@ public class SearchLocationByAdminController extends HttpServlet {
             String locationName = request.getParameter("searchByAdmin");
             String status = request.getParameter("status");
             LocationDAO locationDao = new LocationDAO();
-            List<Location> listLocation = locationDao.searchCityByAdmin(locationName, status);
+            List<Location> listLocation = locationDao.searchLocationByAdmin(locationName, status);
             if (!listLocation.isEmpty()) {
                 request.setAttribute("LIST_LOCATION", listLocation);
                 if (user.getRole().getRoleId().equals("MA")) {

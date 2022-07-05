@@ -1,6 +1,6 @@
 package dao;
 
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -15,23 +15,26 @@ import utils.DBUtils;
 
 public class FieldDAO {
 
-    private static final String GET_ALL_INFO = "SELECT fieldID, fieldName, description, image, categoryFieldID, price, UserID, LocationID, cityID, status "
+    private static final String GET_ALL_INFO_BY_ID = "SELECT fieldID, fieldName, description, image, categoryFieldID, price, UserID, LocationID, districtID, status "
             + "FROM tblFields WHERE fieldID like ? ";
-    private static final String PRINT_FIELD_DETAIL_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE fieldName like ?";
-
-    private static final String PRINT_ALL_OWNER_FIELD = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE userID like ? ";
-    private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields";
-    private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE fieldId like ?";
+    private static final String PRINT_FIELD_DETAIL_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldName like ?";
+    
+    private static final String COUNT_ALL_FIELD = "SELECT COUNT(*) as totalField FROM tblFields ";
+    
+    private static final String PRINT_ALL_OWNER_FIELD = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userID like ? ";
+    private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    private static final String PRINT_ALL_FIELD_BY_USER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE status <> 'false'";
+    private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldId like ?";
     private static final String UPDATE_STATUS_FIELD_BY_ADMIN = "UPDATE tblFields SET [status] = ? WHERE fieldId = ?";
-    private static final String UPDATE_FIELD_BY_OWNER = "UPDATE tblFields SET fieldName = ?, [description] = ?, [image] = ?, categoryFieldId = ?, price = ?, userId = ?, locationId = ?, cityId = ? WHERE fieldId = ?";
+    private static final String UPDATE_FIELD_BY_OWNER = "UPDATE tblFields SET fieldName = ?, [description] = ?, [image] = ?, categoryFieldId = ?, price = ?, userId = ?, locationId = ?, districtId = ? WHERE fieldId = ?";
     private static final String DELETE_FIELD_BY_ADMIN = "UPDATE tblFields SET [status] = 'false' WHERE fieldId = ?";
     private static final String CHECK_EXIST_FIELD = "SELECT fieldId FROM tblBookingDetail WHERE fieldId = ?";
-    private static final String SEARCH_FIELD_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId, status FROM tblFields WHERE fieldName like ? AND status like ?";
-    private static final String SEARCH_FIELD_BY_FIELD_CATE = "SELECT fieldId, fieldName, description, image, f.categoryFieldId, price, userId, locationId, cityId, f.status, fc.categoryFieldName FROM tblFields f LEFT JOIN tblFieldCategory fc ON f.categoryFieldId = fc.categoryFieldId WHERE fc.categoryFieldName like ? AND f.status like ?";
-    private static final String SEARCH_FIELD_BY_FIELD_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, f.userId, locationId, f.cityId, f.status FROM tblFields f LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.fullName like ? AND f.status like ?";
-    private static final String SEARCH_FIELD_BY_CITY = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, f.cityId, f.status FROM tblFields f LEFT JOIN tblCity ci ON f.cityId = ci.cityId WHERE ci.cityName like ? AND f.status like ?";
+    private static final String SEARCH_FIELD_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldName like ? AND status like ?";
+    private static final String SEARCH_FIELD_BY_FIELD_CATE = "SELECT fieldId, fieldName, description, image, f.categoryFieldId, price, userId, locationId, districtId, f.status, fc.categoryFieldName FROM tblFields f LEFT JOIN tblFieldCategory fc ON f.categoryFieldId = fc.categoryFieldId WHERE fc.categoryFieldName like ? AND f.status like ?";
+    private static final String SEARCH_FIELD_BY_FIELD_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, f.userId, locationId, f.districtId, f.status FROM tblFields f LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.fullName like ? AND f.status like ?";
+    private static final String SEARCH_FIELD_BY_CITY = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, f.districtId, f.status FROM tblFields f LEFT JOIN tblDistrict ci ON f.districtId = ci.districtId WHERE ci.districtName like ? AND f.status like ?";
     private static final String CHECK_FIELD_ID = "SELECT fieldId FROM tblFields WHERE fieldId = ?";
-    private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, cityId) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId) VALUES(?,?,?,?,?,?,?,?,?)";
 
     public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();
@@ -41,7 +44,7 @@ public class FieldDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm = conn.prepareStatement(GET_ALL_INFO_BY_ID);
                 ptm.setString(1, fieldID);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
@@ -64,13 +67,13 @@ public class FieldDAO {
                     LocationDAO locationDAO = new LocationDAO();
                     Location location = locationDAO.getLocationByID(locationID);
 
-                    String cityID = rs.getString("cityID");
-                    CityDAO cityDAO = new CityDAO();
-                    City city = cityDAO.getCityByID(cityID);
+                    String districtID = rs.getString("districtID");
+                    DistrictDAO districtDAO = new DistrictDAO();
+                    District district = districtDAO.getDistrictByID(districtID);
 
                     String status = rs.getString("status");
                     String statusAfter = changeNumberStatus(status);
-                    field = new Field(getFieldID, fieldName, description, image, fieldCategory, price, user, location, city, statusAfter);
+                    field = new Field(getFieldID, fieldName, description, image, fieldCategory, price, user, location, district, statusAfter);
                 }
             }
         } catch (Exception e) {
@@ -89,7 +92,7 @@ public class FieldDAO {
         return field;
     }
 
-    public List<Field> getListField() throws SQLException {
+    public List<Field> getListField(int index) throws SQLException {
         List<Field> listField = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -98,6 +101,7 @@ public class FieldDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(PRINT_ALL_FIELD_BY_ADMIN);
+                ptm.setInt(1, (index - 1) * 3);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String fieldId = rs.getString("fieldId");
@@ -114,12 +118,58 @@ public class FieldDAO {
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
-                    String id_of_city = rs.getString("cityId");
-                    CityDAO city = new CityDAO();
-                    City cityID = city.getCityByID(id_of_city);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
                     String status = rs.getString("status");
                     String statusAfter = changeNumberStatus(status);
-                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, statusAfter));
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, statusAfter));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listField;
+    }
+    
+    public List<Field> getListFieldByUser() throws SQLException {
+        List<Field> listField = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(PRINT_ALL_FIELD_BY_USER);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String fieldId = rs.getString("fieldId");
+                    String fieldName = rs.getString("fieldName");
+                    String description = rs.getString("description");
+                    String image = rs.getString("image");
+                    String id_of_field_category = rs.getString("categoryFieldId");
+                    FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+                    double price = rs.getDouble("price");
+                    String id_of_user = rs.getString("userId");
+                    UserDAO user = new UserDAO();
+                    User userID = user.getUserByID(id_of_user);
+                    String id_of_location = rs.getString("locationId");
+                    LocationDAO location = new LocationDAO();
+                    Location locationID = location.getLocationByID(id_of_location);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, ""));
                 }
             }
         } catch (Exception e) {
@@ -163,11 +213,11 @@ public class FieldDAO {
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
-                    String id_of_city = rs.getString("cityId");
-                    CityDAO city = new CityDAO();
-                    City cityID = city.getCityByID(id_of_city);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
                     String status = rs.getString("status");
-                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status));
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status));
                 }
             }
         } catch (Exception e) {
@@ -214,12 +264,12 @@ public class FieldDAO {
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
 
-                    String id_of_city = rs.getString("cityId");
-                    CityDAO city = new CityDAO();
-                    City cityID = city.getCityByID(id_of_city);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
 
                     String status = rs.getString("status");
-                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, user, locationID, cityID, status));
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, user, locationID, districtID, status));
                 }
             }
         } catch (Exception e) {
@@ -276,7 +326,7 @@ public class FieldDAO {
                 ptm.setDouble(5, field.getPrice());
                 ptm.setString(6, field.getUser().getUserID());
                 ptm.setString(7, field.getLocation().getLocationId());
-                ptm.setString(8, field.getCity().getCityId());
+                ptm.setString(8, field.getDistrict().getDistrictId());
                 ptm.setString(9, field.getFieldId());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
@@ -368,11 +418,11 @@ public class FieldDAO {
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
-                    String id_of_city = rs.getString("cityId");
-                    CityDAO city = new CityDAO();
-                    City cityID = city.getCityByID(id_of_city);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
                     String status = rs.getString("status");
-                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status));
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status));
                 }
             }
         } catch (Exception e) {
@@ -416,11 +466,11 @@ public class FieldDAO {
                     String id_of_location = rs.getString("locationId");
                     LocationDAO location = new LocationDAO();
                     Location locationID = location.getLocationByID(id_of_location);
-                    String id_of_city = rs.getString("cityId");
-                    CityDAO city = new CityDAO();
-                    City cityID = city.getCityByID(id_of_city);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
                     String status = rs.getString("status");
-                    fieldDetail = new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status);
+                    fieldDetail = new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status);
                 }
             }
         } catch (Exception e) {
@@ -457,11 +507,11 @@ public class FieldDAO {
 //                String id_of_location = rs.getString("locationId");
 //                LocationDAO location = new LocationDAO();
 //                Location locationID = location.getLocationByID(id_of_location);
-//                String id_of_city = rs.getString("cityId");
-//                CityDAO city = new CityDAO();
-//                City cityID = city.getCityByID(id_of_city);
+//                String id_of_district = rs.getString("districtId");
+//                DistrictDAO district = new DistrictDAO();
+//                District districtID = district.getDistrictByID(id_of_district);
 //                String status = rs.getString("status");
-//                listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status));
+//                listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status));
 //            }
 //        } catch (Exception e) {
 //        }
@@ -495,12 +545,12 @@ public class FieldDAO {
                         String id_of_location = rs.getString("locationId");
                         LocationDAO location = new LocationDAO();
                         Location locationID = location.getLocationByID(id_of_location);
-                        String id_of_city = rs.getString("cityId");
-                        CityDAO city = new CityDAO();
-                        City cityID = city.getCityByID(id_of_city);
+                        String id_of_district = rs.getString("districtId");
+                        DistrictDAO district = new DistrictDAO();
+                        District districtID = district.getDistrictByID(id_of_district);
                         String statusField = rs.getString("status");
                         String statusAfter = changeNumberStatus(statusField);
-                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, statusAfter));
+                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, statusAfter));
                     }
                 } else if (searchBy.equals("Category")) {
                     ptm = conn.prepareStatement(SEARCH_FIELD_BY_FIELD_CATE);
@@ -522,12 +572,12 @@ public class FieldDAO {
                         String id_of_location = rs.getString("locationId");
                         LocationDAO location = new LocationDAO();
                         Location locationID = location.getLocationByID(id_of_location);
-                        String id_of_city = rs.getString("cityId");
-                        CityDAO city = new CityDAO();
-                        City cityID = city.getCityByID(id_of_city);
+                        String id_of_district = rs.getString("districtId");
+                        DistrictDAO district = new DistrictDAO();
+                        District districtID = district.getDistrictByID(id_of_district);
                         String statusField = rs.getString("status");
                         String statusAfter = changeNumberStatus(statusField);
-                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, statusAfter));
+                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, statusAfter));
                     }
                 } else if (searchBy.equals("Field Owner")) {
                     ptm = conn.prepareStatement(SEARCH_FIELD_BY_FIELD_OWNER);
@@ -549,14 +599,14 @@ public class FieldDAO {
                         String id_of_location = rs.getString("locationId");
                         LocationDAO location = new LocationDAO();
                         Location locationID = location.getLocationByID(id_of_location);
-                        String id_of_city = rs.getString("cityId");
-                        CityDAO city = new CityDAO();
-                        City cityID = city.getCityByID(id_of_city);
+                        String id_of_district = rs.getString("districtId");
+                        DistrictDAO district = new DistrictDAO();
+                        District districtID = district.getDistrictByID(id_of_district);
                         String statusField = rs.getString("status");
                         String statusAfter = changeNumberStatus(statusField);
-                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, statusAfter));
+                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, statusAfter));
                     }
-                } else if (searchBy.equals("City")) {
+                } else if (searchBy.equals("District")) {
                     ptm = conn.prepareStatement(SEARCH_FIELD_BY_CITY);
                     ptm.setString(1, "%" + search + "%");
                     ptm.setString(2, "%" + status + "%");
@@ -576,12 +626,12 @@ public class FieldDAO {
                         String id_of_location = rs.getString("locationId");
                         LocationDAO location = new LocationDAO();
                         Location locationID = location.getLocationByID(id_of_location);
-                        String id_of_city = rs.getString("cityId");
-                        CityDAO city = new CityDAO();
-                        City cityID = city.getCityByID(id_of_city);
+                        String id_of_district = rs.getString("districtId");
+                        DistrictDAO district = new DistrictDAO();
+                        District districtID = district.getDistrictByID(id_of_district);
                         String statusField = rs.getString("status");
                         String statusAfter = changeNumberStatus(statusField);
-                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, statusAfter));
+                        listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, statusAfter));
                     }
                 }
             }
@@ -600,7 +650,7 @@ public class FieldDAO {
         }
         return listField;
     }
-
+    
     public boolean checkFieldId(String fieldID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -668,7 +718,7 @@ public class FieldDAO {
                 ptm.setDouble(6, field.getPrice());
                 ptm.setString(7, field.getUser().getUserID());
                 ptm.setString(8, field.getLocation().getLocationId());
-                ptm.setString(9, field.getCity().getCityId());
+                ptm.setString(9, field.getDistrict().getDistrictId());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
@@ -681,6 +731,37 @@ public class FieldDAO {
             }
         }
         return check;
+    }
+    
+    public int getTotalField() throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_FIELD);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    index = rs.getInt("totalField");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return index;
     }
 
     public boolean isNumeric(String price) {

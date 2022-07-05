@@ -36,19 +36,19 @@ public class LoginController extends HttpServlet {
 //            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
 //            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
 //
-//            //Get city
-//            List<City> listCitys = new ArrayList<>();
-//            CityDAO cityDao = new CityDAO();
-//            listCitys = cityDao.getAllCity();
+//            //Get district
+//            List<District> listDistricts = new ArrayList<>();
+//            DistrictDAO districtDao = new DistrictDAO();
+//            listDistricts = districtDao.getAllDistrict();
             //Get price 
             List<Field> listFields = new ArrayList<>();
             FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getListField();
+            listFields = fieldDao.getListFieldByUser();
 
             if (cus != null) {
                 session.setAttribute("LOGIN_USER", cus);
                 String roleID = cus.getRole().getRoleId();
-                //setAttribute citys
+                //setAttribute districts
 
                 //setAttribute Fields
                 request.setAttribute("FIELD", listFields);
