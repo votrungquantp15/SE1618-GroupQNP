@@ -47,9 +47,11 @@ public class CreateFieldController extends HttpServlet {
                 checkValidation = false;
             }
             double priceOfField = Double.parseDouble(price);
-            String id_of_user = request.getParameter("userId");
+            String userName = request.getParameter("userName");
+            userName = URLEncoder.encode(userName, "ISO-8859-1");
+            userName = URLDecoder.decode(userName, "UTF-8");
             UserDAO user = new UserDAO();
-            User userID = user.getUserByID(id_of_user);
+            User userAfter = user.getUserByName(userName);
             String id_of_location = request.getParameter("locationId");
             id_of_location = URLEncoder.encode(id_of_location, "ISO-8859-1");
             id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
@@ -77,22 +79,13 @@ public class CreateFieldController extends HttpServlet {
             }
 
             if (checkValidation) {
-                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userID, locationID, districtID, null);
+                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userAfter, locationID, districtID, null);
                 boolean checkCreate = fieldDao.createField(field);
                 if (checkCreate) {
                     url = SUCCESS;
                 }
                 request.setAttribute("CREATE_SUCCESS", "Create field success!");
             } else {
-                if (categoryFieldID == null) {
-                    request.setAttribute("CREATE_CATE_ERROR", "CategoryId is not exist!");
-                } else if (userID == null) {
-                    request.setAttribute("CREATE_USER_ERROR", "UserId is not exist!");
-                } else if (locationID == null) {
-                    request.setAttribute("CREATE_LOCATION_ERROR", "LocationId is not exist!");
-                } else if (districtID == null) {
-                    request.setAttribute("CREATE_DISTRICT_ERROR", "DistrictId is not exist!");
-                }
                 request.setAttribute("CREATE_UNSUCCESS", "Create field unsuccess! Please try again!");
             }
         } catch (Exception e) {

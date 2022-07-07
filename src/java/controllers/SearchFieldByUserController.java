@@ -1,23 +1,19 @@
 package controllers;
 
 import dao.DistrictDAO;
-import dao.FieldCategoryDAO;
 import dao.FieldDAO;
-
 import dto.District;
 import dto.Field;
-import dto.FieldCategory;
-
 import java.io.IOException;
-
 import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class SearchFieldByNameController extends HttpServlet {
+public class SearchFieldByUserController extends HttpServlet {
 
     private static final String SEARCH_SUCCES = "home.jsp";
     private static final String SEARCH_ERROR = "home.jsp";
@@ -26,38 +22,46 @@ public class SearchFieldByNameController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = SEARCH_ERROR;
-        String fieldName;
         try {
-            //Get category 
-            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-
-            //Get district
-            List<District> listDistricts = new ArrayList<>();
-            DistrictDAO districtDao = new DistrictDAO();
-            listDistricts = districtDao.getAllDistrict();
-
-            fieldName = request.getParameter("name");
-            //Get price 
-            List<Field> listFields = new ArrayList<>();
+            HttpSession session = request.getSession();
             FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getFieldDetailByName(fieldName);
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            String districtId = request.getParameter("districtId");
+            String fieldName = request.getParameter("fieldName");
+            List<Field> listFields = new ArrayList<>();
+            listFields = fieldDao.searchUserFieldDetailByName(fieldName, districtId, index);
+            
+            int count = fieldDao.countSearchTotalFieldByUser(fieldName, districtId);
+            int endPage = 0;
+            endPage = count / 9;
+            if (count % 9 != 0) {
+                endPage++;
+            }
+            
+            DistrictDAO districtDao = new DistrictDAO();
+            District district = districtDao.getDistrictByID(districtId);
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("DISTRICT", district);
+            request.setAttribute("LIST_DISTRICT", listDistrict);
 
             if (listFields.size() != 0) {
-                //setAttribute districts
-
                 //setAttribute Fields
                 url = SEARCH_SUCCES;
 
                 request.setAttribute("FIELD", listFields);
-
-                //setAttribute category
             } else {
                 request.setAttribute("FIELD_NOT_FOUND", "Không tìm thấy sân bóng");
             }
+            request.setAttribute("END_PAGE", endPage);
+            request.setAttribute("FIELD_NAME", fieldName);
+            request.setAttribute("DISTRICT_ID", districtId);
+            session.setAttribute("ACTION_FIELD", "Search");
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at SearchFieldByUserController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

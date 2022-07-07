@@ -56,7 +56,7 @@ public class UpdateFieldCateByAdminController extends HttpServlet {
                 String status = request.getParameter("status");
                 FieldCategory fieldCate = fieldCateDao.getFieldCategoryByID(id_fieldCate);
                 String statusOfFieldCate = fieldCate.getStatus();
-                if (!fieldCateDao.changeStringStatus(statusOfFieldCate).equals(status)) {
+                if (!statusOfFieldCate.equals(status)) {
                     boolean checkExist = fieldCateDao.checkExistFieldCate(id_fieldCate);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This field category being used cannot be changed status!");

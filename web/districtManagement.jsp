@@ -77,6 +77,7 @@
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchDistrictByAdmin">Search</button>
                                                     </div>
                                                 </div>
+                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewDistrict">Create new district</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_DISTRICT_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
@@ -160,8 +161,9 @@
                                                                                                                         <th style="position: relative; top: 15px;">Status:</th>
                                                                                                                         <th>
                                                                                                                             <select class="form-control" name ="status">
-                                                                                                                                <option value="1">Active</option>
-                                                                                                                                <option value="0">In-Active</option>
+                                                                                                                                <option value="Active">Active</option>
+                                                                                                                                <option value="Request">Request</option>
+                                                                                                                                <option value="In-Active">In-Active</option>
                                                                                                                             </select>
                                                                                                                         </th>
                                                                                                                     </tr>
@@ -197,6 +199,51 @@
                     </div>
                 </div>
             </div>
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="createNewDistrict" tabindex="-1" aria-labelledby="createNewDistrict" aria-hidden="true">
+                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Create new district</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+                                                                <tr>
+                                                                    <th>District Name:</th>
+                                                                    <th><input class="col-12" title="Input information here" type="text" name="districtName" required=""></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th></th>
+                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
+                                                                </tr>
+                                                            </table>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="action" value="CreateDistrict"/>
+                                <input class="btn btn-primary" type="submit" value="Accept"/>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <!-- Required vendors -->

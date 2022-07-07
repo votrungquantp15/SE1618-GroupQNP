@@ -68,8 +68,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                                <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                                <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                                <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -160,8 +161,9 @@
                                                                                                                         <th style="position: relative; top: 15px;">Status:</th>
                                                                                                                         <th>
                                                                                                                             <select class="form-control" name ="status">
-                                                                                                                                <option value="1">Active</option>
-                                                                                                                                <option value="0">In-Active</option>
+                                                                                                                                <option value="Active">Active</option>
+                                                                                                                                <option value="Request">Request</option>
+                                                                                                                                <option value="In-Active">In-Active</option>
                                                                                                                             </select>
                                                                                                                         </th>
                                                                                                                     </tr>

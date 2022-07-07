@@ -49,8 +49,8 @@
         <servlet-class>controllers.DeleteBookingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchFieldByNameController</servlet-name>
-        <servlet-class>controllers.SearchFieldByNameController</servlet-class>
+        <servlet-name>SearchFieldByUserController</servlet-name>
+        <servlet-class>controllers.SearchFieldByUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateBookingController</servlet-name>
@@ -193,8 +193,8 @@
         <url-pattern>/DeleteBookingController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchFieldByNameController</servlet-name>
-        <url-pattern>/SearchFieldByNameController</url-pattern>
+        <servlet-name>SearchFieldByUserController</servlet-name>
+        <url-pattern>/SearchFieldByUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateBookingController</servlet-name>

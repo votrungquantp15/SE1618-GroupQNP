@@ -56,7 +56,7 @@ public class UpdateDistrictByAdminController extends HttpServlet {
                 String status = request.getParameter("status");
                 District district = districtDao.getDistrictByID(id_district);
                 String statusOfDistrict = district.getStatus();
-                if (!districtDao.changeStringStatus(statusOfDistrict).equals(status)) {
+                if (!statusOfDistrict.equals(status)) {
                     boolean checkExist = districtDao.checkExistDistrict(id_district);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This district being used cannot be changed status!");

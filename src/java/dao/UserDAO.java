@@ -23,6 +23,7 @@ public class UserDAO {
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, districtId = ?, birthday = ?, phone = ?, email = ?, accName = ?, password = ?, roleId = ?, status = ?  WHERE userID = ?";
     private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
+    private static final String GET_USER_BY_NAME = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE fullName = ?";
 
     private static final String GET_ALL_USER = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers";
     private static final String CHECK_USER_ID = "SELECT userID FROM tblUsers WHERE userID = ?";
@@ -66,6 +67,51 @@ public class UserDAO {
                     String status = rs.getString("status");
                     user = new User(getUserID, fullName, address, district, birthday, phone, email, accName, "", role, status);
                 }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+
+    public User getUserByName(String userName) throws SQLException {
+
+        User user = null;
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            stm = conn.prepareStatement(GET_USER_BY_NAME);
+            stm.setString(1, userName);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                String getUserID = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String id = rs.getString("roleID");
+                RoleDAO roleDAO = new RoleDAO();
+                Role role = roleDAO.getRoleByID(id);
+                String address = rs.getString("address");
+                String districtId = rs.getString("districtId");
+                DistrictDAO districtDao = new DistrictDAO();
+                District district = districtDao.getDistrictByID(districtId);
+                String birthday = rs.getString("birthday");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String accName = rs.getString("accName");
+                String status = rs.getString("status");
+                user = new User(getUserID, fullName, address, district, birthday, phone, email, accName, "", role, status);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -695,7 +741,7 @@ public class UserDAO {
         return 0;
 
     }
-    
+
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         List<User> list = dao.pagingAccount(1);
