@@ -92,7 +92,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 String status = request.getParameter("status");
                 Field field = fieldDao.getFieldByID(fieldID);
                 String statusOfField = field.getStatus();
-                if (!fieldDao.changeStringStatus(statusOfField).equals(status)) {
+                if (!statusOfField.equals(status)) {
                     boolean checkExist = fieldDao.checkExist(fieldID);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This field being booked cannot be changed status!");

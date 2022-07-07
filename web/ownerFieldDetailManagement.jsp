@@ -133,7 +133,7 @@
 
                                                                                             </div>
                                                                                             <div class="d-flex justify-content-end">
-                                                                                                <a class="btn btn-primary mt-2" href="MainController?action=Print">Back</a>
+                                                                                                <a class="btn btn-primary mt-2" href="MainController?action=Print&index=1">Back</a>
                                                                                             </div>
                                                                                         </th>
                                                                                     </tr>

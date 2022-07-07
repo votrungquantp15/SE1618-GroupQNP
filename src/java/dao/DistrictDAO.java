@@ -18,7 +18,7 @@ public class DistrictDAO {
     private static final String SEARCH_CITY_BY_ADMIN = "SELECT districtID, districtName, status FROM tblDistrict WHERE districtName like ? AND status like ?";
     private static final String UPDATE_STATUS_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = ? WHERE districtID = ?";
     private static final String UPDATE_CITY_BY_OWNER = "UPDATE tblDistrict SET districtName = ? WHERE districtID = ?";
-    private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = 'false' WHERE districtID = ?";
+    private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = 'In-Active' WHERE districtID = ?";
     private static final String CHECK_EXIST_CITY = "SELECT districtID FROM tblFields WHERE districtID = ?";
     private static final String CREATE_CITY = "INSERT INTO tblDistrict(districtID, districtName) VALUES(?,?)";
 
@@ -40,8 +40,7 @@ public class DistrictDAO {
                         String getDistrictID = rs.getString("districtID");
                         String districtName = rs.getString("districtName");
                         String status = rs.getString("status");
-                        String statusAfter = changeNumberStatus(status);
-                        district = new District(getDistrictID, districtName, statusAfter);
+                        district = new District(getDistrictID, districtName, status);
                     }
                 }
             }
@@ -75,8 +74,7 @@ public class DistrictDAO {
                     String getDistrictID = rs.getString("districtID");
                     String districtName = rs.getString("districtName");
                     String status = rs.getString("status");
-                    String statusAfter = changeNumberStatus(status);
-                    listDistrict.add(new District(getDistrictID, districtName, statusAfter));
+                    listDistrict.add(new District(getDistrictID, districtName, status));
                 }
             }
         } catch (Exception e) {
@@ -173,8 +171,7 @@ public class DistrictDAO {
                     String districtID = rs.getString("districtID");
                     String districtName = rs.getString("districtName");
                     String statusOfDistrict = rs.getString("status");
-                    String statusAfter = changeNumberStatus(statusOfDistrict);
-                    listDistrict.add(new District(districtID, districtName, statusAfter));
+                    listDistrict.add(new District(districtID, districtName, statusOfDistrict));
                 }
             }
         } catch (Exception e) {
@@ -296,7 +293,7 @@ public class DistrictDAO {
         int min = 1;
         int random_double = (int) (Math.random() * (max - min + 1) + min);
         String s = String.valueOf(random_double);
-        return "CT" + s;
+        return "DI" + s;
     }
 
     public String createDistrictId() throws SQLException {
@@ -333,23 +330,5 @@ public class DistrictDAO {
             }
         }
         return check;
-    }
-    
-    public String changeNumberStatus(String status) {
-        if (status.equals("1")) {
-            status = "Active";
-        } else {
-            status = "In-active";
-        }
-        return status;
-    }
-    
-    public String changeStringStatus(String status) {
-        if (status.equals("Active")) {
-            status = "1";
-        } else {
-            status = "0";
-        }
-        return status;
     }
 }

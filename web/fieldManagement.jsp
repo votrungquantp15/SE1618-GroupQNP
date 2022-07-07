@@ -68,8 +68,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                            <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                            <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                            <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <div class="input-group-prepend">
@@ -83,6 +84,7 @@
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
                                                     <div class="input-group-append">
+                                                        <input type="hidden" name="index" value="1"/>
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldByAdmin">Search</button>
                                                     </div>
                                                 </div>
@@ -120,17 +122,32 @@
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>
-
                                         </table>
-
                                     </div>
-                                    <ul class="pagination">
-                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
-                                            </li>
-                                        </c:forEach>
-                                    </ul>
+                                    <c:choose>
+                                        <c:when test="${requestScope.LIST_FIELD != null}">
+                                            <ul class="pagination">
+                                                <c:choose>
+                                                    <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
+                                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
+                                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                                <a href="MainController?action=SearchFieldByAdmin&index=${i}&searchBy=${requestScope.SEARCH_BY}&searchByAdmin=${requestScope.SEARCH}&status=${requestScope.STATUS}" class="page-link">${i}</a>
+                                                            </li>
+                                                        </c:forEach>
+                                                    </c:when>
+                                                    <c:otherwise></c:otherwise>
+                                                </c:choose>
+                                            </ul>
+                                        </c:when>
+                                        <c:otherwise></c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>

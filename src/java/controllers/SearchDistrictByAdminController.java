@@ -37,6 +37,11 @@ public class SearchDistrictByAdminController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("SEARCH_DISTRICT_ERROR", "Couldn't find any districts");
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
             log("Error at SearchDistrictByAdminController: " + e.toString());

@@ -37,6 +37,11 @@ public class SearchFieldCateByAdminController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("SEARCH_FIELD_CATE_ERROR", "Couldn't find any field category");
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
             log("Error at SearchFieldCateByAdminController: " + e.toString());

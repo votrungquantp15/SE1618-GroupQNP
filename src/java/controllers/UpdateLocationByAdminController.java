@@ -56,7 +56,7 @@ public class UpdateLocationByAdminController extends HttpServlet {
                 String status = request.getParameter("status");
                 Location location = locationDao.getLocationByID(id_location);
                 String statusOfLocation = location.getStatus();
-                if (!locationDao.changeStringStatus(statusOfLocation).equals(status)) {
+                if (!statusOfLocation.equals(status)) {
                     boolean checkExist = locationDao.checkExistLocation(id_location);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed status!");

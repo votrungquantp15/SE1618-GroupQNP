@@ -94,9 +94,8 @@ Chat box End
                     <span>Fields Management</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="MainController?action=Print">Field</a></li>
+                    <li><a href="MainController?action=Print&index=1">Field</a></li>
                     <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
-                    <li><a href="MainController?action=PrintDistrict">District</a></li>
                     <li><a href="MainController?action=PrintLocation">Location</a></li>
                 </ul>
             </li>

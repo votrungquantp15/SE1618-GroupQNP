@@ -89,8 +89,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
     
     //Search Field By Name 
-    private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
-    private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+    private static final String SEARCH_FIELD_BY_USER = "SearchFieldByUser";
+    private static final String SEARCH_FIELD_BY_USER_CONTROLLER = "SearchFieldByUserController";
 
     //Search Field By Admin
     private static final String SEARCH_FIELD_BY_ADMIN = "SearchFieldByAdmin";
@@ -142,7 +142,7 @@ public class MainController extends HttpServlet {
     
     //Delete District By Admin
     private static final String CREATE_DISTRICT_BY_ADMIN = "CreateDistrict";
-    private static final String CREATE_DISTRICT_BY_ADMIN_CONTROLLER = "CreateDistrictByAdminController";
+    private static final String CREATE_DISTRICT_BY_ADMIN_CONTROLLER = "CreateDistrictController";
     
     //Paging
     private static final String ACCOUNT_LIST = "AccountList";
@@ -257,8 +257,8 @@ public class MainController extends HttpServlet {
                 case UPDATE_BOOKING:
                     url = UPDATE_BOOKING_CONTROLLER;
                     break;
-                case SEARCH_FIELD_BY_NAME:
-                    url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                case SEARCH_FIELD_BY_USER:
+                    url = SEARCH_FIELD_BY_USER_CONTROLLER;
                     break;
                 case ACCOUNT_EDITOR:
                     url = ACCOUNT_EDITOR_CONTROLLER;
