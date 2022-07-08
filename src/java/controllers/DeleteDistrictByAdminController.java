@@ -1,38 +1,38 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class DeleteCityByAdminController extends HttpServlet {
+public class DeleteDistrictByAdminController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+    private static final String ERROR = "PrintDistrictController";
+    private static final String SUCCESS = "PrintDistrictController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String cityId = request.getParameter("cityId");
-            CityDAO cityDao = new CityDAO();
-            boolean checkDelete = cityDao.checkExistCity(cityId);
+            String districtId = request.getParameter("districtId");
+            DistrictDAO districtDao = new DistrictDAO();
+            boolean checkDelete = districtDao.checkExistDistrict(districtId);
             if (checkDelete == false) {
-                boolean check = cityDao.deleteCity(cityId);
+                boolean check = districtDao.deleteDistrict(districtId);
                 if (check) {
                     url = SUCCESS;
-                    request.setAttribute("DELETE_SUCCESS", "Delete city success!");
+                    request.setAttribute("DELETE_SUCCESS", "Delete district success!");
                 } else {
-                    request.setAttribute("DELETE_UNSUCCESS", "Delete city unsuccess! Please try again!");
+                    request.setAttribute("DELETE_UNSUCCESS", "Delete district unsuccess! Please try again!");
                 }
             } else {
-                request.setAttribute("DELETE_UNSUCCESS", "This city being used cannot be deleted! Delete unsuccess!");
+                request.setAttribute("DELETE_UNSUCCESS", "This district being used cannot be deleted! Delete unsuccess!");
             }
         } catch (Exception e) {
-            log("Error at DeleteCityByAdminController: " + e.toString());
+            log("Error at DeleteDistrictByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

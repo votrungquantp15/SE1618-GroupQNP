@@ -46,7 +46,7 @@ Chat box End
                 </li>				
                 <li class="nav-item dropdown header-profile">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                        <img src="images/profile/pic1.jpg" width="20" alt="">
+                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU" width="20" alt="">
                         <div class="header-info col-12">
                             <span>${sessionScope.LOGIN_USER.fullName}</span>
                         </div>
@@ -83,7 +83,7 @@ Chat box End
     <div class="deznav-scroll">
         <div class="main-profile">
             <div class="image-bx">
-                <img src="images/Untitled-1.jpg" alt="">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
             <p class="email">${sessionScope.LOGIN_USER.email}</p>
@@ -94,9 +94,8 @@ Chat box End
                     <span>Fields Management</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="MainController?action=Print">Field</a></li>
-                    <!--<li><a href="MainController?action=PrintFieldCate">Field Category</a></li>-->
-                    <li><a href="MainController?action=PrintCity">City</a></li>
+                    <li><a href="MainController?action=Print&index=1">Field</a></li>
+                    <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
                     <li><a href="MainController?action=PrintLocation">Location</a></li>
                 </ul>
             </li>

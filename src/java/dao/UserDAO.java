@@ -1,6 +1,6 @@
 package dao;
 
-import dto.City;
+import dto.District;
 import dto.Role;
 import dto.User;
 import java.sql.Connection;
@@ -14,22 +14,23 @@ import utils.DBUtils;
 public class UserDAO {
 
     private static final String CHECK_DUPLICATE = "SELECT fullName FROM tblUsers WHERE userID = ?";
-    private static final String CREATE = "INSERT INTO tblUsers(userID, fullName, cityId, birthday, phone, accName,email, roleId, status, password) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    private static final String LOGIN = "SELECT userID, fullName, address, cityId, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
+    private static final String CREATE = "INSERT INTO tblUsers(userID, fullName, districtId, birthday, phone, accName,email, roleId, status, password) VALUES (? ,?, ?, ?, ?, ?, ?, ?, ?, ?)";
+    private static final String LOGIN = "SELECT userID, fullName, address, districtId, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
     private static final String CHECK_PASS = "SELECT email, password FROM tblUsers WHERE email = ? AND password = ?";
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
-    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
-    private static final String SEARCH_ACCOUNT_BY_ID_FOR_ADMIN = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE userID LIKE ? ";
+    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
+    private static final String SEARCH_ACCOUNT_BY_ID_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE userID LIKE ? ";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
-    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, cityId = ?, birthday = ?, phone = ?, email = ?, accName = ?, password = ?, roleId = ?, status = ?  WHERE userID = ?";
-    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
+    private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, districtId = ?, birthday = ?, phone = ?, email = ?, accName = ?, password = ?, roleId = ?, status = ?  WHERE userID = ?";
+    private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
+    private static final String GET_USER_BY_NAME = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE fullName = ?";
 
-    private static final String GET_ALL_USER = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, status, roleID FROM tblUsers";
+    private static final String GET_ALL_USER = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers";
     private static final String CHECK_USER_ID = "SELECT userID FROM tblUsers WHERE userID = ?";
     // Update Profile User
     private static final String UPDATE_PROFILE_USER = "UPDATE tblUsers SET  fullName = ?, birthday = ?, phone = ?, email = ?, address = ?  WHERE userID = ?";
 
-    private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, cityId, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
+    private static final String VIEW_ACCOUNT_LIST = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers";
 
     // check email tồn tại
     private static final String CHECK_EMAIL_EXISTED = "SELECT email FROM tblUsers WHERE email = ?";
@@ -56,16 +57,61 @@ public class UserDAO {
                     RoleDAO roleDAO = new RoleDAO();
                     Role role = roleDAO.getRoleByID(id);
                     String address = rs.getString("address");
-                    String cityId = rs.getString("cityId");
-                    CityDAO cityDao = new CityDAO();
-                    City city = cityDao.getCityByID(cityId);
+                    String districtId = rs.getString("districtId");
+                    DistrictDAO districtDao = new DistrictDAO();
+                    District district = districtDao.getDistrictByID(districtId);
                     String birthday = rs.getString("birthday");
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
                     String accName = rs.getString("accName");
                     String status = rs.getString("status");
-                    user = new User(getUserID, fullName, address, city, birthday, phone, email, accName, "", role, status);
+                    user = new User(getUserID, fullName, address, district, birthday, phone, email, accName, "", role, status);
                 }
+            }
+        } catch (Exception e) {
+            e.getMessage();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (stm != null) {
+                stm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return user;
+    }
+
+    public User getUserByName(String userName) throws SQLException {
+
+        User user = null;
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            stm = conn.prepareStatement(GET_USER_BY_NAME);
+            stm.setString(1, userName);
+            rs = stm.executeQuery();
+            if (rs.next()) {
+                String getUserID = rs.getString("userID");
+                String fullName = rs.getString("fullName");
+                String id = rs.getString("roleID");
+                RoleDAO roleDAO = new RoleDAO();
+                Role role = roleDAO.getRoleByID(id);
+                String address = rs.getString("address");
+                String districtId = rs.getString("districtId");
+                DistrictDAO districtDao = new DistrictDAO();
+                District district = districtDao.getDistrictByID(districtId);
+                String birthday = rs.getString("birthday");
+                String phone = rs.getString("phone");
+                String email = rs.getString("email");
+                String accName = rs.getString("accName");
+                String status = rs.getString("status");
+                user = new User(getUserID, fullName, address, district, birthday, phone, email, accName, "", role, status);
             }
         } catch (Exception e) {
             e.getMessage();
@@ -130,15 +176,15 @@ public class UserDAO {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRoleByID(id);
                 String address = rs.getString("address");
-                String cityId = rs.getString("cityId");
-                CityDAO cityDao = new CityDAO();
-                City city = cityDao.getCityByID(cityId);
+                String districtId = rs.getString("districtId");
+                DistrictDAO districtDao = new DistrictDAO();
+                District district = districtDao.getDistrictByID(districtId);
                 String birthday = rs.getString("birthday");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
                 String accName = rs.getString("accName");
                 String status = rs.getString("status");
-                listUser.add(new User(getUserID, fullName, address, city, birthday, phone, email, accName, "", role, status));
+                listUser.add(new User(getUserID, fullName, address, district, birthday, phone, email, accName, "", role, status));
             }
         } catch (Exception e) {
             e.getMessage();
@@ -197,7 +243,7 @@ public class UserDAO {
                 ptm = conn.prepareStatement(CREATE);
                 ptm.setString(1, cus.getUserID());
                 ptm.setString(2, cus.getFullName());
-                ptm.setString(3, cus.getCity().getCityId());
+                ptm.setString(3, cus.getDistrict().getDistrictId());
                 ptm.setString(4, cus.getBirth());
                 ptm.setString(5, cus.getPhone());
                 ptm.setString(6, cus.getAccName());
@@ -207,7 +253,7 @@ public class UserDAO {
                 ptm.setString(10, cus.getPassword());
                 String a1 = cus.getUserID();
                 String a2 = cus.getFullName();
-                String a3 = cus.getCity().getCityId();
+                String a3 = cus.getDistrict().getDistrictId();
                 String a4 = cus.getBirth();
                 String a5 = cus.getPhone();
                 String a6 = cus.getAccName();
@@ -247,14 +293,14 @@ public class UserDAO {
                 RoleDAO roleDAO = new RoleDAO();
                 Role role = roleDAO.getRole(id);
                 String address = rs.getString("address");
-                String cityId = rs.getString("cityId");
-                CityDAO cityDao = new CityDAO();
-                City city = cityDao.getCityByID(cityId);
+                String districtId = rs.getString("districtId");
+                DistrictDAO districtDao = new DistrictDAO();
+                District district = districtDao.getDistrictByID(districtId);
                 String birthday = rs.getString("birthday");
                 String accName = rs.getString("accName");
                 String phone = rs.getString("phone");
                 String status = rs.getString("status");
-                user = new User(userID, fullName, address, city, birthday, phone, email, accName, "", role, status);
+                user = new User(userID, fullName, address, district, birthday, phone, email, accName, "", role, status);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -362,9 +408,9 @@ public class UserDAO {
                         String userID = rs.getString("userID");
                         String fullName = rs.getString("fullName");
                         String address = rs.getString("address");
-                        String cityId = rs.getString("cityId");
-                        CityDAO cityDao = new CityDAO();
-                        City city = cityDao.getCityByID(cityId);
+                        String districtId = rs.getString("districtId");
+                        DistrictDAO districtDao = new DistrictDAO();
+                        District district = districtDao.getDistrictByID(districtId);
                         String birthday = rs.getString("birthday");
                         String phone = rs.getString("phone");
                         String email = rs.getString("email");
@@ -380,7 +426,7 @@ public class UserDAO {
                             status = "in-active";
                         }
 
-                        list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
+                        list.add(new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status));
                     }
                 }
             } catch (Exception e) {
@@ -420,9 +466,9 @@ public class UserDAO {
                         String userID = rs.getString("userID");
                         String fullName = rs.getString("fullName");
                         String address = rs.getString("address");
-                        String cityId = rs.getString("cityId");
-                        CityDAO cityDao = new CityDAO();
-                        City city = cityDao.getCityByID(cityId);
+                        String districtId = rs.getString("districtId");
+                        DistrictDAO districtDao = new DistrictDAO();
+                        District district = districtDao.getDistrictByID(districtId);
                         String birthday = rs.getString("birthday");
                         String phone = rs.getString("phone");
                         String email = rs.getString("email");
@@ -433,7 +479,7 @@ public class UserDAO {
                         Role roleID = role.getRole(id_of_role);
                         String status = rs.getString("status");
 
-                        list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
+                        list.add(new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status));
                     }
                 }
             } catch (Exception e) {
@@ -491,7 +537,7 @@ public class UserDAO {
                 ptm = conn.prepareStatement(UPDATE_USER);
                 ptm.setString(1, user.getFullName());
                 ptm.setString(2, user.getAddress());
-                ptm.setString(3, user.getCity().getCityId());
+                ptm.setString(3, user.getDistrict().getDistrictId());
                 ptm.setString(4, user.getBirth());
                 ptm.setString(5, user.getPhone());
                 ptm.setString(6, user.getEmail());
@@ -564,9 +610,9 @@ public class UserDAO {
                     String userID = rs.getString("userID");
                     String fullName = rs.getString("fullName");
                     String address = rs.getString("address");
-                    String cityId = rs.getString("cityId");
-                    CityDAO cityDao = new CityDAO();
-                    City city = cityDao.getCityByID(cityId);
+                    String districtId = rs.getString("districtId");
+                    DistrictDAO districtDao = new DistrictDAO();
+                    District district = districtDao.getDistrictByID(districtId);
                     String birthday = rs.getString("birthday");
                     String phone = rs.getString("phone");
                     String email = rs.getString("email");
@@ -584,7 +630,7 @@ public class UserDAO {
                         status = "In-active";
                     }
 
-                    list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
+                    list.add(new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status));
                 }
             }
             ///aa
@@ -653,9 +699,9 @@ public class UserDAO {
                 String userID = rs.getString("userID");
                 String fullName = rs.getString("fullName");
                 String address = rs.getString("address");
-                String cityId = rs.getString("cityId");
-                CityDAO cityDao = new CityDAO();
-                City city = cityDao.getCityByID(cityId);
+                String districtId = rs.getString("districtId");
+                DistrictDAO districtDao = new DistrictDAO();
+                District district = districtDao.getDistrictByID(districtId);
                 String birthday = rs.getString("birthday");
                 String phone = rs.getString("phone");
                 String email = rs.getString("email");
@@ -670,7 +716,7 @@ public class UserDAO {
                 } else {
                     status = "In-active";
                 }
-                list.add(new User(userID, fullName, address, city, birthday, phone, email, accName, password, roleID, status));
+                list.add(new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status));
             }
         } catch (Exception e) {
         }
@@ -695,7 +741,7 @@ public class UserDAO {
         return 0;
 
     }
-    
+
     public static void main(String[] args) {
         UserDAO dao = new UserDAO();
         List<User> list = dao.pagingAccount(1);

@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -59,11 +59,11 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
                 LocationDAO location = new LocationDAO();
                 Location locationID = location.getLocationByID(id_of_location);
-                String id_of_city = request.getParameter("cityId");
-                id_of_city = URLEncoder.encode(id_of_city, "ISO-8859-1");
-                id_of_city = URLDecoder.decode(id_of_city, "UTF-8");
-                CityDAO city = new CityDAO();
-                City cityID = city.getCityByID(id_of_city);
+                String id_of_district = request.getParameter("districtId");
+                id_of_district = URLEncoder.encode(id_of_district, "ISO-8859-1");
+                id_of_district = URLDecoder.decode(id_of_district, "UTF-8");
+                DistrictDAO district = new DistrictDAO();
+                District districtID = district.getDistrictByID(id_of_district);
                 if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
                     request.setAttribute("UPDATE_ERROR", "Field name cannot be left blank and must be <= 30");
                     request.setAttribute("UPDATE_MODAL", "1");
@@ -78,7 +78,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                     checkValidation = false;
                 }
                 if (checkValidation) {
-                    Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userID, locationID, cityID, null);
+                    Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userID, locationID, districtID, null);
                     boolean checkUpdate = fieldDao.updateFieldByOwner(field);
                     if (checkUpdate) {
                         url = SUCCESS;
@@ -92,7 +92,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 String status = request.getParameter("status");
                 Field field = fieldDao.getFieldByID(fieldID);
                 String statusOfField = field.getStatus();
-                if (!fieldDao.changeStringStatus(statusOfField).equals(status)) {
+                if (!statusOfField.equals(status)) {
                     boolean checkExist = fieldDao.checkExist(fieldID);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This field being booked cannot be changed status!");
@@ -110,7 +110,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already " + field.getStatus());
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + field.getStatus() + "\"");
                 }
             }
         } catch (Exception e) {

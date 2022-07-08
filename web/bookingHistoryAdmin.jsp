@@ -70,11 +70,12 @@
                                     <form action="MainController" method="POST">
                                         <div class="form-group">
                                             <div class="row">
-                                                <div class="col-sm-4">    
-                                                    <h5>Search by Booking ID</h5><input class="form-control" type="text" name="search" value="${param.search}" placeholder="Search by bookingID">
+                                                <div class="col-sm-4">
+                                                    <div class="example">
+                                                        <input type="text" class="form-control" name="datefilter" value="${param.datefilter}" placeholder="Choose Date To Search" />
+                                                    </div>
                                                 </div>
                                                 <div class="col-sm-4">
-                                                    <h5>Search by Status</h5>
                                                     <select class="form-control" name="status">
                                                         <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all</option>
                                                         <option value="On-Going" <c:if test="${param.status eq 'On-Going'}">selected</c:if>>On-Going</option>
@@ -228,9 +229,9 @@
                                     </div>
                                     <ul class="pagination">
                                         <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li>
-                                                <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
-                                            </li>
+                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
+                                                </li>
                                         </c:forEach>
                                     </ul>
                                 </div>
@@ -268,5 +269,32 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
+
+        <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script type="text/javascript">
+            $(function () {
+
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+
+                $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                    $(this).val('');
+                });
+
+            });
+        </script>
+
 </body>
 </html>

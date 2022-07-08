@@ -1,63 +1,50 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
-import dao.FieldDAO;
-
-import dto.City;
-import dto.Field;
-import dto.FieldCategory;
-
+import dao.DistrictDAO;
+import dto.District;
+import dto.User;
 import java.io.IOException;
-
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class SearchFieldByNameController extends HttpServlet {
+public class SearchDistrictByAdminController extends HttpServlet {
 
-    private static final String SEARCH_SUCCES = "home.jsp";
-    private static final String SEARCH_ERROR = "home.jsp";
-
+    private static final String ADMIN_PAGE = "districtManagement.jsp";
+    private static final String OWNER_PAGE = "ownerDistrictManagement.jsp";
+    private static final String ERROR = "districtManagement.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = SEARCH_ERROR;
-        String fieldName;
+        String url = ERROR;
         try {
-            //Get category 
-            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-
-            //Get city
-            List<City> listCitys = new ArrayList<>();
-            CityDAO cityDao = new CityDAO();
-            listCitys = cityDao.getAllCity();
-
-            fieldName = request.getParameter("name");
-            //Get price 
-            List<Field> listFields = new ArrayList<>();
-            FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getFieldDetailByName(fieldName);
-
-            if (listFields.size() != 0) {
-                //setAttribute citys
-
-                //setAttribute Fields
-                url = SEARCH_SUCCES;
-
-                request.setAttribute("FIELD", listFields);
-
-                //setAttribute category
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("LOGIN_USER");
+            String districtName = request.getParameter("searchByAdmin");
+            String status = request.getParameter("status");
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.searchDistrictByAdmin(districtName, status);
+            if (!listDistrict.isEmpty()) {
+                request.setAttribute("LIST_DISTRICT", listDistrict);
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             } else {
-                request.setAttribute("FIELD_NOT_FOUND", "Không tìm thấy sân bóng");
+                request.setAttribute("SEARCH_DISTRICT_ERROR", "Couldn't find any districts");
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
-            log("Error at LoginController: " + e.toString());
+            log("Error at SearchDistrictByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

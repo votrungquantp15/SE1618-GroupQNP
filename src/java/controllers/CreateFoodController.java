@@ -5,12 +5,10 @@
  */
 package controllers;
 
-import dao.CityDAO;
 import dao.FoodCategoryDAO;
 import dao.FoodDAO;
 import dao.RoleDAO;
 import dao.UserDAO;
-import dto.City;
 import dto.User;
 import dto.CustomerError;
 import dto.Food;

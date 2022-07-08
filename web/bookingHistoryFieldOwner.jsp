@@ -66,8 +66,13 @@
                                         <form action="MainController" method="GET">
                                             <div class="form-group">
                                                 <div class="row">
-                                                    <div class="col-sm-4">    
+                                                    <div class="col-sm-3">    
                                                         <input class="form-control" type="text" name="search" value="${param.search}" placeholder="Search by user name">
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <div class="example">
+                                                            <input type="text" class="form-control" name="datefilter" value="${param.datefilter}" placeholder="Choose Date To Search" />
+                                                        </div>
                                                     </div>
 
                                                     <div class="col-sm-4">
@@ -123,20 +128,14 @@
                                         </div>
                                         <ul class="pagination">
                                             <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                                <li>
-                                                    <a href="MainController?action=SearchBooking&search=${param.search}&status=${param.status}&index=${i}" class="page-link">${i}</a>
+                                                <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                    <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&search=${param.search}&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
                                                 </li>
                                             </c:forEach>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="footer">
-                        <div class="copyright">
-                            <p>Copyright © Designed &amp; Developed by <a href="../index.htm" target="_blank">DexignZone</a> 2021</p>
                         </div>
                     </div>
                     <!--**********************************
@@ -169,6 +168,31 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
+        
+        <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+
+        <script type="text/javascript">
+            $(function () {
+
+                $('input[name="datefilter"]').daterangepicker({
+                    autoUpdateInput: false,
+                    locale: {
+                        cancelLabel: 'Clear'
+                    }
+                });
+
+                $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+                });
+
+                $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                    $(this).val('');
+                });
+
+            });
+        </script>
     </body>
 </html>

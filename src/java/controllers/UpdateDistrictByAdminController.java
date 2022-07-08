@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.LocationDAO;
-import dto.Location;
+import dao.DistrictDAO;
+import dto.District;
 import dto.User;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -12,71 +12,72 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UpdateLocationByAdminController extends HttpServlet {
+public class UpdateDistrictByAdminController extends HttpServlet {
 
-    private static final String ERROR = "PrintLocationController";
-    private static final String SUCCESS = "PrintLocationController";
+    private static final String ERROR = "PrintDistrictController";
+    private static final String SUCCESS = "PrintDistrictController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            LocationDAO locationDao = new LocationDAO();
-            String id_location = request.getParameter("id_location");
+            DistrictDAO districtDao = new DistrictDAO();
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
+            String id_district = request.getParameter("id_district");
             boolean checkValidation = true;
 
             if (user.getRole().getRoleId().equals("MA")) {
-                String locationName = request.getParameter("locationName");
-                locationName = URLEncoder.encode(locationName, "ISO-8859-1");
-                locationName = URLDecoder.decode(locationName, "UTF-8");
-                boolean checkExist = locationDao.checkExistLocation(id_location);
+                String districtName = request.getParameter("districtName");
+                districtName = URLEncoder.encode(districtName, "ISO-8859-1");
+                districtName = URLDecoder.decode(districtName, "UTF-8");
+                boolean checkExist = districtDao.checkExistDistrict(id_district);
                 if (checkExist) {
-                    request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed!");
+                    request.setAttribute("UPDATE_ERROR", "This district being used cannot be changed!");
                     checkValidation = false;
                 } else {
-                    if (locationName.trim().length() == 0) {
-                        request.setAttribute("UPDATE_ERROR", "Location name cannot be left blank");
+                    if (districtName.trim().length() == 0) {
+                        request.setAttribute("UPDATE_ERROR", "District name cannot be left blank");
                         checkValidation = false;
                     }
                     if (checkValidation) {
-                        Location location = new Location(id_location, locationName, null);
-                        boolean checkUpdate = locationDao.updateLocationByOwner(location);
+                        District district = new District(id_district, districtName, null);
+                        boolean checkUpdate = districtDao.updateDistrictByOwner(district);
                         if (checkUpdate) {
                             url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update location success!");
+                            request.setAttribute("UPDATE_SUCCESS", "Update district success!");
                         } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update district unsuccess! Please try again!");
                         }
                     }
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
-                Location location = locationDao.getLocationByID(id_location);
-                String statusOfLocation = location.getStatus();
-                if (!statusOfLocation.equals(status)) {
-                    boolean checkExist = locationDao.checkExistLocation(id_location);
+                District district = districtDao.getDistrictByID(id_district);
+                String statusOfDistrict = district.getStatus();
+                if (!statusOfDistrict.equals(status)) {
+                    boolean checkExist = districtDao.checkExistDistrict(id_district);
                     if (checkExist) {
-                        request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed status!");
+                        request.setAttribute("UPDATE_ERROR", "This district being used cannot be changed status!");
                         checkValidation = false;
                     }
                     if (checkValidation) {
-                        boolean checkUpdate = locationDao.updateStatusLocation(id_location, status);
+                        boolean checkUpdate = districtDao.updateStatusDistrict(id_district, status);
                         if (checkUpdate) {
                             url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update location success!");
+                            request.setAttribute("UPDATE_SUCCESS", "Update district success!");
                         } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update district unsuccess! Please try again!");
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + location.getStatus() + "\"");
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + district.getStatus() + "\"");
                 }
             }
+
         } catch (Exception e) {
-            log("Error at UpdateLocationByAdminController: " + e.toString());
+            log("Error at UpdateDistrictByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

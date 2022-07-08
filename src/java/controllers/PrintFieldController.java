@@ -1,11 +1,10 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
-import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -29,37 +28,70 @@ public class PrintFieldController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = USER_PAGE;
         try {
+            int count = 0;
             HttpSession session = request.getSession();
-            User user = (User)session.getAttribute("LOGIN_USER");
-            
-            UserDAO userDao = new UserDAO();
-            List<User> listUser = userDao.getAllUser();
-            request.setAttribute("LIST_USER", listUser);
-            
+            User user = (User) session.getAttribute("LOGIN_USER");
+            request.setAttribute("USER_NAME", user.getFullName());
+
             FieldCategoryDAO cateDao = new FieldCategoryDAO();
             List<FieldCategory> listCate = cateDao.getAllFieldCategory();
             request.setAttribute("LIST_CATEGORY", listCate);
-            
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.getAllCity();
-            request.setAttribute("LIST_CITY", listCity);
-            
+
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("LIST_DISTRICT", listDistrict);
+
             LocationDAO locationDao = new LocationDAO();
             List<Location> listLocation = locationDao.getAllLocation();
             request.setAttribute("LIST_LOCATION", listLocation);
-            
-            FieldDAO dao = new FieldDAO();
-            List<Field> listField = dao.getListField();
-            if (listField.size() > 0) {
-                request.setAttribute("LIST_FIELD", listField);
-                if (user.getRole().getRoleId().equals("US")) {
-                    url = USER_PAGE;
-                } else if (user.getRole().getRoleId().equals("AD")) {
-                    url = ADMIN_PAGE;
-                } else if (user.getRole().getRoleId().equals("MA")) {
+
+            FieldDAO fieldDao = new FieldDAO();
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int endPage = 0;
+                    
+            if (user.getRole().getRoleId().equals("MA")) {
+                String userId = user.getUserID();
+                count = fieldDao.countTotalFieldbyFieldOwner(userId);
+                List<Field> listField = fieldDao.getListOwnerField(index, userId);
+                if (listField.size() > 0) {
+                    request.setAttribute("LIST_FIELD", listField);
                     url = OWNER_PAGE;
                 }
+                endPage = count / 5;
+                if (count % 5 != 0) {
+                    endPage++;
+                }
+                request.setAttribute("END_PAGE", endPage);
+            } else {
+                List<Field> listField = fieldDao.getListField(index);
+                if (listField.size() > 0) {
+                    if (user.getRole().getRoleId().equals("US")) {
+                        listField = fieldDao.getListFieldByUser(index);
+                        request.setAttribute("FIELD", listField);
+                        count = fieldDao.countTotalFieldbyUser();
+                        endPage = count / 9;
+                        if (count % 9 != 0) {
+                            endPage++;
+                        }
+                        request.setAttribute("END_PAGE", endPage);
+                        url = USER_PAGE;
+                    } else if (user.getRole().getRoleId().equals("AD")) {
+                        request.setAttribute("LIST_FIELD", listField);
+                        count = fieldDao.countTotalFieldByAdmin();
+                        endPage = count / 5;
+                        if (count % 5 != 0) {
+                            endPage++;
+                        }
+                        request.setAttribute("END_PAGE", endPage);
+                        url = ADMIN_PAGE;
+                    }
+                }
             }
+            session.setAttribute("ACTION_FIELD", "Print");
         } catch (Exception e) {
             log("Error at SearchController: " + e.toString());
         } finally {

@@ -5,10 +5,10 @@
  */
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.RoleDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.User;
 import dto.CustomerError;
 import dto.Role;
@@ -39,16 +39,16 @@ public class CreateManagerAccountController extends HttpServlet {
         String url = ERROR;
         try {
             
-            String cityId = request.getParameter("cityId");
+            String districtId = request.getParameter("districtId");
               
-            CityDAO cityDao = new CityDAO();
-            List<City> listCityName = new ArrayList<>();
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrictName = new ArrayList<>();
 
-            listCityName = cityDao.getAllCity();
+            listDistrictName = districtDao.getAllDistrict();
 
-            City city = cityDao.getCityByID(cityId);
+            District district = districtDao.getDistrictByID(districtId);
 
-            request.setAttribute("CITY_NAME", listCityName);
+            request.setAttribute("DISTRICT_NAME", listDistrictName);
             
             UserDAO dao = new UserDAO();
             String userID = dao.userIDForCustomer();
@@ -69,7 +69,7 @@ public class CreateManagerAccountController extends HttpServlet {
             Role role = roleDao.getRoleByIDForCreate("MA");
 
 
-            request.setAttribute("CITY_NAME", listCityName);
+            request.setAttribute("DISTRICT_NAME", listDistrictName);
 
             CustomerError cusError = new CustomerError();
             
@@ -95,7 +95,7 @@ public class CreateManagerAccountController extends HttpServlet {
                 check = false;
             }
             if (check) {
-                User cus = new User(userID, fullName, "", city, birthDay, phone, email, accName, pass, role, "1");
+                User cus = new User(userID, fullName, "", district, birthDay, phone, email, accName, pass, role, "1");
                 boolean checkInsert = dao.insert(cus);
                 if (checkInsert) {
                     url = SUCCESS;

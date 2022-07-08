@@ -82,12 +82,12 @@
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label>City</label>
-                                            <select class="form-control " name="cityId">
+                                            <label>District</label>
+                                            <select class="form-control " name="districtId">
 
                                                 <option value="">Show all</option>
-                                            <c:forEach var="cityName" items="${requestScope.CITY_NAME}">
-                                                <option value="${cityName.cityId}">${cityName.cityName}</option>
+                                            <c:forEach var="districtName" items="${requestScope.DISTRICT_NAME}">
+                                                <option value="${districtName.districtId}">${districtName.districtName}</option>
                                             </c:forEach>
 
 

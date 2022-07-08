@@ -1,6 +1,6 @@
 package dao;
 
-import dto.City;
+import dto.District;
 import dto.Food;
 import dto.FoodCategory;
 import dto.Role;
