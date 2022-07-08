@@ -54,18 +54,29 @@
                                     </div>
 
                                     <div class="card-body">
+                                        
                                         <form action="MainController">
+                                            
                                             <div class="form-group col-md-6">
                                                 <label><strong>Search food by name</strong></label>
                                                 <div class="row">
                                                     <div class ="col-md-6">
                                                         <input name="searchFoodByManager" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodByManager}">                                                                                             
                                                 </div>
+                                                
                                                 <div class ="col-md-6">
                                                     <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodByManager">SEARCH</button>
+                                                    
+                                                    <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateFood"><span class="btn-icon-left text-success "><i class="fa fa-plus color-info"></i>
+                                                </span>Add new food</button>
                                                 </div>
-                                            </div>                              
-                                        </div>                                                                                  
+                                                
+                                            </div>  
+                                            
+                                        </div>
+
+
+
                                     </form>
                                     <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
                                     <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
@@ -100,7 +111,7 @@
                                                             <div class="d-flex">
 
                                                                 <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>
@@ -112,7 +123,7 @@
                                         <ul class="pagination pagination-sm pagination-gutter">
                                             <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
                                                 <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=ViewFoodList&index=${page}">${page}</a>
-                                            </c:forEach>
+                                                </c:forEach>
                                         </ul>       
 
 

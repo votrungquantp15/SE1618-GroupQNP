@@ -26,6 +26,8 @@ public class FoodDAO {
     private static final String DELETE_FOOD = "UPDATE tblFoods SET status = 0 WHERE foodId = ?";
     private static final String VIEW_FOOD_LIST = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods";
     private static final String UPDATE_FOOD = "UPDATE tblFoods SET foodName = ?, image = ?, categoryFoodId = ?, status = ? WHERE foodId = ?";
+    private static final String CREATE = "INSERT INTO tblFoods(foodId, foodName, image, categoryFoodId, status) VALUES (? ,?, ?, ?, ?)";
+    private static final String CHECK_DUPLICATE = "SELECT foodName FROM tblFoods WHERE foodId = ?";
 
     public Food getFoodByID(String foodID) throws SQLException {
         Food food = new Food();
@@ -66,7 +68,7 @@ public class FoodDAO {
         }
         return food;
     }
-
+    
     public List<Food> searchFoodByNameForManager(String search) throws SQLException {
         List<Food> list = new ArrayList<>();
         Connection conn = null;
@@ -309,4 +311,83 @@ public class FoodDAO {
         return 0;
 
     }
+    
+    public boolean insertFood(Food food) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE);
+                ptm.setString(1, food.getFoodId());
+                ptm.setString(2, food.getFoodName());
+                ptm.setString(3, food.getImage());
+                ptm.setString(4, food.getFoodCate().getFoodCateId());
+                ptm.setString(5, food.getStatus());
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean checkDuplicate(String FoodID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_DUPLICATE);
+                ptm.setString(1, FoodID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public String handleFoodID() {
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "F" + s;
+    }
+    
+    public String foodIDForManager() throws SQLException {
+        String foodID = handleFoodID();//ramdom food Id
+        boolean check = false;
+        do {
+            check = checkDuplicate(foodID);//check trùng ID
+            if (check == false) {
+                foodID = handleFoodID();
+            }
+        } while (check);
+        return foodID;
+    }
+
 }

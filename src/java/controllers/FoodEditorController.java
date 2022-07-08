@@ -1,10 +1,13 @@
 package controllers;
 
+import dao.FoodCategoryDAO;
 import dao.FoodDAO;
 import dao.UserDAO;
 import dto.Food;
+import dto.FoodCategory;
 import dto.User;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -23,7 +26,7 @@ public class FoodEditorController extends HttpServlet {
         String url = ERROR;
         try {
             String foodId = request.getParameter("foodId");
-            
+                       
             FoodDAO dao = new FoodDAO();
             List<Food> listFood = dao.searchFoodByIdForManager(foodId);
             if (listFood.size() > 0) {

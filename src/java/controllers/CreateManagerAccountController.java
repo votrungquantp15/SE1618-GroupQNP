@@ -56,7 +56,6 @@ public class CreateManagerAccountController extends HttpServlet {
             fullName = URLEncoder.encode(fullName, "ISO-8859-1");
             fullName = URLDecoder.decode(fullName, "UTF-8");
             String pass = request.getParameter("password");
-            String confirm = request.getParameter("confirm");
             String accName = request.getParameter("accName");
             String birthDay = request.getParameter("birthday");
             String phone = request.getParameter("phone");

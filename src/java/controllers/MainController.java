@@ -179,9 +179,14 @@ public class MainController extends HttpServlet {
     //Delete field category
     private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
     private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
+    
     //Create Manager Account
     private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
     private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
+    
+    //Create Food
+    private static final String CREATE_FOOD = "CreateFood";
+    private static final String CREATE_FOOD_CONTROLLER = "CreateFoodController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -327,6 +332,9 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_MANAGER_ACCOUNT:
                     url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
+                    break;
+                case CREATE_FOOD:
+                    url = CREATE_FOOD_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

@@ -71,15 +71,16 @@
                                                 </div>
                                                 <div class ="col-md-6">
                                                     <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">Search</button>
+                                                    <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateManagerAccount"><span class="btn-icon-left text-success"><i class="fa fa-plus color-info"></i>
+                                                        </span>Add new Manager</button>
                                                 </div>
 
                                             </div>                              
                                         </div>
-                                                <a href="MainController?action=CreateManagerAccount">Click here to create new Manager's Account</a>
-                                                                      <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
-                                    <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                                    <p style="color: red">${requestScope.SEARCH_FAILED} </p>
-                                    <p style="color: red">${requestScope.DELETE_INACTIVE} </p>  </form>
+                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
+                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                        <p style="color: red">${requestScope.SEARCH_FAILED} </p>
+                                        <p style="color: red">${requestScope.DELETE_INACTIVE} </p>  </form>
 
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
