@@ -30,11 +30,11 @@ public class BookingDAO {
             + "WHERE userID like ? AND status like ? "
             + "AND bookingDate BETWEEN ? AND ? ";
 
-    private static final String PAGING_LIST_ALL_BOOKING = "SELECT * FROM tblBooking WHERE userID like ? "
+    private static final String PAGING_LIST_ALL_BOOKING = "SELECT * FROM tblBooking WHERE userID = ? AND status like ? "
             + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
 
     private static final String COUNT_LIST_BOOKING = "SELECT COUNT(*) as totalBooking FROM tblBooking "
-            + "WHERE userID like ? ";
+            + "WHERE userID = ? AND status like ? ";
 
     private static final String PAGING_LIST_BOOKING = "SELECT * FROM tblBooking WHERE userID like ? "
             + "AND status like ? AND bookingDate BETWEEN ? AND ? "
@@ -47,7 +47,7 @@ public class BookingDAO {
             + "AND bookingDate BETWEEN ? AND ? "
             + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
 
-    public List<Booking> getListBooking(String userID, int index) throws SQLException {
+    public List<Booking> getListBooking(String userID, int index, String status) throws SQLException {
         List<Booking> booking = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -56,8 +56,9 @@ public class BookingDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(PAGING_LIST_ALL_BOOKING);
-                ptm.setString(1, "%" + userID + "%");
-                ptm.setInt(2, (index - 1) * 10);
+                ptm.setString(1, userID);
+                ptm.setString(2, "%" + status + "%");
+                ptm.setInt(3, (index - 1) * 10);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getBookingID = rs.getString("bookingID");
@@ -290,7 +291,7 @@ public class BookingDAO {
         return index;
     }
 
-    public int getTotalListBooking(String userID) throws SQLException {
+    public int getTotalListBooking(String userID, String status) throws SQLException {
         int index = 0;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -299,7 +300,8 @@ public class BookingDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(COUNT_LIST_BOOKING);
-                ptm.setString(1, "%" + userID + "%");
+                ptm.setString(1, userID);
+                ptm.setString(2,"%" + status + "%");
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     index = rs.getInt("totalBooking");
