@@ -27,7 +27,7 @@ public class SearchLocationByAdminController extends HttpServlet {
             String locationName = request.getParameter("searchByAdmin");
             String status = request.getParameter("status");
             LocationDAO locationDao = new LocationDAO();
-            List<Location> listLocation = locationDao.searchCityByAdmin(locationName, status);
+            List<Location> listLocation = locationDao.searchLocationByAdmin(locationName, status);
             if (!listLocation.isEmpty()) {
                 request.setAttribute("LIST_LOCATION", listLocation);
                 if (user.getRole().getRoleId().equals("MA")) {
@@ -37,6 +37,11 @@ public class SearchLocationByAdminController extends HttpServlet {
                 }
             } else {
                 request.setAttribute("SEARCH_LOCATION_ERROR", "Couldn't find any locations");
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
             log("Error at SearchLocationByAdminController: " + e.toString());

@@ -57,8 +57,8 @@ public class MainController extends HttpServlet {
     private static final String HOME_CONTROLLER = "HomeController";
 
     //
-    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
-    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
+    private static final String FILTER_FIELD_BY_DISTRICT = "FilterFieldByDistrict";
+    private static final String FILTER_FIELD_BY_DISTRICT_CONTROLLER = "FilterFieldByDistrict";
 
     //Account Editor
     private static final String ACCOUNT_EDITOR = "AccountEditor";
@@ -72,13 +72,13 @@ public class MainController extends HttpServlet {
     private static final String PRINT_DETAIL_FIELD = "PrintDetail";
     private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
 
-    //Print list city
-    private static final String PRINT_LIST_CITY = "PrintCity";
-    private static final String PRINT_LIST_CITY_CONTROLLER = "PrintCityController";
+    //Print list district
+    private static final String PRINT_LIST_DISTRICT = "PrintDistrict";
+    private static final String PRINT_LIST_DISTRICT_CONTROLLER = "PrintDistrictController";
 
-    //Print city detail
-    private static final String PRINT_DETAIL_CITY = "PrintCityDetail";
-    private static final String PPRINT_DETAIL_CITY_CONTROLLER = "PrintCityDetailController";
+    //Print district detail
+    private static final String PRINT_DETAIL_DISTRICT = "PrintDistrictDetail";
+    private static final String PPRINT_DETAIL_DISTRICT_CONTROLLER = "PrintDistrictDetailController";
 
     //Delete field
     private static final String DELETE_LIST_FIELD = "DeleteField";
@@ -89,8 +89,8 @@ public class MainController extends HttpServlet {
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
     
     //Search Field By Name 
-    private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
-    private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+    private static final String SEARCH_FIELD_BY_USER = "SearchFieldByUser";
+    private static final String SEARCH_FIELD_BY_USER_CONTROLLER = "SearchFieldByUserController";
 
     //Search Field By Admin
     private static final String SEARCH_FIELD_BY_ADMIN = "SearchFieldByAdmin";
@@ -128,21 +128,21 @@ public class MainController extends HttpServlet {
     private static final String CREATE_FOOD_BY_MANAGER = "CreateFoodByManager";
     private static final String CREATE_FOOD_BY_MANAGER_CONTROLLER = "CreateFoodByManagerController";
 
-    //Search City By Admin
-    private static final String SEARCH_CITY_BY_ADMIN = "SearchCityByAdmin";
-    private static final String SEARCH_CITY_BY_ADMIN_CONTROLLER = "SearchCityByAdminController";
+    //Search District By Admin
+    private static final String SEARCH_DISTRICT_BY_ADMIN = "SearchDistrictByAdmin";
+    private static final String SEARCH_DISTRICT_BY_ADMIN_CONTROLLER = "SearchDistrictByAdminController";
     
-    //Update City By Admin
-    private static final String UPDATE_CITY_BY_ADMIN = "UpdateCity";
-    private static final String UPDATE_CITY_BY_ADMIN_CONTROLLER = "UpdateCityByAdminController";
+    //Update District By Admin
+    private static final String UPDATE_DISTRICT_BY_ADMIN = "UpdateDistrict";
+    private static final String UPDATE_DISTRICT_BY_ADMIN_CONTROLLER = "UpdateDistrictByAdminController";
     
-    //Delete City By Admin
-    private static final String DELETE_CITY_BY_ADMIN = "DeleteCity";
-    private static final String DELETE_CITY_BY_ADMIN_CONTROLLER = "DeleteCityByAdminController";
+    //Delete District By Admin
+    private static final String DELETE_DISTRICT_BY_ADMIN = "DeleteDistrict";
+    private static final String DELETE_DISTRICT_BY_ADMIN_CONTROLLER = "DeleteDistrictByAdminController";
     
-    //Delete City By Admin
-    private static final String CREATE_CITY_BY_ADMIN = "CreateCity";
-    private static final String CREATE_CITY_BY_ADMIN_CONTROLLER = "CreateCityByAdminController";
+    //Delete District By Admin
+    private static final String CREATE_DISTRICT_BY_ADMIN = "CreateDistrict";
+    private static final String CREATE_DISTRICT_BY_ADMIN_CONTROLLER = "CreateDistrictController";
     
     //Paging
     private static final String ACCOUNT_LIST = "AccountList";
@@ -257,8 +257,8 @@ public class MainController extends HttpServlet {
                 case UPDATE_BOOKING:
                     url = UPDATE_BOOKING_CONTROLLER;
                     break;
-                case SEARCH_FIELD_BY_NAME:
-                    url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                case SEARCH_FIELD_BY_USER:
+                    url = SEARCH_FIELD_BY_USER_CONTROLLER;
                     break;
                 case ACCOUNT_EDITOR:
                     url = ACCOUNT_EDITOR_CONTROLLER;
@@ -289,23 +289,23 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_FOOD_BY_MANAGER:
                     url = CREATE_FOOD_BY_MANAGER_CONTROLLER;
-                case PRINT_LIST_CITY:
-                    url = PRINT_LIST_CITY_CONTROLLER;
+                case PRINT_LIST_DISTRICT:
+                    url = PRINT_LIST_DISTRICT_CONTROLLER;
                     break;
-                case PRINT_DETAIL_CITY:
-                    url = PPRINT_DETAIL_CITY_CONTROLLER;
+                case PRINT_DETAIL_DISTRICT:
+                    url = PPRINT_DETAIL_DISTRICT_CONTROLLER;
                     break;
-                case SEARCH_CITY_BY_ADMIN:
-                    url = SEARCH_CITY_BY_ADMIN_CONTROLLER;
+                case SEARCH_DISTRICT_BY_ADMIN:
+                    url = SEARCH_DISTRICT_BY_ADMIN_CONTROLLER;
                     break;
-                case UPDATE_CITY_BY_ADMIN:
-                    url = UPDATE_CITY_BY_ADMIN_CONTROLLER;
+                case UPDATE_DISTRICT_BY_ADMIN:
+                    url = UPDATE_DISTRICT_BY_ADMIN_CONTROLLER;
                     break;
-                case DELETE_CITY_BY_ADMIN:
-                    url = DELETE_CITY_BY_ADMIN_CONTROLLER;
+                case DELETE_DISTRICT_BY_ADMIN:
+                    url = DELETE_DISTRICT_BY_ADMIN_CONTROLLER;
                     break;
-                case CREATE_CITY_BY_ADMIN:
-                    url = CREATE_CITY_BY_ADMIN_CONTROLLER;
+                case CREATE_DISTRICT_BY_ADMIN:
+                    url = CREATE_DISTRICT_BY_ADMIN_CONTROLLER;
                     break;
                 case ACCOUNT_LIST:
                     url = ACCOUNT_LIST_CONTROLLER;

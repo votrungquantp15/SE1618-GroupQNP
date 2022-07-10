@@ -1,9 +1,11 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
-import dto.User;
+import dao.DistrictDAO;
+import dao.FieldDAO;
+import dto.District;
+import dto.Field;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,35 +13,55 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class SearchCityByAdminController extends HttpServlet {
+public class SearchFieldByUserController extends HttpServlet {
 
-    private static final String ADMIN_PAGE = "cityManagement.jsp";
-    private static final String OWNER_PAGE = "ownerCityManagement.jsp";
-    private static final String ERROR = "cityManagement.jsp";
-    
+    private static final String SEARCH_SUCCES = "home.jsp";
+    private static final String SEARCH_ERROR = "home.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = ERROR;
+        String url = SEARCH_ERROR;
         try {
             HttpSession session = request.getSession();
-            User user = (User)session.getAttribute("LOGIN_USER");
-            String cityName = request.getParameter("searchByAdmin");
-            String status = request.getParameter("status");
-            CityDAO cityDao = new CityDAO();
-            List<City> listCity = cityDao.searchCityByAdmin(cityName, status);
-            if (!listCity.isEmpty()) {
-                request.setAttribute("LIST_CITY", listCity);
-                if (user.getRole().getRoleId().equals("MA")) {
-                    url = OWNER_PAGE;
-                } else if (user.getRole().getRoleId().equals("AD")) {
-                    url = ADMIN_PAGE;
-                }
-            } else {
-                request.setAttribute("SEARCH_CITY_ERROR", "Couldn't find any citys");
+            FieldDAO fieldDao = new FieldDAO();
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
             }
+            int index = Integer.parseInt(indexPage);
+            String districtId = request.getParameter("districtId");
+            String fieldName = request.getParameter("fieldName");
+            List<Field> listFields = new ArrayList<>();
+            listFields = fieldDao.searchUserFieldDetailByName(fieldName, districtId, index);
+            
+            int count = fieldDao.countSearchTotalFieldByUser(fieldName, districtId);
+            int endPage = 0;
+            endPage = count / 9;
+            if (count % 9 != 0) {
+                endPage++;
+            }
+            
+            DistrictDAO districtDao = new DistrictDAO();
+            District district = districtDao.getDistrictByID(districtId);
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("DISTRICT", district);
+            request.setAttribute("LIST_DISTRICT", listDistrict);
+
+            if (listFields.size() != 0) {
+                //setAttribute Fields
+                url = SEARCH_SUCCES;
+
+                request.setAttribute("FIELD", listFields);
+            } else {
+                request.setAttribute("FIELD_NOT_FOUND", "Không tìm thấy sân bóng");
+            }
+            request.setAttribute("END_PAGE", endPage);
+            request.setAttribute("FIELD_NAME", fieldName);
+            request.setAttribute("DISTRICT_ID", districtId);
+            session.setAttribute("ACTION_FIELD", "Search");
         } catch (Exception e) {
-            log("Error at SearchCityByAdminController: " + e.toString());
+            log("Error at SearchFieldByUserController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

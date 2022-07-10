@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="vendors/nice-select/css/nice-select.css">
     <link rel="stylesheet" href="vendors/owl-carousel/owl.carousel.min.css">
     <!-- main css -->
-    <link rel="stylesheet" href="css/homestyles.css">
+    <link rel="stylesheet" href="css/homestyle.css">
     <link rel="stylesheet" href="css/responsive.css">
 </head>
 <body>
@@ -24,7 +24,7 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="MainController?action=Print"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -33,19 +33,19 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link" href="blog.html">Profile</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Booking history</a></li>
-                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link" href="blog.html">Hồ sơ</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
                             </c:choose>
@@ -82,57 +82,37 @@
                     <div class="boking_table">
                         <form action="MainController">
                             <div class="row">
-                                <div class="col-md-4">
+                                <div class="col-md-8">
                                     <div class="book_tabel_item">
                                         <div class="form-group">
                                             <div class='input-group'>
-                                                <input name="name" value="${param.name}" style="color: white;" type='text' class="form-control" placeholder="Name"/>
+                                                <input name="fieldName" value="${param.fieldName}" style="color: white;" type='text' class="form-control" placeholder="Nhập tên cần tìm"/>
                                             </div>
                                         </div>
-                                        <div class="form-group">
-                                            <div class='input-group date' id='datetimepicker1'>
-                                                <input type='text' class="form-control" placeholder="Departure Date"/>
-                                                <span class="input-group-addon">
-                                                    <i class="fa fa-calendar" aria-hidden="true"></i>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="book_tabel_item">
                                         <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Adult">Adult</option>
-                                                <option value="1">Old</option>
-                                                <option value="2">Younger</option>
-                                                <option value="3">Potato</option>
-                                            </select>
-                                        </div>
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Child">Child</option>
-                                                <option value="1">Child</option>
-                                                <option value="2">Baby</option>
-                                                <option value="3">Child</option>
+                                            <select name ="districtId" class="wide selectpicker mh" data-live-search="true">
+                                                <c:choose>
+                                                    <c:when test="${requestScope.DISTRICT == null}">
+                                                        <option selected value="">Chọn quận cần tìm</option>
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        <option selected value="">${requestScope.DISTRICT.districtName}</option>
+                                                    </c:otherwise>
+                                                </c:choose>
+                                                <c:forEach var="district" items="${requestScope.LIST_DISTRICT}">
+                                                    <option value="${district.districtId}">${district.districtName}</option>
+                                                </c:forEach>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-md-4">
                                     <div class="book_tabel_item">
-                                        <div class="input-group">
-                                            <select class="wide">
-                                                <option data-display="Child">Number of Rooms</option>
-                                                <option value="1">Room 01</option>
-                                                <option value="2">Room 02</option>
-                                                <option value="3">Room 03</option>
-                                            </select>
-                                        </div>
                                         <!-- <a class="book_now_btn button_hover" href="#">Search</a> -->
                                         <div class="form-field w-100 justify-content-center d-flex">
-                                            <input type="hidden" name="action" value="SearchFieldByName"/>
-                                            <input type="submit" value="Search" class="align-self-stretch form-control btn btn-primary">
+                                            <input type="hidden" name="index" value="1"/>
+                                            <input type="hidden" name="action" value="SearchFieldByUser"/>
+                                            <input type="submit" value="Tìm kiếm" class="align-self-stretch form-control btn btn-primary">
                                         </div>
                                     </div>
                                 </div>
@@ -154,7 +134,7 @@
             </div>
             <div class="row accomodation_two">
                 <h4 style="color: red"> ${requestScope.FIELD_NOT_FOUND} </h4>
-                <c:forEach var="field" items="${requestScope.LIST_FIELD}">
+                <c:forEach var="field" items="${requestScope.FIELD}">
                     <div class="col-lg-4 col-sm-6">
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
@@ -162,12 +142,36 @@
                                 <a href="#" class="btn theme_btn button_hover rounded">Đặt ngay</a>
                             </div>
                             <a href="MainController?action=UserPrintFieldDetail&fieldName=${field.fieldName}"><h4 class="sec_h4">${field.fieldName}</h4></a>
-                            <h6>${field.city.cityName}</h6>
+                            <h6>${field.district.districtName}</h6>
                             <h5>${field.price}00<small> vnd/h</small></h5>
                         </div>
                     </div>
                 </c:forEach>
             </div>
+            <c:choose>
+                <c:when test="${(requestScope.FIELD != null)}">
+                    <ul class="pagination justify-content-center mt-2">
+                        <c:choose>
+                            <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
+                                <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                        <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                    </li>
+                                </c:forEach>
+                            </c:when>
+                            <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
+                                <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                        <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
+                                    </li>
+                                </c:forEach>
+                            </c:when>
+                            <c:otherwise></c:otherwise>
+                        </c:choose>
+                    </ul>
+                </c:when>
+                <c:otherwise></c:otherwise>
+            </c:choose>
         </div>
     </section>
     <!--================ Accomodation Area  =================-->

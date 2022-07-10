@@ -17,7 +17,7 @@ public class FieldCategoryDAO {
     private static final String CHECK_FIELD_CATE_ID = "SELECT categoryFieldID FROM tblFieldCategory WHERE categoryFieldID = ?";
     private static final String CHECK_FIELD_CATE_NAME = "SELECT categoryFieldName FROM tblFieldCategory WHERE categoryFieldName = ?";
     private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SELECT categoryFieldID, categoryFieldName, status FROM tblFieldCategory WHERE categoryFieldName like ? AND status like ?";
-    private static final String DELETE_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = 'false' WHERE categoryFieldID = ?";
+    private static final String DELETE_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = 'In-Active' WHERE categoryFieldID = ?";
     private static final String CHECK_EXIST_FIELD_CATE = "SELECT categoryFieldID FROM tblFields WHERE categoryFieldID = ?";
     private static final String UPDATE_STATUS_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = ? WHERE categoryFieldID = ?";
     private static final String UPDATE_FIELD_CATE_BY_OWNER = "UPDATE tblFieldCategory SET categoryFieldName = ? WHERE categoryFieldID = ?";
@@ -41,8 +41,7 @@ public class FieldCategoryDAO {
                         String getCategoryFieldID = rs.getString("categoryFieldID");
                         String categoryFieldName = rs.getString("categoryFieldName");
                         String status = rs.getString("status");
-                        String statusAfter = changeNumberStatus(status);
-                        fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, statusAfter);
+                        fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
                     }
                 }
             }
@@ -78,8 +77,7 @@ public class FieldCategoryDAO {
                     String getCategoryFieldID = rs.getString("categoryFieldID");
                     String categoryFieldName = rs.getString("categoryFieldName");
                     String status = rs.getString("status");
-                    String statusAfter = changeNumberStatus(status);
-                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, statusAfter);
+                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
                     listFieldCategorys.add(fieldCategory);
                 }
             }
@@ -177,8 +175,7 @@ public class FieldCategoryDAO {
                     String fieldCateID = rs.getString("categoryFieldID");
                     String fieldCateName = rs.getString("categoryFieldName");
                     String statusOfFieldCate = rs.getString("status");
-                    String statusAfter = changeNumberStatus(statusOfFieldCate);
-                    listFieldCate.add(new FieldCategory(fieldCateID, fieldCateName, statusAfter));
+                    listFieldCate.add(new FieldCategory(fieldCateID, fieldCateName, statusOfFieldCate));
                 }
             }
         } catch (Exception e) {
@@ -339,21 +336,4 @@ public class FieldCategoryDAO {
         return check;
     }
     
-    public String changeNumberStatus(String status) {
-        if (status.equals("1")) {
-            status = "Active";
-        } else {
-            status = "In-active";
-        }
-        return status;
-    }
-    
-    public String changeStringStatus(String status) {
-        if (status.equals("Active")) {
-            status = "1";
-        } else {
-            status = "0";
-        }
-        return status;
-    }
 }

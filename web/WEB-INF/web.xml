@@ -49,8 +49,8 @@
         <servlet-class>controllers.DeleteBookingController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchFieldByNameController</servlet-name>
-        <servlet-class>controllers.SearchFieldByNameController</servlet-class>
+        <servlet-name>SearchFieldByUserController</servlet-name>
+        <servlet-class>controllers.SearchFieldByUserController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateBookingController</servlet-name>
@@ -85,24 +85,24 @@
         <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>PrintCityController</servlet-name>
-        <servlet-class>controllers.PrintCityController</servlet-class>
+        <servlet-name>PrintDistrictController</servlet-name>
+        <servlet-class>controllers.PrintDistrictController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>SearchCityByAdminController</servlet-name>
-        <servlet-class>controllers.SearchCityByAdminController</servlet-class>
+        <servlet-name>SearchDistrictByAdminController</servlet-name>
+        <servlet-class>controllers.SearchDistrictByAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateCityByAdminController</servlet-name>
-        <servlet-class>controllers.UpdateCityByAdminController</servlet-class>
+        <servlet-name>UpdateDistrictByAdminController</servlet-name>
+        <servlet-class>controllers.UpdateDistrictByAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>DeleteCityByAdminController</servlet-name>
-        <servlet-class>controllers.DeleteCityByAdminController</servlet-class>
+        <servlet-name>DeleteDistrictByAdminController</servlet-name>
+        <servlet-class>controllers.DeleteDistrictByAdminController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>CreateCityController</servlet-name>
-        <servlet-class>controllers.CreateCityController</servlet-class>
+        <servlet-name>CreateDistrictController</servlet-name>
+        <servlet-class>controllers.CreateDistrictController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>PrintLocationController</servlet-name>
@@ -193,8 +193,8 @@
         <url-pattern>/DeleteBookingController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchFieldByNameController</servlet-name>
-        <url-pattern>/SearchFieldByNameController</url-pattern>
+        <servlet-name>SearchFieldByUserController</servlet-name>
+        <url-pattern>/SearchFieldByUserController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UpdateBookingController</servlet-name>
@@ -229,24 +229,24 @@
         <url-pattern>/UserPrintFieldDetailController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>PrintCityController</servlet-name>
-        <url-pattern>/PrintCityController</url-pattern>
+        <servlet-name>PrintDistrictController</servlet-name>
+        <url-pattern>/PrintDistrictController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>SearchCityByAdminController</servlet-name>
-        <url-pattern>/SearchCityByAdminController</url-pattern>
+        <servlet-name>SearchDistrictByAdminController</servlet-name>
+        <url-pattern>/SearchDistrictByAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UpdateCityByAdminController</servlet-name>
-        <url-pattern>/UpdateCityByAdminController</url-pattern>
+        <servlet-name>UpdateDistrictByAdminController</servlet-name>
+        <url-pattern>/UpdateDistrictByAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>DeleteCityByAdminController</servlet-name>
-        <url-pattern>/DeleteCityByAdminController</url-pattern>
+        <servlet-name>DeleteDistrictByAdminController</servlet-name>
+        <url-pattern>/DeleteDistrictByAdminController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>CreateCityController</servlet-name>
-        <url-pattern>/CreateCityController</url-pattern>
+        <servlet-name>CreateDistrictController</servlet-name>
+        <url-pattern>/CreateDistrictController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrintLocationController</servlet-name>

@@ -89,8 +89,8 @@
                                             <input type="text" class="form-control" name="address" value="${user.address}" required=""/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>City</label>
-                                            <input type="text" class="form-control" name="cityId" value="${user.city.cityId}" required=""/>
+                                            <label>District</label>
+                                            <input type="text" class="form-control" name="districtId" value="${user.district.districtId}" required=""/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Birthday</label>

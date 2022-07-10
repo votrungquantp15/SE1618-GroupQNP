@@ -27,30 +27,36 @@ public class UpdateLocationByAdminController extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
             boolean checkValidation = true;
-            
+
             if (user.getRole().getRoleId().equals("MA")) {
                 String locationName = request.getParameter("locationName");
                 locationName = URLEncoder.encode(locationName, "ISO-8859-1");
                 locationName = URLDecoder.decode(locationName, "UTF-8");
-                if (locationName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Location name cannot be left blank");
+                boolean checkExist = locationDao.checkExistLocation(id_location);
+                if (checkExist) {
+                    request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed!");
                     checkValidation = false;
-                }
-                if (checkValidation) {
-                    Location location = new Location(id_location, locationName, null);
-                    boolean checkUpdate = locationDao.updateLocationByOwner(location);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update location success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
+                } else {
+                    if (locationName.trim().length() == 0) {
+                        request.setAttribute("UPDATE_ERROR", "Location name cannot be left blank");
+                        checkValidation = false;
+                    }
+                    if (checkValidation) {
+                        Location location = new Location(id_location, locationName, null);
+                        boolean checkUpdate = locationDao.updateLocationByOwner(location);
+                        if (checkUpdate) {
+                            url = SUCCESS;
+                            request.setAttribute("UPDATE_SUCCESS", "Update location success!");
+                        } else {
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
+                        }
                     }
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
                 Location location = locationDao.getLocationByID(id_location);
                 String statusOfLocation = location.getStatus();
-                if (!locationDao.changeStringStatus(statusOfLocation).equals(status)) {
+                if (!statusOfLocation.equals(status)) {
                     boolean checkExist = locationDao.checkExistLocation(id_location);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed status!");

@@ -112,8 +112,8 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.location.locationName}</th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th style="color: black">City:</th>
-                                                                                        <th>${requestScope.FIELD_DETAIL.city.cityName}</th>
+                                                                                        <th style="color: black">District:</th>
+                                                                                        <th>${requestScope.FIELD_DETAIL.district.districtName}</th>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <th style="color: black">Status:</th>
@@ -132,7 +132,7 @@
                                                                                                 <a title="Click here to delete field" href="#" class="btn btn-danger shadow ml-1" data-toggle="modal" data-target="#deleteConfirm"><i class="fa fa-trash"></i></a>
                                                                                             </div>
                                                                                             <div class="d-flex justify-content-end">
-                                                                                                <a class="btn btn-primary mt-2" href="MainController?action=Print">Back</a>
+                                                                                                <a class="btn btn-primary mt-2" href="MainController?action=Print&index=1">Back</a>
                                                                                             </div>
                                                                                         </th>
                                                                                     </tr>
@@ -192,8 +192,9 @@
                                                                     <th style="position: relative; top: 15px;">Status:</th>
                                                                     <th>
                                                                         <select class="form-control" name ="status">
-                                                                            <option value="1">Active</option>
-                                                                            <option value="0">In-Active</option>
+                                                                            <option value="Active">Active</option>
+                                                                            <option value="Request">Request</option>
+                                                                            <option value="In-Active">In-Active</option>
                                                                         </select>
                                                                     </th>
                                                                 </tr>

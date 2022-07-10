@@ -12,12 +12,11 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-
 public class UpdateFieldCateByAdminController extends HttpServlet {
 
     private static final String ERROR = "PrintFieldCateController";
     private static final String SUCCESS = "PrintFieldCateController";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -33,25 +32,31 @@ public class UpdateFieldCateByAdminController extends HttpServlet {
                 String fieldCateName = request.getParameter("fieldCateName");
                 fieldCateName = URLEncoder.encode(fieldCateName, "ISO-8859-1");
                 fieldCateName = URLDecoder.decode(fieldCateName, "UTF-8");
-                if (fieldCateName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Field category name cannot be left blank");
+                boolean checkExist = fieldCateDao.checkExistFieldCate(id_fieldCate);
+                if (checkExist) {
+                    request.setAttribute("UPDATE_ERROR", "This field category being used cannot be changed!");
                     checkValidation = false;
-                }
-                if (checkValidation) {
-                    FieldCategory fieldCate = new FieldCategory(id_fieldCate, fieldCateName, null);
-                    boolean checkUpdate = fieldCateDao.updateFieldCateByOwner(fieldCate);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
+                } else {
+                    if (fieldCateName.trim().length() == 0) {
+                        request.setAttribute("UPDATE_ERROR", "Field category name cannot be left blank");
+                        checkValidation = false;
+                    }
+                    if (checkValidation) {
+                        FieldCategory fieldCate = new FieldCategory(id_fieldCate, fieldCateName, null);
+                        boolean checkUpdate = fieldCateDao.updateFieldCateByOwner(fieldCate);
+                        if (checkUpdate) {
+                            url = SUCCESS;
+                            request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
+                        } else {
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
+                        }
                     }
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
                 FieldCategory fieldCate = fieldCateDao.getFieldCategoryByID(id_fieldCate);
                 String statusOfFieldCate = fieldCate.getStatus();
-                if (!fieldCateDao.changeStringStatus(statusOfFieldCate).equals(status)) {
+                if (!statusOfFieldCate.equals(status)) {
                     boolean checkExist = fieldCateDao.checkExistFieldCate(id_fieldCate);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This field category being used cannot be changed status!");

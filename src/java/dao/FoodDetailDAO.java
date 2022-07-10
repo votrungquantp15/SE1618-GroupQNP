@@ -19,7 +19,7 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class FoodDetailDAO {
-    private static final String GET_ALL_INFO = "SELECT foodDetailID, foodID, fieldID, price, quantity, status FROM tblFoodDetail WHERE foodDetailID like ?";
+    private static final String GET_ALL_INFO = "SELECT foodDetailID, foodID, fieldID, price, status FROM tblFoodDetail WHERE foodDetailID like ?";
     
     public FoodDetail getFoodDetailByID(String foodDetailID) throws SQLException {
         FoodDetail foodDetail = null;
@@ -44,9 +44,8 @@ public class FoodDetailDAO {
                     Field field = fieldDAO.getFieldByID(fieldID);
                     
                     double price = rs.getDouble("price");
-                    int quantity = rs.getInt("quantity");
                     String status = rs.getString("status");
-                    foodDetail = new FoodDetail(getFoodDetailID, food, field, price, quantity, status);
+                    foodDetail = new FoodDetail(getFoodDetailID, food, field, price, status);
                 }
             }
         } catch (Exception e) {

@@ -68,8 +68,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                                <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                                <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                                <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -96,8 +97,8 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>City ID</strong></th>
-                                                        <th><strong>City Name</strong></th>
+                                                        <th><strong>District ID</strong></th>
+                                                        <th><strong>District Name</strong></th>
                                                         <th><strong>Status</strong></th>
                                                         <th><strong>Action</strong></th>
                                                         <th></th>

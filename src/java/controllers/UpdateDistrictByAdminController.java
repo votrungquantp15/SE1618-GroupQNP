@@ -1,7 +1,7 @@
 package controllers;
 
-import dao.CityDAO;
-import dto.City;
+import dao.DistrictDAO;
+import dto.District;
 import dto.User;
 import java.io.IOException;
 import java.net.URLDecoder;
@@ -12,66 +12,72 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class UpdateCityByAdminController extends HttpServlet {
+public class UpdateDistrictByAdminController extends HttpServlet {
 
-    private static final String ERROR = "PrintCityController";
-    private static final String SUCCESS = "PrintCityController";
+    private static final String ERROR = "PrintDistrictController";
+    private static final String SUCCESS = "PrintDistrictController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            CityDAO cityDao = new CityDAO();
+            DistrictDAO districtDao = new DistrictDAO();
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
-            String id_city = request.getParameter("id_city");
+            String id_district = request.getParameter("id_district");
             boolean checkValidation = true;
 
             if (user.getRole().getRoleId().equals("MA")) {
-                String cityName = request.getParameter("cityName");
-                cityName = URLEncoder.encode(cityName, "ISO-8859-1");
-                cityName = URLDecoder.decode(cityName, "UTF-8");
-                if (cityName.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "City name cannot be left blank");
+                String districtName = request.getParameter("districtName");
+                districtName = URLEncoder.encode(districtName, "ISO-8859-1");
+                districtName = URLDecoder.decode(districtName, "UTF-8");
+                boolean checkExist = districtDao.checkExistDistrict(id_district);
+                if (checkExist) {
+                    request.setAttribute("UPDATE_ERROR", "This district being used cannot be changed!");
                     checkValidation = false;
-                }
-                if (checkValidation) {
-                    City city = new City(id_city, cityName, null);
-                    boolean checkUpdate = cityDao.updateCityByOwner(city);
-                    if (checkUpdate) {
-                        url = SUCCESS;
-                        request.setAttribute("UPDATE_SUCCESS", "Update city success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
+                } else {
+                    if (districtName.trim().length() == 0) {
+                        request.setAttribute("UPDATE_ERROR", "District name cannot be left blank");
+                        checkValidation = false;
+                    }
+                    if (checkValidation) {
+                        District district = new District(id_district, districtName, null);
+                        boolean checkUpdate = districtDao.updateDistrictByOwner(district);
+                        if (checkUpdate) {
+                            url = SUCCESS;
+                            request.setAttribute("UPDATE_SUCCESS", "Update district success!");
+                        } else {
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update district unsuccess! Please try again!");
+                        }
                     }
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
-                City city = cityDao.getCityByID(id_city);
-                String statusOfCity = city.getStatus();
-                if (!cityDao.changeStringStatus(statusOfCity).equals(status)) {
-                    boolean checkExist = cityDao.checkExistCity(id_city);
+                District district = districtDao.getDistrictByID(id_district);
+                String statusOfDistrict = district.getStatus();
+                if (!statusOfDistrict.equals(status)) {
+                    boolean checkExist = districtDao.checkExistDistrict(id_district);
                     if (checkExist) {
-                        request.setAttribute("UPDATE_ERROR", "This city being used cannot be changed status!");
+                        request.setAttribute("UPDATE_ERROR", "This district being used cannot be changed status!");
                         checkValidation = false;
                     }
                     if (checkValidation) {
-                        boolean checkUpdate = cityDao.updateStatusCity(id_city, status);
+                        boolean checkUpdate = districtDao.updateStatusDistrict(id_district, status);
                         if (checkUpdate) {
                             url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update city success!");
+                            request.setAttribute("UPDATE_SUCCESS", "Update district success!");
                         } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update city unsuccess! Please try again!");
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update district unsuccess! Please try again!");
                         }
                     }
                 } else {
-                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + city.getStatus() + "\"");
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + district.getStatus() + "\"");
                 }
             }
 
         } catch (Exception e) {
-            log("Error at UpdateCityByAdminController: " + e.toString());
+            log("Error at UpdateDistrictByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -61,6 +61,7 @@
                             </div>
                             <div class="form-row">
                                 <div class="col-lg-8 my-3">
+                                    <input type="hidden" name="index" value="1"/>
                                     <button class="btn1" type="submit" name="action" value="Login">Login</button>
                                 </div>
                             </div>
