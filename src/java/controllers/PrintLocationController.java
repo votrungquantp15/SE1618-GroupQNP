@@ -25,7 +25,14 @@ public class PrintLocationController extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
             LocationDAO locationDao = new LocationDAO();
-            List<Location> listLocation = locationDao.getAllLocation();
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int endPage = 0;
+            int count = locationDao.countTotalLocation();
+            List<Location> listLocation = locationDao.getAllLocationPaging(index);
             if (listLocation.size() > 0) {
                 request.setAttribute("LIST_LOCATION", listLocation);
                 if (user.getRole().getRoleId().equals("MA")) {
@@ -34,6 +41,11 @@ public class PrintLocationController extends HttpServlet {
                     url = ADMIN_PAGE;
                 }
             }
+            endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            request.setAttribute("END_PAGE", endPage);
         } catch (Exception e) {
             log("Error at PrintLocationController: " + e.toString());
         } finally {

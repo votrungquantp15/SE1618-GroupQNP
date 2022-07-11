@@ -70,9 +70,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                                <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
-                                                                <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
-                                                                <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
+                                                            <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                            <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                            <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -119,6 +119,7 @@
 
                                                                 <c:url var="delete" value="MainController">
                                                                     <c:param name="action" value="DeleteFieldCate"></c:param>
+                                                                    <c:param name="index" value="1"></c:param>
                                                                     <c:param name="fieldCateId" value="${fieldCate.fieldCateId}"></c:param>
                                                                 </c:url>
                                                                 <a title="Click here to delete field category" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
@@ -180,8 +181,9 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
                                                                                     <input type="hidden" name="id_fieldCate" value="${fieldCate.fieldCateId}"/>
+                                                                                    <input type="hidden" name="index" value="1"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -194,6 +196,18 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <c:choose>
+                                            <c:when test="${requestScope.LIST_FIELD_CATE != null}">
+                                                <ul class="pagination">
+                                                    <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                        <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                            <a href="MainController?action=PrintFieldCate&index=${i}" class="page-link">${i}</a>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose>
                                     </form>   
                                 </div>
                             </div>

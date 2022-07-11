@@ -248,6 +248,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                 <input type="hidden" name="action" value="CreateField"/>
+                                <input type="hidden" name="index" value="1"/>
                                 <input class="btn btn-primary" type="submit" value="Accept"/>
                             </div>
 

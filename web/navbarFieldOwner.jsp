@@ -89,12 +89,12 @@ Chat box End
                 </a>
                 <ul aria-expanded="false">
                     <li><a href="MainController?action=Print&index=1">Field</a></li>
-                    <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
-                    <li><a href="MainController?action=PrintLocation">Location</a></li>
+                    <li><a href="MainController?action=PrintFieldCate&index=1">Field Category</a></li>
+                    <li><a href="MainController?action=PrintLocation&index=1">Location</a></li>
                 </ul>
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
-            <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
+            <li><a href="MainController?action=SearchBooking&search=&status=&index=1">Booking report</a></li>
             <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
             <li><a href="MainController?action=ViewFoodList&index=1">Food Management</a></li>
         </ul>

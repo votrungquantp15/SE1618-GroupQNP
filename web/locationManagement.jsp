@@ -118,6 +118,7 @@
 
                                                                 <c:url var="delete" value="MainController">
                                                                     <c:param name="action" value="DeleteLocation"></c:param>
+                                                                    <c:param name="index" value="1"></c:param>
                                                                     <c:param name="locationId" value="${location.locationId}"></c:param>
                                                                 </c:url>
                                                                 <a title="Click here to delete location" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
@@ -179,8 +180,9 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
                                                                                     <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                                    <input type="hidden" name="index" value="1"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -193,6 +195,18 @@
                                                 </tbody>
                                             </table>
                                         </div>
+                                        <c:choose>
+                                            <c:when test="${requestScope.LIST_LOCATION != null}">
+                                                <ul class="pagination">
+                                                    <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                        <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                            <a href="MainController?action=PrintLocation&index=${i}" class="page-link">${i}</a>
+                                                        </li>
+                                                    </c:forEach>
+                                                </ul>
+                                            </c:when>
+                                            <c:otherwise></c:otherwise>
+                                        </c:choose>
                                     </form>   
                                 </div>
                             </div>
