@@ -82,7 +82,7 @@
                                         
                                         <div class="form-group col-md-6">
                                             <label>Food Name</label>
-                                            <input type="text" class="form-control" name="foodName" required=""/>
+                                            <input type="text" class="form-control" name="foodName" value = "${param.foodName}" required=""/>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Category</label>
