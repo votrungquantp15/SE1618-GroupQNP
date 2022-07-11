@@ -38,6 +38,8 @@ public class BookingDetailDAO {
     private static final String GET_BOOKING_DETAIL_ID = "SELECT bookingDetailI tblBookingDetail WHERE bookingDetailID like ?  ";
     
 
+    private static final String GET_LIST_FOOD = "SELECT foodDetailID, foodPrice, foodQuantity FROM tblBookingDetail WHERE bookingID like ? ";
+
     public BookingDetail getBookingDetailByID(String bookingID) throws SQLException {
         BookingDetail bookingDetail = null;
         Connection connect = null;
@@ -129,6 +131,53 @@ public class BookingDetailDAO {
             check = true;
         }
         return check;
+    }
+
+    public List<BookingDetail> getListFoodBookingDetailByID(String bookingID) throws SQLException {
+        List<BookingDetail> list = new ArrayList<>();
+        Connection connect = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+
+        try {
+            connect = DBUtils.getConnection();
+            if (connect != null) {
+                ptm = connect.prepareStatement(GET_LIST_FOOD);
+                ptm.setString(1,"%" + bookingID + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    FoodDetail foodDetail = null;
+
+                    double foodTotalPrice = rs.getDouble("foodPrice");
+                    int foodTotalQuantity = rs.getInt("foodQuantity");
+
+                    String foodDetailID = rs.getString("foodDetailID");
+                    if (foodDetailID != null) {
+                        FoodDetailDAO foodDetailDAO = new FoodDetailDAO();
+                        foodDetail = foodDetailDAO.getFoodDetailByID(foodDetailID);
+                    } else {
+                        foodTotalPrice = 0.0;
+                        foodTotalQuantity = 0;
+                    }
+
+                    list.add(new BookingDetail("", null, null, null, 0.0, foodDetail, foodTotalPrice, foodTotalQuantity, "", true));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (connect != null) {
+                connect.close();
+            }
+        }
+
+        return list;
     }
 
     public List<BookingDetail> getAllBookingDetail() throws SQLException {

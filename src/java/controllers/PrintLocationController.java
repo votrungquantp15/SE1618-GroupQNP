@@ -2,28 +2,37 @@ package controllers;
 
 import dao.LocationDAO;
 import dto.Location;
+import dto.User;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class PrintLocationController extends HttpServlet {
 
     private static final String ERROR = "locationManagement.jsp";
-    private static final String SUCCESS = "locationManagement.jsp";
+    private static final String ADMIN_PAGE = "locationManagement.jsp";
+    private static final String OWNER_PAGE = "ownerLocationManagement.jsp";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
+            User user = (User)session.getAttribute("LOGIN_USER");
             LocationDAO locationDao = new LocationDAO();
             List<Location> listLocation = locationDao.getAllLocation();
             if (listLocation.size() > 0) {
                 request.setAttribute("LIST_LOCATION", listLocation);
-                url = SUCCESS;
+                if (user.getRole().getRoleId().equals("MA")) {
+                    url = OWNER_PAGE;
+                } else if (user.getRole().getRoleId().equals("AD")) {
+                    url = ADMIN_PAGE;
+                }
             }
         } catch (Exception e) {
             log("Error at PrintLocationController: " + e.toString());
@@ -31,7 +40,7 @@ public class PrintLocationController extends HttpServlet {
             try {
                 request.getRequestDispatcher(url).forward(request, response);
             } catch (Exception e) {
-                log("Error at PrintFieldController: " + e.toString());
+                log("Error at PrintLocationController: " + e.toString());
             }
         }
     }

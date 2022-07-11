@@ -24,12 +24,6 @@ public class MainController extends HttpServlet {
     //Update Booking
     private static final String UPDATE_BOOKING = "UpdateBooking";
     private static final String UPDATE_BOOKING_CONTROLLER = "UpdateBookingController";
-    //Update Slot
-    private static final String UPDATE_SLOT = "UpdateSlot";
-    private static final String UPDATE_SLOT_CONTROLLER = "UpdateSlotController";
-    //Delete Slot
-    private static final String DELETE_SLOT = "DeleteSlot";
-    private static final String DELETE_SLOT_CONTROLLER = "DeleteSlotController";
     //Show Booking Order Details
     private static final String SEARCH_BOOKING_DETAIL = "SearchBookingDetail";
     private static final String SEARCH_BOOKING_DETAIL_CONTROLLER = "SearchBookingDetailController";
@@ -51,31 +45,7 @@ public class MainController extends HttpServlet {
     //Change Password
     private static final String RESET_PASSWORD = "ResetPassword";
     private static final String RESET_PASSWORD_CONTROLLER = "ResetPasswordController";
-
-    //Print list field
-    private static final String PRINT_LIST_FIELD = "Print";
-    private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
-
-    //Print field detail
-    private static final String PRINT_DETAIL_FIELD = "PrintDetail";
-    private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
-
-    //Print list city
-    private static final String PRINT_LIST_CITY = "PrintCity";
-    private static final String PRINT_LIST_CITY_CONTROLLER = "PrintCityController";
-
-    //Print city detail
-    private static final String PRINT_DETAIL_CITY = "PrintCityDetail";
-    private static final String PPRINT_DETAIL_CITY_CONTROLLER = "PrintCityDetailController";
-
-    //Delete field
-    private static final String DELETE_LIST_FIELD = "DeleteField";
-    private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
-
-    //Update field
-    private static final String UPDATE_FIELD = "UpdateField";
-    private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
-
+    
     //Profile User Page
     private static final String PROFILE_USER = "ProfileUser";
     private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
@@ -87,20 +57,40 @@ public class MainController extends HttpServlet {
     private static final String HOME_CONTROLLER = "HomeController";
 
     //
-    private static final String FILTER_FIELD_BY_CITY = "FilterFieldByCity";
-    private static final String FILTER_FIELD_BY_CITY_CONTROLLER = "FilterFieldByCity";
-
-    //View Account List
-    private static final String VIEW_ACCOUNT_LIST = "ViewAccountList";
-    private static final String VIEW_ACCOUNT_LIST_CONTROLLER = "ViewAccountListController";
+    private static final String FILTER_FIELD_BY_DISTRICT = "FilterFieldByDistrict";
+    private static final String FILTER_FIELD_BY_DISTRICT_CONTROLLER = "FilterFieldByDistrict";
 
     //Account Editor
     private static final String ACCOUNT_EDITOR = "AccountEditor";
     private static final String ACCOUNT_EDITOR_CONTROLLER = "AccountEditorController";
 
+    //Print list field
+    private static final String PRINT_LIST_FIELD = "Print";
+    private static final String PRINT_LIST_FIELD_CONTROLLER = "PrintFieldController";
+
+    //Print field detail
+    private static final String PRINT_DETAIL_FIELD = "PrintDetail";
+    private static final String PRINT_DETAIL_FIELD_CONTROLLER = "PrintFieldDetailController";
+
+    //Print list district
+    private static final String PRINT_LIST_DISTRICT = "PrintDistrict";
+    private static final String PRINT_LIST_DISTRICT_CONTROLLER = "PrintDistrictController";
+
+    //Print district detail
+    private static final String PRINT_DETAIL_DISTRICT = "PrintDistrictDetail";
+    private static final String PPRINT_DETAIL_DISTRICT_CONTROLLER = "PrintDistrictDetailController";
+
+    //Delete field
+    private static final String DELETE_LIST_FIELD = "DeleteField";
+    private static final String DELETE_LIST_FIELD_CONTROLLER = "DeleteFieldController";
+
+    //Update field by admin
+    private static final String UPDATE_FIELD = "UpdateField";
+    private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
+    
     //Search Field By Name 
-    private static final String SEARCH_FIELD_BY_NAME = "SearchFieldByName";
-    private static final String SEARCH_FIELD_BY_NAME_CONTROLLER = "SearchFieldByNameController";
+    private static final String SEARCH_FIELD_BY_USER = "SearchFieldByUser";
+    private static final String SEARCH_FIELD_BY_USER_CONTROLLER = "SearchFieldByUserController";
 
     //Search Field By Admin
     private static final String SEARCH_FIELD_BY_ADMIN = "SearchFieldByAdmin";
@@ -114,21 +104,49 @@ public class MainController extends HttpServlet {
     private static final String PRINT_USER_FIELD_DETAIL = "UserPrintFieldDetail";
     private static final String PRINT_USER_FIELD_DETAIL_CONTROLLER = "UserPrintFieldDetailController";
     
-    //Search City By Admin
-    private static final String SEARCH_CITY_BY_ADMIN = "SearchCityByAdmin";
-    private static final String SEARCH_CITY_BY_ADMIN_CONTROLLER = "SearchCityByAdminController";
+    //Search food for manager
+    private static final String SEARCH_FOOD_BY_MANAGER = "SearchFoodByManager";
+    private static final String SEARCH_FOOD_BY_MANAGER_CONTROLLER = "SearchFoodByManagerController";
     
-    //Update City By Admin
-    private static final String UPDATE_CITY_BY_ADMIN = "UpdateCity";
-    private static final String UPDATE_CITY_BY_ADMIN_CONTROLLER = "UpdateCityByAdminController";
+    //View Food List for manager
+    private static final String VIEW_FOOD_LIST = "ViewFoodList";
+    private static final String VIEW_FOOD_LIST_CONTROLLER = "ViewFoodListController";
     
-    //Delete City By Admin
-    private static final String DELETE_CITY_BY_ADMIN = "DeleteCity";
-    private static final String DELETE_CITY_BY_ADMIN_CONTROLLER = "DeleteCityByAdminController";
+    //DELETE FOOD BY MANAGER
+    private static final String DELETE_FOOD_BY_MANAGER = "DeleteFoodByManager";
+    private static final String DELETE_FOOD_BY_MANAGER_CONTROLLER = "DeleteFoodByManagerController";
     
-    //Delete City By Admin
-    private static final String CREATE_CITY_BY_ADMIN = "CreateCity";
-    private static final String CREATE_CITY_BY_ADMIN_CONTROLLER = "CreateCityController";
+    //DELETE FOOD BY MANAGER
+    private static final String UPDATE_FOOD_BY_MANAGER = "UpdateFoodByManager";
+    private static final String UPDATE_FOOD_BY_MANAGER_CONTROLLER = "UpdateFoodByManagerController";
+    
+    //FOOD EDITOR
+    private static final String FOOD_EDITOR = "FoodEditor";
+    private static final String FOOD_EDITOR_CONTROLLER = "FoodEditorController";
+    
+    //DELETE FOOD BY MANAGER
+    private static final String CREATE_FOOD_BY_MANAGER = "CreateFoodByManager";
+    private static final String CREATE_FOOD_BY_MANAGER_CONTROLLER = "CreateFoodByManagerController";
+
+    //Search District By Admin
+    private static final String SEARCH_DISTRICT_BY_ADMIN = "SearchDistrictByAdmin";
+    private static final String SEARCH_DISTRICT_BY_ADMIN_CONTROLLER = "SearchDistrictByAdminController";
+    
+    //Update District By Admin
+    private static final String UPDATE_DISTRICT_BY_ADMIN = "UpdateDistrict";
+    private static final String UPDATE_DISTRICT_BY_ADMIN_CONTROLLER = "UpdateDistrictByAdminController";
+    
+    //Delete District By Admin
+    private static final String DELETE_DISTRICT_BY_ADMIN = "DeleteDistrict";
+    private static final String DELETE_DISTRICT_BY_ADMIN_CONTROLLER = "DeleteDistrictByAdminController";
+    
+    //Delete District By Admin
+    private static final String CREATE_DISTRICT_BY_ADMIN = "CreateDistrict";
+    private static final String CREATE_DISTRICT_BY_ADMIN_CONTROLLER = "CreateDistrictController";
+    
+    //Paging
+    private static final String ACCOUNT_LIST = "AccountList";
+    private static final String ACCOUNT_LIST_CONTROLLER = "AccountListController";
     
     //Print Location list By Admin
     private static final String PRINT_LIST_LOCATION = "PrintLocation";
@@ -149,6 +167,30 @@ public class MainController extends HttpServlet {
     //Create Location By Admin
     private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
     private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
+    
+    //Print list of field category
+    private static final String PRINT_FIELD_CATE = "PrintFieldCate";
+    private static final String PRINT_FIELD_CATE_CONTROLLER = "PrintFieldCateController";
+    
+    //Search field category
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SearchFieldCateByAdmin";
+    private static final String SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER = "SearchFieldCateByAdminController";
+    
+    //Delete field category
+    private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
+    private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
+    
+    //Update field category
+    private static final String UPDATE_FIELD_CATE = "UpdateFieldCate";
+    private static final String UPDATE_FIELD_CATE_CONTROLLER = "UpdateFieldCateByAdminController";
+    
+    //Create field category
+    private static final String CREATE_FIELD_CATE = "CreateFieldCate";
+    private static final String CREATE_FIELD_CATE_CONTROLLER = "CreateFieldCateController";
+    
+    //Create Manager Account
+    private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
+    private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -169,12 +211,6 @@ public class MainController extends HttpServlet {
                     break;
                 case SEARCH_SLOT:
                     url = SEARCH_SLOT_CONTROLLER;
-                    break;
-                case DELETE_SLOT:
-                    url = DELETE_SLOT_CONTROLLER;
-                    break;
-                case UPDATE_SLOT:
-                    url = UPDATE_SLOT_CONTROLLER;
                     break;
                 case SEARCH_BOOKING_DETAIL:
                     url = SEARCH_BOOKING_DETAIL_CONTROLLER;
@@ -221,11 +257,8 @@ public class MainController extends HttpServlet {
                 case UPDATE_BOOKING:
                     url = UPDATE_BOOKING_CONTROLLER;
                     break;
-                case VIEW_ACCOUNT_LIST:
-                    url = VIEW_ACCOUNT_LIST_CONTROLLER;
-                    break;
-                case SEARCH_FIELD_BY_NAME:
-                    url = SEARCH_FIELD_BY_NAME_CONTROLLER;
+                case SEARCH_FIELD_BY_USER:
+                    url = SEARCH_FIELD_BY_USER_CONTROLLER;
                     break;
                 case ACCOUNT_EDITOR:
                     url = ACCOUNT_EDITOR_CONTROLLER;
@@ -239,23 +272,43 @@ public class MainController extends HttpServlet {
                 case PRINT_USER_FIELD_DETAIL:
                     url = PRINT_USER_FIELD_DETAIL_CONTROLLER;
                     break;
-                case PRINT_LIST_CITY:
-                    url = PRINT_LIST_CITY_CONTROLLER;
+                case SEARCH_FOOD_BY_MANAGER:
+                    url = SEARCH_FOOD_BY_MANAGER_CONTROLLER;
                     break;
-                case PRINT_DETAIL_CITY:
-                    url = PPRINT_DETAIL_CITY_CONTROLLER;
+                case VIEW_FOOD_LIST:
+                    url = VIEW_FOOD_LIST_CONTROLLER;
                     break;
-                case SEARCH_CITY_BY_ADMIN:
-                    url = SEARCH_CITY_BY_ADMIN_CONTROLLER;
+                case DELETE_FOOD_BY_MANAGER:
+                    url = DELETE_FOOD_BY_MANAGER_CONTROLLER;
                     break;
-                case UPDATE_CITY_BY_ADMIN:
-                    url = UPDATE_CITY_BY_ADMIN_CONTROLLER;
+                case UPDATE_FOOD_BY_MANAGER:
+                    url = UPDATE_FOOD_BY_MANAGER_CONTROLLER;
                     break;
-                case DELETE_CITY_BY_ADMIN:
-                    url = DELETE_CITY_BY_ADMIN_CONTROLLER;
+                case FOOD_EDITOR:
+                    url = FOOD_EDITOR_CONTROLLER;
                     break;
-                case CREATE_CITY_BY_ADMIN:
-                    url = CREATE_CITY_BY_ADMIN_CONTROLLER;
+                case CREATE_FOOD_BY_MANAGER:
+                    url = CREATE_FOOD_BY_MANAGER_CONTROLLER;
+                case PRINT_LIST_DISTRICT:
+                    url = PRINT_LIST_DISTRICT_CONTROLLER;
+                    break;
+                case PRINT_DETAIL_DISTRICT:
+                    url = PPRINT_DETAIL_DISTRICT_CONTROLLER;
+                    break;
+                case SEARCH_DISTRICT_BY_ADMIN:
+                    url = SEARCH_DISTRICT_BY_ADMIN_CONTROLLER;
+                    break;
+                case UPDATE_DISTRICT_BY_ADMIN:
+                    url = UPDATE_DISTRICT_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_DISTRICT_BY_ADMIN:
+                    url = DELETE_DISTRICT_BY_ADMIN_CONTROLLER;
+                    break;
+                case CREATE_DISTRICT_BY_ADMIN:
+                    url = CREATE_DISTRICT_BY_ADMIN_CONTROLLER;
+                    break;
+                case ACCOUNT_LIST:
+                    url = ACCOUNT_LIST_CONTROLLER;
                     break;
                 case PRINT_LIST_LOCATION:
                     url = PRINT_LIST_LOCATION_CONTROLLER;
@@ -271,6 +324,24 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_LOCATION_BY_ADMIN:
                     url = CREATE_LOCATION_BY_ADMIN_CONTROLLER;
+                    break;
+                case PRINT_FIELD_CATE:
+                    url = PRINT_FIELD_CATE_CONTROLLER;
+                    break;
+                case SEARCH_FIELD_CATE_BY_ADMIN:
+                    url = SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER;
+                    break;
+                case DELETE_FIELD_CATE:
+                    url = DELETE_FIELD_CATE_CONTROLLER;
+                    break;
+                case CREATE_MANAGER_ACCOUNT:
+                    url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
+                    break;
+                case UPDATE_FIELD_CATE:
+                    url = UPDATE_FIELD_CATE_CONTROLLER;
+                    break;
+                case CREATE_FIELD_CATE:
+                    url = CREATE_FIELD_CATE_CONTROLLER;
                     break;
             }
         } catch (Exception e) {

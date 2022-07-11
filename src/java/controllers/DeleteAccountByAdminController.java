@@ -22,8 +22,8 @@ import javax.servlet.http.HttpSession;
 @WebServlet(name = "DeleteAccountByAdminController", urlPatterns = {"/DeleteAccountByAdminController"})
 public class DeleteAccountByAdminController extends HttpServlet {
 
-    private static final String ERROR = "ViewAccountListController";
-    private static final String SUCCESS = "ViewAccountListController";
+    private static final String ERROR = "AccountListController";
+    private static final String SUCCESS = "AccountListController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {

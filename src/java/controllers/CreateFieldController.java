@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -29,6 +29,7 @@ public class CreateFieldController extends HttpServlet {
         String url = ERROR;
         try {
             FieldDAO fieldDao = new FieldDAO();
+            boolean checkValidation = true;
             String fieldID = fieldDao.createFieldId();
             String fieldName = request.getParameter("fieldName");
             fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
@@ -40,24 +41,30 @@ public class CreateFieldController extends HttpServlet {
             String id_of_field_category = request.getParameter("categoryFieldId");
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
             FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
-            double price = Double.parseDouble(request.getParameter("price"));
-            String id_of_user = request.getParameter("userId");
+            String price = request.getParameter("price");
+            if(fieldDao.isNumeric(price) == false){
+                request.setAttribute("CREATE_ERROR", "Price must be a number");
+                checkValidation = false;
+            }
+            double priceOfField = Double.parseDouble(price);
+            String userName = request.getParameter("userName");
+            userName = URLEncoder.encode(userName, "ISO-8859-1");
+            userName = URLDecoder.decode(userName, "UTF-8");
             UserDAO user = new UserDAO();
-            User userID = user.getUserByID(id_of_user);
+            User userAfter = user.getUserByName(userName);
             String id_of_location = request.getParameter("locationId");
             id_of_location = URLEncoder.encode(id_of_location, "ISO-8859-1");
             id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
             LocationDAO location = new LocationDAO();
             Location locationID = location.getLocationByID(id_of_location);
-            String id_of_city = request.getParameter("cityId");
-            id_of_city = URLEncoder.encode(id_of_city, "ISO-8859-1");
-            id_of_city = URLDecoder.decode(id_of_city, "UTF-8");
-            CityDAO city = new CityDAO();
-            City cityID = city.getCityByID(id_of_city);
-
-            boolean checkValidation = true;
-            if (fieldName.trim().length() == 0 || fieldName.length() >= 15) {
-                request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be < 15");
+            String id_of_district = request.getParameter("districtId");
+            id_of_district = URLEncoder.encode(id_of_district, "ISO-8859-1");
+            id_of_district = URLDecoder.decode(id_of_district, "UTF-8");
+            DistrictDAO district = new DistrictDAO();
+            District districtID = district.getDistrictByID(id_of_district);
+            
+            if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
+                request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be <= 30");
                 checkValidation = false;
             }
 
@@ -66,28 +73,19 @@ public class CreateFieldController extends HttpServlet {
                 checkValidation = false;
             }
 
-            if (price < 0) {
+            if (priceOfField < 0) {
                 request.setAttribute("CREATE_ERROR", "Price must be >= 0");
                 checkValidation = false;
             }
 
             if (checkValidation) {
-                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, null);
+                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userAfter, locationID, districtID, null);
                 boolean checkCreate = fieldDao.createField(field);
                 if (checkCreate) {
                     url = SUCCESS;
                 }
                 request.setAttribute("CREATE_SUCCESS", "Create field success!");
             } else {
-                if (categoryFieldID == null) {
-                    request.setAttribute("CREATE_CATE_ERROR", "CategoryId is not exist!");
-                } else if (userID == null) {
-                    request.setAttribute("CREATE_USER_ERROR", "UserId is not exist!");
-                } else if (locationID == null) {
-                    request.setAttribute("CREATE_LOCATION_ERROR", "LocationId is not exist!");
-                } else if (cityID == null) {
-                    request.setAttribute("CREATE_CITY_ERROR", "CityId is not exist!");
-                }
                 request.setAttribute("CREATE_UNSUCCESS", "Create field unsuccess! Please try again!");
             }
         } catch (Exception e) {

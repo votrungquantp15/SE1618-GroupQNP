@@ -54,7 +54,7 @@ Chat box End
                 </li>				
                 <li class="nav-item dropdown header-profile">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                        <img src="images/profile/pic1.jpg" width="20" alt="">
+                        <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" width="20" alt="">
                         <div class="header-info col-12">
                             <span>${sessionScope.LOGIN_USER.fullName}</span>
                         </div>
@@ -75,7 +75,7 @@ Chat box End
     </div>
     <div class="sub-header">
         <div class="d-flex align-items-center flex-wrap mr-auto">
-            <h5 class="dashboard_bar">Dashboard</h5>
+            <h5 class="dashboard_bar">Admin Dashboard</h5>
         </div>
     </div>
 </div>
@@ -91,28 +91,26 @@ Chat box End
     <div class="deznav-scroll">
         <div class="main-profile">
             <div class="image-bx">
-                <img src="images/Untitled-1.jpg" alt="">
-                <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
+                <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p class="email"><a href="" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">${sessionScope.LOGIN_USER.email}</a></p>
+            <p class="email">${sessionScope.LOGIN_USER.email}</p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
-            <li><a href="MainController?action=ViewAccountList&viewAccountList=">Accounts Management</a></li>
+            <li><a href="MainController?action=AccountList&index=1">Accounts Management</a></li>
             <li><a class="has-arrow" href="javascript:void()" aria-expanded="false">
                     <span>Fields Management</span>
                 </a>
                 <ul aria-expanded="false">
-                    <li><a href="MainController?action=Print">Field</a></li>
-                    <li><a href="#">Field Category</a></li>
-                    <li><a href="MainController?action=PrintCity">City</a></li>
+                    <li><a href="MainController?action=Print&index=1">Field</a></li>
+                    <li><a href="MainController?action=PrintFieldCate">Field Category</a></li>
+                    <li><a href="MainController?action=PrintDistrict">District</a></li>
                     <li><a href="MainController?action=PrintLocation">Location</a></li>
-                    <li><a href="#">Food</a></li>
                 </ul>
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
-            <li><a href="MainController?action=SearchBooking&search=&status=">Booking report</a></li>
+            <li class="active"><a href="MainController?action=SearchBooking&index=1">Booking report</a></li>
             <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li
         </ul>
     </div>

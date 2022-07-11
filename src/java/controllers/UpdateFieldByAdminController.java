@@ -1,11 +1,11 @@
 package controllers;
 
-import dao.CityDAO;
+import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
 import dao.UserDAO;
-import dto.City;
+import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
@@ -17,6 +17,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class UpdateFieldByAdminController extends HttpServlet {
 
@@ -28,61 +29,88 @@ public class UpdateFieldByAdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String fieldID = request.getParameter("fieldId");
-            String fieldName = request.getParameter("fieldName");
-            fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
-            fieldName = URLDecoder.decode(fieldName, "UTF-8");
-            String description = request.getParameter("description");
-            description = URLEncoder.encode(description, "ISO-8859-1");
-            description = URLDecoder.decode(description, "UTF-8");
-            String image = request.getParameter("image");
-            String id_of_field_category = request.getParameter("categoryFieldId");
-            FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-            FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
-            double price = Double.parseDouble(request.getParameter("price"));
-            String id_of_user = request.getParameter("userId");
-            UserDAO user = new UserDAO();
-            User userID = user.getUserByID(id_of_user);
-            String id_of_location = request.getParameter("locationId");
-            id_of_location = URLEncoder.encode(id_of_location, "ISO-8859-1");
-            id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
-            LocationDAO location = new LocationDAO();
-            Location locationID = location.getLocationByID(id_of_location);
-            String id_of_city = request.getParameter("cityId");
-            id_of_city = URLEncoder.encode(id_of_city, "ISO-8859-1");
-            id_of_city = URLDecoder.decode(id_of_city, "UTF-8");
-            CityDAO city = new CityDAO();
-            City cityID = city.getCityByID(id_of_city);
-            String status = request.getParameter("status");
-            FieldDAO dao = new FieldDAO();
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
+            FieldDAO fieldDao = new FieldDAO();
             boolean checkValidation = true;
-            if (fieldName.trim().length() == 0) {
-                request.setAttribute("UPDATE_ERROR", "Field name cannot be left blank");
-                checkValidation = false;
-            } else if (image.trim().length() == 0) {
-                request.setAttribute("UPDATE_ERROR", "Image cannot be left blank");
-                checkValidation = false;
-            } else if (status.length() <= 0) {
-                request.setAttribute("UPDATE_ERROR", "Status cannot be left blank");
-                checkValidation = false;
-            }
-            if (checkValidation) {
-                Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, price, userID, locationID, cityID, status);
-                boolean checkUpdate = dao.updateStatusField(field);
-                if (checkUpdate) {
-                    url = SUCCESS;
-                    request.setAttribute("UPDATE_SUCCESS", "Update field success!");
-                } else {
-                    if (categoryFieldID == null) {
-                        request.setAttribute("ERROR_MESSAGE", "CategoryId is not exist!");
-                    } else if (userID == null) {
-                        request.setAttribute("ERROR_MESSAGE", "UserId is not exist!");
-                    } else if (locationID == null) {
-                        request.setAttribute("ERROR_MESSAGE", "LocationId is not exist!");
-                    } else if (cityID == null) {
-                        request.setAttribute("ERROR_MESSAGE", "cityId is not exist!");
+            String fieldID = request.getParameter("fieldId");
+            if (user.getRole().getRoleId().equals("MA")) {
+                String fieldName = request.getParameter("fieldName");
+                fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
+                fieldName = URLDecoder.decode(fieldName, "UTF-8");
+                String description = request.getParameter("description");
+                description = URLEncoder.encode(description, "ISO-8859-1");
+                description = URLDecoder.decode(description, "UTF-8");
+                String image = request.getParameter("image");
+                String id_of_field_category = request.getParameter("categoryFieldId");
+                FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+                FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+                String price = request.getParameter("price");
+                if (fieldDao.isNumeric(price) == false) {
+                    request.setAttribute("UPDATE_ERROR", "Price must be a number");
+                    checkValidation = false;
+                }
+                double priceOfField = Double.parseDouble(price);
+                String id_of_user = request.getParameter("userId");
+                UserDAO userDao = new UserDAO();
+                User userID = userDao.getUserByID(id_of_user);
+                String id_of_location = request.getParameter("locationId");
+                id_of_location = URLEncoder.encode(id_of_location, "ISO-8859-1");
+                id_of_location = URLDecoder.decode(id_of_location, "UTF-8");
+                LocationDAO location = new LocationDAO();
+                Location locationID = location.getLocationByID(id_of_location);
+                String id_of_district = request.getParameter("districtId");
+                id_of_district = URLEncoder.encode(id_of_district, "ISO-8859-1");
+                id_of_district = URLDecoder.decode(id_of_district, "UTF-8");
+                DistrictDAO district = new DistrictDAO();
+                District districtID = district.getDistrictByID(id_of_district);
+                if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
+                    request.setAttribute("UPDATE_ERROR", "Field name cannot be left blank and must be <= 30");
+                    request.setAttribute("UPDATE_MODAL", "1");
+                    checkValidation = false;
+                } else if (image.trim().length() == 0) {
+                    request.setAttribute("UPDATE_ERROR", "Image cannot be left blank");
+                    request.setAttribute("UPDATE_MODAL", "1");
+                    checkValidation = false;
+                } else if (priceOfField < 0) {
+                    request.setAttribute("UPDATE_ERROR", "Price must be >= 0");
+                    request.setAttribute("UPDATE_MODAL", "1");
+                    checkValidation = false;
+                }
+                if (checkValidation) {
+                    Field field = new Field(fieldID, fieldName, description, image, categoryFieldID, priceOfField, userID, locationID, districtID, null);
+                    boolean checkUpdate = fieldDao.updateFieldByOwner(field);
+                    if (checkUpdate) {
+                        url = SUCCESS;
+                        request.setAttribute("UPDATE_SUCCESS", "Update field success!");
+                    } else {
+                        request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
+                        request.setAttribute("UPDATE_MODAL", "1");
                     }
-                    request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
+                }
+            } else if (user.getRole().getRoleId().equals("AD")) {
+                String status = request.getParameter("status");
+                Field field = fieldDao.getFieldByID(fieldID);
+                String statusOfField = field.getStatus();
+                if (!statusOfField.equals(status)) {
+                    boolean checkExist = fieldDao.checkExist(fieldID);
+                    if (checkExist) {
+                        request.setAttribute("UPDATE_ERROR", "This field being booked cannot be changed status!");
+                        request.setAttribute("UPDATE_MODAL", "1");
+                        checkValidation = false;
+                    }
+                    if (checkValidation) {
+                        boolean checkUpdate = fieldDao.updateStatusField(fieldID, status);
+                        if (checkUpdate) {
+                            url = SUCCESS;
+                            request.setAttribute("UPDATE_SUCCESS", "Update field success!");
+                        } else {
+                            request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
+                            request.setAttribute("UPDATE_MODAL", "1");
+                        }
+                    }
+                } else {
+                    request.setAttribute("UPDATE_UNSUCCESS", "Status was already \"" + field.getStatus() + "\"");
                 }
             }
         } catch (Exception e) {

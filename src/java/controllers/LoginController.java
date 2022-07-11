@@ -1,16 +1,8 @@
 package controllers;
 
-import dao.CityDAO;
-import dao.FieldCategoryDAO;
-import dao.FieldDAO;
 import dao.UserDAO;
-import dto.City;
-import dto.Field;
-import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,30 +26,9 @@ public class LoginController extends HttpServlet {
             String password = request.getParameter("password");
             UserDAO dao = new UserDAO();
             User cus = dao.checkLogin(email, password);
-
-//            //Get category 
-//            List<FieldCategory> listFieldCategorys = new ArrayList<>();
-//            FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
-//            listFieldCategorys = fieldCategoryDAO.getAllFieldCategory();
-//
-//            //Get city
-//            List<City> listCitys = new ArrayList<>();
-//            CityDAO cityDao = new CityDAO();
-//            listCitys = cityDao.getAllCity();
-            //Get price 
-            List<Field> listFields = new ArrayList<>();
-            FieldDAO fieldDao = new FieldDAO();
-            listFields = fieldDao.getListField();
-
             if (cus != null) {
                 session.setAttribute("LOGIN_USER", cus);
                 String roleID = cus.getRole().getRoleId();
-                //setAttribute citys
-
-                //setAttribute Fields
-                request.setAttribute("FIELD", listFields);
-
-                //setAttribute category
                 if (roleID.equals("US")) {
                     url = USER_PAGE;
                 } else if (roleID.equals("AD")) {

@@ -68,8 +68,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                            <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
+                                                                <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                                <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                                <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -77,7 +78,6 @@
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchLocationByAdmin">Search</button>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewLocation">Create new Location</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
@@ -139,32 +139,36 @@
                                                                 </div>
                                                             </td>
                                                             <td> 
-                                                                <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
-                                                                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                                                                        <div class="modal-content">
+                                                                <form action="MainController" method="POST" accept-charset="utf-8">
+                                                                    <div class="modal fade" id="updateLocation${counter}" tabindex="-1" aria-labelledby="updateLocation" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-scrollable">
+                                                                            <div class="modal-content">
 
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
-                                                                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                                                                            </div>
-                                                                            <div class="modal-body" style="margin-top: -20px">
-                                                                                <div class="row">
-                                                                                    <div class="col-sm-12">
-                                                                                        <div class="product-detail-content">
-                                                                                            <div class="new-arrival-content pr row">
-                                                                                                <div class="col-12 col-sm-12">
-                                                                                                    <div class="card-body">
-                                                                                                        <div class="table row">
-                                                                                                            <table class="col-12">
-                                                                                                                <tr>
-                                                                                                                    <th>Location Name:</th>
-                                                                                                                    <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="locationName" value="${location.locationName}" required=""></th>
-                                                                                                                </tr>
-                                                                                                                <tr>
-                                                                                                                    <th>Status:</th>
-                                                                                                                    <th><input class="col-12" title="Input what you want to update" type="text" name="status" value="${location.status}" required=""></th>
-                                                                                                                </tr>
-                                                                                                            </table>
+                                                                                <div class="modal-header">
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update location</h5>
+                                                                                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                                                                                </div>
+                                                                                <div class="modal-body" style="margin-top: -20px">
+                                                                                    <div class="row">
+                                                                                        <div class="col-sm-12">
+                                                                                            <div class="product-detail-content">
+                                                                                                <div class="new-arrival-content pr row">
+                                                                                                    <div class="col-12 col-sm-12">
+                                                                                                        <div class="card-body">
+                                                                                                            <div class="table row">
+                                                                                                                <table class="col-12">
+                                                                                                                    <tr>
+                                                                                                                        <th style="position: relative; top: 15px;">Status:</th>
+                                                                                                                        <th>
+                                                                                                                            <select class="form-control" name ="status">
+                                                                                                                                <option value="Active">Active</option>
+                                                                                                                                <option value="Request">Request</option>
+                                                                                                                                <option value="In-Active">In-Active</option>
+                                                                                                                            </select>
+                                                                                                                        </th>
+                                                                                                                    </tr>
+                                                                                                                </table>
+                                                                                                            </div>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -172,15 +176,15 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
-                                                                                <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                                <div class="modal-footer">
+                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
+                                                                                    <input type="hidden" name="id_location" value="${location.locationId}"/>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
+                                                                </form>
                                                             </td>
                                                         </tr>
                                                     </c:forEach>
@@ -195,53 +199,6 @@
                     </div>
                 </div>
             </div>
-            <form action="MainController" method="POST" accept-charset="utf-8"> 
-                <div class="modal fade" id="createNewLocation" tabindex="-1" aria-labelledby="createNewLocation" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create new location</h5>
-                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body" style="margin-top: -20px">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="product-detail-content">
-                                            <div class="new-arrival-content pr row">
-                                                <div class="col-12 col-sm-12">
-                                                    <div class="card-body">
-                                                        <div class="table row">
-                                                            <table class="col-12">
-                                                                <tr>
-                                                                    <th>Location Name:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="locationName" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="hidden" name="action" value="CreateLocation"/>
-                                <input class="btn btn-primary" type="submit" value="Accept"/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </form>
-
-
         </div>
     </div>
     <!-- Required vendors -->
