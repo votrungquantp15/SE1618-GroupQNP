@@ -64,7 +64,7 @@ Chat box End
                 </li>				
                 <li class="nav-item dropdown header-profile">
                     <a class="nav-link" href="#" role="button" data-toggle="dropdown">
-                        <img src="images/profile/pic1.jpg" width="20" alt="">
+                        <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" width="20" alt="">
                         <div class="header-info">
                             <span>${sessionScope.LOGIN_USER.fullName}</span>
                         </div>
@@ -100,10 +100,10 @@ Chat box End
     <div class="deznav-scroll">
         <div class="main-profile">
             <div class="image-bx">
-                <img src="images/Untitled-1.jpg" alt="">
+                <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
                 <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
             </div>
-            <h5 class="name"><span class="font-w400">Hello,</span></h5>
+            <h5 class="name"><span class="font-w400">Hello, ${sessionScope.LOGIN_USER.fullName}</span></h5>
             <p class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">[email&#160;protected]</a></p>
         </div>
         <ul class="metismenu" id="menu">

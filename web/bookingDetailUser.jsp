@@ -68,6 +68,7 @@
                                                 <div class="fade show active">
                                                     <img class="img-fluid" src="${requestScope.BOOKING_DETAIL.field.image}" alt="">
                                                 </div>
+                                                <a class="btn btn-warning mt ml-1" href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Back</a>
                                             </div>
 
                                             <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
