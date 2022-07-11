@@ -159,7 +159,11 @@
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
                                 <img class="img_field" src="${field.image}" alt="">
-                                <a href="#" class="btn theme_btn button_hover rounded">Đặt ngay</a>
+                                <form action="UserAddToCart" method="GET">
+                                    <input name="id" value="${field.fieldId}" type="hidden">
+                                    <button type="submit" name="action" value="addToCart" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                </form>
+                                
                             </div>
                             <a href="MainController?action=UserPrintFieldDetail&fieldName=${field.fieldName}"><h4 class="sec_h4">${field.fieldName}</h4></a>
                             <h6>${field.city.cityName}</h6>
