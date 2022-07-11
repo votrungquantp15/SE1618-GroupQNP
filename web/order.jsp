@@ -65,17 +65,67 @@
             <div style="margin-top: 20px">               
                 <div class="container-fluid">
                     <!-- Add Project -->
-                    <div class="row">                        
-                        <form class="col-lg-12">
+                    <div class="row"> 
+                        <div class="col-lg-2"></div>
+                        <form class="col-lg-8"method="POST">
                             <div class="card">
-                                <h2 style="margin-left: 650px; margin-top:10px" >Thanh Toan</h2>
+                                <h2 style="margin-left: 350px; margin-top:10px" >Thanh Toán</h2>
                                 <div class="card-body">
+                                     <div class="row">
+                                            
+                                                <!-- Tab panes -->
+                                               
+                                                    
+                                                        <img class="img-fluid" style="width:350px; height: 400px" src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/290492666_701393540961163_1266621146650458002_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pYEFD_pAt-kAX_zPoBv&_nc_ht=scontent.fsgn3-1.fna&oh=03_AVKtheb73FXw4nH6gCnAdrY4CQmgB1pH7GnmrAgmVVh8ug&oe=62F2D34D" alt="">
+                                                    
+                                                       
+                                                        <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
+                                            <input type="hidden" name="id" value="${cart.value.field.fieldId}"/>
+                                            <!--Tab slider End-->
+                                            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                                                <div class="product-detail-content">
+                                                    <!--Product details-->
+                                                    <div class="new-arrival-content pr">
+                                                        <h4>${cart.value.field.fieldName}</h4>
+                                                        <div class="d-table mb-2">
+                                                            
+                                                            <p class="price float-left d-block"> ${cart.value.field.price}</p>
+                                                        </div>
+                                                        <p>Availability: <span class="item"> In stock <i class="fa fa-shopping-basket"></i></span>
+                                                        </p>
+                                                        <p>Field code: <span class="item">${cart.value.field.fieldId}</span> </p>
+                                                        <p>Owner field: <span class="item">${cart.value.field.user.fullName}</span></p>
+                                                        <p class="text-content">${cart.value.field.description}</p>
+                                                        <div class="filtaring-area my-3">
+                                                            <div class="size-filter">
+
+                                                                <div class="btn-group" data-toggle="buttons">                                                                    
+                                                                    <!--                                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option5"> XS</label>
+                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option1" checked="">SM</label>
+                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option2"> MD</label>
+                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option3"> LG</label>
+                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option4"> XL</label>-->
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <!--Quantity start-->
+                                                        <div class="col-4 px-0"
+                                                             <h4>Date:</h4>${cart.value.playDate}
+                                                            
+                                                        </div>
+
+                                                    </div>
+                                                </div>
                                     <div class="shopping-cart mt-3">
-                                        
-                                        <button class="btn btn-primary btn-lg"><i class="fa fa-shopping-basket mr-2" type="submit" name="action" value="Order"></i>Payment</button>
+                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="remove">Hủy</button>
+                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="Payment">Xác Nhận đã Thanh Toán</button>
                                     </div>
                                 </div>
+                                                        </c:forEach>
                             </div>
+                                                        </div>
+                                                        </div>
+                        </form>
                     </div>
                     <!--Quantity start-->
 
@@ -83,7 +133,7 @@
             </div>
         </div>
 
-    </div>
+   
 </div>
 </div>
 </form>

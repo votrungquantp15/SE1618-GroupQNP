@@ -194,6 +194,51 @@ public class SlotDetailDAO {
     }
     
     
+    
+    public SlotDetail getSlotByID(String search) throws SQLException{
+        SlotDetail slotDetail = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm.setString(1, "%" + search + "%");
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getSlotDetailID = rs.getString("slotDetailID");
+                    
+                    String slotID = rs.getString("slotID");
+                    SlotDAO slotDAO = new SlotDAO();
+                    Slot slot = slotDAO.getSlotByID(slotID);
+                    
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+                    
+                    String status = rs.getString("status");
+
+                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, status);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return slotDetail;
+    }
+    
+    
     public static void main(String[] args) throws SQLException {
         System.out.println("aaaa");
 //        System.out.println(getListSlotFieldByID("FI1"));

@@ -66,14 +66,14 @@
                 <div class="container-fluid">
                     <!-- Add Project -->
                     <div class="row">                        
-                        <form class="col-lg-12">
+                        <form class="col-lg-12" action="UserAddToCart">
                             <div class="card">
                                 <h2 style="margin-left: 600px; margin-top:10px" >Thông tin Sân đặt</h2>
                                 <div class="card-body">
                                     <c:if test="${sessionScope.FIELDS_CART == null}">
                                         <img style="margin-left: 420px; width: 500px; height: 500px" src="https://static.vecteezy.com/system/resources/previews/005/006/031/original/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg"> 
                                     </c:if>
-                                   
+
                                     <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
@@ -128,53 +128,55 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                                        </div>
-                                        </c:forEach>
+                                        </div>
+                                    </c:forEach>
 
-                                        <c:if test="${sessionScope.FIELDS_CART != null}">
-                                            <div class="shopping-cart mt-3">
-                                                <a href="UserAddToCart?action=remove" class="btn btn-primary btn-lg" >Remove Order</button></a>
-                                                <button class="btn btn-primary btn-lg"><i class="fa fa-shopping-basket mr-2" type="submit" name="action" value="Order"></i>Order</button>
-                                            </div>
-                                        </c:if>
+                                    <c:if test="${sessionScope.FIELDS_CART != null}">
+                                        <div class="shopping-cart mt-3">
+                                            <a href="UserAddToCart?action=remove" class="btn btn-primary btn-lg" >Remove Order</button></a>
+                                            <button class="btn btn-primary btn-lg" type="submit" name="action" value="Order"><i class="fa fa-shopping-basket mr-2"></i>Order</button>
+                                        </div>
+                                    </c:if>
 
-                                    </div>
                                 </div>
                             </div>
                         </form>
+
                     </div>
+
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                var now = new Date();
+    </div>
+    <script>
+        $(document).ready(function () {
+            var now = new Date();
 
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+            var day = ("0" + now.getDate()).slice(-2);
+            var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+            var today = now.getFullYear() + "-" + (month) + "-" + (day);
 
-                $('#datePicker').val(today);
-                function getTotal() {
-                    var total = 0;
-                    $('.price').each(function () {
-                        total += parseFloat(this.innerHTML);
-                    });
-                    $('#total').text(total);
-                }
-            });
-        </script>
+            $('#datePicker').val(today);
+            function getTotal() {
+                var total = 0;
+                $('.price').each(function () {
+                    total += parseFloat(this.innerHTML);
+                });
+                $('#total').text(total);
+            }
+        });
+    </script>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Rating -->
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-    </body>
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="js/jquery-3.2.1.min.js"></script>
+    <script src="js/popper.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/custom.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Rating -->
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
+</body>
 </html>
