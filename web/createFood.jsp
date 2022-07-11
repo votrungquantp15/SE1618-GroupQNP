@@ -100,6 +100,7 @@
 
                                 </div>                                       
                                 <button type="submit" name="action" class="btn btn-primary" value="CreateFood"/>Create</button>
+                                <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodList&index=1">Back</a>
                                 <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
                                 <p style="color: red">${requestScope.CREATE_FAIL} </p>
                             </form>

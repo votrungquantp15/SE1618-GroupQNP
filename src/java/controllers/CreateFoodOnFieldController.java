@@ -4,15 +4,18 @@
  * and open the template in the editor.
  */
 package controllers;
-
+import dao.FieldDAO;
 import dao.FoodCategoryDAO;
 import dao.FoodDAO;
+import dao.FoodDetailDAO;
 import dao.RoleDAO;
 import dao.UserDAO;
 import dto.User;
 import dto.CustomerError;
+import dto.Field;
 import dto.Food;
 import dto.FoodCategory;
+import dto.FoodDetail;
 import dto.FoodError;
 import dto.Role;
 import java.io.IOException;
@@ -30,11 +33,11 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author ROG STRIX
  */
-@WebServlet(name = "CreateFoodController", urlPatterns = {"/CreateFoodController"})
-public class CreateFoodController extends HttpServlet {
+@WebServlet(name = "CreateFoodOnFieldController", urlPatterns = {"/CreateFoodOnFieldController"})
+public class CreateFoodOnFieldController extends HttpServlet {
 
-    public static final String ERROR = "createFood.jsp";
-    public static final String SUCCESS = "createFood.jsp";
+    public static final String ERROR = "createFoodOnField.jsp";
+    public static final String SUCCESS = "createFoodOnField.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -54,14 +57,21 @@ public class CreateFoodController extends HttpServlet {
             request.setAttribute("FOOD_CATEGORY_NAME", listFoodCategoryName);
             
             FoodDAO dao = new FoodDAO();
-            String foodId = dao.foodIDForManager();
+            FoodDetailDAO fdao = new FoodDetailDAO();
+            String foodDetailId = fdao.foodDetailIDForManager();
+
+            String foodId = dao.foodIDForManager();            
+            
+            String id_of_field = request.getParameter("fieldId");
+            FieldDAO fieldDAO = new FieldDAO();
+            Field field = fieldDAO.getFieldByID(id_of_field);
+            
+            double price = Double.parseDouble(request.getParameter("price"));
             String foodName = request.getParameter("foodName");
             foodName = URLEncoder.encode(foodName, "ISO-8859-1");
             foodName = URLDecoder.decode(foodName, "UTF-8");
             String image = request.getParameter("image");
             boolean check = true;           
-            FoodDAO foodDao = new FoodDAO();
-            
             
             request.setAttribute("FOOD_CATEGORY_NAME", listFoodCategoryName);
 
@@ -73,9 +83,12 @@ public class CreateFoodController extends HttpServlet {
             }
 
             if (check) {
-                Food food = new Food(foodId, foodName, image, foodCategory, "1");
+                Food food = new Food(foodId, foodName, image, foodCategory, "1");               
                 boolean checkInsert = dao.insertFood(food);
-                if (checkInsert) {
+                Food foodCreate = dao.getFoodByID(foodId);
+                FoodDetail fFood = new FoodDetail(foodDetailId, foodCreate, field, price, "1");
+                boolean checkInsertFieldId = fdao.insertFieldIdOfFood(fFood);
+                if (checkInsert && checkInsertFieldId) {
                     url = SUCCESS;
                     request.setAttribute("CREATE_SUCCESS", "Thêm thành công");
                 } else {

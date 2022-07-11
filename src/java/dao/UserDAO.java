@@ -688,7 +688,7 @@ public class UserDAO {
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
         String query = "SELECT * FROM tblUsers\n"
-                + "ORDER BY userId\n"
+                + "ORDER BY status DESC\n"
                 + "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
