@@ -14,11 +14,13 @@
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
         <!-- main css -->
         <link rel="stylesheet" href="css/homestyles.css">
+        <link rel="stylesheet" href="css/homestyle.css">
         <link rel="stylesheet" href="css/addToCart.css">
         <script src="js/jquery-3.2.1.min.js"></script>
         <link rel="stylesheet" type="text/css" href="vendor/star-rating/star-rating-svg.css">
         <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/responsive.css">
 
     </head>
     <body>
@@ -71,7 +73,7 @@
                                     <c:if test="${sessionScope.FIELDS_CART == null}">
                                         <img style="margin-left: 420px; width: 500px; height: 500px" src="https://static.vecteezy.com/system/resources/previews/005/006/031/original/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg"> 
                                     </c:if>
-                                    <c:set var="total" value="0" scope="page"/>
+                                   
                                     <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
@@ -126,7 +128,7 @@
                                                     </div>
                                                 </div>
                                             </div>
-
+                                                        </div>
                                         </c:forEach>
 
                                         <c:if test="${sessionScope.FIELDS_CART != null}">

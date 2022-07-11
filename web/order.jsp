@@ -19,6 +19,8 @@
         <link rel="stylesheet" type="text/css" href="vendor/star-rating/star-rating-svg.css">
         <link href="vendor/bootstrap-select/dist/css/bootstrap-select.min.css" rel="stylesheet">
         <link href="css/style.css" rel="stylesheet">
+        <link rel="stylesheet" href="css/responsive.css">
+        <link rel="stylesheet" href="css/homestyle.css">
 
     </head>
     <body>
@@ -66,106 +68,58 @@
                     <div class="row">                        
                         <form class="col-lg-12">
                             <div class="card">
-                                <h2 style="margin-left: 550px; margin-top:10px" >Thanh Tóan</h2>
+                                <h2 style="margin-left: 650px; margin-top:10px" >Thanh Toan</h2>
                                 <div class="card-body">
-                                    <c:set var="total" value="0" scope="page"/>
-                                    <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
-                                        <div class="row">
-                                            <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
-                                                <!-- Tab panes -->
-                                                <div class="tab-content">
-                                                    <div role="tabpanel" class="tab-pane fade show active" id="first">
-                                                        <img class="img-fluid" src="${cart.value.field.image}" alt="">
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <input type="hidden" name="id" value="${cart.value.field.fieldId}"/>
-                                            <!--Tab slider End-->
-                                            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
-                                                <div class="product-detail-content">
-                                                    <!--Product details-->
-                                                    <div class="new-arrival-content pr">
-                                                        <h4>${cart.value.field.fieldName}</h4>
-                                                        <div class="d-table mb-2">
-                                                            <p class="price float-left d-block">${cart.value.field.price}</p>
-                                                        </div>
-                                                        <p>Availability: <span class="item"> In stock <i class="fa fa-shopping-basket"></i></span>
-                                                        </p>
-                                                        <p>Field code: <span class="item">${cart.value.field.fieldId}</span> </p>
-                                                        <p>Owner field: <span class="item">${cart.value.field.user.fullName}</span></p>
-                                                        <p class="text-content">${cart.value.field.description}</p>
-                                                        <div class="filtaring-area my-3">
-                                                            <div class="size-filter">
-                                                                <h4 class="m-b-15">Select time</h4>
-
-                                                                <div class="btn-group" data-toggle="buttons">
-                                                                    <c:forEach var="slot" items="${sessionScope.SLOT_DETAIL}" varStatus="count">
-                                                                        
-                                                                        <c:if test="${slot.field.fieldId == cart.value.field.fieldId}">                                                                           
-                                                                            <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="slotID" id="option${count.index + 1}" value="${slot.slotDetailID}"> ${slot.slot.timeStart} - ${slot.slot.timeEnd}</label>
-                                                                         </c:if>
-                                                                            
-                                                                    </c:forEach>
-                                                                    <!--                                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option5"> XS</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option1" checked="">SM</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option2"> MD</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option3"> LG</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option4"> XL</label>-->
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!--Quantity start-->
-                                                        <div class="col-2 px-0"
-                                                             <label>Date:</label>
-                                                            <input type="date" name="date" id="datePicker">
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                        </c:forEach>
-                                        <div class="shopping-cart mt-3">
-                                            <a href="MainController?action=Print"><button class="btn btn-primary btn-lg" >Add more Field</button></a>
-                                            <button class="btn btn-primary btn-lg"><i class="fa fa-shopping-basket mr-2" type="submit" name="action" value="Order"></i>Order</button>
-                                        </div>
+                                    <div class="shopping-cart mt-3">
+                                        
+                                        <button class="btn btn-primary btn-lg"><i class="fa fa-shopping-basket mr-2" type="submit" name="action" value="Order"></i>Payment</button>
                                     </div>
                                 </div>
                             </div>
-                        </form>
                     </div>
+                    <!--Quantity start-->
+
                 </div>
             </div>
         </div>
-        <script>
-            $(document).ready(function () {
-                var now = new Date();
 
-                var day = ("0" + now.getDate()).slice(-2);
-                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+    </div>
+</div>
+</div>
+</form>
+</div>
+</div>
+</div>
+</div>
+<script>
+    $(document).ready(function () {
+        var now = new Date();
 
-                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+        var day = ("0" + now.getDate()).slice(-2);
+        var month = ("0" + (now.getMonth() + 1)).slice(-2);
 
-                $('#datePicker').val(today);
-                function getTotal() {
-                    var total = 0;
-                    $('.price').each(function () {
-                        total += parseFloat(this.innerHTML);
-                    });
-                    $('#total').text(total);
-                }
+        var today = now.getFullYear() + "-" + (month) + "-" + (day);
+
+        $('#datePicker').val(today);
+        function getTotal() {
+            var total = 0;
+            $('.price').each(function () {
+                total += parseFloat(this.innerHTML);
             });
-        </script>
+            $('#total').text(total);
+        }
+    });
+</script>
 
-        <!-- Optional JavaScript -->
-        <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-        <script src="js/jquery-3.2.1.min.js"></script>
-        <script src="js/popper.js"></script>
-        <script src="js/bootstrap.min.js"></script>
-        <script src="js/custom.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Rating -->
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
-    </body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+<script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+<!-- Rating -->
+<script src="js/deznav-init.js"></script>
+<script src="js/demo.js"></script>
+</body>
 </html>
