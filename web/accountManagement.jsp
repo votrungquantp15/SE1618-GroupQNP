@@ -71,15 +71,16 @@
                                                 </div>
                                                 <div class ="col-md-6">
                                                     <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">Search</button>
+                                                    <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateManagerAccount"><span class="btn-icon-left text-success"><i class="fa fa-plus color-info"></i>
+                                                        </span>Add new Manager</button>
                                                 </div>
 
                                             </div>                              
                                         </div>
-                                                <a href="MainController?action=CreateManagerAccount">Click here to create new Manager's Account</a>
-                                                                      <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
-                                    <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                                    <p style="color: red">${requestScope.SEARCH_FAILED} </p>
-                                    <p style="color: red">${requestScope.DELETE_INACTIVE} </p>  </form>
+                                        <p style="color: red">${requestScope.ERROR_MESSAGE} </p>   
+                                        <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
+                                        <p style="color: red">${requestScope.SEARCH_FAILED} </p>
+                                        <p style="color: red">${requestScope.DELETE_INACTIVE} </p>  </form>
 
                                     <div class="table-responsive">
                                         <table class="table table-responsive-md">
@@ -117,7 +118,7 @@
                                                             <div class="d-flex">
 
                                                                 <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>

@@ -103,7 +103,11 @@
                                             </div>
                                         </div>
                                     </div>
-                                            <button type="submit" name="action" class="btn btn-primary" value="UpdateFoodByManager"/>Edit</button>
+                                    
+                                    <div class="d-flex justify-content-end">
+                                        <button type="submit" name="action" class="btn btn-primary" value="UpdateFoodByManager"/>Edit</button>
+                                        <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodList&index=1">Back</a>
+                                    </div>
                                     <input type="hidden" name="foodId" value="${food.foodId}"/>
                                     <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
                                     <p style="color: red">${requestScope.UPDATE_FAILED} </p>

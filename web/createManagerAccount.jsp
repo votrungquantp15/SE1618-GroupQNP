@@ -116,6 +116,7 @@
 
                                 </div>                                       
                                 <button type="submit" name="action" class="btn btn-primary" value="CreateManagerAccount"/>Create</button>
+                                <a class="btn btn-warning mt ml-1" href="MainController?action=AccountList&index=1">Back</a>
                                 <p style="color: green">${requestScope.MANAGER_SUCCESS} </p>
                                 <p style="color: red">${requestScope.MANAGER_ERROR} </p>
                             </form>

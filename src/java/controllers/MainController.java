@@ -191,6 +191,28 @@ public class MainController extends HttpServlet {
     //Create Manager Account
     private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
     private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
+    
+    //Create Food
+    private static final String CREATE_FOOD = "CreateFood";
+    private static final String CREATE_FOOD_CONTROLLER = "CreateFoodController";
+    
+    //View Food of field Controller
+    private static final String VIEW_FOOD_OF_FIELD = "ViewFoodOfField";
+    private static final String VIEW_FOOD_OF_FIELD_CONTROLLER = "ViewFoodOfFieldController";
+    
+    //Search Food of field 
+    private static final String SEARCH_FOOD_OF_FIELD = "SearchFoodOfField";
+    private static final String SEARCH_FOOD_OF_FIELD_CONTROLLER = "SearchFoodOfFieldController";
+    
+    //Search Food of field 
+    private static final String DELETE_FOOD_BY_MANAGER_ON_FIELD = "DeleteFoodByManagerOnField";
+    private static final String DELETE_FOOD_BY_MANAGER_ON_FIELD_CONTROLLER = "DeleteFoodByManagerOnFieldController";
+    
+    //Search Food of field 
+    private static final String CREATE_FOOD_ON_FIELD = "CreateFoodOnField";
+    private static final String CREATE_FOOD_ON_FIELD_CONTROLLER = "CreateFoodOnFieldController";
+    
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -289,6 +311,7 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_FOOD_BY_MANAGER:
                     url = CREATE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
                 case PRINT_LIST_DISTRICT:
                     url = PRINT_LIST_DISTRICT_CONTROLLER;
                     break;
@@ -337,11 +360,26 @@ public class MainController extends HttpServlet {
                 case CREATE_MANAGER_ACCOUNT:
                     url = CREATE_MANAGER_ACCOUNT_CONTROLLER;
                     break;
+                case CREATE_FOOD:
+                    url = CREATE_FOOD_CONTROLLER;
+                    break;
                 case UPDATE_FIELD_CATE:
                     url = UPDATE_FIELD_CATE_CONTROLLER;
                     break;
                 case CREATE_FIELD_CATE:
                     url = CREATE_FIELD_CATE_CONTROLLER;
+                    break;
+                case VIEW_FOOD_OF_FIELD:
+                    url = VIEW_FOOD_OF_FIELD_CONTROLLER;
+                    break;
+                case SEARCH_FOOD_OF_FIELD:
+                    url = SEARCH_FOOD_OF_FIELD_CONTROLLER;
+                    break;
+                case DELETE_FOOD_BY_MANAGER_ON_FIELD:
+                    url = DELETE_FOOD_BY_MANAGER_ON_FIELD_CONTROLLER;
+                    break;
+                case CREATE_FOOD_ON_FIELD:
+                    url = CREATE_FOOD_ON_FIELD_CONTROLLER;
                     break;
             }
         } catch (Exception e) {
