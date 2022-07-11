@@ -22,6 +22,7 @@ public class FoodDetailDAO {
     private static final String GET_ALL_INFO = "SELECT foodDetailID, foodID, fieldID, price, status FROM tblFoodDetail WHERE foodDetailID like ?";
     private static final String CREATE_FIELD_ID = "INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, status) VALUES (?, ?, ?, ?, ?)";
     private static final String CHECK_DUPLICATE = "SELECT * FROM tblFoodDetail WHERE foodDetailId = ?";
+    private static final String ACTIVE_FOOD = "UPDATE tblFoodDetail SET status = 1 WHERE foodId = ? and fieldId = ?";
     
     public FoodDetail getFoodDetailByID(String foodDetailID) throws SQLException {
         FoodDetail foodDetail = null;
@@ -82,6 +83,32 @@ public class FoodDetailDAO {
                 check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean activeFood(String foodId, String fieldId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(ACTIVE_FOOD);
+                ptm.setString(1, foodId);
+                ptm.setString(2, fieldId);
+                rs = ptm.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         } finally {
             if (ptm != null) {
                 ptm.close();

@@ -17,7 +17,6 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class FoodDAO {
-
     private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodId, status "
             + "FROM tblFoods WHERE foodID like ?";
     private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodName LIKE ? ";
@@ -33,6 +32,7 @@ public class FoodDAO {
                                                  + "from tblFoods, tblFoodDetail\n" 
                                                  + "where fieldId = ? and tblFoods.status = 1 and tblFoods.foodId = tblFoodDetail.foodId\n"
                                                  + "ORDER BY tblFoodDetail.status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    
     
 
     public Food getFoodByID(String foodID) throws SQLException {
@@ -338,6 +338,7 @@ public class FoodDAO {
         }
         return check;
     }
+       
     
     public boolean deleteFood(String foodId) throws SQLException {
         boolean check = false;
@@ -529,7 +530,7 @@ public class FoodDAO {
         int min = 1;
         int random_double = (int) (Math.random() * (max - min + 1) + min);
         String s = String.valueOf(random_double);
-        return "F" + s;
+        return "FO" + s;
     }
     
     public String foodIDForManager() throws SQLException {

@@ -14,7 +14,7 @@
             content="Mark Otto, Jacob Thornton, and Bootstrap contributors"
             />
         <meta name="generator" content="Hugo 0.88.1" />
-        <title>Food Editor</title>
+        <title>Create Food</title>
         <link
             rel="stylesheet"
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
@@ -65,58 +65,40 @@
             <br/>
 
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
-            <c:forEach var="food" items="${requestScope.VIEW_FOOD}">
+
                 <form action="MainController" method="POST">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Food Editor</h4>
+                        <div class="form-group col-md-6">
+                            <div class="card-header">
+                                <h4 class="card-title">Add Food</h4>                               
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-                                <form>
-                                    <div class ="row">
-                                        <div class="form-row col-md-5" >
-                                            <div class="form-group">
-                                                <img width="450" height="auto" src="${food.image}">
-                                            </div>
-                                        </div>
-                                        <div class="form-row col-md-7" >    
-                                            <div class="form-group col-md-6">
-                                                <label>Food ID</label>
-                                                <input type="text" class="form-control" name="foodId" value="${food.foodId}" readonly=""/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Food Name</label>
-                                                <input type="text" class="form-control" name="foodName" value="${food.foodName}" required=""/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Image Source</label>                                            
-                                                <input type="text" class="form-control" name="image" value="${food.image}" required=""/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Category</label>
-                                                <input type="text" class="form-control" name="categoryFoodId" value="${food.foodCate.foodCateId}" required=""/>
-                                            </div>
-                                            <div class="form-group col-md-6">
-                                                <label>Status</label>
-                                                <input type="text" class="form-control" name="status" value="${food.status}" readonly=""/>
-                                            </div>
-                                        </div>
+                                <div class="form-row">                                       
+                                    <div class="form-group col-md-6">
+                                        <label>Food ID</label>
+                                        <input type="text" class="form-control" name="foodId" value="${param.foodId}"  readonly=""/>
                                     </div>
-                                    
-                                    <div class="d-flex justify-content-end">
-                                        <button type="submit" name="action" class="btn btn-primary" value="UpdateFoodByManager"/>Edit</button>
-                                        <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=1">Back</a>
+                                    <div class="form-group col-md-6">
+                                        <label>Field ID</label>
+                                        <input type="text" class="form-control" name="fieldId"  required=""/>
                                     </div>
-                                    <input type="hidden" name="foodId" value="${food.foodId}"/>
-                                    <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                    <p style="color: red">${requestScope.UPDATE_FAILED} </p>
+                                    <div class="form-group col-md-6">
+                                        <label>Price</label>
+                                        <input type="text" class="form-control" name="price"  required=""/>
+                                    </div>
+
+                                </div>                                       
+                                <button type="submit" name="action" class="btn btn-primary" value="AddFoodToField"/>Add</button>
+                                <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodList&index=1">Back</a>
+                                <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                <p style="color: red">${requestScope.CREATE_FAIL} </p>
                                 </form>
                             </div>
                         </div>
                     </div>                                
-                </form>
-            </c:forEach>
+            </form>
+
 
 
         </div>

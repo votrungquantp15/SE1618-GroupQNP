@@ -118,7 +118,7 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Status</label>
-                                            <input type="text" class="form-control" name="status" value="${user.status}" required=""/>
+                                            <input type="text" class="form-control" name="status" value="${user.status}" readonly=""/>
                                         </div>
 
                                     </div>                                       

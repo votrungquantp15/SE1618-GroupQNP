@@ -21,6 +21,7 @@ public class UserDAO {
     private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
     private static final String SEARCH_ACCOUNT_BY_ID_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE userID LIKE ? ";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
+    private static final String ACTIVE_USER = "UPDATE tblUsers SET status = 1 WHERE userID = ?";
     private static final String UPDATE_USER = "UPDATE tblUsers SET fullName = ?, address = ?, districtId = ?, birthday = ?, phone = ?, email = ?, accName = ?, password = ?, roleId = ?, status = ?  WHERE userID = ?";
     private static final String GET_USER_BY_ID = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE userID = ?";
     private static final String GET_USER_BY_NAME = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, status, roleID FROM tblUsers WHERE fullName = ?";
@@ -511,6 +512,31 @@ public class UserDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(DELETE_USER);
+                ptm.setString(1, userID);
+                rs = ptm.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean activeUser(String userID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(ACTIVE_USER);
                 ptm.setString(1, userID);
                 rs = ptm.executeQuery();
             }

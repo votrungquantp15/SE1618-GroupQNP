@@ -119,6 +119,7 @@
 
                                                                 <a href="MainController?action=UpdateAccountByAdmin&userID=${user.userID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
                                                                 <a href="MainController?action=DeleteAccountByAdmin&userID=${user.userID}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=ActiveUser&userID=${user.userID}" class="btn btn-success shadow btn-xs sharp ml-1"><i class="fa fa-check-square"></i></a>
 
                                                             </div>
                                                         </td>
