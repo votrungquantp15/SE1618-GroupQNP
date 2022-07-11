@@ -23,6 +23,11 @@ import utils.DBUtils;
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE slotDetailID like ? ";
+    private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE fieldId = ? ";
+    
+            private static final String GET_SLOT_DETAIL_ID = "SELECT slotDetailID "
+            + "FROM tblSlotDetail WHERE slotDetailID = ? ";
     
     public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
         SlotDetail slotDetail = null;
@@ -109,4 +114,91 @@ public class SlotDetailDAO {
         }
         return list;
     }
+    public ArrayList<SlotDetail> getListSlotFieldByID(String id) throws SQLException{
+        ArrayList<SlotDetail> arr = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SLOT_BY_FIELD_ID);
+//                    private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
+//            + "FROM tblSlotDetail WHERE fieldId = ? ";
+                ptm.setString(1,id);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String slotDetailID = rs.getString("slotDetailID");
+                    String getSlotID = rs.getString("slotID");
+                    SlotDAO slotDao = new SlotDAO();
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDao = new FieldDAO();
+                    String status = rs.getString("status");
+                    
+                    arr.add(new SlotDetail(slotDetailID, slotDao.getSlotByID(getSlotID), fieldDao.getFieldByID(fieldID), status));
+                                       
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }        
+        return arr;
+    }
+    
+    public String createSlotDetailID(){
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "SD" + s;
+    }
+    public boolean checkDuplicate(String slotDetailID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SLOT_DETAIL_ID);
+                ptm.setString(1, slotDetailID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    
+    public static void main(String[] args) throws SQLException {
+        System.out.println("aaaa");
+//        System.out.println(getListSlotFieldByID("FI1"));
+    }
+    public static void aaaa() {
+        System.out.println("aaa111");
+        }
 }

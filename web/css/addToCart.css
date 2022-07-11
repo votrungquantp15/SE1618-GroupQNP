@@ -1,0 +1,28 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 25-Jun-2022, 10:31:16
+    Author     : votru
+*/
+.back-ground-v{
+    height: 1000px;
+    background-color: red;
+}
+.box-1{
+    width: 100px;
+    height: 100px;
+    background-color: red;
+}
+.container-cart{
+    background: rgb(219, 226, 226);
+    margin: auto; 
+    
+}
+h2 {
+    color:  red;      
+}
+.contain{
+}

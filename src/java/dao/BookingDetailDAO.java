@@ -35,6 +35,8 @@ public class BookingDetailDAO {
 
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, foodDetailID, foodPrice, foodQuantity, status "
             + "FROM tblBookingDetail";
+    private static final String GET_BOOKING_DETAIL_ID = "SELECT bookingDetailI tblBookingDetail WHERE bookingDetailID like ?  ";
+    
 
     private static final String GET_LIST_FOOD = "SELECT foodDetailID, foodPrice, foodQuantity FROM tblBookingDetail WHERE bookingID like ? ";
 
@@ -297,5 +299,42 @@ public class BookingDetailDAO {
         }
         return bookingDetails;
 
+    }
+    public String createBookingDetailID(){
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "BD" + s;
+    }
+    public boolean checkDuplicate(String bookingDetailID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_BOOKING_DETAIL_ID);
+                ptm.setString(1, bookingDetailID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }

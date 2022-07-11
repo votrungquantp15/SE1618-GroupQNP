@@ -54,25 +54,30 @@
                                     </div>
 
                                     <div class="card-body">
-                                        
-                                        <form action="MainController">
-                                            
+
+                                        <form action="MainController">                                                                                  
                                             <div class="form-group col-md-6">
-                                                <label><strong>Search food by name</strong></label>
+                                                <label><strong>Field</strong></label>
                                                 <div class="row">
-                                                    <div class ="col-md-6">
-                                                        <input name="searchFoodByManager" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodByManager}">                                                                                             
+                                                    <div class ="col-md-2"> 
+                                                        <input type="text" class="form-control" name="fieldId" value="${sessionScope.FIELD_ID}" readonly=""/><br/>
                                                 </div>
-                                                
+                                            </div>
+                                            <label><strong>Search food by name</strong></label>
+                                            <div class="row">
+                                                <div class ="col-md-6">                                               
+                                                    <input name="searchFoodOfField" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodOfField}">
+                                                </div>
+
                                                 <div class ="col-md-6">
-                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodByManager">SEARCH</button>
-                                                    
-                                                    <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateFood"><span class="btn-icon-left text-success "><i class="fa fa-plus color-info"></i>
-                                                </span>Add new food</button>
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodOfField">SEARCH</button>
+
+                                                    <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateFoodOnField"><span class="btn-icon-left text-success "><i class="fa fa-plus color-info"></i>
+                                                        </span>Add new food</button>
                                                 </div>
-                                                
+
                                             </div>  
-                                            
+
                                         </div>
 
 
@@ -97,7 +102,7 @@
                                             </thead>
                                             <tbody>
                                                 <tr>
-                                                    <c:forEach var="food" items="${requestScope.VIEW_FOOD}">
+                                                    <c:forEach var="food" items="${requestScope.VIEW_FOOD_EACH}">
                                                     <tr>
                                                         <td>${food.foodId}</td>
                                                         <td>${food.foodName}</td>
@@ -111,7 +116,7 @@
                                                             <div class="d-flex">
 
                                                                 <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
-                                                                <a href="MainController?action=DeleteFoodByManager&foodId=${food.foodId}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
+                                                                <a href="MainController?action=DeleteFoodByManagerOnField&foodId=${food.foodId}&fieldId=${sessionScope.FIELD_ID}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
 
                                                             </div>
                                                         </td>
@@ -120,12 +125,15 @@
 
                                                 </tr>
                                         </table>
-                                        <ul class="pagination pagination-sm pagination-gutter">
-                                            <c:forEach begin="1" end="${END_PAGE}" var ="page">                                               
-                                                <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=ViewFoodList&index=${page}">${page}</a>
-                                                </c:forEach>
-                                        </ul>       
-
+                                        <form action="MainController">
+                                            <ul class="pagination pagination-sm pagination-gutter">
+                                                <c:forEach begin="1" end="${requestScope.END_PAGE_EACH}" var ="page">                                               
+                                                    <li class="page-item <c:if test="${param.index eq page}"> active </c:if>" ><a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${page}">${page}</a>
+                                                    </c:forEach>
+                                                    
+                                            </ul>
+                                        </form>
+                                        <a class="btn btn-warning mt ml-1" href="MainController?action=Print&index=1">Back</a>
 
                                     </div>
                                 </div>
