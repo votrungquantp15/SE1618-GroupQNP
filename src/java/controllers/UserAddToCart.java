@@ -48,12 +48,11 @@ public class UserAddToCart extends HttpServlet {
                 field = fieldDao.getFieldByID(id);
                 HashMap<String, BookingDetail> fieldsCart = (HashMap<String, BookingDetail>) session.getAttribute("FIELDS_CART");
                 ArrayList<SlotDetail> slotDetails = (ArrayList<SlotDetail>) session.getAttribute("SLOT_DETAIL");
-                SlotDetailDAO slotDetailDao = new SlotDetailDAO();              
-                if(slotDetails == null){
+                SlotDetailDAO slotDetailDao = new SlotDetailDAO();
+                if (slotDetails == null) {
                     slotDetails = slotDetailDao.getListSlotFieldByID(id);
                     session.setAttribute("SLOT_DETAIL", slotDetails);
-                }
-                else{
+                } else {
                     for (SlotDetail slotDetail : slotDetailDao.getListSlotFieldByID(id)) {
                         slotDetails.add(slotDetail);
                         session.setAttribute("SLOT_DETAIL", slotDetails);
@@ -83,6 +82,7 @@ public class UserAddToCart extends HttpServlet {
 
                 fieldsCart.put(bookingDetail.getField().getFieldId(), bookingDetail);
                 session.setAttribute("FIELDS_CART", fieldsCart);
+                url = SUCCESS;
 
             } else if (action.equals("bookingField")) {
                 String[] slotsID = request.getParameterValues("slotID");
@@ -122,15 +122,57 @@ public class UserAddToCart extends HttpServlet {
                     }
 
                 }
+                url = SUCCESS;
 
-            }
-            else if(action.equals("remove")){
+            } else if (action.equals("remove")) {
                 session.removeAttribute("FIELDS_CART");
+                session.removeAttribute("SLOT_DETAIL");
+                
+                url = "MainController?action=Print";
+            } else if (action.equals("Order")) {
+                String date = request.getParameter("date");
+                String slotID = request.getParameter("slotID");
+                SlotDetail slotDetail;
+                SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+                
+                slotDetail = slotDetailDAO.getSlotByID(slotID);
+
+                HashMap<String, BookingDetail> fieldsCart =   (HashMap<String, BookingDetail>) session.getAttribute("FIELDS_CART");
+                
+                String keyHashMap = null;
+                for (String string : fieldsCart.keySet()) {
+                    keyHashMap = string;
+                }
+                fieldsCart.get(keyHashMap).setPlayDate(date);
+                fieldsCart.get(keyHashMap).setSlotDetail(slotDetail);
+                
+//                for (BookingDetail bookingDetail : fieldsCart) {
+//                    bookingDetail.setPlayDate(date);
+//                    bookingDetail.setSlotDetail(slotDetail);
+//                }
+                session.setAttribute("FIELDS_CART", fieldsCart);
+
+                BookingDetail bookingDetail ;
+                        url = "order.jsp";
+              }
+            else if(action.equals("Payment")){
+                HashMap<String, BookingDetail> fieldsCart =   (HashMap<String, BookingDetail>) session.getAttribute("FIELDS_CART");
+             
+                
+                String keyHashMap = null;
+                for (String string : fieldsCart.keySet()) {
+                    keyHashMap = string;
+                }
+                BookingDetail bookingDetail = fieldsCart.get(keyHashMap);
+                
+                session.removeAttribute("FIELDS_CART");
+                session.removeAttribute("SLOT_DETAIL");
+                
+                url = "MainController?action=Print";
             }
 
 //            SlotDetailDAO slotDetailDao = new SlotDetailDAO();
 //            ArrayList<String> slotIDs = slotDetailDao.getListSlotFieldByID(id);
-            url = SUCCESS;
         } catch (Exception e) {
             log("Error at UserPrintFieldDetailController: " + e.toString());
         } finally {
