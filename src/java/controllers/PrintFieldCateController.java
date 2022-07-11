@@ -4,7 +4,6 @@ import dao.FieldCategoryDAO;
 import dto.FieldCategory;
 import dto.User;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,14 @@ public class PrintFieldCateController extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User)session.getAttribute("LOGIN_USER");
             FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
-            List<FieldCategory> listFieldCate = fieldCateDao.getAllFieldCategory();
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int endPage = 0;
+            int count = fieldCateDao.countTotalFieldCate();
+            List<FieldCategory> listFieldCate = fieldCateDao.getAllFieldCategoryPaging(index);
             if (listFieldCate.size() > 0) {
                 request.setAttribute("LIST_FIELD_CATE", listFieldCate);
                 if (user.getRole().getRoleId().equals("MA")) {
@@ -35,6 +41,11 @@ public class PrintFieldCateController extends HttpServlet {
                     url = ADMIN_PAGE;
                 }
             }
+            endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            request.setAttribute("END_PAGE", endPage);
         } catch (Exception e) {
             log("Error at PrintFieldCateController: " + e.toString());
         } finally {
