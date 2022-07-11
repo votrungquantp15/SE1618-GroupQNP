@@ -115,7 +115,7 @@
                                             <input type="text" class="form-control" name="password" value="${user.password}" required=""/>
                                         </div>
                                         <div class="form-group col-md-6">
-                                            <label>Role ID</label>
+                                            <label>Role</label>
                                             <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
                                         </div>
                                         <div class="form-group col-md-6">
@@ -125,6 +125,7 @@
 
                                     </div>                                       
                                     <button type="submit" name="action" class="btn btn-primary" value="UpdateAccountByAdmin"/>Edit</button>
+                                    <a class="btn btn-warning mt ml-1" href="MainController?action=AccountList&index=1">Back</a>
                                     <input type="hidden" name="userID" value="${user.userID}"/>
                                     <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
                                     <p style="color: red">${requestScope.UPDATE_FAILED} </p>

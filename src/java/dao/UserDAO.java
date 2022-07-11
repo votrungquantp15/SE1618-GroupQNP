@@ -459,7 +459,7 @@ public class UserDAO {
             try {
                 if (conn != null) {
                     ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_ID_FOR_ADMIN);
-                    ptm.setString(1, "%" + search + "%");
+                    ptm.setString(1, search );
                     rs = ptm.executeQuery();
 
                     while (rs.next()) {
@@ -547,7 +547,7 @@ public class UserDAO {
                 ptm.setString(10, user.getStatus());
                 ptm.setString(11, user.getUserID());
 
-                check = ptm.executeUpdate() > 0 ? true : false;
+                check = ptm.executeUpdate() > 0;
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -688,7 +688,7 @@ public class UserDAO {
         ResultSet rs = null;
         List<User> list = new ArrayList<>();
         String query = "SELECT * FROM tblUsers\n"
-                + "ORDER BY userId\n"
+                + "ORDER BY status DESC\n"
                 + "OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
         try {
             conn = DBUtils.getConnection();
