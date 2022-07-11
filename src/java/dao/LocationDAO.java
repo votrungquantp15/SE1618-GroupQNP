@@ -23,6 +23,9 @@ public class LocationDAO {
     private static final String UPDATE_LOCATION_BY_OWNER = "UPDATE tblLocation SET locationName = ? WHERE locationID = ?";
     private static final String CREATE_LOCATION = "INSERT INTO tblLocation(locationID, locationName) VALUES(?,?)";
 
+    private static final String COUNT_ALL_LOCATION = "SELECT COUNT(*) as totalLocation FROM tblLocation";
+    private static final String GET_ALL_LOCATION_PAGING = "SELECT locationID, locationName, status FROM tblLocation ORDER BY locationID OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    
     public Location getLocationByID(String locationID) throws SQLException {
         Location location = null;
         boolean check = false;
@@ -71,6 +74,41 @@ public class LocationDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_ALL_LOCATION);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String locationId = rs.getString("locationID");
+                    String locationName = rs.getString("locationName");
+                    String status = rs.getString("status");
+                    listLocation.add(new Location(locationId, locationName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listLocation;
+    }
+    
+    public List<Location> getAllLocationPaging(int index) throws SQLException {
+
+        List<Location> listLocation = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_LOCATION_PAGING);
+                ptm.setInt(1, (index - 1) * 5);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String locationId = rs.getString("locationID");
@@ -328,5 +366,36 @@ public class LocationDAO {
             if(conn!= null) conn.close();
         }
         return check;
+    }
+    
+    public int countTotalLocation() throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_LOCATION);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    index = rs.getInt("totalLocation");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return index;
     }
 }

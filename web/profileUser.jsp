@@ -9,7 +9,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>profile User</title>
+        <title>Profile</title>
         <link rel="stylesheet"
               href="styles/profileUser.css"
               />
@@ -23,7 +23,19 @@
 
                 </div>
                 <div class="col-md-3 border-right">
-                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"><span class="font-weight-bold">Edogaru</span><span class="text-black-50">edogaru@mail.com.my</span><span> </span></div>
+                    <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="300px" src="
+                                                                                                 <c:choose>
+                                                                                                     <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'US'}">
+                                                                                                         https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png
+                                                                                                     </c:when>
+                                                                                                     <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'AD'}">
+                                                                                                         https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg
+                                                                                                     </c:when>
+                                                                                                     <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'MA'}">
+                                                                                                         https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU
+                                                                                                     </c:when>
+                                                                                                 </c:choose>                  
+                    "></div>
                 </div>
                 <div class="col-md-5 border-right">
                     <div class="p-3 py-5">
@@ -52,11 +64,14 @@
                                     <button class="btn btn-primary profile-button" type="submit" name="action" value="UpdateProfileUser" >Save Profile</button>
                                     <a class="btn btn-primary profile-button" href="
                                        <c:choose>
-                                           <c:when test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'US'}">
+                                           <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'US'}">
+                                               MainController?action=Print&index=1
+                                           </c:when>
+                                           <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'AD'}">
                                                adminDashboard.jsp
                                            </c:when>
-                                           <c:when test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
-                                               MainController?action=Print
+                                           <c:when test="${sessionScope.LOGIN_USER.role.roleId == 'MA'}">
+                                               fieldOwnerDashboard.jsp
                                            </c:when>
                                        </c:choose>
                                        ">Back</a>
