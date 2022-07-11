@@ -25,6 +25,7 @@ public class BookingDAO {
             + "FROM tblBooking WHERE bookingID like ? ";
     private static final String DELETE_BOOKING_BY_BOOKING_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
     private static final String UPDATE_BOOKING_STATUS_BY_ID = "UPDATE tblBooking SET status = ? WHERE bookingID like ? ";
+    private static final String GET_BOOKING_ID = "Select bookingID from tblBooking WHERE  bookingID = ?";
 
     private static final String COUNT_ALL_BOOKING = "SELECT COUNT(*) as totalBooking FROM tblBooking "
             + "WHERE userID like ? AND status like ? "
@@ -380,5 +381,44 @@ public class BookingDAO {
             return CANCELED_STATUS;
         }
         return DELETE_STATUS;
+    }
+    
+    
+    public String createBookingID(){
+        int max = 999999;
+        int min = 1;
+        int random_double = (int) (Math.random() * (max - min + 1) + min);
+        String s = String.valueOf(random_double);
+        return "BO" + s;
+    }
+    public boolean checkDuplicate(String bookingID) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_BOOKING_ID);
+                ptm.setString(1, bookingID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
     }
 }
