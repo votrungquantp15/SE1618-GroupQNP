@@ -13,6 +13,7 @@ import java.util.Map;
  * @author votru
  */
 public class Cart {
+
     private Map<String, BookingDetail> cart;
 
     public Cart() {
@@ -29,10 +30,31 @@ public class Cart {
     public void setCart(Map<String, BookingDetail> cart) {
         this.cart = cart;
     }
-    public void add(BookingDetail bookingDetail){
-        if(this.cart == null){
-            this.cart = new HashMap<>();
+
+    public boolean add(BookingDetail bookingDetail) {
+        boolean check = false;
+        try {
+            if (this.cart == null) {
+                this.cart = new HashMap<>();
+            }
+            this.cart.put(bookingDetail.getField().getFieldId(), bookingDetail);
+            check = true;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        
+        return check;
+    }
+    public boolean remove(String id){
+        boolean check = false;
+        try {
+            if(this.cart != null){
+                if(this.cart.containsKey(id)){
+                    this.cart.remove(id);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
     }
 }

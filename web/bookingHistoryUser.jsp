@@ -27,25 +27,6 @@
     </head>
 
     <body>
-
-        <!--*******************
-            Preloader start
-        ********************-->
-        <div id="preloader">
-            <div class="sk-three-bounce">
-                <div class="sk-child sk-bounce1"></div>
-                <div class="sk-child sk-bounce2"></div>
-                <div class="sk-child sk-bounce3"></div>
-            </div>
-        </div>
-        <!--*******************
-            Preloader end
-        ********************-->
-
-
-        <!--**********************************
-            Main wrapper start
-        ***********************************-->
         <div id="main-wrapper">
 
             <jsp:include page="navbarUser.jsp"></jsp:include>
@@ -71,7 +52,6 @@
                                                     </div>
 
                                                     <div class="col-sm-4">
-
                                                         <select class="form-control" name="status">
                                                             <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all</option>
                                                             <option value="On-Going" <c:if test="${param.status eq 'On-Going'}">selected</c:if>>On-Going</option>
@@ -80,32 +60,34 @@
                                                             </select>
                                                         </div>
                                                         <div class ="col-sm-2 d-flex justify-content-between">
-                                                            <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
-                                                        </div>
-                                                    </div>                              
-                                                </div>                                                                                  
-                                            </form>
+                                                            <input type="hidden" name="index" value="${param.index}">
+                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
+                                                    </div>
+                                                </div>                              
+                                            </div>                                                                                  
+                                        </form>
 
-                                            <div class="table-responsive">
-                                                <table class="table table-responsive-sm">
-                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
-                                                    <strong>No Result</strong>
-                                                </c:if>
-                                                <thead style="background-color: #fcd15b">
-                                                    <tr>
-                                                        <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>Booknig ID</strong></th>
-                                                        <th><strong>Booking Date</strong></th>
-                                                        <th><strong>Booker</strong></th>
-                                                        <th><strong>Total Price</strong></th>
-                                                        <th><strong>Status</strong></th>
-                                                        <th class="d-flex justify-content-center"><strong>Delete</strong></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                                                        <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                                                            <c:set var="counter" scope="page" value="0"/>
+                                        <div class="table-responsive">
+                                            <table class="table table-responsive-sm">
+                                                <c:if test="${empty requestScope.LIST_BOOKING_HISTORY}">
+                                                    <h4 style="color: #ff2457"><strong>No Result</strong></h4> 
+                                                        </c:if>
+                                                        <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                                                            <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                                                        <thead style="background-color: #fcd15b">
+                                                            <tr>
+                                                                <th style="width:80px;"><strong>#</strong></th>
+                                                                <th><strong>Booknig ID</strong></th>
+                                                                <th><strong>Booking Date</strong></th>
+                                                                <th><strong>Booker</strong></th>
+                                                                <th><strong>Total Price</strong></th>
+                                                                <th><strong>Status</strong></th>
+                                                                <th class="d-flex justify-content-center"><strong>Delete</strong></th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+
+                                                            <c:set var="counter" scope="page" value="${param.index * 10 - 10}"/>
                                                             <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
                                                                 <c:if test="${booking.status ne 'Delete'}">
                                                                     <c:set var="counter" scope="page" value="${counter + 1}"/>
@@ -126,6 +108,7 @@
                                                                             <c:param name="bookingStatus" value="${booking.status}"></c:param>
                                                                             <c:param name="search" value="${param.search}"></c:param>
                                                                             <c:param name="status" value="${param.status}"></c:param>
+                                                                            <c:param name="index" value="${param.index}"></c:param>
                                                                         </c:url>
                                                                         <td>
                                                                             <div class="d-flex justify-content-center">
@@ -182,13 +165,25 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        <ul class="pagination">
-                                            <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                                <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                    <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
-                                                </li>
-                                            </c:forEach>
-                                        </ul>
+                                        <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                                            <ul class="pagination">
+                                                <c:if test="${param.index ne null && param.index >=2}">
+                                                    <li class="page-item">
+                                                        <a href="MainController?action=SearchBooking&index=${param.index - 1}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link"><</a>
+                                                        </li>
+                                                </c:if>
+                                                <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                        <a href="MainController?action=SearchBooking&index=${i}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
+                                                        </li>
+                                                </c:forEach>
+                                                <c:if test="${param.index ne null && param.index < END_PAGE}">
+                                                    <li class="page-item">
+                                                        <a href="MainController?action=SearchBooking&index=${param.index + 1}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">></a>
+                                                        </li>
+                                                </c:if>
+                                            </ul>
+                                        </c:if>
                                     </div>
                                 </div>
                             </div>
@@ -215,8 +210,8 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
+        <script src="js/styleSwitcher.js"></script>
 
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
         <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
         <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />

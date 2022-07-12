@@ -127,8 +127,8 @@
     <servlet>
         <servlet-name>UserAddToCart</servlet-name>
         <servlet-class>controllers.UserAddToCart</servlet-class>
-        </servlet>
-         <servlet>
+    </servlet>
+    <servlet>
         <servlet-name>PrintFieldCateController</servlet-name>
         <servlet-class>controllers.PrintFieldCateController</servlet-class>
     </servlet>
@@ -147,6 +147,14 @@
     <servlet>
         <servlet-name>CreateFieldCateController</servlet-name>
         <servlet-class>controllers.CreateFieldCateController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerBookingController</servlet-name>
+        <servlet-class>controllers.CustomerBookingController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerAddCartController</servlet-name>
+        <servlet-class>controllers.CustomerAddCartController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -273,11 +281,10 @@
         <url-pattern>/CreateLocationController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        
         <servlet-name>UserAddToCart</servlet-name>
         <url-pattern>/UserAddToCart</url-pattern>
-         </servlet-mapping>
-         <servlet-mapping>
+    </servlet-mapping>
+    <servlet-mapping>
         <servlet-name>PrintFieldCateController</servlet-name>
         <url-pattern>/PrintFieldCateController</url-pattern>
     </servlet-mapping>
@@ -300,6 +307,14 @@
     <servlet-mapping>
         <servlet-name>CreateFieldCateController</servlet-name>
         <url-pattern>/CreateFieldCateController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerBookingController</servlet-name>
+        <url-pattern>/CustomerBookingController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerAddCartController</servlet-name>
+        <url-pattern>/CustomerAddCartController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
