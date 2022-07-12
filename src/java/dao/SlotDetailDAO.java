@@ -23,6 +23,8 @@ import utils.DBUtils;
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldID = ? ";
+    private static final String GET_SLOT_DETAIL_BY_ID = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE slotDetailID = ? ";
     private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldId = ? ";
     
@@ -37,10 +39,10 @@ public class SlotDetailDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm = conn.prepareStatement(GET_SLOT_DETAIL_BY_ID);
                 ptm.setString(1, slotDetailID);
                 rs = ptm.executeQuery();
-                while (rs.next()) {
+                if (rs.next()) {
                     String getSlotDetailID = rs.getString("slotDetailID");
                     
                     String slotID = rs.getString("slotID");

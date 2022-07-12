@@ -35,41 +35,48 @@
                                     <div class="card">
                                         <div class="card-header">
                                             <h4 class="card-title">Your Items</h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-sm">
+                                        </div>
+                                        <div class="card-body">
+                                            <div class="table-responsive">
+                                                <table class="table table-responsive-sm">
                                                 <c:if test="${empty sessionScope.CART}">
                                                     <h4 style="color: #ff2457"><strong>Cart Empty</strong></h4> 
                                                 </c:if>
                                                 <c:if test="${sessionScope.CART != null}">
                                                     <c:if test="${not empty sessionScope.CART}">
                                                         <thead style="background-color: #fcd15b">
-                                                            <tr>
-                                                                <th style="width:80px;"><strong>#</strong></th>
+                                                            <tr>                                                
+                                                                <th></th>
                                                                 <th><strong>Field Name</strong></th>
                                                                 <th><strong>Time</strong></th>
                                                                 <th><strong>Total Price</strong></th>
                                                                 <th><strong>Play Date</strong></th>
+                                                                <th><strong>Action</strong></th>
 
                                                             </tr>
                                                         </thead>
                                                         <tbody>
-                                                        <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}" varStatus="counter">                                                       
-                                                            <tr>
-                                                                <td><strong>${counter.count}</strong></td>
-                                                                <td>${cart.field.fieldName}</td>
-                                                                <td></td>
-                                                                <td>${cart.field.price}$</td>
-                                                                <td>${cart.playDate}</td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                            <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}">                                                       
+                                                                <tr>
+                                                                    <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
+                                                                    <td>${cart.field.fieldName}</td>
+                                                                    <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
+                                                                    <td>${cart.field.price}$</td>
+                                                                    <td>${cart.playDate}</td>
+                                                                    <td><a href="${DeleteCartItem}" type="button" class="btn btn-primary"><i class="fa fa-trash"></i></a></td>
+                                                                
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </c:if>
                                                     </c:if>
-                                                </c:if>
                                                 </tbody>
                                             </table>
-                                        </div>
+                                                <div class="float-right">
+                                                <button class="btn btn-primary btn-lg" type="submit" name="action" value="CheckOut"><i class="fa fa-credit-card mr-2"></i>Check Out</button>
+                                                <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Back</button></a>
 
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
