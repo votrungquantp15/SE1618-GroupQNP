@@ -37,7 +37,7 @@ public class Cart {
             if (this.cart == null) {
                 this.cart = new HashMap<>();
             }
-            this.cart.put(bookingDetail.getField().getFieldId(), bookingDetail);
+            this.cart.put(bookingDetail.getBookingDetailID(), bookingDetail);
             check = true;
         } catch (Exception e) {
             e.printStackTrace();

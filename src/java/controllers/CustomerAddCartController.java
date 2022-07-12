@@ -7,13 +7,14 @@ package controllers;
 
 import dao.BookingDetailDAO;
 import dao.FieldDAO;
+import dao.SlotDAO;
 import dao.SlotDetailDAO;
 import dto.BookingDetail;
 import dto.Cart;
 import dto.Field;
+import dto.Slot;
 import dto.SlotDetail;
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -26,7 +27,7 @@ import javax.servlet.http.HttpSession;
  */
 public class CustomerAddCartController extends HttpServlet {
 
-    private static final String ERROR = "addToCart.jsp";
+    private static final String ERROR = "CustomerBookingController";
     private static final String SUCCESS = "CustomerBookingController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +45,6 @@ public class CustomerAddCartController extends HttpServlet {
 
             SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
             SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
-
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("CART");
             if (cart == null) {
@@ -52,15 +52,18 @@ public class CustomerAddCartController extends HttpServlet {
             }
             BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
             String bookingDetailID = bookingDetailDAO.createBookingDetailID();
-            boolean valid = bookingDetailDAO.checkDuplicate(bookingDetailID);
-            if (valid) {
-                BookingDetail bookingDetail = new BookingDetail(bookingDetailID, null, field, slotDetail, fieldPrice, playDate, true);
-                boolean check = cart.add(bookingDetail);
-                if (check) {
-                    session.setAttribute("CART", cart);
-                    request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
-                    url = SUCCESS;
-                }
+
+            while (bookingDetailDAO.checkDuplicate(bookingDetailID)) {
+                bookingDetailID = bookingDetailDAO.createBookingDetailID();
+            }
+            
+
+            BookingDetail bookingDetail = new BookingDetail(bookingDetailID, null, field, slotDetail, fieldPrice, playDate, true);
+            boolean check = cart.add(bookingDetail);
+            if (check) {
+                session.setAttribute("CART", cart);
+                request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
+                url = SUCCESS;
             }
         } catch (Exception e) {
             log("Error at CustomerAddCartController: " + e.toString());

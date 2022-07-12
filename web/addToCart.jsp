@@ -128,7 +128,7 @@
                                     <input type="hidden" name="fieldID" value="${FIELD.fieldId}"/>
                                     <input type="hidden" name="fieldPrice" value="${FIELD.price}"/>
                                     <div class="shopping-cart mt-3">
-                                        <a href="MainController?action=Print&index=${param.index}" class="btn btn-primary btn-lg" >Back</button></a>
+                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Back</button></a>
                                         <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Order</button>
                                         
                                     </div>
