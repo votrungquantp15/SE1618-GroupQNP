@@ -13,7 +13,7 @@ public class FieldCategoryDAO {
 
     private static final String GET_ALL_INFO = "SELECT categoryFieldID, categoryFieldName, status "
             + "FROM tblFieldCategory WHERE categoryFieldId like ?";
-    private static final String GET_ALL_CATEGORY = "SELECT  categoryFieldID, categoryFieldName, status FROM tblFieldCategory";
+    private static final String GET_ALL_FIELD_CATEGORY = "SELECT  categoryFieldID, categoryFieldName, status FROM tblFieldCategory";
     private static final String CHECK_FIELD_CATE_ID = "SELECT categoryFieldID FROM tblFieldCategory WHERE categoryFieldID = ?";
     private static final String CHECK_FIELD_CATE_NAME = "SELECT categoryFieldName FROM tblFieldCategory WHERE categoryFieldName = ?";
     private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SELECT categoryFieldID, categoryFieldName, status FROM tblFieldCategory WHERE categoryFieldName like ? AND status like ?";
@@ -22,6 +22,9 @@ public class FieldCategoryDAO {
     private static final String UPDATE_STATUS_FIELD_CATE_BY_ADMIN = "UPDATE tblFieldCategory SET [status] = ? WHERE categoryFieldID = ?";
     private static final String UPDATE_FIELD_CATE_BY_OWNER = "UPDATE tblFieldCategory SET categoryFieldName = ? WHERE categoryFieldID = ?";
     private static final String CREATE_FIELD_CATE = "INSERT INTO tblFieldCategory(categoryFieldID, categoryFieldName) VALUES(?,?)";
+    
+    private static final String COUNT_ALL_FIELD_CATE = "SELECT COUNT(*) as totalFieldCate FROM tblFieldCategory";
+    private static final String GET_ALL_FIELD_CATE_PAGING = "SELECT categoryFieldID, categoryFieldName, status FROM tblFieldCategory ORDER BY categoryFieldID OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     
     public FieldCategory getFieldCategoryByID(String categoryFieldID) throws SQLException {
         FieldCategory fieldCategory = null;
@@ -71,7 +74,44 @@ public class FieldCategoryDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ALL_CATEGORY);
+                ptm = conn.prepareStatement(GET_ALL_FIELD_CATEGORY);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getCategoryFieldID = rs.getString("categoryFieldID");
+                    String categoryFieldName = rs.getString("categoryFieldName");
+                    String status = rs.getString("status");
+                    fieldCategory = new FieldCategory(getCategoryFieldID, categoryFieldName, status);
+                    listFieldCategorys.add(fieldCategory);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listFieldCategorys;
+    }
+    
+    public List<FieldCategory> getAllFieldCategoryPaging(int index) throws SQLException {
+        List<FieldCategory> listFieldCategorys = new ArrayList<>();
+        FieldCategory fieldCategory = null;
+
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_FIELD_CATE_PAGING);
+                ptm.setInt(1, (index - 1) * 5);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getCategoryFieldID = rs.getString("categoryFieldID");
@@ -336,4 +376,34 @@ public class FieldCategoryDAO {
         return check;
     }
     
+    public int countTotalFieldCate() throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_FIELD_CATE);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    index = rs.getInt("totalFieldCate");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return index;
+    }
 }

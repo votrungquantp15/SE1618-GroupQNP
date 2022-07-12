@@ -21,6 +21,9 @@ public class DistrictDAO {
     private static final String DELETE_CITY_BY_ADMIN = "UPDATE tblDistrict SET [status] = 'In-Active' WHERE districtID = ?";
     private static final String CHECK_EXIST_CITY = "SELECT districtID FROM tblFields WHERE districtID = ?";
     private static final String CREATE_CITY = "INSERT INTO tblDistrict(districtID, districtName) VALUES(?,?)";
+    
+    private static final String COUNT_ALL_DISTRICT = "SELECT COUNT(*) as totalDistrict FROM tblDistrict";
+    private static final String GET_ALL_CITY_PAGING = "SELECT districtID, districtName, status FROM tblDistrict ORDER BY districtID OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
 
     public District getDistrictByID(String districtID) throws SQLException {
         District district = null;
@@ -92,7 +95,41 @@ public class DistrictDAO {
         }
         return listDistrict;
     }
-
+    
+    public List<District> getAllDistrictPaging(int index) throws SQLException {
+        List<District> listDistrict = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_CITY_PAGING);
+                ptm.setInt(1, (index - 1) * 5);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getDistrictID = rs.getString("districtID");
+                    String districtName = rs.getString("districtName");
+                    String status = rs.getString("status");
+                    listDistrict.add(new District(getDistrictID, districtName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listDistrict;
+    }
+    
     public boolean checkDistrictId(String districtID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -330,5 +367,36 @@ public class DistrictDAO {
             }
         }
         return check;
+    }
+    
+    public int countTotalDistrict() throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_DISTRICT);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    index = rs.getInt("totalDistrict");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return index;
     }
 }
