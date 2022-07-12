@@ -25,25 +25,6 @@
     </head>
 
     <body>
-
-        <!--*******************
-            Preloader start
-        ********************-->
-        <div id="preloader">
-            <div class="sk-three-bounce">
-                <div class="sk-child sk-bounce1"></div>
-                <div class="sk-child sk-bounce2"></div>
-                <div class="sk-child sk-bounce3"></div>
-            </div>
-        </div>
-        <!--*******************
-            Preloader end
-        ********************-->
-
-
-        <!--**********************************
-            Main wrapper start
-        ***********************************-->
         <div id="main-wrapper">
 
             <jsp:include page="navbarUser.jsp"></jsp:include>
@@ -186,17 +167,17 @@
                                             <ul class="pagination">
                                                 <c:if test="${param.index ne null && param.index >=2}">
                                                     <li class="page-item">
-                                                        <a href="MainController?action=SearchBooking&index=${param.index - 1}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link"><</a>
+                                                        <a href="MainController?action=SearchBooking&index=${param.index - 1}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link"><</a>
                                                         </li>
                                                 </c:if>
                                                 <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                     <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                        <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
+                                                        <a href="MainController?action=SearchBooking&index=${i}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
                                                         </li>
                                                 </c:forEach>
                                                 <c:if test="${param.index ne null && param.index < END_PAGE}">
                                                     <li class="page-item">
-                                                        <a href="MainController?action=SearchBooking&index=${param.index + 1}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">></a>
+                                                        <a href="MainController?action=SearchBooking&index=${param.index + 1}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">></a>
                                                         </li>
                                                 </c:if>
                                             </ul>

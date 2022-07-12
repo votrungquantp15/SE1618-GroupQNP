@@ -115,22 +115,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h3><strong>Food</strong></h3>
-                                                                </div>
 
-                                                                <div class="card-body">
-                                                                    <c:forEach var="listFood" items="${requestScope.LIST_FOOD_DETAIL}">
-                                                                        <p>${listFood.foodDetail.food.foodName}</p>
-                                                                        <p>Số lượng: ${listFood.foodTotalQuantity} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Giá tiền: ${listFood.foodTotalPrice}</p>
-                                                                        <br>
-                                                                    </c:forEach>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>

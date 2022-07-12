@@ -129,9 +129,6 @@ CREATE TABLE tblBookingDetail
 	playDate date,
 	slotDetailId varchar(10) FOREIGN KEY REFERENCES tblSlotDetail(slotDetailId),
 	fieldPrice money,
-	foodDetailId varchar(10) FOREIGN KEY REFERENCES tblFoodDetail(foodDetailId),
-	foodPrice money,
-	foodQuantity int,
 	[status] [bit] default '1'
 )
 
@@ -281,8 +278,8 @@ INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VAL
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO11', '2022-01-24', 'U04', '50', 'On-Going')
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO12', '2022-01-24', 'U04', '50', 'On-Going')
 
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD01', 'BO01', 'FI01', '2022-01-25', 'SD01', '10', 'FD01', '20', '2', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD02', 'BO02', 'FI02', '2022-03-14', 'SD02', '12', NULL, NULL, NULL, 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD01', 'BO01', 'FI01', '2022-01-25', 'SD01', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD02', 'BO02', 'FI02', '2022-03-14', 'SD02', '12', 1)
 
 INSERT INTO tblFeedback(feedbackId, title, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng tốt', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 'Active')
 

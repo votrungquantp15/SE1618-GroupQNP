@@ -48,8 +48,8 @@
                                     <c:otherwise>
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link" href="blog.html">Profile</a></li>
-                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link" href="blog-single.html">Booking history</a></li>
+                                            <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
+                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
                                             <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
                                         </ul>
                                     </c:otherwise>
@@ -66,77 +66,73 @@
                 <div class="container-fluid">
                     <!-- Add Project -->
                     <div class="row">                        
-                        <form class="col-lg-12" action="UserAddToCart">
+                        <form class="col-lg-12" action="MainController" method="GET">
                             <div class="card">
                                 <h2 style="margin-left: 600px; margin-top:10px" >Thông tin Sân đặt</h2>
                                 <div class="card-body">
-                                    <c:if test="${sessionScope.FIELDS_CART == null}">
+                                    <c:if test="${FIELD == null}">
                                         <img style="margin-left: 420px; width: 500px; height: 500px" src="https://static.vecteezy.com/system/resources/previews/005/006/031/original/no-result-data-document-or-file-not-found-concept-illustration-flat-design-eps10-modern-graphic-element-for-landing-page-empty-state-ui-infographic-icon-etc-vector.jpg"> 
                                     </c:if>
-
-                                    <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
+                                    <c:if test="${FIELD != null}">
                                         <div class="row">
                                             <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
                                                 <!-- Tab panes -->
                                                 <div class="tab-content">
                                                     <div role="tabpanel" class="tab-pane fade show active" id="first">
-                                                        <img class="img-fluid" src="${cart.value.field.image}" alt="">
+                                                        <img class="img-fluid" src="${FIELD.image}" alt="">
                                                     </div>
                                                 </div>
                                             </div>
-                                            <input type="hidden" name="id" value="${cart.value.field.fieldId}"/>
+
                                             <!--Tab slider End-->
                                             <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
                                                 <div class="product-detail-content">
                                                     <!--Product details-->
                                                     <div class="new-arrival-content pr">
-                                                        <h4>${cart.value.field.fieldName}</h4>
+                                                        <h4>${FIELD.fieldName}</h4>
                                                         <div class="d-table mb-2">
-                                                            <p class="price float-left d-block">${cart.value.field.price}</p>
+                                                            <p class="price float-left d-block">${FIELD.price}</p>
                                                         </div>
-                                                        <p>Availability: <span class="item"> In stock <i class="fa fa-shopping-basket"></i></span>
+                                                        <p>Availability: <span class="item"> Available <i class="fa fa-shopping-basket"></i></span>
                                                         </p>
-                                                        <p>Field code: <span class="item">${cart.value.field.fieldId}</span> </p>
-                                                        <p>Owner field: <span class="item">${cart.value.field.user.fullName}</span></p>
-                                                        <p class="text-content">${cart.value.field.description}</p>
+                                                        <p>Field code: <span class="item">${FIELD.fieldId}</span> </p>
+                                                        <p>Owner field: <span class="item">${FIELD.user.fullName}</span></p>
+                                                        <p class="text-content">${FIELD.description}</p>
                                                         <div class="filtaring-area my-3">
                                                             <div class="size-filter">
-                                                                <h4 class="m-b-15">Select time</h4>
+                                                                <c:if test="${LIST_SLOT_DETAIL != null}">
+                                                                    <c:if test="${not empty LIST_SLOT_DETAIL}">
 
-                                                                <div class="btn-group" data-toggle="buttons">
-                                                                    <c:forEach var="slot" items="${sessionScope.SLOT_DETAIL}" varStatus="count">
-
-                                                                        <c:if test="${slot.field.fieldId == cart.value.field.fieldId}">                                                                           
-                                                                            <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="slotID" id="option${count.index + 1}" value="${slot.slotDetailID}"> ${slot.slot.timeStart} - ${slot.slot.timeEnd}</label>
-                                                                            </c:if>
-
-                                                                    </c:forEach>
-                                                                    <!--                                                                    <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option5"> XS</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option1" checked="">SM</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option2"> MD</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option3"> LG</label>
-                                                                                                                                        <label class="btn btn-outline-primary light btn-sm"><input type="radio" class="position-absolute invisible" name="options" id="option4"> XL</label>-->
+                                                                        <h4 class="m-b-15">Select time</h4>
+                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                            <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
+                                                                                <label class="btn btn-outline-primary light btn-sm">
+                                                                                    <input type="radio" class="position-absolute invisible" name="slotID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}</label>
+                                                                                </c:forEach>
+                                                                            </c:if> 
+                                                                        </c:if> 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!--Quantity start-->
                                                         <div class="col-2 px-0"
                                                              <label>Date:</label>
-                                                            <input type="date" name="date" id="datePicker">
+                                                            <input type="date" name="playDate" id="datePicker">
                                                         </div>
-
+                                                            <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </c:forEach>
-
-                                    <c:if test="${sessionScope.FIELDS_CART != null}">
-                                        <div class="shopping-cart mt-3">
-                                            <a href="UserAddToCart?action=remove" class="btn btn-primary btn-lg" >Remove Order</button></a>
-                                            <button class="btn btn-primary btn-lg" type="submit" name="action" value="Order"><i class="fa fa-shopping-basket mr-2"></i>Order</button>
-                                        </div>
                                     </c:if>
+                                    <input type="hidden" name="fieldID" value="${FIELD.fieldId}"/>
+                                    <input type="hidden" name="fieldPrice" value="${FIELD.price}"/>
+                                    <div class="shopping-cart mt-3">
+                                        <a href="MainController?action=Print&index=${param.index}" class="btn btn-primary btn-lg" >Back</button></a>
+                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Order</button>
+                                        
+                                    </div>
+
 
                                 </div>
                             </div>
