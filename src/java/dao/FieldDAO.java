@@ -14,6 +14,8 @@ import java.util.List;
 import utils.DBUtils;
 
 public class FieldDAO {
+    
+    private static final String INSERT_BOOKING = "INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'Pending')";
 
     private static final String GET_ALL_INFO_BY_ID = "SELECT fieldID, fieldName, description, image, categoryFieldID, price, UserID, LocationID, districtID, status "
             + "FROM tblFields WHERE fieldID like ? ";

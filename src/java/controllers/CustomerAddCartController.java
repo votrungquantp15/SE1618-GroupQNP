@@ -66,11 +66,27 @@ public class CustomerAddCartController extends HttpServlet {
 
                     cart = new Cart();
 
-                    cart.add(bookingDetail);
-                    check = true;
+                    List<BookingDetail> listDetailBooked = new ArrayList<>();
+                    listDetailBooked = bookingDetailDAO.getListBookingDetailByID(fieldID);
+                    for (BookingDetail detail : listDetailBooked) {
+                        if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
+                            request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
+                            url = SUCCESS;
+                            check = false;
+                            break;
+                        } else {
+                            check = true;
+                        }
+                    }
+                    if (check) {
+                        cart.add(bookingDetail);
+                    }
+
                 } else {
                     List<BookingDetail> listBookingDetaillCart = new ArrayList<>();
                     ArrayList<String> keys = new ArrayList<>();
+                    List<BookingDetail> listDetailBooked = new ArrayList<>();
+                    listDetailBooked = bookingDetailDAO.getListBookingDetailByID(fieldID);
 
                     for (String key : cart.getCart().keySet()) {
                         keys.add(key);
@@ -88,11 +104,25 @@ public class CustomerAddCartController extends HttpServlet {
                             check = true;
                         }
                     }
+
                     if (check) {
-                        cart.add(bookingDetail);
+                        for (BookingDetail detail : listDetailBooked) {
+                            if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
+                                request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
+                                url = SUCCESS;
+                                check = false;
+                                break;
+                            } else {
+                                check = true;
+                            }
+                        }
+                        if (check) {
+                            cart.add(bookingDetail);
+                        }
+
                     }
 
-                }               
+                }
             }
 
             if (check) {

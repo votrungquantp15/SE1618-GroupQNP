@@ -31,6 +31,8 @@ public class BookingDetailDAO {
             + "FROM tblBookingDetail WHERE bookingID like ?  ";
     private static final String GET_LIST_BOOKING_DETAIL_BY_FIELD_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, playDate, status "
             + "FROM tblBookingDetail WHERE fieldID like  ? ";
+    private static final String INSERT_BOOKING_DETAIL = "INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status])"
+                + "VALUES (?, ?, ?, ?, ?, ?, 1)";
 
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status "
             + "FROM tblBookingDetail";
