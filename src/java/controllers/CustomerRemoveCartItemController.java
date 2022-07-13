@@ -5,47 +5,59 @@
  */
 package controllers;
 
-import dao.FieldDAO;
-import dao.SlotDetailDAO;
-import dto.Field;
-import dto.SlotDetail;
+import dto.Cart;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
 /**
  *
  * @author NITRO 5
  */
-public class CustomerBookingController extends HttpServlet {
+public class CustomerRemoveCartItemController extends HttpServlet {
 
-    private static final String ERROR = "PrintFieldController";
-    private static final String SUCCESS = "addToCart.jsp";
+    private static final String ERROR = "viewCart.jsp";
+    private static final String SUCCESS = "viewCart.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String fieldID = request.getParameter("fieldID");
-            FieldDAO fieldDAO = new FieldDAO();
-            Field field = fieldDAO.getFieldByID(fieldID);
-            
-            SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
-            List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
-            
-            request.setAttribute("LIST_SLOT_DETAIL", list);
-            request.setAttribute("FIELD", field);
-            url = SUCCESS;
+            String bookingDetailID = request.getParameter("bookingDetailID");
+            HttpSession session = request.getSession();
+            if (session != null) {
+                Cart cart = (Cart) session.getAttribute("CART");
+                if (cart != null) {
+                    if (cart.getCart().containsKey(bookingDetailID)) {
+                        String fieldName = cart.getCart().get(bookingDetailID).getField().getFieldName();
+                        cart.remove(bookingDetailID);
+
+                        if (cart.getCart().isEmpty()) {
+                            session.removeAttribute("CART");
+                            request.setAttribute("DELETE_ITEM_SUCCESS", "Xóa " + fieldName + " khỏi giỏ hàng thành công");
+                            url = SUCCESS;
+                        } else {
+                            request.setAttribute("DELETE_ITEM_SUCCESS", "Xóa " + fieldName + " khỏi giỏ hàng thành công");
+                            session.setAttribute("CART", cart);
+                            url = SUCCESS;
+                        }
+                    }
+                }
+            }
         } catch (Exception e) {
-            log("Error at CustomerBookingController: " + e.toString());
+            log("Error at CustomerDeleteCartItemController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
-        request.getRequestDispatcher(url).forward(request, response);
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

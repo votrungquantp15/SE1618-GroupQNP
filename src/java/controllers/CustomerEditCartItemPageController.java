@@ -20,29 +20,32 @@ import javax.servlet.http.HttpServletResponse;
  *
  * @author NITRO 5
  */
-public class CustomerBookingController extends HttpServlet {
+public class CustomerEditCartItemPageController extends HttpServlet {
 
-    private static final String ERROR = "PrintFieldController";
-    private static final String SUCCESS = "addToCart.jsp";
+    private static final String ERROR = "editCartItem.jsp";
+    private static final String SUCCESS = "editCartItem.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
             String fieldID = request.getParameter("fieldID");
+            
             FieldDAO fieldDAO = new FieldDAO();
             Field field = fieldDAO.getFieldByID(fieldID);
             
             SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
             List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
-            
+
             request.setAttribute("LIST_SLOT_DETAIL", list);
             request.setAttribute("FIELD", field);
             url = SUCCESS;
         } catch (Exception e) {
-            log("Error at CustomerBookingController: " + e.toString());
+            log("Error at CustomerEditCartItemPageController: " + e.toString());
+        } finally {
+            request.getRequestDispatcher(url).forward(request, response);
         }
-        request.getRequestDispatcher(url).forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
