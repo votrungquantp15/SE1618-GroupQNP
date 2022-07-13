@@ -69,9 +69,9 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                                <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
-                                                                <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
-                                                                <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
+                                                            <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
+                                                            <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
+                                                            <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
@@ -83,11 +83,7 @@
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_LOCATION_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                             <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
                                             <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                             <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
                                         </div>
@@ -166,6 +162,10 @@
                                                                                                                     </tr>
                                                                                                                 </table>
                                                                                                             </div>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_NAME_ERROR} </p>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -177,6 +177,7 @@
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                                     <input type="hidden" name="id_location" value="${location.locationId}"/>
                                                                                     <input type="hidden" name="index" value="1"/>
+                                                                                    <input type="hidden" name="counter" value="${counter}"/>
                                                                                     <input style="color: white" class="btn btn-primary" title="Click here to update location" type="submit" name="action" value="UpdateLocation"/>
                                                                                 </div>
                                                                             </div>
@@ -237,6 +238,8 @@
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                        <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
+                                                        <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -268,5 +271,24 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
+    <c:choose>
+        <c:when test="${requestScope.SHOW_MODAL == 'Create'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                    $('#createNewLocation').modal('show');
+                });
+            </script>
+        </c:when>
+        <c:when test="${requestScope.SHOW_MODAL == 'Update'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                <c:set var="myVal1" value="${requestScope.COUNTER}"/>
+                    var val1 = "${myVal1}";
+                    $('#updateLocation' + val1).modal('show');
+                });
+            </script>
+        </c:when>
+        <c:otherwise></c:otherwise>
+    </c:choose>
 </body>
 </html>

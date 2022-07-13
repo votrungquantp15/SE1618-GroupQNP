@@ -28,10 +28,10 @@ public class CreateDistrictController extends HttpServlet {
 
             boolean checkValidation = true;
             if (districtName.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "District name cannot be left blank");
+                request.setAttribute("CREATE_ERROR", "District name cannot be left blank!");
                 checkValidation = false;
             } else if (districtDao.checkDistrictName(districtName)) {
-                request.setAttribute("CREATE_ERROR", "District name is already exist");
+                request.setAttribute("CREATE_ERROR", "District name is already exist!");
                 checkValidation = false;
             }
             if (checkValidation) {
@@ -43,6 +43,7 @@ public class CreateDistrictController extends HttpServlet {
                 request.setAttribute("CREATE_SUCCESS", "Create district success!");
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Create district unsuccess! Please try again!");
+                request.setAttribute("SHOW_MODAL", "1");
             }
         } catch (Exception e) {
             log("Error at CreateDistrictController: " + e.toString());

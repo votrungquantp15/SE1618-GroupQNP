@@ -83,11 +83,7 @@
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                             <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
                                             <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                             <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
                                         </div>
@@ -166,6 +162,9 @@
                                                                                                                     </tr>
                                                                                                                 </table>
                                                                                                             </div>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_NAME_ERROR} </p>
+                                                                                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
@@ -177,6 +176,7 @@
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
                                                                                     <input type="hidden" name="id_fieldCate" value="${fieldCate.fieldCateId}"/>
                                                                                     <input type="hidden" name="index" value="1"/>
+                                                                                    <input type="hidden" name="counter" value="${counter}"/>
                                                                                     <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
                                                                                 </div>
                                                                             </div>
@@ -237,6 +237,8 @@
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                        <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
+                                                        <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -266,5 +268,24 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
+    <c:choose>
+        <c:when test="${requestScope.SHOW_MODAL == 'Create'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                    $('#createNewFieldCate').modal('show');
+                });
+            </script>
+        </c:when>
+        <c:when test="${requestScope.SHOW_MODAL == 'Update'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                <c:set var="myVal" value="${requestScope.COUNTER}"/>
+                    var val = "${myVal}";
+                    $('#updateFieldCate' + val).modal('show');
+                });
+            </script>
+        </c:when>
+        <c:otherwise></c:otherwise>
+    </c:choose>
 </body>
 </html>

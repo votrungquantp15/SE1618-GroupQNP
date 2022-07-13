@@ -26,8 +26,9 @@ public class UpdateFieldCateByAdminController extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
             String id_fieldCate = request.getParameter("id_fieldCate");
+            String counter = request.getParameter("counter");
+            request.setAttribute("COUNTER", counter);
             boolean checkValidation = true;
-
             if (user.getRole().getRoleId().equals("MA")) {
                 String fieldCateName = request.getParameter("fieldCateName");
                 fieldCateName = URLEncoder.encode(fieldCateName, "ISO-8859-1");
@@ -36,21 +37,21 @@ public class UpdateFieldCateByAdminController extends HttpServlet {
                 if (checkExist) {
                     request.setAttribute("UPDATE_ERROR", "This field category being used cannot be changed!");
                     checkValidation = false;
+                }
+                if (fieldCateName.trim().length() == 0) {
+                    request.setAttribute("UPDATE_NAME_ERROR", "Field category name cannot be left blank");
+                    checkValidation = false;
+                }
+                if (checkValidation) {
+                    FieldCategory fieldCate = new FieldCategory(id_fieldCate, fieldCateName, null);
+                    boolean checkUpdate = fieldCateDao.updateFieldCateByOwner(fieldCate);
+                    if (checkUpdate) {
+                        url = SUCCESS;
+                        request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
+                    }
                 } else {
-                    if (fieldCateName.trim().length() == 0) {
-                        request.setAttribute("UPDATE_ERROR", "Field category name cannot be left blank");
-                        checkValidation = false;
-                    }
-                    if (checkValidation) {
-                        FieldCategory fieldCate = new FieldCategory(id_fieldCate, fieldCateName, null);
-                        boolean checkUpdate = fieldCateDao.updateFieldCateByOwner(fieldCate);
-                        if (checkUpdate) {
-                            url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update field category success!");
-                        } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
-                        }
-                    }
+                    request.setAttribute("UPDATE_UNSUCCESS", "Update field category unsuccess! Please try again!");
+                    request.setAttribute("SHOW_MODAL", "Update");
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
