@@ -263,4 +263,32 @@ public class BookingDetailDAO {
         }
         return check;
     }
+    public boolean insertBookingDetail(BookingDetail bookingDetail) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(INSERT_BOOKING_DETAIL);
+                ptm.setString(1, bookingDetail.getBookingDetailID());
+                ptm.setString(2, bookingDetail.getBooking().getBookingId());
+                ptm.setString(3, bookingDetail.getField().getFieldId());
+                ptm.setString(4, bookingDetail.getPlayDate());
+                ptm.setString(5, bookingDetail.getSlotDetail().getSlotDetailID());
+                ptm.setDouble(6, bookingDetail.getField().getPrice());
+                
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
 }
