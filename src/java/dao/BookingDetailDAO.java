@@ -8,7 +8,6 @@ package dao;
 import dto.Booking;
 import dto.BookingDetail;
 import dto.Field;
-import dto.FoodDetail;
 import dto.SlotDetail;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
