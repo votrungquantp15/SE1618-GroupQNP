@@ -58,47 +58,48 @@
                                                             </tr>
                                                         </thead>
                                                         <tbody>
+                                                            <c:set var="total" value="0"/>
+                                                                <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}">  
+                                                                    <c:set var="total" value="${total + cart.field.price}"/>
+                                                                    <c:url var="RemoveCartItem" value="MainController">                              
+                                                                        <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>
+                                                                        <c:param name="action" value="RemoveCartItem"></c:param>
+                                                                    </c:url>
 
-                                                            <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}">                                                       
-                                                                <c:url var="RemoveCartItem" value="MainController">                              
-                                                                    <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>
-                                                                    <c:param name="action" value="RemoveCartItem"></c:param>
-                                                                </c:url>
+                                                                    <c:url var="EditCartItemPage" value="MainController">                              
+                                                                        <c:param name="fieldID" value="${cart.field.fieldId}"></c:param>
+                                                                        <c:param name="slotDetailID" value="${cart.slotDetail.slotDetailID}"></c:param>
+                                                                        <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>            
+                                                                        <c:param name="playDate" value="${cart.playDate}"></c:param>
+                                                                        <c:param name="action" value="EditCartItemPage"></c:param>
+                                                                    </c:url>
 
-                                                                <c:url var="EditCartItemPage" value="MainController">                              
-                                                                    <c:param name="fieldID" value="${cart.field.fieldId}"></c:param>
-                                                                    <c:param name="slotDetailID" value="${cart.slotDetail.slotDetailID}"></c:param>
-                                                                    <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>
-                                                                    
-                                                                    <c:param name="playDate" value="${cart.playDate}"></c:param>
-                                                                    <c:param name="action" value="EditCartItemPage"></c:param>
-                                                                </c:url>
-
-                                                                <tr>
-                                                                    <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
-                                                                    <td>${cart.field.fieldName}</td>
-                                                                    <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
-                                                                    <td>${cart.field.price}$</td>
-                                                                    <td>${cart.playDate}</td>
-                                                                    <td>
-                                                                        <a href="${RemoveCartItem}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i>Delete</a>
-                                                                        <a href="${EditCartItemPage}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i>Edit</a> 
-                                                                    </td>
-                                                                </tr>
-                                                            </c:forEach>
-
+                                                                    <tr>
+                                                                        <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
+                                                                        <td>${cart.field.fieldName}</td>
+                                                                        <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
+                                                                        <td>${cart.field.price}$</td>
+                                                                        <td>${cart.playDate}</td>
+                                                                        <td>
+                                                                            <a href="${RemoveCartItem}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash"></i>Delete</a>
+                                                                            <a href="${EditCartItemPage}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil"></i>Edit</a> 
+                                                                        </td>
+                                                                    </tr>
+                                                                </c:forEach>
+                                                            
                                                         </c:if>
                                                     </c:if>
                                                 </tbody>
                                             </table>
 
                                             <div class="float-right">
+                                                <h4><strong>Total: ${total} VND</strong></h4>
                                                 <c:if test="${CART != null}">
                                                     <c:if test="${not empty CART}">
                                                         <button class="btn btn-primary btn-lg"><i class="fa fa-credit-card mr-2"></i><a href="order.jsp">Check Out </a></button>
                                                     </c:if>
                                                 </c:if>
-                                                <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Back</button></a>
+                                                <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg">Back</button></a>
                                             </div>
 
                                         </div>

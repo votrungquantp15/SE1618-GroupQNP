@@ -125,10 +125,6 @@
         <servlet-class>controllers.CreateLocationController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserAddToCart</servlet-name>
-        <servlet-class>controllers.UserAddToCart</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PrintFieldCateController</servlet-name>
         <servlet-class>controllers.PrintFieldCateController</servlet-class>
     </servlet>
@@ -295,10 +291,6 @@
     <servlet-mapping>
         <servlet-name>CreateLocationController</servlet-name>
         <url-pattern>/CreateLocationController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UserAddToCart</servlet-name>
-        <url-pattern>/UserAddToCart</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>PrintFieldCateController</servlet-name>
