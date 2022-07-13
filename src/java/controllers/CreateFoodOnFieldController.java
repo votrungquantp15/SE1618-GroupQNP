@@ -16,6 +16,7 @@ import dto.Field;
 import dto.Food;
 import dto.FoodCategory;
 import dto.FoodDetail;
+import dto.FoodDetailError;
 import dto.FoodError;
 import dto.Role;
 import java.io.IOException;
@@ -65,8 +66,7 @@ public class CreateFoodOnFieldController extends HttpServlet {
             String id_of_field = request.getParameter("fieldId");
             FieldDAO fieldDAO = new FieldDAO();
             Field field = fieldDAO.getFieldByID(id_of_field);
-            
-            double price = Double.parseDouble(request.getParameter("price"));
+                       
             String foodName = request.getParameter("foodName");
             foodName = URLEncoder.encode(foodName, "ISO-8859-1");
             foodName = URLDecoder.decode(foodName, "UTF-8");
@@ -76,30 +76,52 @@ public class CreateFoodOnFieldController extends HttpServlet {
             request.setAttribute("FOOD_CATEGORY_NAME", listFoodCategoryName);
 
             FoodError foodError = new FoodError();          
-            foodError.setFoodNameError("");            
-            if (foodName.length() <= 0 || foodName.length() > 30) {
+            foodError.setFoodNameError("");
+            foodError.setFoodImageError("");
+            FoodDetailError foodDetailError = new FoodDetailError();
+            foodDetailError.setPriceError("");
+            if (foodName.trim().length() <= 0 || foodName.length() > 30) {
                 foodError.setFoodNameError("Tên phải nằm trong khoảng từ 1 - 30 kí tự ");
                 check = false;
+            }   
+            
+            if (image.trim().length() <= 0) {
+                foodError.setFoodImageError("Đường dẫn không được để trống");
+                check = false;
             }
+            
+            if (categoryFoodId.isEmpty()) {
+                foodError.setCategoryFoodIdError("Vui lòng chọn loại thực phẩm");
+                check = false;
+            }
+            
 
+            
             if (check) {
                 Food food = new Food(foodId, foodName, image, foodCategory, "1");               
                 boolean checkInsert = dao.insertFood(food);
                 Food foodCreate = dao.getFoodByID(foodId);
-                FoodDetail fFood = new FoodDetail(foodDetailId, foodCreate, field, price, "1");
+                FoodDetail fFood = new FoodDetail(foodDetailId, foodCreate, field, 20000.0, "1");
                 boolean checkInsertFieldId = fdao.insertFieldIdOfFood(fFood);
-                if (checkInsert && checkInsertFieldId) {
-                    url = SUCCESS;
-                    request.setAttribute("CREATE_SUCCESS", "Thêm thành công");
+                if (checkInsert) {
+                    if (checkInsertFieldId) {
+                        url = SUCCESS;
+                        request.setAttribute("CREATE_SUCCESS", "Thêm thành công");
+                    } else {
+                        request.setAttribute("CREATE_FAIL", "Thêm thất bại");
+                    }
                 } else {
                     request.setAttribute("CREATE_FAIL", "Thêm thất bại");
                 }
 //                    }
             } else {
+                
+                request.setAttribute("FOOD_ERROR", foodError);               
                 request.setAttribute("CREATE_FAIL", "Thêm thất bại");
-            }
+                
+            }   
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace();            
         } finally {
             
             request.getRequestDispatcher(url).forward(request, response);

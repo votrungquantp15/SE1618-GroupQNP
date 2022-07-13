@@ -2,7 +2,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <div class="nav-header">
-    <a href="fieldOwnerDashboard.jsp" class="brand-logo" class="brand-logo" style="justify-content: center">
+    <a href="MainController?action=Print&index=1" class="brand-logo" class="brand-logo" style="justify-content: center">
         <img src="https://logopond.com/logos/bad1f126aa10bfff3580048444bb8b85.png" alt="" style="height: 95%; width: 60%;" class="rounded mx-auto d-block"/>
     </a>
 </div>

@@ -18,7 +18,7 @@ public class UserDAO {
     private static final String LOGIN = "SELECT userID, fullName, address, districtId, birthday, phone, accName, roleID, status FROM tblUsers WHERE email = ? AND password = ?";
     private static final String CHECK_PASS = "SELECT email, password FROM tblUsers WHERE email = ? AND password = ?";
     private static final String UPDATE_PASS = "UPDATE tblUsers SET password = ? WHERE email = ? AND password = ?";
-    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ";
+    private static final String SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE fullName LIKE ? ORDER BY status DESC OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
     private static final String SEARCH_ACCOUNT_BY_ID_FOR_ADMIN = "SELECT userID, fullName, address, districtId, birthday, phone, email, accName, password, roleId, status FROM tblUsers WHERE userID LIKE ? ";
     private static final String DELETE_USER = "UPDATE tblUsers SET status = 0 WHERE userID = ?";
     private static final String ACTIVE_USER = "UPDATE tblUsers SET status = 1 WHERE userID = ?";
@@ -392,7 +392,7 @@ public class UserDAO {
         return userID;
     }
 
-    public List<User> searchAccountByNameForAdmin(String search) throws SQLException {
+    public List<User> searchAccountByNameForAdmin(String search, int index) throws SQLException {
         List<User> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -403,6 +403,7 @@ public class UserDAO {
                 if (conn != null) {
                     ptm = conn.prepareStatement(SEARCH_ACCOUNT_BY_NAME_FOR_ADMIN);
                     ptm.setString(1, "%" + search + "%");
+                    ptm.setInt(2, (index - 1) * 10);
                     rs = ptm.executeQuery();
 
                     while (rs.next()) {
@@ -757,6 +758,26 @@ public class UserDAO {
         try {
             conn = DBUtils.getConnection();
             ptm = conn.prepareStatement(query);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+
+    }
+    
+    public int getTotalAccountSearch(String search) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String query = "select count(*) from tblUsers where fullName like ?";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setString(1, "%" + search + "%");
             rs = ptm.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);

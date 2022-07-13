@@ -12,17 +12,17 @@ package dto;
 public class FoodError {
     private String foodIdError;
     private String foodNameError;
-    private String foodImage;
+    private String foodImageError;
     private String categoryFoodIdError;
     private String status;
 
     public FoodError() {
     }
 
-    public FoodError(String foodIdError, String foodNameError, String foodImage, String categoryFoodIdError, String status) {
+    public FoodError(String foodIdError, String foodNameError, String foodImageError, String categoryFoodIdError, String status) {
         this.foodIdError = foodIdError;
         this.foodNameError = foodNameError;
-        this.foodImage = foodImage;
+        this.foodImageError = foodImageError;
         this.categoryFoodIdError = categoryFoodIdError;
         this.status = status;
     }
@@ -43,12 +43,12 @@ public class FoodError {
         this.foodNameError = foodNameError;
     }
 
-    public String getFoodImage() {
-        return foodImage;
+    public String getFoodImageError() {
+        return foodImageError;
     }
 
-    public void setFoodImage(String foodImage) {
-        this.foodImage = foodImage;
+    public void setFoodImageError(String foodImageError) {
+        this.foodImageError = foodImageError;
     }
 
     public String getCategoryFoodIdError() {

@@ -26,6 +26,7 @@ public class UpdateAccountByAdminController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            boolean check = true;
             String userID = request.getParameter("userID");
             String fullName = request.getParameter("fullName");
             fullName = URLEncoder.encode(fullName, "ISO-8859-1");
@@ -49,9 +50,55 @@ public class UpdateAccountByAdminController extends HttpServlet {
             Role roleID = role.getRole(id_of_role);
             String status = request.getParameter("status");
             UserDAO dao = new UserDAO();
+            
+            if (fullName.trim().length() <= 0 || fullName.length() >= 30) {
+                request.setAttribute("FULL_NAME_ERROR", "Tên không được bỏ trống hay vượt quá 30 kí tự");
+                check = false;
+            }
+            
+            if (address.trim().length() <= 0) {
+                request.setAttribute("ADDRESS_ERROR", "Địa chỉ không được bỏ trống");
+                check = false;
+            }
+            
+            if (email.trim().length() <= 0) {
+                request.setAttribute("EMAIL_ERROR", "Địa chỉ email không được bỏ trống");
+                check = false;
+            }
+            
+            if (phone.trim().length() <= 0) {
+                request.setAttribute("PHONE_ERROR", "Số điện thoại không được bỏ trống");
+                check = false;
+            }
+            
+            if (password.trim().length() <= 0) {
+                request.setAttribute("PASSWORD_ERROR", "Mật khẩu không được bỏ trống");
+                check = false;
+            }
+            
+            if (id_of_role.trim().length() <= 0) {
+                request.setAttribute("ROLE_ERROR", "Role không được bỏ trống");
+                check = false;
+            }
+            
+            if (birthday.isEmpty()) {
+                request.setAttribute("BIRTH_ERROR", "Ngày sinh không được để trống");
+                check = false;
+            }
+            
+            if (accName.trim().length() <= 0) {
+                request.setAttribute("ACCOUNT_NAME_ERROR", "Tên account không được bỏ trống");
+                check = false;
+            }
+            
+            if (id_of_district.trim().length() <= 0) {
+                request.setAttribute("DISTRICT_ERROR", "Địa chỉ không được bỏ trống");
+                check = false;
+            }
+            
             User user = new User(userID, fullName, address, district, birthday, phone, email, accName, password, roleID, status);
             boolean checkUpdate = dao.updateUser(user);
-            if (checkUpdate) {                
+            if (checkUpdate & check) {                
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {

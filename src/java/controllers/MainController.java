@@ -224,6 +224,10 @@ public class MainController extends HttpServlet {
     private static final String ADD_FOOD_TO_FIELD = "AddFoodToField";
     private static final String ADD_FOOD_TO_FIELD_CONTROLLER = "AddFoodToFieldController";
     
+    //Active Food 
+    private static final String ACTIVE_FOOD = "ActiveFood";
+    private static final String ACTIVE_FOOD_CONTROLLER = "ActiveFoodController";
+    
     
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -401,6 +405,9 @@ public class MainController extends HttpServlet {
                     break;
                 case ADD_FOOD_TO_FIELD:
                     url = ADD_FOOD_TO_FIELD_CONTROLLER;
+                    break;
+                case ACTIVE_FOOD:
+                    url = ACTIVE_FOOD_CONTROLLER;
                     break;
             }
         } catch (Exception e) {
