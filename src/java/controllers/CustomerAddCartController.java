@@ -7,12 +7,10 @@ package controllers;
 
 import dao.BookingDetailDAO;
 import dao.FieldDAO;
-import dao.SlotDAO;
 import dao.SlotDetailDAO;
 import dto.BookingDetail;
 import dto.Cart;
 import dto.Field;
-import dto.Slot;
 import dto.SlotDetail;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -37,7 +35,7 @@ public class CustomerAddCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String slotDetailID = request.getParameter("slotID");
+            String slotDetailID = request.getParameter("slotDetailID");
             String playDate = request.getParameter("playDate");
             String fieldID = request.getParameter("fieldID");
             double fieldPrice = Double.parseDouble(request.getParameter("fieldPrice"));
@@ -47,6 +45,7 @@ public class CustomerAddCartController extends HttpServlet {
 
             SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
             SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
+            
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("CART");
             boolean check = false;

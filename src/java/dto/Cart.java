@@ -57,4 +57,17 @@ public class Cart {
         }
         return check;
     }
+    public boolean edit(String id, BookingDetail bookingDetail){
+        boolean check = false;
+        try {
+            if(this.cart != null){
+                if(this.cart.containsKey(id)){
+                    this.cart.replace(id, bookingDetail);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return check;
+    }
 }

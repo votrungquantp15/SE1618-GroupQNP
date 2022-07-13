@@ -18,6 +18,15 @@ public class MainController extends HttpServlet {
     //add to cart
     private static final String ADD_CART = "AddCart";
     private static final String ADD_CART_CONTROLLER = "CustomerAddCartController";
+    //Edit cart item
+    private static final String EDIT_CART_ITEM = "EditCartItem";
+    private static final String EDIT_CART_ITEM_CONTROLLER = "CustomerEditCartItemController";
+    //Edit cart item
+    private static final String EDIT_CART_ITEM_PAGE = "EditCartItemPage";
+    private static final String EDIT_CART_ITEM_PAGE_CONTROLLER = "CustomerEditCartItemPageController";
+    //delete cart item
+    private static final String REMOVE_CART_ITEM = "RemoveCartItem";
+    private static final String REMOVE_CART_ITEM_CONTROLLER = "CustomerRemoveCartItemController";
     //add to cart
     private static final String VIEW_CART = "ViewCart";
     private static final String VIEW_CART_CONTROLLER = "viewCart.jsp";
@@ -237,6 +246,15 @@ public class MainController extends HttpServlet {
                     break;
                 case BOOKING:
                     url = BOOKING_CONTROLLER;
+                    break;
+                case EDIT_CART_ITEM:
+                    url = EDIT_CART_ITEM_CONTROLLER;
+                    break;
+                case EDIT_CART_ITEM_PAGE:
+                    url = EDIT_CART_ITEM_PAGE_CONTROLLER;
+                    break;
+                case REMOVE_CART_ITEM:
+                    url = REMOVE_CART_ITEM_CONTROLLER;
                     break;
                 case ADD_CART:
                     url = ADD_CART_CONTROLLER;
