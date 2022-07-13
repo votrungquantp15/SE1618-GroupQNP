@@ -119,7 +119,11 @@
                                                              <label>Date:</label>
                                                             <input type="date" name="playDate" id="datePicker">
                                                         </div>
+                                                       
                                                             <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
+                                                    
+                                                            
+                                                            <h4 style="color: red">${ADD_FAIL}</h4>
                                                     </div>
                                                 </div>
                                             </div>

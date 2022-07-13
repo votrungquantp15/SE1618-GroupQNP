@@ -15,6 +15,8 @@ import dto.Field;
 import dto.Slot;
 import dto.SlotDetail;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -47,19 +49,53 @@ public class CustomerAddCartController extends HttpServlet {
             SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("CART");
-            if (cart == null) {
-                cart = new Cart();
-            }
-            BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
-            String bookingDetailID = bookingDetailDAO.createBookingDetailID();
+            boolean check = false;
+            if (slotDetailID == null) {
+                request.setAttribute("ADD_FAIL", "Vui lòng chọn thời gian cho sân");
+                url = SUCCESS;
 
-            while (bookingDetailDAO.checkDuplicate(bookingDetailID)) {
-                bookingDetailID = bookingDetailDAO.createBookingDetailID();
-            }
-            
+            } else {
+                BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
+                String bookingDetailID = bookingDetailDAO.createBookingDetailID();
 
-            BookingDetail bookingDetail = new BookingDetail(bookingDetailID, null, field, slotDetail, fieldPrice, playDate, true);
-            boolean check = cart.add(bookingDetail);
+                while (bookingDetailDAO.checkDuplicate(bookingDetailID)) {
+                    bookingDetailID = bookingDetailDAO.createBookingDetailID();
+                }
+
+                BookingDetail bookingDetail = new BookingDetail(bookingDetailID, null, field, slotDetail, fieldPrice, playDate, true);
+                if (cart == null) {
+
+                    cart = new Cart();
+
+                    cart.add(bookingDetail);
+                    check = true;
+                } else {
+                    List<BookingDetail> listBookingDetaillCart = new ArrayList<>();
+                    ArrayList<String> keys = new ArrayList<>();
+
+                    for (String key : cart.getCart().keySet()) {
+                        keys.add(key);
+                    }
+                    for (String key : keys) {
+                        listBookingDetaillCart.add(cart.getCart().get(key));
+                    }
+                    for (BookingDetail detail : listBookingDetaillCart) {
+                        if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
+                            request.setAttribute("ADD_FAIL", "Thời gian đã có trong giỏ hàng");
+                            url = SUCCESS;
+                            check = false;
+                            break;
+                        } else {
+                            check = true;
+                        }
+                    }
+                    if (check) {
+                        cart.add(bookingDetail);
+                    }
+
+                }               
+            }
+
             if (check) {
                 session.setAttribute("CART", cart);
                 request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
