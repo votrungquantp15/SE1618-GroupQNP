@@ -5,47 +5,44 @@
  */
 package controllers;
 
-import dao.BookingDetailDAO;
-import dto.BookingDetail;
-import dto.User;
+import dao.FieldDAO;
+import dao.SlotDetailDAO;
+import dto.Field;
+import dto.SlotDetail;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-public class SearchBookingDetailController extends HttpServlet {
+/**
+ *
+ * @author NITRO 5
+ */
+public class CustomerEditCartItemPageController extends HttpServlet {
 
-    private static final String ADMIN = "AD";
-    private static final String USER = "US";
-
-    private static final String SUCCESS_ADMIN = "bookingDetailAdmin.jsp";
-    private static final String SUCCESS_USER = "bookingDetailUser.jsp";
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "editCartItem.jsp";
+    private static final String SUCCESS = "editCartItem.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User loginUser = (User) session.getAttribute("LOGIN_USER");
-        String roleID = loginUser.getRole().getRoleId();
+        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String bookingID = request.getParameter("bookingID");
-            if (ADMIN.equals(roleID)) {
-                BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
-                url = SUCCESS_ADMIN;
-            } else if (USER.equals(roleID)) {
-                BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
-                url = SUCCESS_USER;
-            }
+            String fieldID = request.getParameter("fieldID");
+            
+            FieldDAO fieldDAO = new FieldDAO();
+            Field field = fieldDAO.getFieldByID(fieldID);
+            
+            SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+            List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
+
+            request.setAttribute("LIST_SLOT_DETAIL", list);
+            request.setAttribute("FIELD", field);
+            url = SUCCESS;
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at CustomerEditCartItemPageController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

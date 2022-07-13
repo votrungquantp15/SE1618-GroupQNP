@@ -613,11 +613,5 @@ public class FoodDAO {
         } while (check);
         return foodID;
     }
-    
-    public static void main(String[] args) throws SQLException, ClassNotFoundException {
-        FoodDAO dao = new FoodDAO();
-        int count = dao.getTotalFoodEach("FI01");
-        System.out.println(count);
-    }
 
 }

@@ -73,5 +73,4 @@ nbdist/
 nbactions.xml
 nb-configuration.xml
 
-
-src/java/utils/DBUtils.java
+src\java\utils\DBUtils.java

@@ -12,6 +12,24 @@ public class MainController extends HttpServlet {
     //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
+    //Booking field
+    private static final String BOOKING = "Booking";
+    private static final String BOOKING_CONTROLLER = "CustomerBookingController";
+    //add to cart
+    private static final String ADD_CART = "AddCart";
+    private static final String ADD_CART_CONTROLLER = "CustomerAddCartController";
+    //Edit cart item
+    private static final String EDIT_CART_ITEM = "EditCartItem";
+    private static final String EDIT_CART_ITEM_CONTROLLER = "CustomerEditCartItemController";
+    //Edit cart item
+    private static final String EDIT_CART_ITEM_PAGE = "EditCartItemPage";
+    private static final String EDIT_CART_ITEM_PAGE_CONTROLLER = "CustomerEditCartItemPageController";
+    //delete cart item
+    private static final String REMOVE_CART_ITEM = "RemoveCartItem";
+    private static final String REMOVE_CART_ITEM_CONTROLLER = "CustomerRemoveCartItemController";
+    //add to cart
+    private static final String VIEW_CART = "ViewCart";
+    private static final String VIEW_CART_CONTROLLER = "viewCart.jsp";
     //Search Slot
     private static final String SEARCH_SLOT = "SearchSlot";
     private static final String SEARCH_SLOT_CONTROLLER = "SearchSlotController";
@@ -45,7 +63,7 @@ public class MainController extends HttpServlet {
     //Change Password
     private static final String RESET_PASSWORD = "ResetPassword";
     private static final String RESET_PASSWORD_CONTROLLER = "ResetPasswordController";
-    
+
     //Profile User Page
     private static final String PROFILE_USER = "ProfileUser";
     private static final String PROFILE_USER_CONTROLLER = "ProfileUserController";
@@ -87,7 +105,7 @@ public class MainController extends HttpServlet {
     //Update field by admin
     private static final String UPDATE_FIELD = "UpdateField";
     private static final String UPDATE_FIELD_CONTROLLER = "UpdateFieldByAdminController";
-    
+
     //Search Field By Name 
     private static final String SEARCH_FIELD_BY_USER = "SearchFieldByUser";
     private static final String SEARCH_FIELD_BY_USER_CONTROLLER = "SearchFieldByUserController";
@@ -103,27 +121,27 @@ public class MainController extends HttpServlet {
     //Print User Field Detail
     private static final String PRINT_USER_FIELD_DETAIL = "UserPrintFieldDetail";
     private static final String PRINT_USER_FIELD_DETAIL_CONTROLLER = "UserPrintFieldDetailController";
-    
+
     //Search food for manager
     private static final String SEARCH_FOOD_BY_MANAGER = "SearchFoodByManager";
     private static final String SEARCH_FOOD_BY_MANAGER_CONTROLLER = "SearchFoodByManagerController";
-    
+
     //View Food List for manager
     private static final String VIEW_FOOD_LIST = "ViewFoodList";
     private static final String VIEW_FOOD_LIST_CONTROLLER = "ViewFoodListController";
-    
+
     //DELETE FOOD BY MANAGER
     private static final String DELETE_FOOD_BY_MANAGER = "DeleteFoodByManager";
     private static final String DELETE_FOOD_BY_MANAGER_CONTROLLER = "DeleteFoodByManagerController";
-    
+
     //DELETE FOOD BY MANAGER
     private static final String UPDATE_FOOD_BY_MANAGER = "UpdateFoodByManager";
     private static final String UPDATE_FOOD_BY_MANAGER_CONTROLLER = "UpdateFoodByManagerController";
-    
+
     //FOOD EDITOR
     private static final String FOOD_EDITOR = "FoodEditor";
     private static final String FOOD_EDITOR_CONTROLLER = "FoodEditorController";
-    
+
     //DELETE FOOD BY MANAGER
     private static final String CREATE_FOOD_BY_MANAGER = "CreateFoodByManager";
     private static final String CREATE_FOOD_BY_MANAGER_CONTROLLER = "CreateFoodByManagerController";
@@ -131,83 +149,83 @@ public class MainController extends HttpServlet {
     //Search District By Admin
     private static final String SEARCH_DISTRICT_BY_ADMIN = "SearchDistrictByAdmin";
     private static final String SEARCH_DISTRICT_BY_ADMIN_CONTROLLER = "SearchDistrictByAdminController";
-    
+
     //Update District By Admin
     private static final String UPDATE_DISTRICT_BY_ADMIN = "UpdateDistrict";
     private static final String UPDATE_DISTRICT_BY_ADMIN_CONTROLLER = "UpdateDistrictByAdminController";
-    
+
     //Delete District By Admin
     private static final String DELETE_DISTRICT_BY_ADMIN = "DeleteDistrict";
     private static final String DELETE_DISTRICT_BY_ADMIN_CONTROLLER = "DeleteDistrictByAdminController";
-    
+
     //Delete District By Admin
     private static final String CREATE_DISTRICT_BY_ADMIN = "CreateDistrict";
     private static final String CREATE_DISTRICT_BY_ADMIN_CONTROLLER = "CreateDistrictController";
-    
+
     //Paging
     private static final String ACCOUNT_LIST = "AccountList";
     private static final String ACCOUNT_LIST_CONTROLLER = "AccountListController";
-    
+
     //Print Location list By Admin
     private static final String PRINT_LIST_LOCATION = "PrintLocation";
     private static final String PRINT_LIST_LOCATION_CONTROLLER = "PrintLocationController";
-    
+
     //Search Location By Admin
     private static final String SEARCH_LOCATION_BY_ADMIN = "SearchLocationByAdmin";
     private static final String SEARCH_LOCATION_BY_ADMIN_CONTROLLER = "SearchLocationByAdminController";
-    
+
     //Print Location By Admin
     private static final String DELETE_LOCATION_BY_ADMIN = "DeleteLocation";
     private static final String DELETE_LOCATION_BY_ADMIN_CONTROLLER = "DeleteLocationByAdminController";
-    
+
     //Update Location By Admin
     private static final String UPDATE_LOCATION_BY_ADMIN = "UpdateLocation";
     private static final String UPDATE_LOCATION_BY_ADMIN_CONTROLLER = "UpdateLocationByAdminController";
-    
+
     //Create Location By Admin
     private static final String CREATE_LOCATION_BY_ADMIN = "CreateLocation";
     private static final String CREATE_LOCATION_BY_ADMIN_CONTROLLER = "CreateLocationController";
-    
+
     //Print list of field category
     private static final String PRINT_FIELD_CATE = "PrintFieldCate";
     private static final String PRINT_FIELD_CATE_CONTROLLER = "PrintFieldCateController";
-    
+
     //Search field category
     private static final String SEARCH_FIELD_CATE_BY_ADMIN = "SearchFieldCateByAdmin";
     private static final String SEARCH_FIELD_CATE_BY_ADMIN_CONTROLLER = "SearchFieldCateByAdminController";
-    
+
     //Delete field category
     private static final String DELETE_FIELD_CATE = "DeleteFieldCate";
     private static final String DELETE_FIELD_CATE_CONTROLLER = "DeleteFieldCateController";
-    
+
     //Update field category
     private static final String UPDATE_FIELD_CATE = "UpdateFieldCate";
     private static final String UPDATE_FIELD_CATE_CONTROLLER = "UpdateFieldCateByAdminController";
-    
+
     //Create field category
     private static final String CREATE_FIELD_CATE = "CreateFieldCate";
     private static final String CREATE_FIELD_CATE_CONTROLLER = "CreateFieldCateController";
-    
+
     //Create Manager Account
     private static final String CREATE_MANAGER_ACCOUNT = "CreateManagerAccount";
     private static final String CREATE_MANAGER_ACCOUNT_CONTROLLER = "CreateManagerAccountController";
-    
+
     //Create Food
     private static final String CREATE_FOOD = "CreateFood";
     private static final String CREATE_FOOD_CONTROLLER = "CreateFoodController";
-    
+
     //View Food of field Controller
     private static final String VIEW_FOOD_OF_FIELD = "ViewFoodOfField";
     private static final String VIEW_FOOD_OF_FIELD_CONTROLLER = "ViewFoodOfFieldController";
-    
+
     //Search Food of field 
     private static final String SEARCH_FOOD_OF_FIELD = "SearchFoodOfField";
     private static final String SEARCH_FOOD_OF_FIELD_CONTROLLER = "SearchFoodOfFieldController";
-    
+
     //Search Food of field 
     private static final String DELETE_FOOD_BY_MANAGER_ON_FIELD = "DeleteFoodByManagerOnField";
     private static final String DELETE_FOOD_BY_MANAGER_ON_FIELD_CONTROLLER = "DeleteFoodByManagerOnFieldController";
-    
+
     //Search Food of field 
     private static final String CREATE_FOOD_ON_FIELD = "CreateFoodOnField";
     private static final String CREATE_FOOD_ON_FIELD_CONTROLLER = "CreateFoodOnFieldController";
@@ -243,6 +261,24 @@ public class MainController extends HttpServlet {
                     break;
                 case HOME:
                     url = HOME_CONTROLLER;
+                    break;
+                case BOOKING:
+                    url = BOOKING_CONTROLLER;
+                    break;
+                case EDIT_CART_ITEM:
+                    url = EDIT_CART_ITEM_CONTROLLER;
+                    break;
+                case EDIT_CART_ITEM_PAGE:
+                    url = EDIT_CART_ITEM_PAGE_CONTROLLER;
+                    break;
+                case REMOVE_CART_ITEM:
+                    url = REMOVE_CART_ITEM_CONTROLLER;
+                    break;
+                case ADD_CART:
+                    url = ADD_CART_CONTROLLER;
+                    break;
+                case VIEW_CART:
+                    url = VIEW_CART_CONTROLLER;
                     break;
                 case SEARCH_BOOKING:
                     url = SEARCH_BOOKING_CONTROLLER;

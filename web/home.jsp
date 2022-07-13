@@ -43,8 +43,9 @@
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link" href="blog.html">Hồ sơ</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Giỏ hàng</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
                                         <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
@@ -139,9 +140,10 @@
                         <div class="accomodation_item text-center">
                             <div class="hotel_img">
                                 <img class="img_field" src="${field.image}" alt="">
-                                <form action="UserAddToCart" method="GET">
-                                    <input name="id" value="${field.fieldId}" type="hidden">
-                                    <button type="submit" name="action" value="addToCart" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                <form action="MainController" method="POST">
+                                    <input name="fieldID" value="${field.fieldId}" type="hidden">
+                                    
+                                    <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
                                 </form>
                                 
                             </div>
