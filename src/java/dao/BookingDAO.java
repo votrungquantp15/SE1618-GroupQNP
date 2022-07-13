@@ -20,6 +20,8 @@ public class BookingDAO {
     private static final String ON_GOING_STATUS = "On-Going";
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
+    
+    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('B013', '2022-07-13', 'U04', '50', 'On-Going')";
 
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
