@@ -116,11 +116,15 @@
                                                             </div>
                                                         </div>
                                                         <!--Quantity start-->
-                                                        <div class="col-2 px-0"
+                                                        <div class="col-2 px-0">
                                                              <label>Date:</label>
                                                             <input type="date" name="playDate" id="datePicker">
                                                         </div>
-                                                        <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
+                                                       
+                                                            <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
+                                                    
+                                                            
+                                                            <h4 style="color: red">${ADD_FAIL}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -148,12 +152,11 @@
     <script>
         $(document).ready(function () {
             var now = new Date();
-
+            now.setDate(new Date().getDate() + 1);
             var day = ("0" + now.getDate()).slice(-2);
             var month = ("0" + (now.getMonth() + 1)).slice(-2);
-
             var today = now.getFullYear() + "-" + (month) + "-" + (day);
-
+            
             $('#datePicker').val(today);
             function getTotal() {
                 var total = 0;
