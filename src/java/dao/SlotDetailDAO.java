@@ -22,7 +22,9 @@ import utils.DBUtils;
  */
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
-            + "FROM tblSlotDetail WHERE slotDetailID like ? ";
+            + "FROM tblSlotDetail WHERE fieldID = ? ";
+    private static final String GET_SLOT_DETAIL_BY_ID = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE slotDetailID = ? ";
     private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldId = ? ";
     
@@ -37,10 +39,10 @@ public class SlotDetailDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm = conn.prepareStatement(GET_SLOT_DETAIL_BY_ID);
                 ptm.setString(1, slotDetailID);
                 rs = ptm.executeQuery();
-                while (rs.next()) {
+                if (rs.next()) {
                     String getSlotDetailID = rs.getString("slotDetailID");
                     
                     String slotID = rs.getString("slotID");
@@ -72,7 +74,7 @@ public class SlotDetailDAO {
         return slotDetail;
     }
     
-    public List<SlotDetail> getListSlotDetailByID(String search) throws SQLException{
+    public List<SlotDetail> getListSlotDetailByID(String fieldID) throws SQLException{
         List<SlotDetail> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -81,7 +83,7 @@ public class SlotDetailDAO {
             conn = DBUtils.getConnection();
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_ALL_INFO);
-                ptm.setString(1, "%" + search + "%");
+                ptm.setString(1, fieldID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String getSlotDetailID = rs.getString("slotDetailID");
@@ -90,9 +92,9 @@ public class SlotDetailDAO {
                     SlotDAO slotDAO = new SlotDAO();
                     Slot slot = slotDAO.getSlotByID(slotID);
                     
-                    String fieldID = rs.getString("fieldID");
+                    String getFieldID = rs.getString("fieldID");
                     FieldDAO fieldDAO = new FieldDAO();
-                    Field field = fieldDAO.getFieldByID(fieldID);
+                    Field field = fieldDAO.getFieldByID(getFieldID);
                     
                     String status = rs.getString("status");
 
@@ -193,8 +195,6 @@ public class SlotDetailDAO {
         return check;
     }
     
-    
-    
     public SlotDetail getSlotByID(String search) throws SQLException{
         SlotDetail slotDetail = null;
         Connection conn = null;
@@ -239,10 +239,10 @@ public class SlotDetailDAO {
     }
     
     
-    public static void main(String[] args) throws SQLException {
-        System.out.println("aaaa");
-//        System.out.println(getListSlotFieldByID("FI1"));
-    }
+//    public static void main(String[] args) throws SQLException {
+//        System.out.println("aaaa");
+////        System.out.println(getListSlotFieldByID("FI1"));
+//    }
     public static void aaaa() {
         System.out.println("aaa111");
         }

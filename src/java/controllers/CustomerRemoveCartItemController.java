@@ -5,53 +5,59 @@
  */
 package controllers;
 
-import dao.BookingDetailDAO;
-import dto.BookingDetail;
-import dto.User;
+import dto.Cart;
 import java.io.IOException;
-import java.util.List;
+import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.websocket.Session;
 
-public class SearchBookingDetailController extends HttpServlet {
+/**
+ *
+ * @author NITRO 5
+ */
+public class CustomerRemoveCartItemController extends HttpServlet {
 
-    private static final String ADMIN = "AD";
-    private static final String USER = "US";
-
-    private static final String SUCCESS_ADMIN = "bookingDetailAdmin.jsp";
-    private static final String SUCCESS_USER = "bookingDetailUser.jsp";
-    private static final String ERROR = "error.jsp";
+    private static final String ERROR = "viewCart.jsp";
+    private static final String SUCCESS = "viewCart.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User loginUser = (User) session.getAttribute("LOGIN_USER");
-        String roleID = loginUser.getRole().getRoleId();
+        response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String bookingID = request.getParameter("bookingID");
-            if (ADMIN.equals(roleID)) {
-                BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
-                url = SUCCESS_ADMIN;
-            } else if (USER.equals(roleID)) {
-                BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
-                url = SUCCESS_USER;
+            String bookingDetailID = request.getParameter("bookingDetailID");
+            HttpSession session = request.getSession();
+            if (session != null) {
+                Cart cart = (Cart) session.getAttribute("CART");
+                if (cart != null) {
+                    if (cart.getCart().containsKey(bookingDetailID)) {
+                        String fieldName = cart.getCart().get(bookingDetailID).getField().getFieldName();
+                        cart.remove(bookingDetailID);
+
+                        if (cart.getCart().isEmpty()) {
+                            session.removeAttribute("CART");
+                            request.setAttribute("DELETE_ITEM_SUCCESS", "Xóa " + fieldName + " khỏi giỏ hàng thành công");
+                            url = SUCCESS;
+                        } else {
+                            request.setAttribute("DELETE_ITEM_SUCCESS", "Xóa " + fieldName + " khỏi giỏ hàng thành công");
+                            session.setAttribute("CART", cart);
+                            url = SUCCESS;
+                        }
+                    }
+                }
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at CustomerDeleteCartItemController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

@@ -6,9 +6,6 @@ public class BookingDetail {
     private Field field;
     private SlotDetail slotDetail;
     private double fieldPrice;
-    private FoodDetail foodDetail;
-    private double foodTotalPrice;
-    private int foodTotalQuantity;
     private String playDate;
     private boolean status;
 
@@ -18,22 +15,16 @@ public class BookingDetail {
         this.field = null;
         this.slotDetail = null;
         this.fieldPrice = 0.0;
-        this.foodDetail = null;
-        this.foodTotalPrice = 0.0;
-        this.foodTotalQuantity = 0;
         this.playDate = "";
         this.status = false;
     }
 
-    public BookingDetail(String bookingDetailID, Booking booking, Field field, SlotDetail slotDetail, double fieldPrice, FoodDetail foodDetail, double foodTotalPrice, int foodTotalQuantity, String playDate, boolean status) {
+    public BookingDetail(String bookingDetailID, Booking booking, Field field, SlotDetail slotDetail, double fieldPrice, String playDate, boolean status) {
         this.bookingDetailID = bookingDetailID;
         this.booking = booking;
         this.field = field;
         this.slotDetail = slotDetail;
         this.fieldPrice = fieldPrice;
-        this.foodDetail = foodDetail;
-        this.foodTotalPrice = foodTotalPrice;
-        this.foodTotalQuantity = foodTotalQuantity;
         this.playDate = playDate;
         this.status = status;
     }
@@ -52,30 +43,6 @@ public class BookingDetail {
 
     public void setFieldPrice(double fieldPrice) {
         this.fieldPrice = fieldPrice;
-    }
-
-    public double getFoodTotalPrice() {
-        return foodTotalPrice;
-    }
-
-    public void setFoodTotalPrice(double foodTotalPrice) {
-        this.foodTotalPrice = foodTotalPrice;
-    }
-
-    public int getFoodTotalQuantity() {
-        return foodTotalQuantity;
-    }
-
-    public void setFoodTotalQuantity(int foodTotalQuantity) {
-        this.foodTotalQuantity = foodTotalQuantity;
-    }
-
-    public FoodDetail getFoodDetail() {
-        return foodDetail;
-    }
-
-    public void setFoodDetail(FoodDetail foodDetail) {
-        this.foodDetail = foodDetail;
     }
 
     public String getPlayDate() {

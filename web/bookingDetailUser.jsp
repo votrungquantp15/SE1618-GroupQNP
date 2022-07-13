@@ -68,6 +68,7 @@
                                                 <div class="fade show active">
                                                     <img class="img-fluid" src="${requestScope.BOOKING_DETAIL.field.image}" alt="">
                                                 </div>
+                                                <a class="btn btn-warning mt ml-1" href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Back</a>
                                             </div>
 
                                             <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
@@ -114,22 +115,7 @@
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h3><strong>Food</strong></h3>
-                                                                </div>
 
-                                                                <div class="card-body">
-                                                                    <c:forEach var="listFood" items="${requestScope.LIST_FOOD_DETAIL}">
-                                                                        <p>${listFood.foodDetail.food.foodName}</p>
-                                                                        <p>Số lượng: ${listFood.foodTotalQuantity} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Giá tiền: ${listFood.foodTotalPrice}</p>
-                                                                        <br>
-                                                                    </c:forEach>
-                                                                </div>
-
-                                                            </div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
