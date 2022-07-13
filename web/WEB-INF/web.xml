@@ -125,10 +125,6 @@
         <servlet-class>controllers.CreateLocationController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserAddToCart</servlet-name>
-        <servlet-class>controllers.UserAddToCart</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>PrintFieldCateController</servlet-name>
         <servlet-class>controllers.PrintFieldCateController</servlet-class>
     </servlet>
@@ -155,6 +151,18 @@
     <servlet>
         <servlet-name>CustomerAddCartController</servlet-name>
         <servlet-class>controllers.CustomerAddCartController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerRemoveCartItemController</servlet-name>
+        <servlet-class>controllers.CustomerRemoveCartItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerEditCartItemController</servlet-name>
+        <servlet-class>controllers.CustomerEditCartItemController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerEditCartItemPageController</servlet-name>
+        <servlet-class>controllers.CustomerEditCartItemPageController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -281,10 +289,6 @@
         <url-pattern>/CreateLocationController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserAddToCart</servlet-name>
-        <url-pattern>/UserAddToCart</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
         <servlet-name>PrintFieldCateController</servlet-name>
         <url-pattern>/PrintFieldCateController</url-pattern>
     </servlet-mapping>
@@ -315,6 +319,18 @@
     <servlet-mapping>
         <servlet-name>CustomerAddCartController</servlet-name>
         <url-pattern>/CustomerAddCartController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerRemoveCartItemController</servlet-name>
+        <url-pattern>/CustomerRemoveCartItemController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerEditCartItemController</servlet-name>
+        <url-pattern>/CustomerEditCartItemController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerEditCartItemPageController</servlet-name>
+        <url-pattern>/CustomerEditCartItemPageController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -142,7 +142,7 @@
                                 <img class="img_field" src="${field.image}" alt="">
                                 <form action="MainController" method="POST">
                                     <input name="fieldID" value="${field.fieldId}" type="hidden">
-                                    <input name="index" value="${param.index}" type="hidden">
+                                    
                                     <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
                                 </form>
                                 
