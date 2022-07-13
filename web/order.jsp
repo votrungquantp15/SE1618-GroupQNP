@@ -71,15 +71,15 @@
                             <div class="card">
                                 <h2 style="margin-left: 350px; margin-top:10px" >Thanh Toán</h2>
                                 <div class="card-body">
-                                     <div class="row">
-                                            
-                                                <!-- Tab panes -->
-                                               
-                                                    
-                                                        <img class="img-fluid" style="width:350px; height: 400px" src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/290492666_701393540961163_1266621146650458002_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pYEFD_pAt-kAX_zPoBv&_nc_ht=scontent.fsgn3-1.fna&oh=03_AVKtheb73FXw4nH6gCnAdrY4CQmgB1pH7GnmrAgmVVh8ug&oe=62F2D34D" alt="">
-                                                    
-                                                       
-                                                        <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
+                                    <div class="row">
+
+                                        <!-- Tab panes -->
+
+
+                                        <img class="img-fluid" style="width:350px; height: 400px" src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/290492666_701393540961163_1266621146650458002_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pYEFD_pAt-kAX_zPoBv&_nc_ht=scontent.fsgn3-1.fna&oh=03_AVKtheb73FXw4nH6gCnAdrY4CQmgB1pH7GnmrAgmVVh8ug&oe=62F2D34D" alt="">
+
+
+                                        <c:forEach var="cart" items="${sessionScope.FIELDS_CART}">
                                             <input type="hidden" name="id" value="${cart.value.field.fieldId}"/>
                                             <!--Tab slider End-->
                                             <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
@@ -88,7 +88,7 @@
                                                     <div class="new-arrival-content pr">
                                                         <h4>${cart.value.field.fieldName}</h4>
                                                         <div class="d-table mb-2">
-                                                            
+
                                                             <p class="price float-left d-block"> ${cart.value.field.price}</p>
                                                         </div>
                                                         <p>Availability: <span class="item"> In stock <i class="fa fa-shopping-basket"></i></span>
@@ -111,20 +111,20 @@
                                                         <!--Quantity start-->
                                                         <div class="col-4 px-0"
                                                              <h4>Date:</h4>${cart.value.playDate}
-                                                            
+
                                                         </div>
 
                                                     </div>
                                                 </div>
-                                    <div class="shopping-cart mt-3">
-                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="remove">Hủy</button>
-                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="Payment">Xác Nhận đã Thanh Toán</button>
+                                                <div class="shopping-cart mt-3">
+                                                    <button class="btn btn-primary btn-lg" type="submit" name="action" value="remove">Hủy</button>
+                                                    <button class="btn btn-primary btn-lg" type="submit" name="action" value="Payment">Xác Nhận đã Thanh Toán</button>
+                                                </div>
+                                            </div>
+                                        </c:forEach>
                                     </div>
                                 </div>
-                                                        </c:forEach>
                             </div>
-                                                        </div>
-                                                        </div>
                         </form>
                     </div>
                     <!--Quantity start-->
@@ -133,8 +133,8 @@
             </div>
         </div>
 
-   
-</div>
+
+    </div>
 </div>
 </form>
 </div>
