@@ -42,6 +42,7 @@ public class CreateLocationController extends HttpServlet {
                 request.setAttribute("CREATE_SUCCESS", "Create location success!");
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Create location unsuccess! Please try again!");
+                request.setAttribute("SHOW_MODAL", "Create");
             }
         } catch (Exception e) {
             log("Error at CreateLocationController: " + e.toString());

@@ -26,8 +26,9 @@ public class UpdateLocationByAdminController extends HttpServlet {
             String id_location = request.getParameter("id_location");
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
+            String counter = request.getParameter("counter");
+            request.setAttribute("COUNTER", counter);
             boolean checkValidation = true;
-
             if (user.getRole().getRoleId().equals("MA")) {
                 String locationName = request.getParameter("locationName");
                 locationName = URLEncoder.encode(locationName, "ISO-8859-1");
@@ -36,21 +37,21 @@ public class UpdateLocationByAdminController extends HttpServlet {
                 if (checkExist) {
                     request.setAttribute("UPDATE_ERROR", "This location being used cannot be changed!");
                     checkValidation = false;
+                }
+                if (locationName.trim().length() == 0) {
+                    request.setAttribute("UPDATE_NAME_ERROR", "Location name cannot be left blank");
+                    checkValidation = false;
+                }
+                if (checkValidation) {
+                    Location location = new Location(id_location, locationName, null);
+                    boolean checkUpdate = locationDao.updateLocationByOwner(location);
+                    if (checkUpdate) {
+                        url = SUCCESS;
+                        request.setAttribute("UPDATE_SUCCESS", "Update location success!");
+                    }
                 } else {
-                    if (locationName.trim().length() == 0) {
-                        request.setAttribute("UPDATE_ERROR", "Location name cannot be left blank");
-                        checkValidation = false;
-                    }
-                    if (checkValidation) {
-                        Location location = new Location(id_location, locationName, null);
-                        boolean checkUpdate = locationDao.updateLocationByOwner(location);
-                        if (checkUpdate) {
-                            url = SUCCESS;
-                            request.setAttribute("UPDATE_SUCCESS", "Update location success!");
-                        } else {
-                            request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
-                        }
-                    }
+                    request.setAttribute("UPDATE_UNSUCCESS", "Update location unsuccess! Please try again!");
+                    request.setAttribute("SHOW_MODAL", "Update");
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");

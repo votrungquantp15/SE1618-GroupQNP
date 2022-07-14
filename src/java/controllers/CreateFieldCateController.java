@@ -43,6 +43,7 @@ public class CreateFieldCateController extends HttpServlet {
                 request.setAttribute("CREATE_SUCCESS", "Create field category success!");
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Create field category unsuccess! Please try again!");
+                request.setAttribute("SHOW_MODAL", "Create");
             }
         } catch (Exception e) {
             log("Error at CreateFieldCateController: " + e.toString());
