@@ -117,14 +117,14 @@
                                                         </div>
                                                         <!--Quantity start-->
                                                         <div class="col-2 px-0">
-                                                             <label>Date:</label>
-                                                            <input type="date" name="playDate" id="datePicker">
+                                                            <label>Date:</label>
+                                                            <input type="date" name="playDate" id="datePicker" >
                                                         </div>
-                                                       
-                                                            <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
-                                                    
-                                                            
-                                                            <h4 style="color: red">${ADD_FAIL}</h4>
+
+                                                        <h4 style="color: #17e379">${ADD_SUCCESS}</h4>
+
+
+                                                        <h4 style="color: red">${ADD_FAIL}</h4>
                                                     </div>
                                                 </div>
                                             </div>
@@ -133,9 +133,9 @@
                                     <input type="hidden" name="fieldID" value="${FIELD.fieldId}"/>
                                     <input type="hidden" name="fieldPrice" value="${FIELD.price}"/>
                                     <div class="shopping-cart mt-3 float-right">
-                                        
-                                            <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Đặt sân</button>
-                                            <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Quay lại</a>                                       
+
+                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Đặt sân</button>
+                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Quay lại</a>                                       
                                     </div>
 
 
@@ -151,19 +151,32 @@
     </div>
     <script>
         $(document).ready(function () {
-            var now = new Date();
-            now.setDate(new Date().getDate() + 1);
-            var day = ("0" + now.getDate()).slice(-2);
-            var month = ("0" + (now.getMonth() + 1)).slice(-2);
-            var today = now.getFullYear() + "-" + (month) + "-" + (day);
-            
-            $('#datePicker').val(today);
-            function getTotal() {
-                var total = 0;
-                $('.price').each(function () {
-                    total += parseFloat(this.innerHTML);
-                });
-                $('#total').text(total);
+            document.getElementById("datePicker").value = getDate();
+            document.getElementById("datePicker").min = getDateMin();
+            document.getElementById("datePicker").max = getDateMax();
+            function getDateMin() {
+                var now = new Date();
+                now.setDate(new Date().getDate() + 1);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                return today;
+            }
+            function getDateMax() {
+                var now = new Date();
+                now.setDate(new Date().getDate() + 7);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                return today;
+            }
+            function getDate() {
+                var now = new Date();
+                now.setDate(new Date().getDate() + 1);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                return today;
             }
         });
     </script>

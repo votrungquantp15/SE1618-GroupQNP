@@ -51,8 +51,6 @@ public class CustomerAddCartController extends HttpServlet {
             boolean check = false;
             if (slotDetailID == null) {
                 request.setAttribute("ADD_FAIL", "Vui lòng chọn thời gian cho sân");
-                url = SUCCESS;
-
             } else {
                 BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
                 String bookingDetailID = bookingDetailDAO.createBookingDetailID();
@@ -71,7 +69,6 @@ public class CustomerAddCartController extends HttpServlet {
                     for (BookingDetail detail : listDetailBooked) {
                         if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
                             request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
-                            url = SUCCESS;
                             check = false;
                             break;
                         } else {
@@ -97,7 +94,6 @@ public class CustomerAddCartController extends HttpServlet {
                     for (BookingDetail detail : listBookingDetaillCart) {
                         if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
                             request.setAttribute("ADD_FAIL", "Thời gian đã có trong giỏ hàng");
-                            url = SUCCESS;
                             check = false;
                             break;
                         } else {
@@ -109,7 +105,6 @@ public class CustomerAddCartController extends HttpServlet {
                         for (BookingDetail detail : listDetailBooked) {
                             if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
                                 request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
-                                url = SUCCESS;
                                 check = false;
                                 break;
                             } else {

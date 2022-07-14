@@ -141,12 +141,24 @@
         </div>
     </div>
     <script>
-            function getTotal() {
-                var total = 0;
-                $('.price').each(function () {
-                    total += parseFloat(this.innerHTML);
-                });
-                $('#total').text(total);
+        $(document).ready(function () {
+            document.getElementById("datePicker").min = getDateMin();
+            document.getElementById("datePicker").max = getDateMax();
+            function getDateMin() {
+                var now = new Date();
+                now.setDate(new Date().getDate() + 1);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                return today;
+            }
+            function getDateMax() {
+                var now = new Date();
+                now.setDate(new Date().getDate() + 7);
+                var day = ("0" + now.getDate()).slice(-2);
+                var month = ("0" + (now.getMonth() + 1)).slice(-2);
+                var today = now.getFullYear() + "-" + (month) + "-" + (day);
+                return today;
             }
         });
     </script>

@@ -15,6 +15,9 @@ public class MainController extends HttpServlet {
     //Booking field
     private static final String BOOKING = "Booking";
     private static final String BOOKING_CONTROLLER = "CustomerBookingController";
+    //Check out 
+    private static final String CHECK_OUT = "CheckOut";
+    private static final String CHECK_OUT_CONTROLLER = "CustomerAddCartController";
     //add to cart
     private static final String ADD_CART = "AddCart";
     private static final String ADD_CART_CONTROLLER = "CustomerAddCartController";
@@ -246,6 +249,9 @@ public class MainController extends HttpServlet {
                     break;
                 case BOOKING:
                     url = BOOKING_CONTROLLER;
+                    break;
+                case CHECK_OUT:
+                    url = CHECK_OUT_CONTROLLER;
                     break;
                 case EDIT_CART_ITEM:
                     url = EDIT_CART_ITEM_CONTROLLER;
