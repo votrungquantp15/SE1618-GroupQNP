@@ -262,8 +262,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input style="color: white" class="btn btn-primary" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
                                 <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                                <input style="color: white" class="btn btn-primary" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
                             </div>
                         </div>
                     </div>

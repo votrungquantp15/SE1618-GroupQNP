@@ -112,9 +112,10 @@
                                         </div>
                                         <div class="col-xl-6 col-lg-6  col-md-6 mt-10">
                                             <h1 style="color: black">FeedBack</h1>
-                                            <textarea class="form-control" id="exampleFormControlTextarea4" rows="3" placeholder="Nhập ở đây..."></textarea>
+                                            <textarea class="form-control" id="exampleFormControlTextarea4" name="feedback" rows="3" placeholder="Nhập ở đây..."></textarea>
                                             <div class="d-flex justify-content-end">
                                                 <button class="btn btn-info mt-2">Gửi feedback</button>
+                                                <input style="color: white" class="btn btn-info mt-2" type="submit" name="action" value="UpdateField"/>
                                             </div>
                                             
                                         </div>
