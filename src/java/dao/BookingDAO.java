@@ -21,7 +21,7 @@ public class BookingDAO {
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
     
-    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('B013', '2022-07-13', 'U04', '50', 'On-Going')";
+    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'Pending')";
 
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
@@ -43,8 +43,7 @@ public class BookingDAO {
             + "AND status like ? AND bookingDate BETWEEN ? AND ? "
             + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
     
-        private static final String PAGING_LIST_ALL_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? "
-            + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
+        private static final String PAGING_LIST_ALL_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
     
     private static final String PAGING_LIST_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? AND status like ? "
             + "AND bookingDate BETWEEN ? AND ? "
@@ -414,6 +413,32 @@ public class BookingDAO {
             if (rs != null) {
                 rs.close();
             }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean insertBooking(Booking booking) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(INSERT_BOOKING);
+                ptm.setString(1, booking.getBookingId());
+                ptm.setString(2, booking.getBookingDate());
+                ptm.setString(3, booking.getUser().getUserID());
+                ptm.setDouble(4, booking.getTotalPrice());
+                check = ptm.executeUpdate() > 0;
+            }
+        } catch (Exception e) {
+        } finally {
             if (ptm != null) {
                 ptm.close();
             }

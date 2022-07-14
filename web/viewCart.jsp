@@ -96,7 +96,7 @@
                                                 <h4><strong>Total: ${total} VND</strong></h4>
                                                 <c:if test="${CART != null}">
                                                     <c:if test="${not empty CART}">
-                                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="CheckOut"><i class="fa fa-credit-card mr-2"></i>Check Out</button>
+                                                        <button class="btn btn-primary btn-lg"><i class="fa fa-credit-card mr-2"></i><a href="order.jsp">Check Out </a></button>
                                                     </c:if>
                                                 </c:if>
                                                 <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg">Back</button></a>
@@ -120,6 +120,5 @@
         <script src="js/custom.min.js"></script>
         <script src="js/deznav-init.js"></script>
         <script src="js/demo.js"></script>
-        <script src="js/styleSwitcher.js"></script>
     </body>
 </html>

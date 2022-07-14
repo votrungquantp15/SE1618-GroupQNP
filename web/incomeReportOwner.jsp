@@ -36,11 +36,7 @@
             var total = 0;
             let fieldPrice = $(element).find('#fieldPrice').text();
 
-            let foodPrice = $(element).find("#foodPrice").text();
-
             total += parseFloat(fieldPrice);
-
-            total += parseFloat(foodPrice);
 
             if (!isNaN(total)) {
                 sum += total;
@@ -108,7 +104,7 @@
                                                     </div>
                                                 </div>
                                                 <div class ="col-sm-2 d-flex justify-content-between">
-                                                    <button type="submit" name="action" class="btn " value="SearchIncome"><i class="fa fa-search" style="font-size:12px"></i></button>
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning mt-4" value="SearchIncome"><i class="fa fa-search"></i></button>
                                                 </div>
                                             </div>                              
                                         </div>                                                                                  
@@ -128,8 +124,6 @@
                                                     <th><strong class="w-space-no">Field ID</strong></th>
                                                     <th><strong >Date</strong></th>
                                                     <th><strong class="w-space-no">Field Price</strong></th>
-                                                    <th><strong class="w-space-no">Food Name</strong></th>
-                                                    <th><strong class="w-space-no">Food Price</strong></th>
                                                     <th><strong>Total</strong></th>
                                                     <th></th>
                                                 </tr>
@@ -149,8 +143,6 @@
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.field.fieldId}</span></div></td>
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.playDate}</span></div></td>
                                                         <td><div class="d-flex align-items-center"> <span class="w-space-no" id="fieldPrice">${booking.field.price}</span></div></td>
-                                                        <td><div class="d-flex align-items-center"> <span class="w-space-no">${booking.foodDetail.food.foodName}</span></div></td>
-                                                        <td><div class="d-flex align-items-center"> <span class="w-space-no" id="foodPrice">${booking.foodTotalPrice}</span></div></td>
                                                         <td><div id="total" ></div></td>
                                                     </tr>
                                                 </c:forEach>
@@ -159,6 +151,18 @@
                                         </table>
                                         <div class="d-flex justify-content-end mr-5"><h5 id="sum"></h5></div>
                                     </div>
+                                    <c:choose>
+                                        <c:when test="${requestScope.BOOKING_DETAILS != null}">
+                                            <ul class="pagination">
+                                                <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                        <a href="MainController?action=GetAllIncome&index=${i}" class="page-link">${i}</a>
+                                                    </li>
+                                                </c:forEach>
+                                            </ul>
+                                        </c:when>
+                                        <c:otherwise></c:otherwise>
+                                    </c:choose>
                                 </div>
                             </div>
                         </div>
