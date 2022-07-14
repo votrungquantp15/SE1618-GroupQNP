@@ -101,6 +101,7 @@ Chat box End
                     <li><a href="MainController?action=PrintFieldCate&index=1">Field Category</a></li>
                     <li><a href="MainController?action=PrintDistrict&index=1">District</a></li>
                     <li><a href="MainController?action=PrintLocation&index=1">Location</a></li>
+                    <li><a href="MainController?action=PrintAllFeedback">Feedback</a></li>
                 </ul>
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>

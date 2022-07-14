@@ -229,6 +229,16 @@ public class MainController extends HttpServlet {
     //Search Food of field 
     private static final String CREATE_FOOD_ON_FIELD = "CreateFoodOnField";
     private static final String CREATE_FOOD_ON_FIELD_CONTROLLER = "CreateFoodOnFieldController";
+    
+    //Print All Feedback
+    private static final String PRINALL_ALL_FEEDBACK="PrintAllFeedback";
+    private static final String PRINALL_ALL_FEEDBACK_CONTROLLER="PrintAllFeedbackController";
+
+    //Search Feedback By ADmin
+    private static final String SEARCH_FEEDBACK_BY_ADMIN ="SearchFeedbackByAdmin";
+    private static final String SEARCH_FEEDBACK_BY_ADMIN_CONTROLLER ="SearchFeedbackByAdminController";
+
+    
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -244,6 +254,12 @@ public class MainController extends HttpServlet {
                 case HOME:
                     url = HOME_CONTROLLER;
                     break;
+                case PRINALL_ALL_FEEDBACK:
+                    url = PRINALL_ALL_FEEDBACK_CONTROLLER;
+                    break; 
+                case SEARCH_FEEDBACK_BY_ADMIN:
+                    url = SEARCH_FEEDBACK_BY_ADMIN_CONTROLLER;
+                    break;    
                 case BOOKING:
                     url = BOOKING_CONTROLLER;
                     break;
