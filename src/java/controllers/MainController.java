@@ -239,6 +239,9 @@ public class MainController extends HttpServlet {
     private static final String SEARCH_FEEDBACK_BY_ADMIN_CONTROLLER ="SearchFeedbackByAdminController";
 
     
+    //Payment
+    private  static final String USER_PAYMENT = "Payment";
+    private static final String USER_PAYMENT_CONTROLLER = "UserPaymentController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -431,6 +434,9 @@ public class MainController extends HttpServlet {
                 case CREATE_FOOD_ON_FIELD:
                     url = CREATE_FOOD_ON_FIELD_CONTROLLER;
                     break;
+                case USER_PAYMENT:
+                    url = USER_PAYMENT_CONTROLLER;
+                    break;    
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());

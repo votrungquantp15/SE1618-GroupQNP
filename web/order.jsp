@@ -38,7 +38,7 @@
                             <div class="col-lg-12">
 
                                 <div class="card mt-3">
-                                    <div class="card-header"> Invoice <strong>01/01/01/2018</strong> <span class="float-right">
+                                    <div class="card-header"> Invoice  <span class="float-right">
                                             <strong>Status:</strong> Pending</span> </div>
                                     <div class="card-body">
                                         <div class="row mb-5">
@@ -63,11 +63,11 @@
                                                     <div class="col-sm-9"> 
                                                         <div class="brand-logo mb-3">
                                                             <img class="logo-abbr mr-2" width="50" src="images/logo.png" alt="">
-                                                            <img class="logo-compact" width="110" src="images/logo-text.png" alt="">
+                                                            <img class="logo-compact" width="110" src="https://scontent.fsgn3-1.fna.fbcdn.net/v/t1.15752-9/290492666_701393540961163_1266621146650458002_n.png?_nc_cat=104&ccb=1-7&_nc_sid=ae9488&_nc_ohc=pYEFD_pAt-kAX_zPoBv&_nc_ht=scontent.fsgn3-1.fna&oh=03_AVKtheb73FXw4nH6gCnAdrY4CQmgB1pH7GnmrAgmVVh8ug&oe=62F2D34D" alt="">
                                                         </div>
-                                                        <span>Please send exact amount: <strong class="d-block">0.15050000 BTC</strong>
-                                                            <strong>1DonateWffyhwAjskoEwXt83pHZxhLTr8H</strong></span><br>
-                                                        <small class="text-muted">Current exchange rate 1BTC = $6590 USD</small>
+                                                        <span> <strong class="d-block"></strong>
+                                                            <strong>Thanh toán bằng cách quét mã momo:</strong></span><br>
+                                                        <small class="text-muted">Xác nhận khi đã thanh toán xong</small>
                                                     </div>
                                                     <div class="col-sm-3 mt-3"> <img src="images/qr.png" alt="" class="img-fluid width110"> </div>
                                                 </div>
@@ -78,46 +78,27 @@
                                                 <thead>
                                                     <tr>
                                                         <th class="center">#</th>
-                                                        <th>Item</th>
+                                                        <th>Field Name</th>
                                                         <th>Description</th>
                                                         <th class="right">Unit Cost</th>
-                                                        <th class="center">Qty</th>
+                                                        <th class="center">Date</th>
                                                         <th class="right">Total</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
+                                                <c:set var="total" value="0"/>
+                                                <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}" varStatus="count"> 
+                                                    <c:set var="total" value="${total + cart.field.price}"></c:set>
                                                     <tr>
-                                                        <td class="center">1</td>
-                                                        <td class="left strong">Origin License</td>
-                                                        <td class="left">Extended License</td>
-                                                        <td class="right">$999,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$999,00</td>
+                                                        <td class="center">${count.index}</td>
+                                                        <td>${cart.field.fieldName}</td>
+                                                                    <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
+                                                                    <td>${cart.field.price}$</td>
+                                                                    <td>${cart.playDate}</td>
+                                                                    <td>${cart.field.price}$</td>
+                                                                    
                                                     </tr>
-                                                    <tr>
-                                                        <td class="center">2</td>
-                                                        <td class="left">Custom Services</td>
-                                                        <td class="left">Instalation and Customization (cost per hour)</td>
-                                                        <td class="right">$150,00</td>
-                                                        <td class="center">20</td>
-                                                        <td class="right">$3.000,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="center">3</td>
-                                                        <td class="left">Hosting</td>
-                                                        <td class="left">1 year subcription</td>
-                                                        <td class="right">$499,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$499,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="center">4</td>
-                                                        <td class="left">Platinum Support</td>
-                                                        <td class="left">1 year subcription 24/7</td>
-                                                        <td class="right">$3.999,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$3.999,00</td>
-                                                    </tr>
+                                                </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
@@ -128,25 +109,17 @@
                                                     <tbody>
                                                         <tr>
                                                             <td class="left"><strong>Subtotal</strong></td>
-                                                            <td class="right">$8.497,00</td>
+                                                            <td class="right">${total}$</td>
                                                         </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>Discount (20%)</strong></td>
-                                                            <td class="right">$1,699,40</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>VAT (10%)</strong></td>
-                                                            <td class="right">$679,76</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>Total</strong></td>
-                                                            <td class="right"><strong>$7.477,36</strong><br>
-                                                                <strong>0.15050000 BTC</strong></td>
-                                                        </tr>
+                                                        
                                                     </tbody>
                                                 </table>
                                             </div>
                                         </div>
+                                        <form action="MainController" >
+                                            <button style="margin-left: 900px" class="btn btn-primary btn-lg"type="submit" name="action" value="Payment"><i class="fa fa-credit-card mr-2"></i>Xác nhận</button>
+                                        </form>
+                                        
                                     </div>
                                 </div>
                             </div>
