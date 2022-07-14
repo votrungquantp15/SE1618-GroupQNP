@@ -164,6 +164,10 @@
         <servlet-name>CustomerEditCartItemPageController</servlet-name>
         <servlet-class>controllers.CustomerEditCartItemPageController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UserPaymentController</servlet-name>
+        <servlet-class>controllers.UserPaymentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -331,6 +335,10 @@
     <servlet-mapping>
         <servlet-name>CustomerEditCartItemPageController</servlet-name>
         <url-pattern>/CustomerEditCartItemPageController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserPaymentController</servlet-name>
+        <url-pattern>/UserPaymentController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
