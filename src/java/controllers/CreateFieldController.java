@@ -30,6 +30,7 @@ public class CreateFieldController extends HttpServlet {
         try {
             FieldDAO fieldDao = new FieldDAO();
             boolean checkValidation = true;
+            double priceOfField = 0;
             String fieldID = fieldDao.createFieldId();
             String fieldName = request.getParameter("fieldName");
             fieldName = URLEncoder.encode(fieldName, "ISO-8859-1");
@@ -42,11 +43,12 @@ public class CreateFieldController extends HttpServlet {
             FieldCategoryDAO fieldCate = new FieldCategoryDAO();
             FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
             String price = request.getParameter("price");
-            if(fieldDao.isNumeric(price) == false){
-                request.setAttribute("CREATE_ERROR", "Price must be a number");
+            if (fieldDao.isNumeric(price) == false) {
+                request.setAttribute("PRICE_ERROR", "Price must be a number and cannot be blank");
                 checkValidation = false;
+            } else {
+                priceOfField = Double.parseDouble(price);
             }
-            double priceOfField = Double.parseDouble(price);
             String userName = request.getParameter("userName");
             userName = URLEncoder.encode(userName, "ISO-8859-1");
             userName = URLDecoder.decode(userName, "UTF-8");
@@ -62,19 +64,19 @@ public class CreateFieldController extends HttpServlet {
             id_of_district = URLDecoder.decode(id_of_district, "UTF-8");
             DistrictDAO district = new DistrictDAO();
             District districtID = district.getDistrictByID(id_of_district);
-            
+
             if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
-                request.setAttribute("CREATE_ERROR", "Field name cannot be left blank and must be <= 30");
+                request.setAttribute("NAME_ERROR", "Field name cannot be left blank and word length must be <= 30");
                 checkValidation = false;
             }
 
             if (image.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "Image cannot be left blank");
+                request.setAttribute("IMAGE_ERROR", "Image cannot be left blank");
                 checkValidation = false;
             }
 
             if (priceOfField < 0) {
-                request.setAttribute("CREATE_ERROR", "Price must be >= 0");
+                request.setAttribute("PRICE_ERROR", "Price must be >= 0");
                 checkValidation = false;
             }
 
@@ -87,6 +89,7 @@ public class CreateFieldController extends HttpServlet {
                 request.setAttribute("CREATE_SUCCESS", "Create field success!");
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Create field unsuccess! Please try again!");
+                request.setAttribute("SHOW_MODAL", "1");
             }
         } catch (Exception e) {
             log("Error at CreateFieldController: " + e.toString());

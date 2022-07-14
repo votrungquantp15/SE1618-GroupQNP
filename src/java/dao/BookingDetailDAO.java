@@ -36,6 +36,8 @@ public class BookingDetailDAO {
 
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status "
             + "FROM tblBookingDetail";
+    private static final String COUNT_ALL_BOOKING_DETAIL = "SELECT COUNT(*) as totalBookingDetail FROM tblBookingDetail";
+    private static final String GET_ALL_BOOKING_DETAIL_PAGING = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status FROM tblBookingDetail ORDER BY bookingDetailID OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String GET_BOOKING_DETAIL_ID = "SELECT bookingDetailI tblBookingDetail WHERE bookingDetailID like ?  ";
 
     public BookingDetail getBookingDetailByID(String bookingID) throws SQLException {
@@ -263,6 +265,84 @@ public class BookingDetailDAO {
         }
         return check;
     }
+    
+    public List<BookingDetail> getAllBookingDetailPaging(int index) throws SQLException {
+        List<BookingDetail> bookingDetails = new ArrayList<>();
+        Connection connect = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+
+        try {
+            connect = DBUtils.getConnection();
+            if (connect != null) {
+                ptm = connect.prepareStatement(GET_ALL_BOOKING_DETAIL_PAGING);
+                ptm.setInt(1, (index - 1) * 5);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String bookingDetailID = rs.getString("bookingDetailID");
+
+                    String getBookingID = rs.getString("bookingID");
+                    BookingDAO bookingDAO = new BookingDAO();
+                    Booking booking = bookingDAO.getBookingByID(getBookingID);
+
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+
+                    double fieldPrice = rs.getDouble("fieldPrice");
+
+                    String slotDetailID = rs.getString("slotDetailID");
+                    SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+                    SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
+
+                    String playDate = rs.getString("playDate");
+                    boolean status = rs.getBoolean("status");
+
+                    bookingDetails.add(new BookingDetail(bookingDetailID, booking, field, slotDetail, fieldPrice, playDate, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (connect != null) {
+                connect.close();
+            }
+        }
+
+        return bookingDetails;
+    }
+    
+    public int countTotalBookingDetail() throws SQLException {
+        int index = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_ALL_BOOKING_DETAIL);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    index = rs.getInt("totalBookingDetail");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+        }
+        return index;
+    }
+            
     public boolean insertBookingDetail(BookingDetail bookingDetail) throws SQLException {
         boolean check = false;
         Connection conn = null;

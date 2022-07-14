@@ -83,8 +83,6 @@
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_DISTRICT_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                             <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
                                             <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
                                             <p style="color: red">${requestScope.UPDATE_ERROR} </p>
@@ -236,13 +234,14 @@
                                                                 <tr>
                                                                     <th>District Name:</th>
                                                                     <th><input class="col-12" title="Input information here" type="text" name="districtName" required=""></th>
-                                                                </tr>
                                                                 <tr>
                                                                     <th></th>
                                                                     <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                        <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
+                                                        <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                                     </div>
                                                 </div>
                                             </div>
@@ -272,5 +271,12 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
+    <c:if test = "${requestScope.SHOW_MODAL == '1'}">
+        <script type="text/javascript">
+            $(document).ready(() => {
+                $('#createNewDistrict').modal('show');
+            });
+        </script>
+    </c:if>
 </body>
 </html>
