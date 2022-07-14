@@ -162,9 +162,11 @@
                                                                                                                     </tr>
                                                                                                                 </table>
                                                                                                             </div>
-                                                                                                            <p style="color: red">${requestScope.UPDATE_ERROR} </p>
-                                                                                                            <p style="color: red">${requestScope.UPDATE_NAME_ERROR} </p>
-                                                                                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                                                                                                            <c:if test = "${requestScope.COUNTER == counter}">
+                                                                                                                <p style="color: red">${requestScope.UPDATE_ERROR} </p>
+                                                                                                                <p style="color: red">${requestScope.UPDATE_NAME_ERROR} </p>
+                                                                                                                <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
+                                                                                                            </c:if>
                                                                                                         </div>
                                                                                                     </div>
                                                                                                 </div>
