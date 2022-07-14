@@ -53,13 +53,25 @@ public class AdminIncomeManagement extends HttpServlet {
                     break;
 
                 case GET_ALL_INCOME:
-                    bookingDetails = bookingDetailDao.getAllBookingDetail();
+                    String indexPage = request.getParameter("index");
+                    if (indexPage == null) {
+                        indexPage = "1";
+                    }
+                    int index = Integer.parseInt(indexPage);
+                    int endPage = 0;
+                    int count = bookingDetailDao.countTotalBookingDetail();
+                    bookingDetails = bookingDetailDao.getAllBookingDetailPaging(index);
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
                     if (user.getRole().getRoleId().equals("MA")) {
                         url = "incomeReportOwner.jsp";
                     } else if (user.getRole().getRoleId().equals("AD")) {
                         url = "incomeReportAdmin.jsp";
                     }
+                    endPage = count / 5;
+                    if (count % 5 != 0) {
+                        endPage++;
+                    }
+                    request.setAttribute("END_PAGE", endPage);
                     break;
             }
         } catch (Exception e) {

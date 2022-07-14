@@ -33,6 +33,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
             User user = (User) session.getAttribute("LOGIN_USER");
             FieldDAO fieldDao = new FieldDAO();
             boolean checkValidation = true;
+            double priceOfField = 0;
             String fieldID = request.getParameter("fieldId");
             if (user.getRole().getRoleId().equals("MA")) {
                 String fieldName = request.getParameter("fieldName");
@@ -47,10 +48,11 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
                 String price = request.getParameter("price");
                 if (fieldDao.isNumeric(price) == false) {
-                    request.setAttribute("UPDATE_ERROR", "Price must be a number");
+                    request.setAttribute("PRICE_ERROR", "Price must be a number and cannot be blank");
                     checkValidation = false;
+                } else {
+                    priceOfField = Double.parseDouble(price);
                 }
-                double priceOfField = Double.parseDouble(price);
                 String id_of_user = request.getParameter("userId");
                 UserDAO userDao = new UserDAO();
                 User userID = userDao.getUserByID(id_of_user);
@@ -65,16 +67,15 @@ public class UpdateFieldByAdminController extends HttpServlet {
                 DistrictDAO district = new DistrictDAO();
                 District districtID = district.getDistrictByID(id_of_district);
                 if (fieldName.trim().length() == 0 || fieldName.length() > 30) {
-                    request.setAttribute("UPDATE_ERROR", "Field name cannot be left blank and must be <= 30");
-                    request.setAttribute("UPDATE_MODAL", "1");
+                    request.setAttribute("NAME_ERROR", "Field name cannot be left blank and word length must be <= 30");
                     checkValidation = false;
-                } else if (image.trim().length() == 0) {
-                    request.setAttribute("UPDATE_ERROR", "Image cannot be left blank");
-                    request.setAttribute("UPDATE_MODAL", "1");
+                } 
+                if (image.trim().length() == 0) {
+                    request.setAttribute("IMAGE_ERROR", "Image cannot be left blank");
                     checkValidation = false;
-                } else if (priceOfField < 0) {
-                    request.setAttribute("UPDATE_ERROR", "Price must be >= 0");
-                    request.setAttribute("UPDATE_MODAL", "1");
+                } 
+                if (priceOfField < 0) {
+                    request.setAttribute("PRICE_ERROR", "Price must be >= 0");
                     checkValidation = false;
                 }
                 if (checkValidation) {
@@ -83,10 +84,10 @@ public class UpdateFieldByAdminController extends HttpServlet {
                     if (checkUpdate) {
                         url = SUCCESS;
                         request.setAttribute("UPDATE_SUCCESS", "Update field success!");
-                    } else {
-                        request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
-                        request.setAttribute("UPDATE_MODAL", "1");
                     }
+                } else {
+                    request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
+                    request.setAttribute("SHOW_MODAL", "1");
                 }
             } else if (user.getRole().getRoleId().equals("AD")) {
                 String status = request.getParameter("status");
@@ -96,7 +97,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                     boolean checkExist = fieldDao.checkExist(fieldID);
                     if (checkExist) {
                         request.setAttribute("UPDATE_ERROR", "This field being booked cannot be changed status!");
-                        request.setAttribute("UPDATE_MODAL", "1");
+                        request.setAttribute("SHOW_MODAL", "1");
                         checkValidation = false;
                     }
                     if (checkValidation) {
@@ -106,7 +107,7 @@ public class UpdateFieldByAdminController extends HttpServlet {
                             request.setAttribute("UPDATE_SUCCESS", "Update field success!");
                         } else {
                             request.setAttribute("UPDATE_UNSUCCESS", "Update field unsuccess! Please try again!");
-                            request.setAttribute("UPDATE_MODAL", "1");
+                            request.setAttribute("SHOW_MODAL", "1");
                         }
                     }
                 } else {
