@@ -1,7 +1,7 @@
-﻿DROP DATABASE FootballBookingManagement1
+﻿DROP DATABASE FootballBookingManagement
 
-CREATE DATABASE FootballBookingManagement1
-USE FootballBookingManagement1
+CREATE DATABASE FootballBookingManagement
+USE FootballBookingManagement
 
 
 CREATE TABLE tblRoles
@@ -128,9 +128,6 @@ CREATE TABLE tblBookingDetail
 	playDate date,
 	slotDetailId varchar(10) FOREIGN KEY REFERENCES tblSlotDetail(slotDetailId),
 	fieldPrice money,
-	foodDetailId varchar(10) FOREIGN KEY REFERENCES tblFoodDetail(foodDetailId),
-	foodPrice money,
-	foodQuantity int,
 	[status] [bit] default '1'
 )
 
@@ -368,14 +365,14 @@ INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VAL
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO11', '2022-01-24', 'U04', '50', 'On-Going')
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO12', '2022-01-24', 'U04', '50', 'On-Going')
 
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD01', 'BO01', 'FI01', '2022-01-25', 'SD01', '10', 'FD01', '20', '2', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD02', 'BO02', 'FI02', '2022-03-14', 'SD02', '12', NULL, NULL, NULL, 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD03', 'BO03', 'FI03', '2022-01-25', 'SD01', '10', 'FD01', '20', '2', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD04', 'BO04', 'FI04', '2022-07-25', 'SD03', '10', 'FD01', '20', '4', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD05', 'BO05', 'FI05', '2022-11-01', 'SD01', '10', 'FD01', '20', '1', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD06', 'BO06', 'FI06', '2022-10-02', 'SD02', '10', 'FD01', '20', '5', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD07', 'BO07', 'FI07', '2022-08-11', 'SD04', '10', 'FD01', '20', '3', 1)
-INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD08', 'BO08', 'FI08', '2022-09-20', 'SD01', '10', 'FD01', '20', '3', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD01', 'BO01', 'FI01', '2022-01-25', 'SD01', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD02', 'BO02', 'FI02', '2022-03-14', 'SD02', '12', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD03', 'BO03', 'FI03', '2022-01-25', 'SD01', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD04', 'BO04', 'FI04', '2022-07-25', 'SD03', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD05', 'BO05', 'FI05', '2022-11-01', 'SD01', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD06', 'BO06', 'FI06', '2022-10-02', 'SD02', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD07', 'BO07', 'FI07', '2022-08-11', 'SD04', '10', 1)
+INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD08', 'BO08', 'FI08', '2022-09-20', 'SD01', '10', 1)
 
 INSERT INTO tblFeedback(feedbackId, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])

@@ -21,7 +21,7 @@ public class BookingDAO {
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
     
-    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'Pending')";
+    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, ?)";
 
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
@@ -141,7 +141,7 @@ public class BookingDAO {
         return booking;
     }
     
-    public List<Booking> getListBookingManager(String bookingID, int index) throws SQLException {
+    public List<Booking> getListBookingManager(String bookingID, String search, int index) throws SQLException {
         List<Booking> booking = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -162,7 +162,9 @@ public class BookingDAO {
                     double getTotalPrice = rs.getDouble("totalPrice");
                     String getStatus = rs.getString("status");
 
-                    booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, getStatus));
+                    if (user.getFullName().contains(search) || search == null) {
+                        booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, getStatus));
+                    }
                 }
             }
         } catch (Exception e) {
@@ -293,6 +295,7 @@ public class BookingDAO {
 
                     double getTotalPrice = rs.getDouble("totalPrice");
                     String getStatus = rs.getString("status");
+                    
                     if (user.getFullName().contains(search) || search == null) {
                         booking.add(new Booking(getBookingID, getBookingDate, user, getTotalPrice, getStatus));
                     }

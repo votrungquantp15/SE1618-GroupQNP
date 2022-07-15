@@ -24,18 +24,53 @@
     </head>
     <body>
 
+
+        <header class="header_area">
+            <div class="container">
+                <nav class="navbar navbar-expand-lg navbar-light">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                        <ul class="nav navbar-nav menu_nav ml-auto">
+                            <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
+                            <li class="nav-item submenu dropdown">
+                                <c:choose>
+                                    <c:when test="${sessionScope.LOGIN_USER == null}">
+                                        <a href="login.jsp" class="nav-link">Đăng nhập</a>
+                                    </c:when>
+                                    <c:otherwise>
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
+                                        <ul class="dropdown-menu">
+                                            <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
+                                            <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
+                                        </ul>
+                                    </c:otherwise>
+                                </c:choose>
+                            </li> 
+                        </ul>
+                    </div> 
+                </nav>
+            </div>
+        </header>
         <div id="main-wrapper">
+            <div class="content-body">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="row">
+                            <div class="col-lg-12">
 
-            <jsp:include page="navbarUser.jsp"></jsp:include>
-                <div class="content-body">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-lg-12">
-
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 style="color: red">${ADD_FAIL}</h4>
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 style="color: red">${ADD_FAIL}</h4>
+                                        <h4 style="color: green">${ADD_SUCCESS}</h4>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -68,8 +103,13 @@
 
                                                 <h3 class="float-right mr-5"><strong>Total: $${total}</strong></h3>
                                                 <div class="float-right">   
-                                                    <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg">Confirm</a>
-                                                    <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
+                                                    <c:if test="${CART != null}">
+                                                        <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg">Confirm</a>
+                                                        <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
+                                                    </c:if>
+                                                    <c:if test="${CART == null}">
+                                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-2"></i>Home</a>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>

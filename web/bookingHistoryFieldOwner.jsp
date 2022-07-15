@@ -84,6 +84,7 @@
                                                             <option value="Canceled" <c:if test="${param.status eq 'Canceled'}">selected</c:if>>Canceled</option>
                                                             </select>
                                                         </div>
+                                                            <input type="hidden" name="index" value="${param.index}">
                                                         <div class ="col-sm-2 d-flex justify-content-between">
                                                             <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
                                                         </div>
