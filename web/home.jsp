@@ -38,7 +38,7 @@
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="login.jsp" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
+                                    <a href="login.jsp" class="nav-link">Đăng nhập</a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
@@ -147,7 +147,7 @@
                                 </form>
                                 
                             </div>
-                            <a href="MainController?action=UserPrintFieldDetail&fieldName=${field.fieldName}"><h4 class="sec_h4">${field.fieldName}</h4></a>
+                            <a href="MainController?action=UserPrintFieldDetail&fieldId=${field.fieldId}"><h4 class="sec_h4">${field.fieldName}</h4></a>
                             <h6>${field.district.districtName}</h6>
                             <h5>${field.price}00<small> vnd/h</small></h5>
                         </div>

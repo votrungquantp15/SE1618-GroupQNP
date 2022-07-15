@@ -44,9 +44,9 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
-                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
-                                            <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Cart</a></li>
-                                            <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Cart</a></li>
+                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
                                     </ul>
                                 </c:otherwise>
                             </c:choose>
@@ -65,8 +65,8 @@
             <div class="page-cover breadcrumb-text text-center">
                 <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
                 <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
-                 <ol class="breadcrumb">
-                    <li><a href="MainController?action=Print">Home</a></li>
+                <ol class="breadcrumb">
+                    <li><a href="MainController?action=Print&index=1">Home</a></li>
                     <li class="active">Accomodation</li>
                 </ol> 
             </div>
@@ -99,25 +99,60 @@
                                                         <div class="card-header">
                                                             <h3><strong>Sân bóng</strong></h3>
                                                         </div>
-                                                        <div class="card-body">
-                                                            <p>Tên sân: ${requestScope.FIELD_DETAIL.fieldName}</p>
-                                                            <p>Mô tả: ${requestScope.FIELD_DETAIL.description}</p>
-                                                            <p>Loại sân: ${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p>
-                                                            <p>Chủ sân: ${requestScope.FIELD_DETAIL.user.fullName}</p>
-                                                            <p>Địa chỉ: ${requestScope.FIELD_DETAIL.location.locationName}</p>
+                                                        <div class="table">
+                                                            <table>
+                                                                <tr>
+                                                                    <th>Tên sân:</th>
+                                                                    <th class="col-10"><p>${requestScope.FIELD_DETAIL.fieldName}</p></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Mô tả:</th>
+                                                                    <th><p>${requestScope.FIELD_DETAIL.description}</p></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Loại sân:</th>
+                                                                    <th><p>${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Chủ sân:</th>
+                                                                    <th><p>${requestScope.FIELD_DETAIL.user.fullName}</p></th>
+                                                                </tr>
+                                                                <tr>
+                                                                    <th>Địa chỉ:</th>
+                                                                    <th><p>${requestScope.FIELD_DETAIL.location.locationName}</p></th>
+                                                                </tr>
+                                                            </table>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="col-xl-6 col-lg-6  col-md-6 mt-10">
-                                            <h1 style="color: black">FeedBack</h1>
-                                            <textarea class="form-control" id="exampleFormControlTextarea4" name="feedback" rows="3" placeholder="Nhập ở đây..."></textarea>
-                                            <div class="d-flex justify-content-end">
-                                                <button class="btn btn-info mt-2">Gửi feedback</button>
-                                                <input style="color: white" class="btn btn-info mt-2" type="submit" name="action" value="UpdateField"/>
-                                            </div>
-                                            
+                                        <div class="col-xl-6 col-lg-6  col-md-6 mt-10 border">
+                                            <h2 style="color: black">Đánh giá</h2>
+                                            <c:if test="${not empty requestScope.LIST_FEEDBACK}">
+                                                <c:forEach var="feedback" items="${requestScope.LIST_FEEDBACK}" varStatus="counter">
+                                                    <div class="card-body border border-dark mb-1">
+                                                        <div class="row">
+                                                            <h4 style="font-weight: bold; color: black" class="col-12">${feedback.user.fullName}</h4>
+                                                        </div>
+                                                        <p>${feedback.content}</p>
+                                                    </div>
+                                                </c:forEach>
+                                            </c:if>
+                                            <form action="MainController" method="POST">
+                                                <div class="card border border-dark mb-2 mt-1">
+                                                    <h4 class="card-header" style="color: black">Nội dung:</h4>
+                                                    <textarea class="form-control" id="exampleFormControlTextarea4" name="content" rows="3" placeholder="Nhập nội dung đánh giá ở đây..." required=""></textarea>
+                                                    <p style="color: red">${requestScope.CREATE_CONTENT_ERROR}</p>
+                                                    <div class="d-flex justify-content-end">
+                                                        <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                                                        <input type="hidden" name="action" value="CreateFeedback"/>
+                                                        <button type="submit" class="btn btn-info">Gửi feedback</button>
+                                                    </div>
+                                                    <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                                    <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
+                                                </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>

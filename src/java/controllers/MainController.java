@@ -233,6 +233,14 @@ public class MainController extends HttpServlet {
     //Payment
     private  static final String USER_PAYMENT = "Payment";
     private static final String USER_PAYMENT_CONTROLLER = "UserPaymentController";
+    
+    //Create Feedback
+    private  static final String CREATE_FEEDBACK = "CreateFeedback";
+    private static final String CREATE_FEEDBACK_CONTROLLER = "CreateFeedbackController";
+    
+    //PrintFeedback
+    private  static final String PRINT_FEEDBACK = "PrintFeedback";
+    private static final String PRINT_FEEDBACK_CONTROLLER = "PrintFeedbackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -421,6 +429,12 @@ public class MainController extends HttpServlet {
                     break;
                 case USER_PAYMENT:
                     url = USER_PAYMENT_CONTROLLER;
+                    break;    
+                case CREATE_FEEDBACK:
+                    url = CREATE_FEEDBACK_CONTROLLER;
+                    break;    
+                case PRINT_FEEDBACK:
+                    url = PRINT_FEEDBACK_CONTROLLER;
                     break;    
             }
         } catch (Exception e) {

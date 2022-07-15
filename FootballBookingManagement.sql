@@ -105,11 +105,10 @@ CREATE TABLE tblFoodDetail
 CREATE TABLE tblFeedback
 (
 	feedbackId varchar(10) PRIMARY KEY,
-	title nvarchar(50) NOT NULL,
 	content nvarchar(500) NOT NULL,
 	userId varchar(10) FOREIGN KEY REFERENCES tblUsers(userId),
 	fieldId varchar(10) FOREIGN KEY REFERENCES tblFields(fieldId),
-	[status] varchar(10) default 'Request'
+	[status] [bit] default '1'
 )
 
 CREATE TABLE tblBooking
@@ -284,5 +283,5 @@ INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VAL
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD01', 'BO01', 'FI01', '2022-01-25', 'SD01', '10', 'FD01', '20', '2', 1)
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, foodDetailId, foodPrice, foodQuantity, [status]) VALUES ('BD02', 'BO02', 'FI02', '2022-03-14', 'SD02', '12', NULL, NULL, NULL, 1)
 
-INSERT INTO tblFeedback(feedbackId, title, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng tốt', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 'Active')
+INSERT INTO tblFeedback(feedbackId, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 1)
 
