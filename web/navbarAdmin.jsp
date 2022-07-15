@@ -107,7 +107,7 @@ Chat box End
             <li class="active"><a href="MainController?action=SearchBooking&index=1">Booking report</a></li>
             <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
             <li><a href="MainController?action=ViewFoodList&index=1">Food Management</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome&index=1">Income report</a></li
+            <li><a href="AdminIncomeManagement?action=GetAllIncome&index=1">Income report</a></li>
         </ul>
     </div>
 </div>

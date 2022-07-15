@@ -165,8 +165,12 @@
         <servlet-class>controllers.CustomerEditCartItemPageController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserPaymentController</servlet-name>
-        <servlet-class>controllers.UserPaymentController</servlet-class>
+        <servlet-name>CustomerCheckoutController</servlet-name>
+        <servlet-class>controllers.CustomerCheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerConfirmController</servlet-name>
+        <servlet-class>controllers.CustomerConfirmController</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>CreateFeedbackController</servlet-name>
@@ -345,8 +349,12 @@
         <url-pattern>/CustomerEditCartItemPageController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserPaymentController</servlet-name>
-        <url-pattern>/UserPaymentController</url-pattern>
+        <servlet-name>CustomerCheckoutController</servlet-name>
+        <url-pattern>/CustomerCheckoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerConfirmController</servlet-name>
+        <url-pattern>/CustomerConfirmController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>CreateFeedbackController</servlet-name>

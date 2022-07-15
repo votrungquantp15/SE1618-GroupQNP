@@ -38,7 +38,6 @@ public class UpdateBookingController extends HttpServlet {
             if (!booking.getStatus().equals(bookingStatus)) {
                 BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
                 BookingDetail bookingDetail = bookingDetailDAO.getBookingDetailByID(booking.getBookingId());
-
                 boolean valid = bookingDetailDAO.checkValidDate(bookingStatus, bookingDetail);
                 if (valid == true) {
                     boolean check = bookingDAO.updateBookingStatusByID(booking.getBookingId(), bookingStatus);
