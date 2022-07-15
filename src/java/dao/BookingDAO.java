@@ -21,7 +21,7 @@ public class BookingDAO {
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
     
-    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'Pending')";
+    private static final String INSERT_BOOKING ="INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'On-Going')";
 
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
             + "FROM tblBooking WHERE bookingID like ? ";
@@ -526,7 +526,6 @@ public class BookingDAO {
                 ptm.setString(2, booking.getBookingDate());
                 ptm.setString(3, booking.getUser().getUserID());
                 ptm.setDouble(4, booking.getTotalPrice());
-                ptm.setString(5, booking.getStatus());
                 check = ptm.executeUpdate() > 0 ? true : false;
             }
         } catch (Exception e) {
