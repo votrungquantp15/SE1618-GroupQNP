@@ -63,7 +63,7 @@
                                         <h4 style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></h4> 
                                     </div>
                                     <div class="card-body">
-                                        <form action="MainController" method="GET">
+                                        <form action="MainController" method="POST">
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-3">    

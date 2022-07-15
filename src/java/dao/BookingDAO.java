@@ -53,9 +53,9 @@ public class BookingDAO {
             + "AND status like ? AND bookingDate BETWEEN ? AND ? "
             + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
     
-        private static final String PAGING_LIST_ALL_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
+        private static final String PAGING_LIST_ALL_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID = ? ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
     
-    private static final String PAGING_LIST_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID like ? AND status like ? "
+    private static final String PAGING_LIST_BOOKING_MANAGER = "SELECT * FROM tblBooking WHERE bookingID = ? AND status like ? "
             + "AND bookingDate BETWEEN ? AND ? "
             + "ORDER BY bookingId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY ";
 
