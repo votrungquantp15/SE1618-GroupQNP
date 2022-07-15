@@ -1,7 +1,10 @@
 package controllers;
 
-import dao.LocationDAO;
-import dto.Location;
+import dao.FeedbackDAO;
+import dao.FieldDAO;
+import dto.Feedback;
+import dto.Field;
+import dto.User;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -9,43 +12,53 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class CreateLocationController extends HttpServlet {
-
-    private static final String ERROR = "PrintLocationController";
-    private static final String SUCCESS = "PrintLocationController";
-
+public class CreateFeedbackController extends HttpServlet {
+    
+    private static final String ERROR = "UserPrintFieldDetailController";
+    private static final String SUCCESS = "UserPrintFieldDetailController";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            LocationDAO locationDao = new LocationDAO();
-            String locationID = locationDao.createLocationId();
-            String locationName = request.getParameter("locationName");
-            locationName = URLEncoder.encode(locationName, "ISO-8859-1");
-            locationName = URLDecoder.decode(locationName, "UTF-8");
+            FeedbackDAO feedbackDao = new FeedbackDAO();
+            String fieldCateId = feedbackDao.createFeedbackId();
+            
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
+            
+            String content = request.getParameter("content");
+            content = URLEncoder.encode(content, "ISO-8859-1");
+            content = URLDecoder.decode(content, "UTF-8");
+            
+            String fieldId = request.getParameter("fieldId");
+            FieldDAO fieldDao = new FieldDAO();
+            Field field = fieldDao.getFieldByID(fieldId);
+
             boolean checkValidation = true;
-            if (locationName.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "Location name cannot be left blank");
+            if (content.trim().length() == 0) {
+                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
                 checkValidation = false;
-            } else if (locationDao.checkLocationName(locationName)) {
-                request.setAttribute("CREATE_ERROR", "Location name is already exist");
+            } 
+            if (content.length() > 500) {
+                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
                 checkValidation = false;
-            }
+            } 
             if (checkValidation) {
-                Location location = new Location(locationID, locationName, "Active");
-                boolean checkCreate = locationDao.createLocation(location);
+                Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
+                boolean checkCreate = feedbackDao.createFeedback(feedback);
                 if (checkCreate) {
                     url = SUCCESS;
+                    request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
                 }
-                request.setAttribute("CREATE_SUCCESS", "Create location success!");
             } else {
-                request.setAttribute("CREATE_UNSUCCESS", "Create location unsuccess! Please try again!");
-                request.setAttribute("SHOW_MODAL", "Create");
+                request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
             }
         } catch (Exception e) {
-            log("Error at CreateLocationController: " + e.toString());
+            log("Error at CreateFeedbackController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

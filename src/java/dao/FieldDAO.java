@@ -19,7 +19,7 @@ public class FieldDAO {
 
     private static final String GET_ALL_INFO_BY_ID = "SELECT fieldID, fieldName, description, image, categoryFieldID, price, UserID, LocationID, districtID, status "
             + "FROM tblFields WHERE fieldID like ? ";
-    private static final String PRINT_FIELD_DETAIL_BY_NAME = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldName like ?";
+    private static final String PRINT_FIELD_DETAIL_BY_ID = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldId = ?";
     private static final String COUNT_SEARCH_FIELD_BY_USER = "SELECT COUNT(*) as totalField FROM tblFields WHERE fieldName like ? AND districtId like ? AND status <> 'In-Active' AND status <> 'Request'";
     private static final String SEARCH_FIELD_BY_USER = "WITH x AS (SELECT ROW_NUMBER() over (order by fieldId ASC) as r, fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldName like ? AND districtId like ? AND status <> 'In-Active' AND status <> 'Request') SELECT * FROM x WHERE r BETWEEN ? * 9 - 8 AND ? * 9";
 
@@ -513,7 +513,7 @@ public class FieldDAO {
         return listField;
     }
 
-    public Field getUserFieldDetailByName(String name) throws SQLException {
+    public Field getUserFieldDetailByID(String id_of_field) throws SQLException {
         Field fieldDetail = null;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -521,8 +521,8 @@ public class FieldDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(PRINT_FIELD_DETAIL_BY_NAME);
-                ptm.setString(1, "%" + name + "%");
+                ptm = conn.prepareStatement(PRINT_FIELD_DETAIL_BY_ID);
+                ptm.setString(1, id_of_field);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String fieldId = rs.getString("fieldId");
