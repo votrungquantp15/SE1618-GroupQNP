@@ -12,7 +12,7 @@
     <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
     <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
     <meta name="format-detection" content="telephone=no">
-    <title>Field Category Management</title>
+    <title>Owner Feedback Management</title>
     <!-- Favicon icon -->
     <link rel="icon" href="data:image/png;base64,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">
 
@@ -58,7 +58,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Field Category Management</h4>
+                                        <h4 class="card-title">Feedback Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -70,16 +70,21 @@
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
                                                             <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
-                                                            <option value="Request" <c:if test="${param.status eq 'Request'}">selected</c:if>>Request</option>
                                                             <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
-                                                        <input class="col-sm-4" type="text" class="form-control" name="searchByAdmin" value="${param.searchByAdmin}" placeholder="Search here">
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-primary disabled" type="button">Search By</button>
+                                                            <select name ="searchBy">
+                                                                <option value="FieldName" <c:if test="${param.searchBy eq 'FieldName'}">selected</c:if>>Field name</option>
+                                                            <option value="UserName" <c:if test="${param.searchBy eq 'UserName'}">selected</c:if>>User name</option>
+                                                            </select>
+                                                        </div>
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here">
                                                     <div class="input-group-append">
-                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFieldCateByAdmin">Search</button>
+                                                        <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFeedback">Search</button>
                                                     </div>
                                                 </div>
-                                                <button class="btn btn-primary col-sm" type="button" data-toggle="modal" data-target="#createNewFieldCate">Create new field category</button>
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
@@ -94,8 +99,10 @@
                                                 <thead>
                                                     <tr>
                                                         <th style="width:80px;"><strong>#</strong></th>
-                                                        <th><strong>District ID</strong></th>
-                                                        <th><strong>District Name</strong></th>
+                                                        <th><strong>Feedback ID</strong></th>
+                                                        <th><strong>User</strong></th>
+                                                        <th><strong>Field</strong></th>
+                                                        <th><strong>Content</strong></th>
                                                         <th><strong>Status</strong></th>
                                                         <th><strong>Action</strong></th>
                                                         <th></th>
@@ -103,22 +110,23 @@
                                                 </thead>
                                                 <tbody>
                                                     <tr>
-                                                        <c:forEach var="fieldCate" items="${requestScope.LIST_FIELD_CATE}">
+                                                        <c:forEach var="feedback" items="${requestScope.LIST_FEED_BACK}">
                                                             <c:set var="counter" scope="page" value="${counter + 1}"/>
                                                         <tr>
                                                             <td><strong>${counter}</strong></td>
-                                                            <td>${fieldCate.fieldCateId}</td>
-                                                            <td>${fieldCate.fieldCateName}</td>
-                                                            <td>${fieldCate.status}</td>
+                                                            <td>${feedback.feedbackId}</td>
+                                                            <td>${feedback.user.fullName}</td>
+                                                            <td>${feedback.field.fieldName}</td>
+                                                            <td>${feedback.content}</td>
+                                                            <td>${feedback.status}</td>
                                                             <td>
-                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateFieldCate${counter}"><i class="fa fa-pencil"></i></a>
-
-                                                                <c:url var="delete" value="MainController">
-                                                                    <c:param name="action" value="DeleteFieldCate"></c:param>
-                                                                    <c:param name="index" value="1"></c:param>
-                                                                    <c:param name="fieldCateId" value="${fieldCate.fieldCateId}"></c:param>
-                                                                </c:url>
-                                                                <a title="Click here to delete field category" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
+                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateFeedback${counter}"><i class="fa fa-pencil"></i></a>
+                                                                    <c:url var="delete" value="MainController">
+                                                                        <c:param name="action" value="DeleteFeedback"></c:param>
+                                                                        <c:param name="index" value="1"></c:param>
+                                                                        <c:param name="feedbackId" value="${feedback.feedbackId}"></c:param>
+                                                                    </c:url>
+                                                                <a title="Click here to delete feedback" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
                                                                 <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
                                                                     <div class="modal-dialog">
                                                                         <div class="modal-content">
@@ -138,48 +146,37 @@
                                                                 </div>
                                                             </td>
                                                             <td> 
-                                                                <form action="MainController" method="POST" accept-charset="utf-8">
-                                                                    <div class="modal fade" id="updateFieldCate${counter}" tabindex="-1" aria-labelledby="updateFieldCate" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-xl modal-dialog-scrollable">
+                                                                <form action="MainController" method="POST" accept-charset="utf-8"> 
+                                                                    <div class="modal fade" id="updateFeedback${counter}" tabindex="-1" aria-labelledby="updateFeedback" aria-hidden="true">
+                                                                        <div class="modal-dialog modal-dialog-scrollable">
                                                                             <div class="modal-content">
-
                                                                                 <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update field category</h5>
+                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update field</h5>
                                                                                     <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
                                                                                 </div>
                                                                                 <div class="modal-body" style="margin-top: -20px">
                                                                                     <div class="row">
-                                                                                        <div class="col-sm-12">
-                                                                                            <div class="product-detail-content">
-                                                                                                <div class="new-arrival-content pr row">
-                                                                                                    <div class="col-12 col-sm-12">
-                                                                                                        <div class="card-body">
-                                                                                                            <div class="table row">
-                                                                                                                <table class="col-12">
-                                                                                                                    <tr>
-                                                                                                                        <th>Field Category Name:</th>
-                                                                                                                        <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldCateName" value="${fieldCate.fieldCateName}" required=""></th>
-                                                                                                                    </tr>
-                                                                                                                </table>
-                                                                                                            </div>
-                                                                                                            <c:if test = "${requestScope.COUNTER == counter}">
-                                                                                                                <p style="color: red">${requestScope.UPDATE_ERROR} </p>
-                                                                                                                <p style="color: red">${requestScope.UPDATE_NAME_ERROR} </p>
-                                                                                                                <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                                                                                                            </c:if>
-                                                                                                        </div>
-                                                                                                    </div>
-                                                                                                </div>
+                                                                                        <div class="card-body">
+                                                                                            <div class="table row">
+                                                                                                <table class="col-12">
+                                                                                                    <tr>
+                                                                                                        <th style="position: relative; top: 15px;">Status:</th>
+                                                                                                        <th>
+                                                                                                            <select class="form-control" name ="status">
+                                                                                                                <option value="1">Active</option>
+                                                                                                                <option value="0">In-Active</option>
+                                                                                                            </select>
+                                                                                                        </th>
+                                                                                                    </tr>
+                                                                                                </table>
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input type="hidden" name="id_fieldCate" value="${fieldCate.fieldCateId}"/>
-                                                                                    <input type="hidden" name="index" value="1"/>
-                                                                                    <input type="hidden" name="counter" value="${counter}"/>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update field category" type="submit" name="action" value="UpdateFieldCate"/>
+                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update feedback" type="submit" name="action" value="UpdateFeedback"/>
+                                                                                    <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -193,11 +190,11 @@
                                             </table>
                                         </div>
                                         <c:choose>
-                                            <c:when test="${requestScope.LIST_FIELD_CATE != null}">
+                                            <c:when test="${requestScope.LIST_FEED_BACK != null}">
                                                 <ul class="pagination">
                                                     <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                         <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                            <a href="MainController?action=PrintFieldCate&index=${i}" class="page-link">${i}</a>
+                                                            <a href="MainController?action=PrintFeedbackController&index=${i}" class="page-link">${i}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
@@ -211,54 +208,6 @@
                     </div>
                 </div>
             </div>
-            <form action="MainController" method="POST" accept-charset="utf-8"> 
-                <div class="modal fade" id="createNewFieldCate" tabindex="-1" aria-labelledby="createNewFieldCate" aria-hidden="true">
-                    <div class="modal-dialog modal-xl modal-dialog-scrollable">
-                        <div class="modal-content">
-
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="exampleModalLabel">Create new field category</h5>
-                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                            </div>
-                            <div class="modal-body" style="margin-top: -20px">
-                                <div class="row">
-                                    <div class="col-sm-12">
-                                        <div class="product-detail-content">
-                                            <div class="new-arrival-content pr row">
-                                                <div class="col-12 col-sm-12">
-                                                    <div class="card-body">
-                                                        <div class="table row">
-                                                            <table class="col-12">
-                                                                <tr>
-                                                                    <th>Field Category Name:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="fieldCateName" required=""></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th></th>
-                                                                    <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-                                                        <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                                        <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input type="hidden" name="action" value="CreateFieldCate"/>
-                                <input type="hidden" name="index" value="1"/>
-                                <input class="btn btn-primary" type="submit" value="Accept"/>
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-            </form>
         </div>
     </div>
     <!-- Required vendors -->
@@ -270,24 +219,5 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
-    <c:choose>
-        <c:when test="${requestScope.SHOW_MODAL == 'Create'}">
-            <script type="text/javascript">
-                $(document).ready(() => {
-                    $('#createNewFieldCate').modal('show');
-                });
-            </script>
-        </c:when>
-        <c:when test="${requestScope.SHOW_MODAL == 'Update'}">
-            <script type="text/javascript">
-                $(document).ready(() => {
-                <c:set var="myVal" value="${requestScope.COUNTER}"/>
-                    var val = "${myVal}";
-                    $('#updateFieldCate' + val).modal('show');
-                });
-            </script>
-        </c:when>
-        <c:otherwise></c:otherwise>
-    </c:choose>
 </body>
 </html>

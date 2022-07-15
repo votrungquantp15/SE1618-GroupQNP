@@ -17,11 +17,10 @@ import utils.DBUtils;
  * @author NITRO 5
  */
 public class FoodDAO {
-
     private static final String GET_ALL_INFO = "SELECT foodID, foodName, image, categoryFoodId, status "
             + "FROM tblFoods WHERE foodID like ?";
-    private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodName LIKE ? ";
-    private static final String SEARCH_FOOD_BY_NAME_ON_EACH_FIELD = "SELECT a.foodId, a.foodName, a.image, a.categoryFoodId, b.status FROM tblFoods a, tblFoodDetail b WHERE a.foodName LIKE ? and b.fieldId = ? and a.status = 1 and b.foodId = a.foodId ";
+    private static final String SEARCH_FOOD_BY_NAME_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodName LIKE ? ORDER BY status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    private static final String SEARCH_FOOD_BY_NAME_ON_EACH_FIELD = "SELECT a.foodId, a.foodName, a.image, a.categoryFoodId, b.status FROM tblFoods a, tblFoodDetail b WHERE a.foodName LIKE ? and b.fieldId = ? and a.status = 1 and b.foodId = a.foodId ORDER BY b.status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String SEARCH_FOOD_BY_ID_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodId LIKE ? ";
     private static final String DELETE_FOOD = "UPDATE tblFoods SET status = 0 WHERE foodId = ?";
     private static final String DELETE_FOOD_ON_FIELD = "UPDATE tblFoodDetail SET status = 0 WHERE foodId = ? and fieldId = ?";
@@ -33,6 +32,7 @@ public class FoodDAO {
                                                  + "from tblFoods, tblFoodDetail\n" 
                                                  + "where fieldId = ? and tblFoods.status = 1 and tblFoods.foodId = tblFoodDetail.foodId\n"
                                                  + "ORDER BY tblFoodDetail.status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    private static final String ACTIVE_FOOD = "UPDATE tblFoods SET status = 1 WHERE foodId = ?";
     
 
     public Food getFoodByID(String foodID) throws SQLException {
@@ -75,7 +75,32 @@ public class FoodDAO {
         return food;
     }
     
-    public List<Food> searchFoodByNameForManager(String search) throws SQLException {
+    public boolean activeFood(String foodId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(ACTIVE_FOOD);
+                ptm.setString(1, foodId);
+                rs = ptm.executeQuery();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public List<Food> searchFoodByNameForManager(String search, int index) throws SQLException {
         List<Food> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -86,6 +111,7 @@ public class FoodDAO {
                 if (conn != null) {
                     ptm = conn.prepareStatement(SEARCH_FOOD_BY_NAME_FOR_MANAGER);
                     ptm.setString(1, "%" + search + "%");
+                    ptm.setInt(2, (index - 1) * 5);
                     rs = ptm.executeQuery();
 
                     while (rs.next()) {
@@ -124,7 +150,7 @@ public class FoodDAO {
         return list;
     }
     
-    public List<Food> searchFoodByNameForEachField(String search, String fieldId) throws SQLException {
+    public List<Food> searchFoodByNameForEachField(String search, String fieldId, int index) throws SQLException {
         List<Food> list = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -136,6 +162,7 @@ public class FoodDAO {
                     ptm = conn.prepareStatement(SEARCH_FOOD_BY_NAME_ON_EACH_FIELD);
                     ptm.setString(1, "%" + search + "%");
                     ptm.setString(2, fieldId);
+                    ptm.setInt(3, (index - 1) * 5);
                     rs = ptm.executeQuery();
 
                     while (rs.next()) {
@@ -338,6 +365,7 @@ public class FoodDAO {
         }
         return check;
     }
+       
     
     public boolean deleteFood(String foodId) throws SQLException {
         boolean check = false;
@@ -444,6 +472,26 @@ public class FoodDAO {
 
     }
     
+    public int getTotalFoodSearch(String search) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String query = "select count(*) from tblFoods where foodName like ?";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setString(1, "%" + search + "%");
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+
+    }
+    
     public int getTotalFoodEach(String fieldId) throws SQLException, ClassNotFoundException {
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -454,6 +502,28 @@ public class FoodDAO {
             conn = DBUtils.getConnection();
             ptm = conn.prepareStatement(query);
             ptm.setString(1, fieldId);
+            rs = ptm.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+
+        }
+        return 0;
+
+    }
+    
+    public int getTotalFoodSearchEach(String fieldId, String search) throws SQLException, ClassNotFoundException {
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        String query = "select count(*) from tblFoodDetail a, tblFoods b\n" +
+                            "where a.fieldId = ? and b.foodName like ? and a.foodId = b.foodId";
+        try {
+            conn = DBUtils.getConnection();
+            ptm = conn.prepareStatement(query);
+            ptm.setString(1, fieldId);
+            ptm.setString(2, "%" + search + "%");
             rs = ptm.executeQuery();
             while (rs.next()) {
                 return rs.getInt(1);
@@ -529,7 +599,7 @@ public class FoodDAO {
         int min = 1;
         int random_double = (int) (Math.random() * (max - min + 1) + min);
         String s = String.valueOf(random_double);
-        return "F" + s;
+        return "FO" + s;
     }
     
     public String foodIDForManager() throws SQLException {

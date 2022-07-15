@@ -92,12 +92,6 @@
                                             </form>
                                             <p style="color: red"> ${requestScope.SEARCH_FIELD_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_CATE_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_USER_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_LOCATION_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_DISTRICT_ERROR} </p>
-                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                         </div>
                                     </div>
                                     <div class="table-responsive">
@@ -109,10 +103,8 @@
                                                     <th><strong>Field Name</strong></th>
                                                     <th><strong>Category</strong></th>
                                                     <th><strong>Price</strong></th>
-                                                    <th><strong>Field Owner</strong></th>
                                                     <th><strong>District Name</strong></th>
                                                     <th><strong>Status</strong></th>
-                                                    <th><strong>Food Service</strong></th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -125,19 +117,14 @@
                                                         <td><a class="text-primary" title="Click to view detail" href="MainController?action=PrintDetail&fieldId=${field.fieldId}">${field.fieldName}</a></td>
                                                         <td>${field.fieldCate.fieldCateName}</td>
                                                         <td>${field.price}</td>
-                                                        <td>${field.user.fullName}</td>
                                                         <td>${field.district.districtName}</td>
                                                         <td>${field.status}</td>
-                                                        <td><div class="d-flex">
-                                                                <a href="MainController?action=ViewFoodOfField&fieldId=${field.fieldId}&index=1" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-clipboard"></i></a>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>
                                         </table>
                                     </div>
-                                        
+
                                     <c:choose>
                                         <c:when test="${requestScope.LIST_FIELD != null}">
                                             <ul class="pagination">
@@ -162,7 +149,7 @@
                                         </c:when>
                                         <c:otherwise></c:otherwise>
                                     </c:choose>
-                                        
+
                                 </div>
                             </div>
                         </div>
@@ -191,6 +178,12 @@
                                                                     <th>Field Name:</th>
                                                                     <th class="col-10"><input class="col-12" title="Input information here" type="text" name="fieldName" required=""></th>
                                                                 </tr>
+                                                                <c:if test = "${not empty requestScope.NAME_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red"> ${requestScope.NAME_ERROR} </p></th>
+                                                                    </tr>
+                                                                </c:if>
                                                                 <tr>
                                                                     <th>Description:</th>
                                                                     <th><textarea title="Input information here" class="col-12" cols="500" rows="3" name="description"></textarea></th>
@@ -199,6 +192,12 @@
                                                                     <th>Image:</th>
                                                                     <th><textarea title="Input information here" class="col-12" rows="6" name="image"></textarea></th>
                                                                 </tr>
+                                                                <c:if test = "${not empty requestScope.IMAGE_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red">${requestScope.IMAGE_ERROR}</p></th>
+                                                                    </tr>
+                                                                </c:if>
                                                                 <tr>
                                                                     <th>Field Category:</th>
                                                                     <th>
@@ -207,16 +206,21 @@
                                                                                 <option value="${category.fieldCateId}">${category.fieldCateName}</option>
                                                                             </c:forEach>
                                                                         </select>
+                                                                        <a class="ml-3" href="MainController?action=PrintFieldCate&index=1">Click here to create category of field</a>
                                                                     </th>
+                                                                    <th></th>
                                                                 </tr>
                                                                 <tr>
                                                                     <th>Field Price:</th>
                                                                     <th><input class="col-12" title="Input information here" type="text" name="price" required=""></th>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th>Field Owner:</th>
-                                                                    <th><input class="col-12" title="Input information here" type="text" name="userName" value="${requestScope.USER_NAME}" readonly=""></th>
-                                                                </tr>
+                                                                <c:if test = "${not empty requestScope.PRICE_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red">${requestScope.PRICE_ERROR}</p></th>
+                                                                    </tr>
+                                                                </c:if>
+                                                                <input type="hidden" name="userName" value="${requestScope.USER_NAME}">
                                                                 <tr>
                                                                     <th>Address:</th>
                                                                     <th>
@@ -225,6 +229,7 @@
                                                                                 <option value="${location.locationId}">${location.locationName}</option>
                                                                             </c:forEach>
                                                                         </select>
+                                                                        <a class="ml-3" href="MainController?action=PrintLocation&index=1">Click here to create address</a>
                                                                     </th>
                                                                 </tr>
                                                                 <tr>
@@ -242,6 +247,7 @@
                                                                     <th class="d-flex justify-content-end"><input class="btn btn-secondary" type="reset" value="Reset"/></th>
                                                                 </tr>
                                                             </table>
+                                                            <p style="color: red"> ${requestScope.CREATE_UNSUCCESS} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -272,5 +278,12 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
+    <c:if test = "${requestScope.SHOW_MODAL == '1'}">
+        <script type="text/javascript">
+            $(document).ready(() => {
+                $('#createNewField').modal('show');
+            });
+        </script>
+    </c:if>
 </body>
 </html>

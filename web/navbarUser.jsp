@@ -101,6 +101,7 @@ Chat box End
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
             <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Profile</a></li>
+            <li><a href="MainController?action=PrintFeedback&index=1">Feedback</a></li>
             <li class="active"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Booking History</a></li>
             <li class="active"><a href="MainController?action=ViewCart">Cart</a></li>
         </ul>

@@ -63,8 +63,7 @@ public class SearchBookingController extends HttpServlet {
             int index = Integer.parseInt(indexPage);
 
             if (ADMIN.equals(roleID)) {
-                String UserID = "U";
-
+                String UserID = loginUser.getUserID();
                 int count = 0;
                 if (datefilter == null) {
                     count = dao.getTotalListBookingAdmin(UserID, status);

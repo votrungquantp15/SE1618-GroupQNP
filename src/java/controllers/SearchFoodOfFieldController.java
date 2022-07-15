@@ -28,13 +28,25 @@ public class SearchFoodOfFieldController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {    
+            
             String fieldId = request.getParameter("fieldId");
             String search = request.getParameter("searchFoodOfField");            
             FoodDAO dao = new FoodDAO();
-            List<Food> listFood = dao.searchFoodByNameForEachField(search, fieldId);
+            String indexPage = request.getParameter("index");            
+            if (indexPage == null) {
+                indexPage = "1";
+            }
+            int index = Integer.parseInt(indexPage);
+            int count = dao.getTotalFoodSearchEach(fieldId, search);
+            int endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            List<Food> listFood = dao.searchFoodByNameForEachField(search, fieldId, index);
                 
             if (listFood.size() > 0) {
                 request.setAttribute("VIEW_FOOD_EACH", listFood);
+                request.setAttribute("END_PAGE_EACH_SEARCH", endPage);
                 url = SUCCESS;
             } else 
                 request.setAttribute("SEARCH_FAILED", "KHÔNG TÌM THẤY THỨC ĂN NÀY");

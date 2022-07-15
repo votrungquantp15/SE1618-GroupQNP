@@ -172,6 +172,14 @@
         <servlet-name>CustomerConfirmController</servlet-name>
         <servlet-class>controllers.CustomerConfirmController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CreateFeedbackController</servlet-name>
+        <servlet-class>controllers.CreateFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFeedbackController</servlet-name>
+        <servlet-class>controllers.PrintFeedbackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -347,6 +355,14 @@
     <servlet-mapping>
         <servlet-name>CustomerConfirmController</servlet-name>
         <url-pattern>/CustomerConfirmController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFeedbackController</servlet-name>
+        <url-pattern>/CreateFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFeedbackController</servlet-name>
+        <url-pattern>/PrintFeedbackController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

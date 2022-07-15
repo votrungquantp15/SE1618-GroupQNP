@@ -4,14 +4,27 @@
  * and open the template in the editor.
  */
 package controllers;
-
-import dao.BookingDetailDAO;
-import dto.BookingDetail;
+import dao.FieldDAO;
+import dao.FoodCategoryDAO;
+import dao.FoodDAO;
+import dao.FoodDetailDAO;
+import dao.RoleDAO;
+import dao.UserDAO;
 import dto.User;
+import dto.CustomerError;
+import dto.Field;
+import dto.Food;
+import dto.FoodCategory;
+import dto.FoodDetail;
+import dto.FoodError;
+import dto.Role;
 import java.io.IOException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,63 +32,53 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author votru
+ * @author ROG STRIX
  */
-public class AdminIncomeManagement extends HttpServlet {
+@WebServlet(name = "AddFoodToFieldController", urlPatterns = {"/AddFoodToFieldController"})
+public class AddFoodToFieldController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-
-    private static final String SEARCHINCOME = "SearchIncome";
-
-    private static final String GET_ALL_INCOME = "GetAllIncome";
+    public static final String ERROR = "addFoodToField.jsp";
+    public static final String SUCCESS = "addFoodToField.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        List<BookingDetail> bookingDetails;
-        BookingDetailDAO bookingDetailDao = new BookingDetailDAO();
-
         try {
+                        
             HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("LOGIN_USER");
-            String action = request.getParameter("action");
-            switch (action) {
-                case SEARCHINCOME:
+            FoodDetailDAO fdao = new FoodDetailDAO();
+            String foodDetailId = fdao.foodDetailIDForManager();
 
-                    String fieldID = request.getParameter("fieldID");
-                    String datefilter = request.getParameter("datefilter");
+            String foodId = request.getParameter("foodId");
+            FoodDAO foodDAO = new FoodDAO();
+            Food food = foodDAO.getFoodByID(foodId);
+            
+            String id_of_field = request.getParameter("fieldId");
+            FieldDAO fieldDAO = new FieldDAO();
+            Field field = fieldDAO.getFieldByID(id_of_field);
+            
+            double price = Double.parseDouble(request.getParameter("price"));
+            boolean check = true;                     
 
-                    bookingDetails = bookingDetailDao.getListBookingDetailByFieldID(fieldID);
-
-                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    url = "incomeReportAdmin.jsp";
-                    break;
-
-                case GET_ALL_INCOME:
-                    String indexPage = request.getParameter("index");
-                    if (indexPage == null) {
-                        indexPage = "1";
-                    }
-                    int index = Integer.parseInt(indexPage);
-                    int endPage = 0;
-                    int count = bookingDetailDao.countTotalBookingDetail();
-                    bookingDetails = bookingDetailDao.getAllBookingDetailPaging(index);
-                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    if (user.getRole().getRoleId().equals("MA")) {
-                        url = "incomeReportOwner.jsp";
-                    } else if (user.getRole().getRoleId().equals("AD")) {
-                        url = "incomeReportAdmin.jsp";
-                    }
-                    endPage = count / 5;
-                    if (count % 5 != 0) {
-                        endPage++;
-                    }
-                    request.setAttribute("END_PAGE", endPage);
-                    break;
+            if (check) {
+                FoodDetail fFood = new FoodDetail(foodDetailId, food, field, price, "1");
+                boolean checkInsertFieldId = fdao.insertFieldIdOfFood(fFood);
+                if (checkInsertFieldId) {
+                    url = SUCCESS;
+                    session.setAttribute("FOOD_ID", foodId);
+                    request.setAttribute("CREATE_SUCCESS", "Thêm thành công");
+                } else {
+                    request.setAttribute("CREATE_FAIL", "Thêm thất bại");
+                }
+//                    }
+            } else {
+                request.setAttribute("CREATE_FAIL", "Thêm thất bại");
             }
         } catch (Exception e) {
+            e.printStackTrace();
         } finally {
+            
             request.getRequestDispatcher(url).forward(request, response);
         }
     }

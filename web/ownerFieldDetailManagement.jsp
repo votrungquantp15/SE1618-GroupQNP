@@ -77,8 +77,6 @@
                                                                     <div class="card-body col-6 col-sm-7">
                                                                         <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
                                                                         <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                                                        <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
-                                                                        <p style="color: red">${requestScope.UPDATE_ERROR} </p>
                                                                         <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                                                         <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
                                                                         <div class="table row">
@@ -105,10 +103,6 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.price}</th>
                                                                                     </tr>
                                                                                     <tr>
-                                                                                        <th style="color: black">Field Owner:</th>
-                                                                                        <th>${requestScope.FIELD_DETAIL.user.fullName}</th>
-                                                                                    </tr>
-                                                                                    <tr>
                                                                                         <th style="color: black">Address:</th>
                                                                                         <th>${requestScope.FIELD_DETAIL.location.locationName}</th>
                                                                                     </tr>
@@ -119,6 +113,10 @@
                                                                                     <tr>
                                                                                         <th style="color: black">Status:</th>
                                                                                         <th>${requestScope.FIELD_DETAIL.status}</th>
+                                                                                    </tr>
+                                                                                    <tr>
+                                                                                        <th style="color: black">Food Service:</th>
+                                                                                        <th><a href="MainController?action=ViewFoodOfField&fieldId=${requestScope.FIELD_DETAIL.fieldId}&index=1" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-clipboard"></i></a></th>
                                                                                     </tr>
                                                                                     <tr>
                                                                                         <th></th>
@@ -195,6 +193,12 @@
                                                                     <th>Field Name:</th>
                                                                     <th class="col-10"><input class="col-12" title="Input what you want to update" type="text" name="fieldName" value="${requestScope.FIELD_DETAIL.fieldName}" required=""></th>
                                                                 </tr>
+                                                                <c:if test = "${not empty requestScope.NAME_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red"> ${requestScope.NAME_ERROR} </p></th>
+                                                                    </tr>
+                                                                </c:if>
                                                                 <tr>
                                                                     <th>Description:</th>
                                                                     <th><textarea title="Input what you want to update" class="col-12" cols="500" rows="3" name="description">${requestScope.FIELD_DETAIL.description}</textarea></th>
@@ -203,6 +207,12 @@
                                                                     <th>Image:</th>
                                                                     <th><textarea title="Input what you want to update" class="col-12" rows="6" name="image">${requestScope.FIELD_DETAIL.image}</textarea></th>
                                                                 </tr>
+                                                                <c:if test = "${not empty requestScope.IMAGE_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red">${requestScope.IMAGE_ERROR}</p></th>
+                                                                    </tr>
+                                                                </c:if>
                                                                 <tr>
                                                                     <th>Field Category:</th>
                                                                     <th>
@@ -217,16 +227,13 @@
                                                                     <th>Field Price:</th>
                                                                     <th><input class="col-12" title="Input what you want to update" type="text" name="price" value="${requestScope.FIELD_DETAIL.price}" required=""></th>
                                                                 </tr>
-                                                                <tr>
-                                                                    <th>Field Owner:</th>
-                                                                    <th>
-                                                                        <select name ="userId">
-                                                                            <c:forEach var="user" items="${requestScope.LIST_USER}">
-                                                                                <option value="${user.userID}">${user.fullName}</option>
-                                                                            </c:forEach>
-                                                                        </select>
-                                                                    </th>
-                                                                </tr>
+                                                                <c:if test = "${not empty requestScope.PRICE_ERROR}">
+                                                                    <tr>
+                                                                        <th></th>
+                                                                        <th><p style="color: red">${requestScope.PRICE_ERROR}</p></th>
+                                                                    </tr>
+                                                                </c:if>
+                                                                <input type="hidden" name="userId" value="${requestScope.USER_ID}">
                                                                 <tr>
                                                                     <th>Address:</th>
                                                                     <th>
@@ -248,6 +255,7 @@
                                                                     </th>
                                                                 </tr>
                                                             </table>
+                                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -258,8 +266,8 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <input style="color: white" class="btn btn-primary" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
                                 <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                                <input style="color: white" class="btn btn-primary" title="Click here to update field" type="submit" name="action" value="UpdateField"/>
                             </div>
                         </div>
                     </div>
@@ -267,12 +275,6 @@
             </form>
         </div>
     </div>
-    <script>
-        $(document).ready(function(){
-        if (${requestScope.UPDATE_MODAL == '1'}){
-        $('#updateField').modal('show'); }
-        }
-    </script>
     <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
     <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
     <!-- Datatable -->
@@ -281,5 +283,12 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
+    <c:if test = "${requestScope.SHOW_MODAL == '1'}">
+        <script type="text/javascript">
+            $(document).ready(() => {
+                $('#updateField').modal('show');
+            });
+        </script>
+    </c:if>
 </body>
 </html>

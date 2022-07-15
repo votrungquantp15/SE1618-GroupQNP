@@ -81,46 +81,57 @@
                                         <div class="form-group col-md-6">
                                             <label>User ID</label>
                                             <input type="text" class="form-control" name="userID" value="${user.userID}" readonly=""/>
+                                            
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Full Name</label>
                                             <input type="text" class="form-control" name="fullName" value="${user.fullName}" required=""/>
+                                            <p style="color : red">${requestScope.FULL_NAME_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Address</label>
                                             <input type="text" class="form-control" name="address" value="${user.address}" required=""/>
+                                            <p style="color : red">${requestScope.ADDRESS_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>District</label>
                                             <input type="text" class="form-control" name="districtId" value="${user.district.districtId}" required=""/>
+                                            <p style="color : red">${requestScope.DISTRICT_ERROR}</p>
+                                            
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Birthday</label>
                                             <input type="date" class="form-control" name="birthday" value="${user.birth}" required=""/>
+                                            <p style="color : red">${requestScope.BIRTH_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Phone</label>
                                             <input type="text" class="form-control" name="phone" value="${user.phone}" required=""/>
+                                            <p style="color : red">${requestScope.PHONE_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Email</label>
                                             <input type="email" class="form-control" name="email" value="${user.email}" readonly=""/>
+                                            <p style="color : red">${requestScope.EMAIL_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Account Name</label>
                                             <input type="text" class="form-control" name="accName" value="${user.accName}" readonly=""/>
+                                            <p style="color : red">${requestScope.ACCOUNT_NAME_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Password</label>
                                             <input type="text" class="form-control" name="password" value="${user.password}" required=""/>
+                                            <p style="color : red">${requestScope.PASSWORD_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Role</label>
                                             <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
+                                            <p style="color : red">${requestScope.ROLE_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Status</label>
-                                            <input type="text" class="form-control" name="status" value="${user.status}" required=""/>
+                                            <input type="text" class="form-control" name="status" value="${user.status}" readonly=""/>
                                         </div>
 
                                     </div>                                       

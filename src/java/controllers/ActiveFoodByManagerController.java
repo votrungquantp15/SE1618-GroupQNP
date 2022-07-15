@@ -5,13 +5,13 @@
  */
 package controllers;
 
-import dao.BookingDetailDAO;
-import dto.BookingDetail;
+import dao.FoodDAO;
+import dao.FoodDetailDAO;
+import dao.UserDAO;
 import dto.User;
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -19,62 +19,32 @@ import javax.servlet.http.HttpSession;
 
 /**
  *
- * @author votru
+ * @author predator
  */
-public class AdminIncomeManagement extends HttpServlet {
+@WebServlet(name = "ActiveFoodByManagerController", urlPatterns = {"/ActiveFoodByManagerController"})
+public class ActiveFoodByManagerController extends HttpServlet {
 
-    private static final String ERROR = "error.jsp";
-
-    private static final String SEARCHINCOME = "SearchIncome";
-
-    private static final String GET_ALL_INCOME = "GetAllIncome";
+    private static final String ERROR = "ViewFoodOfFieldController";
+    private static final String SUCCESS = "ViewFoodOfFieldController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        List<BookingDetail> bookingDetails;
-        BookingDetailDAO bookingDetailDao = new BookingDetailDAO();
-
         try {
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("LOGIN_USER");
-            String action = request.getParameter("action");
-            switch (action) {
-                case SEARCHINCOME:
-
-                    String fieldID = request.getParameter("fieldID");
-                    String datefilter = request.getParameter("datefilter");
-
-                    bookingDetails = bookingDetailDao.getListBookingDetailByFieldID(fieldID);
-
-                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    url = "incomeReportAdmin.jsp";
-                    break;
-
-                case GET_ALL_INCOME:
-                    String indexPage = request.getParameter("index");
-                    if (indexPage == null) {
-                        indexPage = "1";
-                    }
-                    int index = Integer.parseInt(indexPage);
-                    int endPage = 0;
-                    int count = bookingDetailDao.countTotalBookingDetail();
-                    bookingDetails = bookingDetailDao.getAllBookingDetailPaging(index);
-                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    if (user.getRole().getRoleId().equals("MA")) {
-                        url = "incomeReportOwner.jsp";
-                    } else if (user.getRole().getRoleId().equals("AD")) {
-                        url = "incomeReportAdmin.jsp";
-                    }
-                    endPage = count / 5;
-                    if (count % 5 != 0) {
-                        endPage++;
-                    }
-                    request.setAttribute("END_PAGE", endPage);
-                    break;
+            String foodId = request.getParameter("foodId");
+            String fieldId = request.getParameter("fieldId");
+            FoodDetailDAO dao = new FoodDetailDAO();
+            boolean check = dao.activeFood(foodId, fieldId);
+            if (check) {
+                request.setAttribute("ACTIVE_SUCCESS", "thêm thành công");
+                url = SUCCESS;
+            } else {
+                request.setAttribute("ACTIVE_FAILED", "thêm thất bại, thử lại giúp nha (>.<) ");
             }
+
         } catch (Exception e) {
+            log("Error at ActiveFoodByManagerController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

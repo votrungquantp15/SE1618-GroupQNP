@@ -1,7 +1,10 @@
 package controllers;
 
-import dao.FieldCategoryDAO;
-import dto.FieldCategory;
+import dao.FeedbackDAO;
+import dao.FieldDAO;
+import dto.Feedback;
+import dto.Field;
+import dto.User;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -9,44 +12,53 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class CreateFieldCateController extends HttpServlet {
-
-    private static final String ERROR = "PrintFieldCateController";
-    private static final String SUCCESS = "PrintFieldCateController";
+public class CreateFeedbackController extends HttpServlet {
+    
+    private static final String ERROR = "UserPrintFieldDetailController";
+    private static final String SUCCESS = "UserPrintFieldDetailController";
     
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            FieldCategoryDAO fieldCateDao = new FieldCategoryDAO();
-            String fieldCateId = fieldCateDao.createFieldCateId();
-            String fieldCateName = request.getParameter("fieldCateName");
-            fieldCateName = URLEncoder.encode(fieldCateName, "ISO-8859-1");
-            fieldCateName = URLDecoder.decode(fieldCateName, "UTF-8");
+            FeedbackDAO feedbackDao = new FeedbackDAO();
+            String fieldCateId = feedbackDao.createFeedbackId();
+            
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
+            
+            String content = request.getParameter("content");
+            content = URLEncoder.encode(content, "ISO-8859-1");
+            content = URLDecoder.decode(content, "UTF-8");
+            
+            String fieldId = request.getParameter("fieldId");
+            FieldDAO fieldDao = new FieldDAO();
+            Field field = fieldDao.getFieldByID(fieldId);
 
             boolean checkValidation = true;
-            if (fieldCateName.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "Field category name cannot be left blank");
+            if (content.trim().length() == 0) {
+                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
                 checkValidation = false;
-            } else if (fieldCateDao.checkFieldCateName(fieldCateName)) {
-                request.setAttribute("CREATE_ERROR", "Field category name is already exist");
+            } 
+            if (content.length() > 500) {
+                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
                 checkValidation = false;
-            }
+            } 
             if (checkValidation) {
-                FieldCategory fieldCate = new FieldCategory(fieldCateId, fieldCateName, null);
-                boolean checkCreate = fieldCateDao.createFieldCate(fieldCate);
+                Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
+                boolean checkCreate = feedbackDao.createFeedback(feedback);
                 if (checkCreate) {
                     url = SUCCESS;
+                    request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
                 }
-                request.setAttribute("CREATE_SUCCESS", "Create field category success!");
             } else {
-                request.setAttribute("CREATE_UNSUCCESS", "Create field category unsuccess! Please try again!");
-                request.setAttribute("SHOW_MODAL", "Create");
+                request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
             }
         } catch (Exception e) {
-            log("Error at CreateFieldCateController: " + e.toString());
+            log("Error at CreateFeedbackController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -34,7 +34,7 @@ public class CreateLocationController extends HttpServlet {
                 checkValidation = false;
             }
             if (checkValidation) {
-                Location location = new Location(locationID, locationName, null);
+                Location location = new Location(locationID, locationName, "Active");
                 boolean checkCreate = locationDao.createLocation(location);
                 if (checkCreate) {
                     url = SUCCESS;
@@ -42,6 +42,7 @@ public class CreateLocationController extends HttpServlet {
                 request.setAttribute("CREATE_SUCCESS", "Create location success!");
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Create location unsuccess! Please try again!");
+                request.setAttribute("SHOW_MODAL", "Create");
             }
         } catch (Exception e) {
             log("Error at CreateLocationController: " + e.toString());

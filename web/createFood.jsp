@@ -77,12 +77,12 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Food Name</label>
+                                            <label>Food Name</label><label class="ml-1" style="color:red">(*)</label>
                                             <input type="text" class="form-control" name="foodName" required=""/>
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label>Category</label>
+                                            <label>Category</label><label class="ml-1" style="color:red">(*)</label>
                                             <select class="form-control " name="categoryFoodId">
 
                                                 <option value="">Show all</option>
@@ -94,7 +94,7 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Image</label>
+                                        <label>Image</label><label class="ml-1" style="color:red">(*)</label>
                                         <input type="text" class="form-control" name="image" required=""/>
                                     </div>
 

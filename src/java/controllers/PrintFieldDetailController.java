@@ -4,7 +4,6 @@ import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
-import dao.UserDAO;
 import dto.District;
 import dto.Field;
 import dto.FieldCategory;
@@ -29,14 +28,14 @@ public class PrintFieldDetailController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
+            request.setAttribute("USER_ID", user.getUserID());
+            
             String id_of_field = request.getParameter("fieldId");
             FieldDAO fieldDao = new FieldDAO();
             Field listField = fieldDao.getFieldByID(id_of_field);
             request.setAttribute("FIELD_DETAIL", listField);
-            
-            UserDAO userDao = new UserDAO();
-            List<User> listUser = userDao.getAllUser();
-            request.setAttribute("LIST_USER", listUser);
             
             FieldCategoryDAO cateDao = new FieldCategoryDAO();
             List<FieldCategory> listCate = cateDao.getAllFieldCategory();
@@ -50,8 +49,6 @@ public class PrintFieldDetailController extends HttpServlet {
             List<Location> listLocation = locationDao.getAllLocation();
             request.setAttribute("LIST_LOCATION", listLocation);
             
-            HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("LOGIN_USER");
             if (user.getRole().getRoleId().equals("MA")) {
                 url = OWNER_PAGE;
             } else if (user.getRole().getRoleId().equals("AD")) {

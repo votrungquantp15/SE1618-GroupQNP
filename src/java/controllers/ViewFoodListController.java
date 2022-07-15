@@ -24,6 +24,7 @@ public class ViewFoodListController extends HttpServlet {
         String url = ERROR;
         
         try {
+            
             String indexPage = request.getParameter("index");
             if(indexPage == null)
                 indexPage="1";
