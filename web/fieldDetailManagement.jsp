@@ -119,7 +119,7 @@
                                                                                     <tr>
                                                                                         <th style="color: black">Status:</th>
                                                                                         <th>${requestScope.FIELD_DETAIL.status}</th>
-                                                                                    </tr>
+                                                                                    </tr>                                                                                    
                                                                                     <tr>
                                                                                         <th></th>
                                                                                         <th>

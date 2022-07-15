@@ -105,7 +105,6 @@
                                                     <th><strong>Price</strong></th>
                                                     <th><strong>District Name</strong></th>
                                                     <th><strong>Status</strong></th>
-                                                    <th><strong>Food Service</strong></th>
                                                     <th></th>
                                                 </tr>
                                             </thead>
@@ -120,10 +119,6 @@
                                                         <td>${field.price}</td>
                                                         <td>${field.district.districtName}</td>
                                                         <td>${field.status}</td>
-                                                        <td><div class="d-flex">
-                                                                <a href="MainController?action=ViewFoodOfField&fieldId=${field.fieldId}&index=1" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-clipboard"></i></a>
-                                                            </div>
-                                                        </td>
                                                     </tr>
                                                 </c:forEach>
                                                 </tr>

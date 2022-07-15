@@ -230,6 +230,23 @@ public class MainController extends HttpServlet {
     private static final String CREATE_FOOD_ON_FIELD = "CreateFoodOnField";
     private static final String CREATE_FOOD_ON_FIELD_CONTROLLER = "CreateFoodOnFieldController";
     
+    //Active food by manager 
+    private static final String ACTIVE_FOOD_BY_MANAGER = "ActiveFoodByManager";
+    private static final String ACTIVE_FOOD_BY_MANAGER_CONTROLLER = "ActiveFoodByManagerController";
+    
+    //Active food by manager 
+    private static final String ACTIVE_USER = "ActiveUser";
+    private static final String ACTIVE_USER_CONTROLLER = "ActiveUserController";
+    
+    //Add food to field 
+    private static final String ADD_FOOD_TO_FIELD = "AddFoodToField";
+    private static final String ADD_FOOD_TO_FIELD_CONTROLLER = "AddFoodToFieldController";
+    
+    //Active Food 
+    private static final String ACTIVE_FOOD = "ActiveFood";
+    private static final String ACTIVE_FOOD_CONTROLLER = "ActiveFoodController";
+    
+    
     //Payment
     private  static final String USER_PAYMENT = "Payment";
     private static final String USER_PAYMENT_CONTROLLER = "UserPaymentController";
@@ -418,6 +435,18 @@ public class MainController extends HttpServlet {
                     break;
                 case CREATE_FOOD_ON_FIELD:
                     url = CREATE_FOOD_ON_FIELD_CONTROLLER;
+                    break;
+                case ACTIVE_FOOD_BY_MANAGER:
+                    url = ACTIVE_FOOD_BY_MANAGER_CONTROLLER;
+                    break;
+                case ACTIVE_USER:
+                    url = ACTIVE_USER_CONTROLLER;
+                    break;
+                case ADD_FOOD_TO_FIELD:
+                    url = ADD_FOOD_TO_FIELD_CONTROLLER;
+                    break;
+                case ACTIVE_FOOD:
+                    url = ACTIVE_FOOD_CONTROLLER;
                     break;
                 case USER_PAYMENT:
                     url = USER_PAYMENT_CONTROLLER;

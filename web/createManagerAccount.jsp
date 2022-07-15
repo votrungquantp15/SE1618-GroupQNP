@@ -78,15 +78,15 @@
 
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
-                                            <label>Full Name</label>
-                                            <input type="text" class="form-control" name="fullName" required=""/>
+                                            <label>Full Name</label><label class="ml-1" style="color:red">(*)</label>
+                                            <input type="text" class="form-control" name="fullName" value = "${param.fullName}" required=""/>
                                         </div>
 
                                         <div class="form-group col-md-6">
-                                            <label>District</label>
+                                            <label>District</label><label class="ml-1" style="color:red">(*)</label>
                                             <select class="form-control " name="districtId">
 
-                                                <option value="">Show all</option>
+                                                <option value="">None</option>
                                             <c:forEach var="districtName" items="${requestScope.DISTRICT_NAME}">
                                                 <option value="${districtName.districtId}">${districtName.districtName}</option>
                                             </c:forEach>
@@ -95,24 +95,25 @@
                                         </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Birthday</label>
-                                        <input type="date" class="form-control" name="birthday" required=""/>
+                                        <label>Birthday</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="date" class="form-control" name="birthday" value = "${param.birthday}" required=""/>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Phone</label>
-                                        <input type="text" class="form-control" name="phone" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.phoneError}</label>
+                                        <label>Phone</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="text" class="form-control" name="phone" value = "${param.phone}" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.phoneError}</label>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Email</label> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.emailError}</label>
-                                        <input type="email" class="form-control" name="email" required=""/>
+                                        <label>Email</label><label class="ml-1" style="color:red">(*)</label> 
+                                        <input type="email" class="form-control" name="email" value = "${param.email}" required=""/>
+                                        <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.emailError}</label>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Account Name</label>
-                                        <input type="text" class="form-control" name="accName" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.accNameError}</label>
+                                        <label>Account Name</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="text" class="form-control" name="accName" value = "${param.accName}" required=""/> <label class="labels" style="color: red">${requestScope.CUSTOMER_ERROR.accNameError}</label>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Password</label>
-                                        <input type="text" class="form-control" name="password" required=""/>
+                                        <label>Password</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="text" class="form-control" name="password" value = "${param.password}" required=""/>
                                     </div>
 
                                 </div>                                       

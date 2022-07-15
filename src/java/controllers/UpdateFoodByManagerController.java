@@ -1,9 +1,13 @@
 package controllers;
 
+import dao.FieldDAO;
 import dao.FoodCategoryDAO;
 import dao.FoodDAO;
+import dto.Field;
 import dto.FoodCategory;
 import dto.Food;
+import dto.FoodDetailError;
+import dto.FoodError;
 import java.io.IOException;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
@@ -24,11 +28,15 @@ public class UpdateFoodByManagerController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            boolean check = true;
             String foodID = request.getParameter("foodId");
             String foodName = request.getParameter("foodName");
             foodName = URLEncoder.encode(foodName, "ISO-8859-1");
             foodName = URLDecoder.decode(foodName, "UTF-8");       
             String image = request.getParameter("image");
+            String id_of_field = request.getParameter("fieldId");
+            FieldDAO fieldDAO = new FieldDAO();
+            Field field = fieldDAO.getFieldByID(id_of_field);
             String foodCate = request.getParameter("categoryFoodId");
             FoodCategoryDAO fCate = new FoodCategoryDAO();
             FoodCategory f_Cate = fCate.getFoodCategoryByID(foodCate);
@@ -36,7 +44,19 @@ public class UpdateFoodByManagerController extends HttpServlet {
             FoodDAO dao = new FoodDAO();
             Food food = new Food(foodID, foodName, image, f_Cate, status);
             boolean checkUpdate = dao.updateFood(food);
-            if (checkUpdate) {                
+            
+            if (image.trim().length() <= 0) {
+                request.setAttribute("FOOD_IMAGE_ERROR", "Đường dẫn không được để trống");
+                check = false;
+            }
+            
+            if (foodName.trim().length() <= 0) {
+                request.setAttribute("FOOD_NAME_ERROR", "Tên không được bỏ trống");
+                check = false;
+            }
+            
+            
+            if (checkUpdate && check) {                
                 url = SUCCESS;
                 request.setAttribute("UPDATE_SUCCESS", "Cập nhật thành công!!!");
             } else {
