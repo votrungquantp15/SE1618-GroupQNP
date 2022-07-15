@@ -115,6 +115,10 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.status}</th>
                                                                                     </tr>
                                                                                     <tr>
+                                                                                        <th style="color: black">Food Service:</th>
+                                                                                        <th><a href="MainController?action=ViewFoodOfField&fieldId=${requestScope.FIELD_DETAIL.fieldId}&index=1" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-clipboard"></i></a></th>
+                                                                                    </tr>
+                                                                                    <tr>
                                                                                         <th></th>
                                                                                         <th>
                                                                                             <div class="d-flex justify-content-end">

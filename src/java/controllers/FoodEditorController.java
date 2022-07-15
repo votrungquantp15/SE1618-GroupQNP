@@ -2,9 +2,11 @@ package controllers;
 
 import dao.FoodCategoryDAO;
 import dao.FoodDAO;
+import dao.FoodDetailDAO;
 import dao.UserDAO;
 import dto.Food;
 import dto.FoodCategory;
+import dto.FoodDetail;
 import dto.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,11 +28,14 @@ public class FoodEditorController extends HttpServlet {
         String url = ERROR;
         try {
             String foodId = request.getParameter("foodId");
-                       
+            String fieldId = request.getParameter("fieldId");           
             FoodDAO dao = new FoodDAO();
+            FoodDetailDAO fdao = new FoodDetailDAO();
             List<Food> listFood = dao.searchFoodByIdForManager(foodId);
+            List<FoodDetail> listFoodDetail = fdao.getFoodDetailIdByFoodIdAndFieldId(foodId, fieldId);
             if (listFood.size() > 0) {
                 request.setAttribute("VIEW_FOOD", listFood);
+                request.setAttribute("FOOD_PRICE", listFoodDetail);
                 url = SUCCESS;
             }
         } catch (Exception e) {

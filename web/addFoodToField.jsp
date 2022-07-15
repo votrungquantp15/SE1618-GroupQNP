@@ -68,52 +68,35 @@
 
                 <form action="MainController" method="POST">
                     <div class="card">
-                        <div class="card-header">
-                            <h4 class="card-title">Create Food</h4>
+                        <div class="form-group col-md-6">
+                            <div class="card-header">
+                                <h4 class="card-title">Add Food</h4>                               
                         </div>
                         <div class="card-body">
                             <div class="basic-form">
-
-                                <div class="form-row">
+                                <div class="form-row">                                       
                                     <div class="form-group col-md-6">
-                                        <label>Field ID</label><label class="ml-1" style="color:red">(*)</label>
-                                        <input type="text" class="form-control" name="fieldId" value = "${sessionScope.FIELD_ID}" readonly=""/>
-                                </div>
+                                        <label>Food ID</label>
+                                        <input type="text" class="form-control" name="foodId" value="${param.foodId}"  readonly=""/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Field ID</label>
+                                        <input type="text" class="form-control" name="fieldId"  required=""/>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Price</label>
+                                        <input type="text" class="form-control" name="price"  required=""/>
+                                    </div>
 
-                                <div class="form-group col-md-6">
-                                    <label>Food Name</label><label class="ml-1" style="color:red">(*)</label>
-                                    <input type="text" class="form-control" name="foodName" value = "${param.foodName}" required=""/>
-                                    <p style="color: red">${requestScope.FOOD_ERROR.foodNameError}</p>
-                                </div>
-                                <div class="form-group col-md-6">
-                                    <label>Category</label><label class="ml-1" style="color:red">(*)</label>
-                                    <select class="form-control " name="categoryFoodId">
-
-                                        <option value="">Show all</option>
-                                        <c:forEach var="foodCateName" items="${requestScope.FOOD_CATEGORY_NAME}">
-                                            <option value="${foodCateName.foodCateId}">${foodCateName.foodCateName}</option>
-                                        </c:forEach>
-
-
-                                    </select>
-                                    <p style="color: red">${requestScope.FOOD_ERROR.categoryFoodIdError}</p>
-                                </div>
-
-                                <div class="form-group col-md-6">
-                                    <label>Image</label><label class="ml-1" style="color:red">(*)</label>
-                                    <input type="text" class="form-control" name="image" value = "${param.image}" required=""/>
-                                    <p style="color: red">${requestScope.FOOD_ERROR.foodImageError}</p>
-                                </div>
-
-                            </div>                                       
-                            <button type="submit" name="action" class="btn btn-primary" value="CreateFoodOnField"/>Create</button>
-                            <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=1">Back</a>
-                            <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
-                            <p style="color: red">${requestScope.CREATE_FAIL} </p>
-                            
+                                </div>                                       
+                                <button type="submit" name="action" class="btn btn-primary" value="AddFoodToField"/>Add</button>
+                                <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodList&index=1">Back</a>
+                                <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                <p style="color: red">${requestScope.CREATE_FAIL} </p>
+                                </form>
+                            </div>
                         </div>
-                    </div>
-                </div>                                
+                    </div>                                
             </form>
 
 
