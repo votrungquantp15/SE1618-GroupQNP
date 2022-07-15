@@ -13,7 +13,7 @@
         <meta property="og:description" content="Zenix - Crypto Admin Dashboard">
         <meta property="og:image" content="https://zenix.dexignzone.com/xhtml/social-image.png">
         <meta name="format-detection" content="telephone=no">
-        <title>Your Cart Page</title>
+        <title>Check Out Page</title>
         <!-- Favicon icon -->
         <link rel="icon" type="image/png" sizes="16x16" href="images/favicon.png">
         <!-- Datatable -->
@@ -27,124 +27,50 @@
         <div id="main-wrapper">
 
             <jsp:include page="navbarUser.jsp"></jsp:include>
-            <div class="content-body">
-                <div class="col-12">
-                    <div class="card">
+                <div class="content-body">
+                    <div class="col-12">
+                        <div class="card">
+                            <div class="row">
+                                <div class="col-lg-12">
 
-
-
-
-                        <div class="row">
-                            <div class="col-lg-12">
-
-                                <div class="card mt-3">
-                                    <div class="card-header"> Invoice <strong>01/01/01/2018</strong> <span class="float-right">
-                                            <strong>Status:</strong> Pending</span> </div>
-                                    <div class="card-body">
-                                        <div class="row mb-5">
-                                            <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                                <h6>From:</h6>
-                                                <div> <strong>Webz Poland</strong> </div>
-                                                <div>Madalinskiego 8</div>
-                                                <div>71-101 Szczecin, Poland</div>
-                                                <div>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="e68f888089a69183849cc885898bc8968a">[email&#160;protected]</a></div>
-                                                <div>Phone: +48 444 666 3333</div>
-                                            </div>
-                                            <div class="mt-4 col-xl-3 col-lg-3 col-md-6 col-sm-6">
-                                                <h6>To:</h6>
-                                                <div> <strong>Bob Mart</strong> </div>
-                                                <div>Attn: Daniel Marek</div>
-                                                <div>43-190 Mikolow, Poland</div>
-                                                <div>Email: <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="204d4152454b6044414e49454c0e434f4d">[email&#160;protected]</a></div>
-                                                <div>Phone: +48 123 456 789</div>
-                                            </div>
-                                            <div class="mt-4 col-xl-6 col-lg-6 col-md-12 col-sm-12 d-flex justify-content-lg-end justify-content-md-center justify-content-xs-start">
-                                                <div class="row align-items-center">
-                                                    <div class="col-sm-9"> 
-                                                        <div class="brand-logo mb-3">
-                                                            <img class="logo-abbr mr-2" width="50" src="images/logo.png" alt="">
-                                                            <img class="logo-compact" width="110" src="images/logo-text.png" alt="">
-                                                        </div>
-                                                        <span>Please send exact amount: <strong class="d-block">0.15050000 BTC</strong>
-                                                            <strong>1DonateWffyhwAjskoEwXt83pHZxhLTr8H</strong></span><br>
-                                                        <small class="text-muted">Current exchange rate 1BTC = $6590 USD</small>
-                                                    </div>
-                                                    <div class="col-sm-3 mt-3"> <img src="images/qr.png" alt="" class="img-fluid width110"> </div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 style="color: red">${ADD_FAIL}</h4>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
                                                     <tr>
-                                                        <th class="center">#</th>
-                                                        <th>Item</th>
-                                                        <th>Description</th>
-                                                        <th class="right">Unit Cost</th>
-                                                        <th class="center">Qty</th>
-                                                        <th class="right">Total</th>
+                                                        <th></th>
+                                                        <th><strong>Field Name</strong></th>
+                                                        <th><strong>Time</strong></th>
+                                                        <th><strong>Price</strong></th>
+                                                        <th><strong>Play Date</strong></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr>
-                                                        <td class="center">1</td>
-                                                        <td class="left strong">Origin License</td>
-                                                        <td class="left">Extended License</td>
-                                                        <td class="right">$999,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$999,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="center">2</td>
-                                                        <td class="left">Custom Services</td>
-                                                        <td class="left">Instalation and Customization (cost per hour)</td>
-                                                        <td class="right">$150,00</td>
-                                                        <td class="center">20</td>
-                                                        <td class="right">$3.000,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="center">3</td>
-                                                        <td class="left">Hosting</td>
-                                                        <td class="left">1 year subcription</td>
-                                                        <td class="right">$499,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$499,00</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td class="center">4</td>
-                                                        <td class="left">Platinum Support</td>
-                                                        <td class="left">1 year subcription 24/7</td>
-                                                        <td class="right">$3.999,00</td>
-                                                        <td class="center">1</td>
-                                                        <td class="right">$3.999,00</td>
-                                                    </tr>
+                                                    <c:set var="total" value="0"/>
+                                                    <c:forEach var="cart" items="${CART.getCart().values()}">
+                                                        <c:set var="total" value="${total + cart.field.price}"/>
+                                                        <tr>
+                                                            <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
+                                                            <td>${cart.field.fieldName}</td>
+                                                            <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
+                                                            <td>${cart.field.price}$</td>
+                                                            <td>${cart.playDate}</td>
+                                                        </tr>
+                                                    </c:forEach>
                                                 </tbody>
                                             </table>
                                         </div>
                                         <div class="row">
                                             <div class="col-lg-4 col-sm-5"> </div>
                                             <div class="col-lg-4 col-sm-5 ml-auto">
-                                                <table class="table table-clear">
-                                                    <tbody>
-                                                        <tr>
-                                                            <td class="left"><strong>Subtotal</strong></td>
-                                                            <td class="right">$8.497,00</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>Discount (20%)</strong></td>
-                                                            <td class="right">$1,699,40</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>VAT (10%)</strong></td>
-                                                            <td class="right">$679,76</td>
-                                                        </tr>
-                                                        <tr>
-                                                            <td class="left"><strong>Total</strong></td>
-                                                            <td class="right"><strong>$7.477,36</strong><br>
-                                                                <strong>0.15050000 BTC</strong></td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
+
+                                                <h3 class="float-right mr-5"><strong>Total: $${total}</strong></h3>
+                                                <div class="float-right">   
+                                                    <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg">Confirm</a>
+                                                    <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>

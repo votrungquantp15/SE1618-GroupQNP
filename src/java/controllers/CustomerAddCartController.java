@@ -35,6 +35,8 @@ public class CustomerAddCartController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
+            boolean checkDB = false;
+            boolean checkCart = false;
             String slotDetailID = request.getParameter("slotDetailID");
             String playDate = request.getParameter("playDate");
             String fieldID = request.getParameter("fieldID");
@@ -45,13 +47,14 @@ public class CustomerAddCartController extends HttpServlet {
 
             SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
             SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
-            
+
             HttpSession session = request.getSession();
             Cart cart = (Cart) session.getAttribute("CART");
-            boolean check = false;
-            if (slotDetailID == null) {
-                request.setAttribute("ADD_FAIL", "Vui lòng chọn thời gian cho sân");
-            } else {
+            if (cart == null) {
+                cart = new Cart();
+            }
+            if (slotDetailID != null) {
+
                 BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
                 String bookingDetailID = bookingDetailDAO.createBookingDetailID();
 
@@ -60,71 +63,56 @@ public class CustomerAddCartController extends HttpServlet {
                 }
 
                 BookingDetail bookingDetail = new BookingDetail(bookingDetailID, null, field, slotDetail, fieldPrice, playDate, true);
-                if (cart == null) {
 
-                    cart = new Cart();
-
-                    List<BookingDetail> listDetailBooked = new ArrayList<>();
-                    listDetailBooked = bookingDetailDAO.getListBookingDetailByID(fieldID);
-                    for (BookingDetail detail : listDetailBooked) {
-                        if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
-                            request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
-                            check = false;
-                            break;
-                        } else {
-                            check = true;
-                        }
-                    }
-                    if (check) {
+                if (cart.getCart() == null) {
+                    List<BookingDetail> existedListDetail = bookingDetailDAO.getListBookingDetailByID(fieldID, playDate, slotDetailID);
+                    if (!existedListDetail.isEmpty()) {
+                        request.setAttribute("ADD_FAIL", "Đã có người đặt");
+                    } else {
                         cart.add(bookingDetail);
+                        session.setAttribute("CART", cart);
+                        request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
+                        url = SUCCESS;
                     }
-
                 } else {
-                    List<BookingDetail> listBookingDetaillCart = new ArrayList<>();
-                    ArrayList<String> keys = new ArrayList<>();
-                    List<BookingDetail> listDetailBooked = new ArrayList<>();
-                    listDetailBooked = bookingDetailDAO.getListBookingDetailByID(fieldID);
+                    List<BookingDetail> existedListDetail = bookingDetailDAO.getListBookingDetailByID(fieldID, playDate, slotDetailID);
 
-                    for (String key : cart.getCart().keySet()) {
-                        keys.add(key);
+                    if (!existedListDetail.isEmpty()) {
+                        request.setAttribute("ADD_FAIL", "Đã có người đặt! Vui lòng chọn ngày hoặc thời gian khác");
+                    } else {
+                        checkDB = true;
                     }
-                    for (String key : keys) {
-                        listBookingDetaillCart.add(cart.getCart().get(key));
-                    }
-                    for (BookingDetail detail : listBookingDetaillCart) {
-                        if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
-                            request.setAttribute("ADD_FAIL", "Thời gian đã có trong giỏ hàng");
-                            check = false;
-                            break;
-                        } else {
-                            check = true;
+                    if (checkDB == true) {
+                        List<BookingDetail> listBookingCart = new ArrayList<>();
+                        List<String> keys = new ArrayList<>();
+                        for (String key : cart.getCart().keySet()) {
+                            keys.add(key);
                         }
-                    }
-
-                    if (check) {
-                        for (BookingDetail detail : listDetailBooked) {
-                            if (detail.getField().getFieldId().equals(fieldID) && detail.getPlayDate().equals(playDate) && detail.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
-                                request.setAttribute("ADD_FAIL", "Thời gian đã có người đặt");
-                                check = false;
+                        for (String key : keys) {
+                            listBookingCart.add(cart.getCart().get(key));
+                        }
+                        for (BookingDetail detail2 : listBookingCart) {
+                            if (detail2.getField().getFieldId().equals(fieldID) && detail2.getPlayDate().equals(playDate) && detail2.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
+                                request.setAttribute("ADD_FAIL", "Đã tồn tại trong giỏ hàng");
+                                checkCart = false;
                                 break;
                             } else {
-                                check = true;
+                                checkCart = true;
                             }
                         }
-                        if (check) {
-                            cart.add(bookingDetail);
-                        }
-
                     }
 
+                    if (checkDB == true && checkCart == true) {
+                        cart.add(bookingDetail);
+                        session.setAttribute("CART", cart);
+                        request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
+                        url = SUCCESS;
+                    }
                 }
+            } else {
+                request.setAttribute("ADD_FAIL", "Vui lòng chọn thời gian chơi");
             }
 
-            if (check) {
-                session.setAttribute("CART", cart);
-                request.setAttribute("ADD_SUCCESS", "Đã thêm " + field.getFieldName() + " vào giỏ hàng");
-                url = SUCCESS;
-            }
         } catch (Exception e) {
             log("Error at CustomerAddCartController: " + e.toString());
         }

@@ -21,7 +21,7 @@ public class DeleteBookingController extends HttpServlet {
     private static final String PLAYED = "Played";
     private static final String CANCELED = "Canceled";
     private static final String DELETE = "Delete";
-
+    
     private static final String SUCCESS = "SearchBookingController";
     private static final String ERROR = "SearchBookingController";
 

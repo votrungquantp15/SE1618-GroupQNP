@@ -67,9 +67,9 @@ public class SearchBookingController extends HttpServlet {
 
                 int count = 0;
                 if (datefilter == null) {
-                    count = dao.getTotalListBooking(UserID, status);
+                    count = dao.getTotalListBookingAdmin(UserID, status);
                 } else {
-                    count = dao.getTotalBooking(UserID, startDate, endDate, status);
+                    count = dao.getTotalBookingAdmin(UserID, startDate, endDate, status);
                 }
 
                 int endPage = count / 10;
@@ -80,9 +80,9 @@ public class SearchBookingController extends HttpServlet {
                 }
                 List<Booking> list = new ArrayList<>();
                 if (datefilter == null) {
-                    list = dao.getListBooking(UserID, index, status);
+                    list = dao.getListBookingAdmin(UserID, index, status);
                 } else {
-                    list = dao.getListBookingByID(UserID, startDate, endDate, status, index);
+                    list = dao.getListBookingByIDAdmin(UserID, startDate, endDate, status, index);
                 }
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
@@ -91,9 +91,9 @@ public class SearchBookingController extends HttpServlet {
                 String UserID = loginUser.getUserID();
                 int count = 0;
                 if (datefilter == null || datefilter.isEmpty()) {
-                    count = dao.getTotalListBooking(UserID, status);
+                    count = dao.getTotalListBookingAdmin(UserID, status);
                 } else {
-                    count = dao.getTotalBooking(UserID, startDate, endDate, status);
+                    count = dao.getTotalBookingAdmin(UserID, startDate, endDate, status);
                 }
                 int endPage = count / 10;
                 if (endPage == 0) {
@@ -104,9 +104,9 @@ public class SearchBookingController extends HttpServlet {
 
                 List<Booking> list = new ArrayList<>();
                 if (datefilter == null || datefilter.isEmpty()) {
-                    list = dao.getListBooking(UserID, index, status);
+                    list = dao.getListBookingAdmin(UserID, index, status);
                 } else {
-                    list = dao.getListBookingByID(UserID, startDate, endDate, status, index);
+                    list = dao.getListBookingByIDAdmin(UserID, startDate, endDate, status, index);
                 }
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
@@ -122,7 +122,7 @@ public class SearchBookingController extends HttpServlet {
                 if (!listField.isEmpty()) {
                     if (listField.size() > 0) {
                         for (Field field : listField) {
-                            List<BookingDetail> listBookingDetail = bookingDetailDAO.getListBookingDetailByID(field.getFieldId());
+                            List<BookingDetail> listBookingDetail = bookingDetailDAO.getListBookingDetailByFieldID(field.getFieldId());
                             if (!listBookingDetail.isEmpty()) {
                                 if (listBookingDetail.size() > 0) {
                                     for (BookingDetail bookingDetail : listBookingDetail) {

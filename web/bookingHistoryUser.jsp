@@ -70,14 +70,14 @@
                                         <div class="table-responsive">
                                             <table class="table table-responsive-sm">
                                                 <c:if test="${empty requestScope.LIST_BOOKING_HISTORY}">
-                                                    <h4 style="color: #ff2457"><strong>No Result</strong></h4> 
-                                                        </c:if>
-                                                        <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                                                            <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
+                                                    <h4 class="text-center" style="color: #ff2457"><strong>No Result</strong></h4> 
+                                                </c:if>
+                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                                                    <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
                                                         <thead style="background-color: #fcd15b">
                                                             <tr>
                                                                 <th style="width:80px;"><strong>#</strong></th>
-                                                                <th><strong>Booknig ID</strong></th>
+                                                                <th><strong>Booking ID</strong></th>
                                                                 <th><strong>Booking Date</strong></th>
                                                                 <th><strong>Booker</strong></th>
                                                                 <th><strong>Total Price</strong></th>
@@ -87,10 +87,10 @@
                                                         </thead>
                                                         <tbody>
 
-                                                            <c:set var="counter" scope="page" value="${param.index * 10 - 10}"/>
+                                                            <c:set var="counter" value="${param.index * 10 - 10}"/>
                                                             <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
                                                                 <c:if test="${booking.status ne 'Delete'}">
-                                                                    <c:set var="counter" scope="page" value="${counter + 1}"/>
+                                                                    <c:set var="counter" value="${counter + 1}"/>
                                                                     <tr>
                                                                         <td><strong>${counter}</strong></td>
                                                                         <c:url var="BookingDetail" value="MainController">
@@ -112,7 +112,7 @@
                                                                         </c:url>
                                                                         <td>
                                                                             <div class="d-flex justify-content-center">
-                                                                                <c:if test="${booking.status ne 'On-Going'}">
+                                                                                <c:if test="${booking.status ne 'On-Going' and booking.status ne 'Pending'}">
                                                                                     <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
                                                                                     <div class="modal fade" id="basicModalDelete${counter}">
                                                                                         <div class="modal-dialog" role="document">
@@ -154,6 +154,7 @@
                                                                                         </div>
                                                                                     </div>
                                                                                 </c:if>
+
                                                                             </div>
                                                                         </td>
                                                                     </tr>

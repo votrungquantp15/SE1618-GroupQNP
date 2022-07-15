@@ -39,7 +39,7 @@
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
                             <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                            <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Cart</a></li>
                             <li class="nav-item submenu dropdown">
                                 <c:choose>
                                     <c:when test="${sessionScope.LOGIN_USER == null}">
@@ -50,7 +50,6 @@
                                         <ul class="dropdown-menu">
                                             <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
                                             <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
-                                            <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Cart</a></li>
                                             <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
                                         </ul>
                                     </c:otherwise>
@@ -94,7 +93,7 @@
                                                         <div class="d-table mb-2">
                                                             <p class="price float-left d-block">${FIELD.price}</p>
                                                         </div>
-                                                        
+
                                                         <p>Field code: <span class="item">${FIELD.fieldId}</span> </p>
                                                         <p>Owner field: <span class="item">${FIELD.user.fullName}</span></p>
                                                         <p class="text-content">${FIELD.description}</p>
@@ -102,28 +101,36 @@
                                                             <div class="size-filter">
                                                                 <c:if test="${LIST_SLOT_DETAIL != null}">
                                                                     <c:if test="${not empty LIST_SLOT_DETAIL}">
-                                                                        <h4 class="m-b-15">Select time</h4>
+                                                                        <h3 class="m-b-15">Select time</h3>
                                                                         <div class="btn-group" data-toggle="buttons">
                                                                             <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
-                                                                                <label class="btn btn-outline-primary light btn-sm" <c:if test="${param.slotDetailID eq list.slotDetailID}">hidden=""</c:if>>
-                                                                                    <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}</label>
-                                                                                </c:forEach>
-                                                                            </c:if> 
+                                                                                <c:if test="${param.slotDetailID ne list.slotDetailID}">
+                                                                                    <label class="btn btn-outline-primary light btn-sm">
+                                                                                        <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                    </label>
+                                                                                </c:if>    
+                                                                                <c:if test="${param.slotDetailID eq list.slotDetailID}">
+                                                                                    <label class="border-dark btn light btn-sm disabled bg-success btn-outline-light">
+                                                                                        <input type="radio" class="position-absolute" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                    </label>
+                                                                                </c:if>    
+                                                                            </c:forEach>
                                                                         </c:if> 
+                                                                    </c:if> 
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <!--Quantity start-->
-                                                        <div class="col-2 px-0"
-                                                             <label>Date:</label>
-                                                            <input type="date" name="playDate" value="${param.playDate}">
+                                                        <div class="col-2 px-0">
+                                                            <h3>Date:</h3>
+                                                            <input type="date" id="datePicker" name="playDate" value="${param.playDate}" required="">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </c:if>
-                                        <input type="hidden" name="bookingDetailID" value="${param.bookingDetailID}">
+                                    <input type="hidden" name="bookingDetailID" value="${param.bookingDetailID}">
                                     <div class="shopping-cart mt-3 float-right">
                                         <button class="btn btn-primary btn-lg" type="submit" name="action" value="EditCartItem"><i class="fa fa-shopping-basket mr-2"></i>Edit</button>
                                         <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg" >Back</button></a>

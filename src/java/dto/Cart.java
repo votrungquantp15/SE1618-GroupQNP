@@ -44,11 +44,12 @@ public class Cart {
         }
         return check;
     }
-    public boolean remove(String id){
+
+    public boolean remove(String id) {
         boolean check = false;
         try {
-            if(this.cart != null){
-                if(this.cart.containsKey(id)){
+            if (this.cart != null) {
+                if (this.cart.containsKey(id)) {
                     this.cart.remove(id);
                 }
             }
@@ -57,11 +58,12 @@ public class Cart {
         }
         return check;
     }
-    public boolean edit(String id, BookingDetail bookingDetail){
+
+    public boolean edit(String id, BookingDetail bookingDetail) {
         boolean check = false;
         try {
-            if(this.cart != null){
-                if(this.cart.containsKey(id)){
+            if (this.cart != null) {
+                if (this.cart.containsKey(id)) {
                     this.cart.replace(id, bookingDetail);
                 }
             }

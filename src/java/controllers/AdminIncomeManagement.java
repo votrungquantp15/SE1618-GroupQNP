@@ -46,7 +46,7 @@ public class AdminIncomeManagement extends HttpServlet {
                     String fieldID = request.getParameter("fieldID");
                     String datefilter = request.getParameter("datefilter");
 
-                    bookingDetails = bookingDetailDao.getListBookingDetailByID(fieldID);
+                    bookingDetails = bookingDetailDao.getListBookingDetailByFieldID(fieldID);
 
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
                     url = "incomeReportAdmin.jsp";

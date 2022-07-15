@@ -98,7 +98,7 @@
                                             <thead style="background-color: #fcd15b">
                                                 <tr>
                                                     <th style="width:80px;"><strong>#</strong></th>
-                                                    <th><strong>Booknig ID</strong></th>
+                                                    <th><strong>Booking ID</strong></th>
                                                     <th><strong>Booking Date</strong></th>
                                                     <th><strong>Booking User</strong></th>
                                                     <th><strong>Total Price</strong></th>
@@ -108,11 +108,11 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
-                                                    <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                                                        <c:set var="counter" scope="page" value="0"/>
+                                                <c:if test="${LIST_BOOKING_HISTORY != null}">
+                                                    <c:if test="${not empty LIST_BOOKING_HISTORY}">
+                                                        <c:set var="counter" value="${param.index * 10 - 10}"/>
                                                         <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
-                                                            <c:set var="counter" scope="page" value="${counter + 1}"/>
+                                                            <c:set var="counter" value="${counter + 1}"/>
                                                             <tr>
                                                                 <td><strong>${counter}</strong></td>
                                                                 <c:url var="BookingDetail" value="MainController">
@@ -128,7 +128,7 @@
                                                                     <c:param name="action" value="DeleteBooking"></c:param>
                                                                     <c:param name="bookingID" value="${booking.bookingId}"></c:param>
                                                                     <c:param name="bookingStatus" value="${booking.status}"></c:param>
-                                                                    <c:param name="search" value="${param.search}"></c:param>
+                                                                    <c:param name="index" value="${param.index}"></c:param>
                                                                     <c:param name="status" value="${param.status}"></c:param>
                                                                 </c:url>
                                                                 <td>
@@ -139,15 +139,15 @@
                                                                                 <div class="modal-content">
                                                                                     <div class="modal-header"  style="background-color: #fcd15b">
                                                                                         <h3 class="modal-title">Update Booking ${booking.bookingId} Status</h3>
-                                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                        <button type="button" class="close" data-dismiss="modal">
+                                                                                            <span>&times;</span>
                                                                                         </button>
                                                                                     </div>
                                                                                     <div class="modal-body" style="background-color: #f7f3e6">                                                                                      
                                                                                         <h3>${booking.bookingId} Status: ${booking.status}</h3><br>
                                                                                         <form action="MainController" method="POST">
                                                                                             <input type="hidden" name="bookingID" value="${booking.bookingId}">
-                                                                                            <input type="hidden" name="search" value="${param.search}">
-                                                                                            <input type="hidden" name="status" value="${param.status}">
+                                                                                            <input type="hidden" name="index" value="${param.index}">
 
                                                                                             <div class="form-row">
                                                                                                 <div class="col-sm-3">
@@ -230,7 +230,7 @@
                                     <ul class="pagination">
                                         <c:forEach var="i" begin="1" end="${END_PAGE}">
                                             <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
+                                                <a href="MainController?action=SearchBooking&index=${i}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
                                                 </li>
                                         </c:forEach>
                                     </ul>
