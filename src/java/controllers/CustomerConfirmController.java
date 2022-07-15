@@ -81,8 +81,9 @@ public class CustomerConfirmController extends HttpServlet {
                             checkDetail = bookingDetailDAO.insertBookingDetailTable(bookingDetail);
                         }
                         if (checkDetail) {
-                            url = SUCCESS;
+                            url = "PrintFieldController";
                             session.removeAttribute("CART");
+                            request.setAttribute("CONFIRM_SUCCES", "Đặt sân thành công");
                         }
                     }
                 }
