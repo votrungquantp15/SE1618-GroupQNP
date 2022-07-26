@@ -43,7 +43,7 @@
                             <li class="nav-item submenu dropdown">
                                 <c:choose>
                                     <c:when test="${sessionScope.LOGIN_USER == null}">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>

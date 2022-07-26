@@ -261,9 +261,21 @@ public class MainController extends HttpServlet {
     private  static final String CREATE_FEEDBACK = "CreateFeedback";
     private static final String CREATE_FEEDBACK_CONTROLLER = "CreateFeedbackController";
     
-    //PrintFeedback
+    //Print Feedback
     private  static final String PRINT_FEEDBACK = "PrintFeedback";
     private static final String PRINT_FEEDBACK_CONTROLLER = "PrintFeedbackController";
+    
+    //Update Feedback
+    private  static final String UPDATE_FEEDBACK = "UpdateFeedback";
+    private static final String UPDATE_FEEDBACK_CONTROLLER = "UpdateFeedbackController";
+    
+    //Delete Feedback
+    private  static final String DELETE_FEEDBACK = "DeleteFeedback";
+    private static final String DELETE_FEEDBACK_CONTROLLER = "DeleteFeedbackController";
+    
+    //Search Feedback
+    private  static final String SEARCH_FEEDBACK = "SearchFeedback";
+    private static final String SEARCH_FEEDBACK_CONTROLLER = "SearchFeedbackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -476,6 +488,15 @@ public class MainController extends HttpServlet {
                     break;    
                 case PRINT_FEEDBACK:
                     url = PRINT_FEEDBACK_CONTROLLER;
+                    break;    
+                case UPDATE_FEEDBACK:
+                    url = UPDATE_FEEDBACK_CONTROLLER;
+                    break;    
+                case DELETE_FEEDBACK:
+                    url = DELETE_FEEDBACK_CONTROLLER;
+                    break;    
+                case SEARCH_FEEDBACK:
+                    url = SEARCH_FEEDBACK_CONTROLLER;
                     break;    
             }
         } catch (Exception e) {

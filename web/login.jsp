@@ -44,6 +44,7 @@
                                         name="email"
                                         placeholder="Email"
                                         required=""
+                                        value="${param.email}"
                                         class="form-control my-3 p-4"
                                         />
                                 </div>
@@ -55,6 +56,7 @@
                                         name="password"
                                         placeholder="Password"
                                         required=""
+                                        value="${param.password}"
                                         class="form-control my-3 p-4"
                                         />
                                 </div>

@@ -33,20 +33,20 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Trang chủ</a></li>
+                        <li class="nav-item"><a class="nav-link" href="contact.html">Liên hệ</a></li>
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
-                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Cart</a></li>
-                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Giỏ hàng</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
                             </c:choose>
@@ -66,8 +66,8 @@
                 <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
                 <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
                 <ol class="breadcrumb">
-                    <li><a href="MainController?action=Print&index=1">Home</a></li>
-                    <li class="active">Accomodation</li>
+                    <li><a href="MainController?action=Print&index=1">Trang chủ</a></li>
+                    <li class="active">Chi tiết</li>
                 </ol> 
             </div>
         </div>
@@ -148,10 +148,12 @@
                                                     <div class="d-flex justify-content-end">
                                                         <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
                                                         <input type="hidden" name="action" value="CreateFeedback"/>
-                                                        <button type="submit" class="btn btn-info">Gửi feedback</button>
+                                                        <button type="submit" class="btn btn-info mr-2">Gửi feedback</button>
                                                     </div>
-                                                    <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
-                                                    <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
+                                                    <div class="ml-2">
+                                                        <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                                        <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>

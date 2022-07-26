@@ -58,7 +58,7 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Feedback Management</h4>
+                                        <h4 class="card-title">Owner Feedback Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -69,26 +69,23 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
-                                                            <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
+                                                                <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
+                                                                <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
                                                         <div class="input-group-prepend">
-                                                            <button class="btn btn-primary disabled" type="button">Search By</button>
-                                                            <select name ="searchBy">
-                                                                <option value="FieldName" <c:if test="${param.searchBy eq 'FieldName'}">selected</c:if>>Field name</option>
-                                                            <option value="UserName" <c:if test="${param.searchBy eq 'UserName'}">selected</c:if>>User name</option>
-                                                            </select>
+                                                            <button class="btn btn-primary disabled" type="button">Search By Field's Name</button>
                                                         </div>
-                                                        <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here">
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here...">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFeedback">Search</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_FEEDBACK_ERROR} </p>
                                             <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
                                             <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
+                                            <p style="color: red">${requestScope.UPDATE_UNSUCCESS} </p>
                                             <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
                                             <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
                                         </div>
@@ -175,8 +172,9 @@
                                                                                 </div>
                                                                                 <div class="modal-footer">
                                                                                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                                                                    <input type="hidden" name="feedbackId" value="${feedback.feedbackId}"/>
+                                                                                    <input type="hidden" name="index" value="1"/>
                                                                                     <input style="color: white" class="btn btn-primary" title="Click here to update feedback" type="submit" name="action" value="UpdateFeedback"/>
-                                                                                    <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
                                                                                 </div>
                                                                             </div>
                                                                         </div>
@@ -194,7 +192,7 @@
                                                 <ul class="pagination">
                                                     <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                         <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                            <a href="MainController?action=PrintFeedbackController&index=${i}" class="page-link">${i}</a>
+                                                            <a href="MainController?action=PrintFeedback&index=${i}" class="page-link">${i}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>
