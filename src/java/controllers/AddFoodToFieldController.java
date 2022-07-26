@@ -5,24 +5,12 @@
  */
 package controllers;
 import dao.FieldDAO;
-import dao.FoodCategoryDAO;
 import dao.FoodDAO;
 import dao.FoodDetailDAO;
-import dao.RoleDAO;
-import dao.UserDAO;
-import dto.User;
-import dto.CustomerError;
 import dto.Field;
 import dto.Food;
-import dto.FoodCategory;
 import dto.FoodDetail;
-import dto.FoodError;
-import dto.Role;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;

@@ -63,9 +63,9 @@ public class SearchBookingController extends HttpServlet {
             int index = Integer.parseInt(indexPage);
 
             if (ADMIN.equals(roleID)) {
-                String UserID = loginUser.getUserID();
+                String UserID = "U";
                 int count = 0;
-                if (datefilter == null) {
+                if (datefilter == null || datefilter.isEmpty()) {
                     count = dao.getTotalListBookingAdmin(UserID, status);
                 } else {
                     count = dao.getTotalBookingAdmin(UserID, startDate, endDate, status);
@@ -78,7 +78,7 @@ public class SearchBookingController extends HttpServlet {
                     endPage++;
                 }
                 List<Booking> list = new ArrayList<>();
-                if (datefilter == null) {
+                if (datefilter == null || datefilter.isEmpty()) {
                     list = dao.getListBookingAdmin(UserID, index, status);
                 } else {
                     list = dao.getListBookingByIDAdmin(UserID, startDate, endDate, status, index);
@@ -126,8 +126,8 @@ public class SearchBookingController extends HttpServlet {
                                 if (listBookingDetail.size() > 0) {
                                     for (BookingDetail bookingDetail : listBookingDetail) {
                                         List<Booking> listBooking = new ArrayList<>();
-                                        if (datefilter == null) {
-                                            listBooking = dao.getListBookingManager(bookingDetail.getBooking().getBookingId(), index);
+                                        if (datefilter == null || datefilter.isEmpty()) {
+                                            listBooking = dao.getListBookingManager(bookingDetail.getBooking().getBookingId(), search, index);
                                         } else {
                                             listBooking = dao.getListBookingByBookingID(bookingDetail.getBooking().getBookingId(), search, startDate, endDate, status, index);
                                         }

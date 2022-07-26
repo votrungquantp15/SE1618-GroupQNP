@@ -37,7 +37,7 @@
                                 <div class="col-lg-12">
                                     <div class="card">
                                         <div class="card-header">
-                                            <h4 class="card-title">Boooking History</h4>
+                                            <h4 class="card-title">Lịch sự đặt sân</h4>
                                             <h4 style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></h4> 
                                         <h4 style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></h4> 
                                     </div>
@@ -162,8 +162,9 @@
                                                                 </c:if>
                                                             </c:forEach>
                                                         </c:if>
-                                                    </c:if>
-                                                </tbody>
+                                                    </tbody>
+                                                </c:if>
+
                                             </table>
                                         </div>
                                         <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">

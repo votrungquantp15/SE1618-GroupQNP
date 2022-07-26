@@ -28,7 +28,7 @@ public class CustomerConfirmController extends HttpServlet {
 
     private static final String STATUS = "On-Going";
     private static final String ERROR = "checkOut.jsp";
-    private static final String SUCCESS = "home.jsp";
+    private static final String SUCCESS = "checkOut.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -81,7 +81,8 @@ public class CustomerConfirmController extends HttpServlet {
                             checkDetail = bookingDetailDAO.insertBookingDetailTable(bookingDetail);
                         }
                         if (checkDetail) {
-                            url = "PrintFieldController";
+                            request.setAttribute("ADD_SUCCESS", "Đặt sân thành công");
+                            url = SUCCESS;
                             session.removeAttribute("CART");
                             request.setAttribute("CONFIRM_SUCCES", "Đặt sân thành công");
                         }

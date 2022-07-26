@@ -123,6 +123,7 @@
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                                <a href="MainController?action=Booking&fieldID=${requestScope.FIELD_DETAIL.fieldId}" class="btn theme_btn button_hover rounded">Đặt ngay</a>
                                                     </div>
                                                 </div>
                                             </div>

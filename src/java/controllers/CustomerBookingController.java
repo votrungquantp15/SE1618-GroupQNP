@@ -7,12 +7,10 @@ package controllers;
 
 import dao.FieldDAO;
 import dao.SlotDetailDAO;
-import dto.BookingDetail;
 import dto.Cart;
 import dto.Field;
 import dto.SlotDetail;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

@@ -84,148 +84,152 @@
                                                         <option value="Delete" <c:if test="${param.status eq 'Delete'}">selected</c:if>>Delete</option>
                                                         </select>
                                                     </div>
-                                                    <div class ="col-sm-2 d-flex justify-content-between">
-                                                        <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
-                                                    </div>
-                                                </div>                              
-                                            </div>                                                                                  
-                                        </form>
-                                        <div class="table-responsive">
-                                            <table class="table table-responsive-md">
-                                            <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
-                                                <strong>No Result</strong>
+                                                    <input type="hidden" name="index" value="${param.index}">
+                                                <div class ="col-sm-2 d-flex justify-content-between">
+                                                    <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
+                                                </div>
+                                            </div>                              
+                                        </div>                                                                                  
+                                    </form>
+                                    <div class="table-responsive">
+                                        <table class="table table-responsive-md">
+                                            <c:if test="${empty requestScope.LIST_BOOKING_HISTORY}">
+                                                <h4 class="text-center" style="color: #ff2457"><strong>No Result</strong></h4> 
                                             </c:if>
-                                            <thead style="background-color: #fcd15b">
-                                                <tr>
-                                                    <th style="width:80px;"><strong>#</strong></th>
-                                                    <th><strong>Booking ID</strong></th>
-                                                    <th><strong>Booking Date</strong></th>
-                                                    <th><strong>Booking User</strong></th>
-                                                    <th><strong>Total Price</strong></th>
-                                                    <th><strong>Status</strong></th>
-                                                    <th class="d-flex justify-content-center"><strong>Update</strong></th>
-                                                    <th><strong>Delete</strong></th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <c:if test="${LIST_BOOKING_HISTORY != null}">
-                                                    <c:if test="${not empty LIST_BOOKING_HISTORY}">
-                                                        <c:set var="counter" value="${param.index * 10 - 10}"/>
-                                                        <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
-                                                            <c:set var="counter" value="${counter + 1}"/>
-                                                            <tr>
-                                                                <td><strong>${counter}</strong></td>
-                                                                <c:url var="BookingDetail" value="MainController">
-                                                                    <c:param name="action" value="SearchBookingDetail"></c:param>
-                                                                    <c:param name="bookingID" value="${booking.bookingId}"></c:param>
-                                                                </c:url>
-                                                                <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
-                                                                <td>${booking.bookingDate}</td>
-                                                                <td>${booking.user.fullName}</td>
-                                                                <td>${booking.totalPrice}</td>
-                                                                <td>${booking.status}</td>
-                                                                <c:url var="DeleteBooking" value="MainController">
-                                                                    <c:param name="action" value="DeleteBooking"></c:param>
-                                                                    <c:param name="bookingID" value="${booking.bookingId}"></c:param>
-                                                                    <c:param name="bookingStatus" value="${booking.status}"></c:param>
-                                                                    <c:param name="index" value="${param.index}"></c:param>
-                                                                    <c:param name="status" value="${param.status}"></c:param>
-                                                                </c:url>
-                                                                <td>
-                                                                    <div class="d-flex justify-content-center">
-                                                                        <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalUpdate${counter}" title="Update"><i class="fa fa-pencil"></i></button>
-                                                                        <div class="modal fade" id="basicModalUpdate${counter}">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                        <h3 class="modal-title">Update Booking ${booking.bookingId} Status</h3>
-                                                                                        <button type="button" class="close" data-dismiss="modal">
-                                                                                            <span>&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body" style="background-color: #f7f3e6">                                                                                      
-                                                                                        <h3>${booking.bookingId} Status: ${booking.status}</h3><br>
-                                                                                        <form action="MainController" method="POST">
-                                                                                            <input type="hidden" name="bookingID" value="${booking.bookingId}">
-                                                                                            <input type="hidden" name="index" value="${param.index}">
-
-                                                                                            <div class="form-row">
-                                                                                                <div class="col-sm-3">
-                                                                                                    <h3>Select</h3>
-                                                                                                </div>
-                                                                                                <div class="form-group col-sm-6">
-                                                                                                    <select class="form-control" name="bookingStatus">
-                                                                                                        <option value="On-Going" <c:if test="${booking.status eq 'On-Going'}">selected</c:if>>On-Going</option>
-                                                                                                        <option value="Played" <c:if test="${booking.status eq 'Played'}">selected</c:if>>Played</option>
-                                                                                                        <option value="Canceled" <c:if test="${booking.status eq 'Canceled'}">selected</c:if>>Canceled</option>
-                                                                                                        <option value="Delete" <c:if test="${booking.status eq 'Delete'}">selected</c:if>>Delete</option>                                                                                                            
-                                                                                                        </select>
-                                                                                                    </div>
-
-                                                                                                    <div class="form-row d-inline-block">
-                                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                                        <input type="submit" class="btn btn-primary" name="action" value="UpdateBooking">
-                                                                                                    </div>
-                                                                                                </div>
-                                                                                            </form>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </td>
+                                            <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
+                                                <thead style="background-color: #fcd15b">
+                                                    <tr>
+                                                        <th style="width:80px;"><strong>#</strong></th>
+                                                        <th><strong>Booking ID</strong></th>
+                                                        <th><strong>Booking Date</strong></th>
+                                                        <th><strong>Booking User</strong></th>
+                                                        <th><strong>Total Price</strong></th>
+                                                        <th><strong>Status</strong></th>
+                                                        <th class="d-flex justify-content-center"><strong>Update</strong></th>
+                                                        <th><strong>Delete</strong></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <c:if test="${LIST_BOOKING_HISTORY != null}">
+                                                        <c:if test="${not empty LIST_BOOKING_HISTORY}">
+                                                            <c:set var="counter" value="${param.index * 10 - 10}"/>
+                                                            <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
+                                                                <c:set var="counter" value="${counter + 1}"/>
+                                                                <tr>
+                                                                    <td><strong>${counter}</strong></td>
+                                                                    <c:url var="BookingDetail" value="MainController">
+                                                                        <c:param name="action" value="SearchBookingDetail"></c:param>
+                                                                        <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                    </c:url>
+                                                                    <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
+                                                                    <td>${booking.bookingDate}</td>
+                                                                    <td>${booking.user.fullName}</td>
+                                                                    <td>${booking.totalPrice}</td>
+                                                                    <td>${booking.status}</td>
+                                                                    <c:url var="DeleteBooking" value="MainController">
+                                                                        <c:param name="action" value="DeleteBooking"></c:param>
+                                                                        <c:param name="bookingID" value="${booking.bookingId}"></c:param>
+                                                                        <c:param name="bookingStatus" value="${booking.status}"></c:param>
+                                                                        <c:param name="index" value="${param.index}"></c:param>
+                                                                        <c:param name="status" value="${param.status}"></c:param>
+                                                                    </c:url>
                                                                     <td>
                                                                         <div class="d-flex justify-content-center">
-                                                                        <c:if test="${booking.status ne 'On-Going'}">
-                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
-                                                                            <div class="modal fade" id="basicModalDelete${counter}">
+                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalUpdate${counter}" title="Update"><i class="fa fa-pencil"></i></button>
+                                                                            <div class="modal fade" id="basicModalUpdate${counter}">
                                                                                 <div class="modal-dialog" role="document">
                                                                                     <div class="modal-content">
                                                                                         <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                            <h3 class="modal-title">Delete Booking ${booking.bookingId}</h3>
-                                                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                            <h3 class="modal-title">Update Booking ${booking.bookingId} Status</h3>
+                                                                                            <button type="button" class="close" data-dismiss="modal">
+                                                                                                <span>&times;</span>
                                                                                             </button>
                                                                                         </div>
-                                                                                        <div class="modal-body" style="background-color: #f7f3e6">
-                                                                                            <h3>Do you want to Delete ${booking.bookingId}</h3>
-                                                                                        </div>
-                                                                                        <div class="modal-footer" style="background-color: #f7f3e6">
-                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                            <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                        <div class="modal-body" style="background-color: #f7f3e6">                                                                                      
+                                                                                            <h3>${booking.bookingId} Status: ${booking.status}</h3><br>
+                                                                                            <form action="MainController" method="POST">
+                                                                                                <input type="hidden" name="bookingID" value="${booking.bookingId}">
+                                                                                                <input type="hidden" name="index" value="${param.index}">
+
+                                                                                                <div class="form-row">
+                                                                                                    <div class="col-sm-3">
+                                                                                                        <h3>Select</h3>
+                                                                                                    </div>
+                                                                                                    <div class="form-group col-sm-6">
+                                                                                                        <select class="form-control" name="bookingStatus">
+                                                                                                            <option value="On-Going" <c:if test="${booking.status eq 'On-Going'}">selected</c:if>>On-Going</option>
+                                                                                                            <option value="Played" <c:if test="${booking.status eq 'Played'}">selected</c:if>>Played</option>
+                                                                                                            <option value="Canceled" <c:if test="${booking.status eq 'Canceled'}">selected</c:if>>Canceled</option>
+                                                                                                            <option value="Delete" <c:if test="${booking.status eq 'Delete'}">selected</c:if>>Delete</option>                                                                                                            
+                                                                                                            </select>
+                                                                                                        </div>
+
+                                                                                                        <div class="form-row d-inline-block">
+                                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                            <input type="submit" class="btn btn-primary" name="action" value="UpdateBooking">
+                                                                                                        </div>
+                                                                                                    </div>
+                                                                                                </form>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
                                                                             </div>
-                                                                        </c:if>
-                                                                        <c:if test="${booking.status eq 'On-Going'}">
-                                                                            <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalCancel${counter}" title="Cancel"><i class="fa fa-trash"></i></button>
-                                                                            <div class="modal fade" id="basicModalCancel${counter}">
-                                                                                <div class="modal-dialog" role="document">
-                                                                                    <div class="modal-content">
-                                                                                        <div class="modal-header"  style="background-color: #fcd15b">
-                                                                                            <h3 class="modal-title">Cancel Booking ${booking.bookingId}</h3>
-                                                                                            <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                            </button>
-                                                                                        </div>
-                                                                                        <div class="modal-body" style="background-color: #f7f3e6">
-                                                                                            <h3>Do you want to Cancel ${booking.bookingId}</h3>
-                                                                                        </div>
-                                                                                        <div class="modal-footer" style="background-color: #f7f3e6">
-                                                                                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                            <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                        </td>
+                                                                        <td>
+                                                                            <div class="d-flex justify-content-center">
+                                                                            <c:if test="${booking.status ne 'On-Going'}">
+                                                                                <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalDelete${counter}" title="Delete"><i class="fa fa-trash"></i></button>
+                                                                                <div class="modal fade" id="basicModalDelete${counter}">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                                <h3 class="modal-title">Delete Booking ${booking.bookingId}</h3>
+                                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                                <h3>Do you want to Delete ${booking.bookingId}</h3>
+                                                                                            </div>
+                                                                                            <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                            </div>
                                                                                         </div>
                                                                                     </div>
                                                                                 </div>
-                                                                            </div>
-                                                                        </c:if>
-                                                                    </div>
-                                                                </td>
-                                                            </tr>
-                                                        </c:forEach>
+                                                                            </c:if>
+                                                                            <c:if test="${booking.status eq 'On-Going'}">
+                                                                                <button type="button" class="btn btn-primary shadow btn-xs sharp" data-toggle="modal" data-target="#basicModalCancel${counter}" title="Cancel"><i class="fa fa-trash"></i></button>
+                                                                                <div class="modal fade" id="basicModalCancel${counter}">
+                                                                                    <div class="modal-dialog" role="document">
+                                                                                        <div class="modal-content">
+                                                                                            <div class="modal-header"  style="background-color: #fcd15b">
+                                                                                                <h3 class="modal-title">Cancel Booking ${booking.bookingId}</h3>
+                                                                                                <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                                                                </button>
+                                                                                            </div>
+                                                                                            <div class="modal-body" style="background-color: #f7f3e6">
+                                                                                                <h3>Do you want to Cancel ${booking.bookingId}</h3>
+                                                                                            </div>
+                                                                                            <div class="modal-footer" style="background-color: #f7f3e6">
+                                                                                                <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
+                                                                                                <a href="${DeleteBooking}" type="button" class="btn btn-primary">Confirm</a>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </c:if>
+                                                                        </div>
+                                                                    </td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </c:if>
                                                     </c:if>
-                                                </c:if>
-                                            </tbody>
-                                        </table>
+                                                </tbody>
+
+                                            </table>
+                                        </c:if>
                                     </div>
                                     <ul class="pagination">
                                         <c:forEach var="i" begin="1" end="${END_PAGE}">
