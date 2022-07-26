@@ -31,6 +31,8 @@ public class BookingDetailDAO {
             + "FROM tblBookingDetail WHERE bookingID like ?  ";
     private static final String GET_LIST_BOOKING_DETAIL_BY_FIELD_ID = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, playDate, status "
             + "FROM tblBookingDetail WHERE fieldID = ? AND playDate >= ? AND slotDetailID = ? ";
+    private static final String GET_LIST_BOOKING_DETAIL_BY_FIELD_ID_2 = "SELECT bookingDetailID, bookingID, fieldID, slotDetailID, fieldPrice, playDate, status "
+            + "FROM tblBookingDetail WHERE fieldID = ? ";
     private static final String INSERT_BOOKING_DETAIL = "INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status])"
                 + "VALUES (?, ?, ?, ?, ?, ?, 1)";
 
@@ -238,7 +240,7 @@ public class BookingDetailDAO {
         try {
             connect = DBUtils.getConnection();
             if (connect != null) {
-                ptm = connect.prepareStatement(GET_LIST_BOOKING_DETAIL_BY_FIELD_ID);
+                ptm = connect.prepareStatement(GET_LIST_BOOKING_DETAIL_BY_FIELD_ID_2);
                 ptm.setString(1, fieldID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {

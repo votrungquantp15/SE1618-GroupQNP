@@ -24,8 +24,8 @@
     </head>
     <body>
 
-        <div id="main-wrapper">
 
+        <div id="main-wrapper">
             <jsp:include page="navbarUser.jsp"></jsp:include>
                 <div class="content-body">
                     <div class="col-12">
@@ -36,6 +36,7 @@
                                     <div class="card">
                                         <div class="card-body">
                                             <h4 style="color: red">${ADD_FAIL}</h4>
+                                        <h4 style="color: green">${ADD_SUCCESS}</h4>
                                         <div class="table-responsive">
                                             <table class="table table-striped">
                                                 <thead>
@@ -65,11 +66,17 @@
                                         <div class="row">
                                             <div class="col-lg-4 col-sm-5"> </div>
                                             <div class="col-lg-4 col-sm-5 ml-auto">
-
-                                                <h3 class="float-right mr-5"><strong>Total: $${total}</strong></h3>
+                                                <c:if test="${CART != null}">
+                                                    <h3 class="float-right mr-5"><strong>Total: $${total}</strong></h3>
+                                                </c:if>
                                                 <div class="float-right">   
-                                                    <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg">Confirm</a>
-                                                    <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
+                                                    <c:if test="${CART != null}">
+                                                        <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg">Confirm</a>
+                                                        <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
+                                                    </c:if>
+                                                    <c:if test="${CART == null}">
+                                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-2"></i>Home</a>
+                                                    </c:if>
                                                 </div>
                                             </div>
                                         </div>

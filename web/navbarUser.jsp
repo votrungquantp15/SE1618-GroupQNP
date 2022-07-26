@@ -60,19 +60,19 @@ Chat box End
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="dropdown-item ai-icon">
                             <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span class="ml-2">Profile </span>
+                            <span class="ml-2">Hồ sơ</span>
                         </a>
                         <a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="dropdown-item ai-icon">
                             <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span class="ml-2">Booking History</span>
+                            <span class="ml-2">Lịch sử đặt</span>
                         </a>
                         <a href="MainController?action=ViewCart" class="dropdown-item ai-icon">
                             <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span class="ml-2">Cart</span>
+                            <span class="ml-2">Giỏ hàng</span>
                         </a>
                         <a href="MainController?action=Logout" class="dropdown-item ai-icon">
                             <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                            <span class="ml-2">Logout </span>
+                            <span class="ml-2">Đăng xuất</span>
                         </a>
                     </div>
                 </li>
@@ -96,14 +96,14 @@ Chat box End
                 <a href="javascript:void(0);"><i class="fa fa-cog" aria-hidden="true"></i></a>
             </div>
             <h5 class="name"><span class="font-w400">Hello, ${sessionScope.LOGIN_USER.fullName}</span></h5>
-            <p class="email"><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2b464a595a5e4e515151516b464a424705484446">[email&#160;protected]</a></p>
+            <p><strong>[Role: User]</strong></p>
         </div>
         <ul class="metismenu" id="menu">
-            <li class="nav-label first">Main Menu</li>
-            <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Profile</a></li>
-            <li><a href="MainController?action=PrintFeedback&index=1">Feedback</a></li>
-            <li class="active"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Booking History</a></li>
-            <li class="active"><a href="MainController?action=ViewCart">Cart</a></li>
+            <li class="nav-label first">Menu</li>
+            <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Hồ sơ</a></li>
+            <li><a href="MainController?action=PrintFeedback&index=1">Phản hồi</a></li>
+            <li class="active"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Lịch sử đặt</a></li>
+            <li class="active"><a href="MainController?action=ViewCart">Giỏ hàng</a></li>
         </ul>
     </div>
 </div>
