@@ -84,6 +84,7 @@ public class CustomerConfirmController extends HttpServlet {
                             request.setAttribute("ADD_SUCCESS", "Đặt sân thành công");
                             url = SUCCESS;
                             session.removeAttribute("CART");
+                            request.setAttribute("CONFIRM_SUCCES", "Đặt sân thành công");
                         }
                     }
                 }
