@@ -180,6 +180,18 @@
         <servlet-name>PrintFeedbackController</servlet-name>
         <servlet-class>controllers.PrintFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateFeedbackController</servlet-name>
+        <servlet-class>controllers.UpdateFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <servlet-class>controllers.DeleteFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFeedbackController</servlet-name>
+        <servlet-class>controllers.SearchFeedbackController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -363,6 +375,18 @@
     <servlet-mapping>
         <servlet-name>PrintFeedbackController</servlet-name>
         <url-pattern>/PrintFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeedbackController</servlet-name>
+        <url-pattern>/UpdateFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <url-pattern>/DeleteFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFeedbackController</servlet-name>
+        <url-pattern>/SearchFeedbackController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

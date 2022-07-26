@@ -15,10 +15,10 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 public class CreateFeedbackController extends HttpServlet {
-    
+
     private static final String ERROR = "UserPrintFieldDetailController";
     private static final String SUCCESS = "UserPrintFieldDetailController";
-    
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -26,37 +26,47 @@ public class CreateFeedbackController extends HttpServlet {
         try {
             FeedbackDAO feedbackDao = new FeedbackDAO();
             String fieldCateId = feedbackDao.createFeedbackId();
-            
+
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
-            
+            String userId = user.getUserID();
+
             String content = request.getParameter("content");
             content = URLEncoder.encode(content, "ISO-8859-1");
             content = URLDecoder.decode(content, "UTF-8");
-            
+
             String fieldId = request.getParameter("fieldId");
             FieldDAO fieldDao = new FieldDAO();
             Field field = fieldDao.getFieldByID(fieldId);
 
+            boolean checkCanFeedback = false;
             boolean checkValidation = true;
-            if (content.trim().length() == 0) {
-                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
-                checkValidation = false;
-            } 
-            if (content.length() > 500) {
-                request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
-                checkValidation = false;
-            } 
-            if (checkValidation) {
-                Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
-                boolean checkCreate = feedbackDao.createFeedback(feedback);
-                if (checkCreate) {
-                    url = SUCCESS;
-                    request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
+            if (feedbackDao.checkCanFeedback(userId, fieldId)) {
+                checkCanFeedback = true;
+            }
+            if (checkCanFeedback) {
+                if (content.trim().length() == 0) {
+                    request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
+                    checkValidation = false;
+                }
+                if (content.length() > 500) {
+                    request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
+                    checkValidation = false;
+                }
+                if (checkValidation) {
+                    Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
+                    boolean checkCreate = feedbackDao.createFeedback(feedback);
+                    if (checkCreate) {
+                        url = SUCCESS;
+                        request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
+                    }
+                } else {
+                    request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
                 }
             } else {
-                request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
+                request.setAttribute("CREATE_UNSUCCESS", "Hãy đặt sân rồi mới có thể đánh giá!");
             }
+
         } catch (Exception e) {
             log("Error at CreateFeedbackController: " + e.toString());
         } finally {
