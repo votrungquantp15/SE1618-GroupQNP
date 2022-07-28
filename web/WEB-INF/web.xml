@@ -192,6 +192,14 @@
         <servlet-name>SearchFeedbackController</servlet-name>
         <servlet-class>controllers.SearchFeedbackController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>HomeShowFieldController</servlet-name>
+        <servlet-class>controllers.HomeShowFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSlotToFieldController</servlet-name>
+        <servlet-class>controllers.AddSlotToFieldController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -387,6 +395,14 @@
     <servlet-mapping>
         <servlet-name>SearchFeedbackController</servlet-name>
         <url-pattern>/SearchFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeShowFieldController</servlet-name>
+        <url-pattern>/HomeShowFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSlotToFieldController</servlet-name>
+        <url-pattern>/AddSlotToFieldController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

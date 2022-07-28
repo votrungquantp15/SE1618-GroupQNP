@@ -59,12 +59,13 @@ public class PrintFieldController extends HttpServlet {
                 List<Field> listField = fieldDao.getListOwnerField(index, userId);
                 if (listField.size() > 0) {
                     request.setAttribute("LIST_FIELD", listField);
-                    url = OWNER_PAGE;
+                    
                 }
                 endPage = count / 5;
                 if (count % 5 != 0) {
                     endPage++;
                 }
+                url = OWNER_PAGE;
                 request.setAttribute("END_PAGE", endPage);
             } else {
                     if (user.getRole().getRoleId().equals("US")) {
