@@ -9,6 +9,10 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
+    
+    //Login Page
+    private static final String LOGIN_TAG = "LoginPage";
+    private static final String LOGIN_PAGE = "login.jsp";
     //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
@@ -276,6 +280,10 @@ public class MainController extends HttpServlet {
     //Search Feedback
     private  static final String SEARCH_FEEDBACK = "SearchFeedback";
     private static final String SEARCH_FEEDBACK_CONTROLLER = "SearchFeedbackController";
+    
+    //Add Slot To Field
+    private  static final String ADD_SLOT_TO_FIELD = "AddSlotToField";
+    private static final String ADD_SLOT_TO_FIELD_CONTROLLER = "AddSlotToFieldController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -285,6 +293,9 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
 
             switch (action) {
+                case LOGIN_TAG:
+                    url = LOGIN_PAGE;
+                    break;
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
                     break;
@@ -497,6 +508,9 @@ public class MainController extends HttpServlet {
                     break;    
                 case SEARCH_FEEDBACK:
                     url = SEARCH_FEEDBACK_CONTROLLER;
+                    break;    
+                case ADD_SLOT_TO_FIELD:
+                    url = ADD_SLOT_TO_FIELD_CONTROLLER;
                     break;    
             }
         } catch (Exception e) {

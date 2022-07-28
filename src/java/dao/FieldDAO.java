@@ -56,7 +56,7 @@ public class FieldDAO {
     private static final String SEARCH_FIELD_OWNER_BY_CITY = "WITH x AS (SELECT ROW_NUMBER() over (order by fieldId ASC) as r, fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, f.districtId, f.status FROM tblFields f LEFT JOIN tblDistrict ci ON f.districtId = ci.districtId WHERE ci.districtName like ? AND f.status like ? AND f.userId = ?) SELECT * FROM x WHERE r BETWEEN ? * 5 - 4 AND ? * 5";
 
     private static final String CHECK_FIELD_ID = "SELECT fieldId FROM tblFields WHERE fieldId = ?";
-    private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId) VALUES(?,?,?,?,?,?,?,?,?)";
+    private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId) VALUES(?, ?, ?,?, ?, ?, ?, ?, ?)";
 
     public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();

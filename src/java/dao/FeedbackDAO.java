@@ -17,7 +17,7 @@ public class FeedbackDAO {
     private static final String PRINT_ALL_FEEDBACK_BY_FIELD_OWNER = "SELECT feedbackId, content, fe.userId, fe.fieldId, fe.status FROM tblFeedback fe LEFT JOIN tblFields f ON f.fieldId = fe.fieldId LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.userId = ? ORDER BY feedbackId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String PRINT_ALL_FEEDBACK_BY_ID = "SELECT feedbackId, content, userId, fieldId, status FROM tblFeedback WHERE feedbackId = ?";
     private static final String PRINT_ALL_FEEDBACK_BY_USER = "SELECT feedbackId, content, userId, fieldId, status FROM tblFeedback WHERE userId = ? ORDER BY feedbackId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
-    private static final String PRINT_ALL_FEEDBACK_BY_FIELD = "SELECT feedbackId, content, userId, fieldId, status FROM tblFeedback WHERE fieldId = ? AND status <> 'false' ORDER BY feedbackId OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY";
+    private static final String PRINT_ALL_FEEDBACK_BY_FIELD = "SELECT feedbackId, content, userId, fieldId, status FROM tblFeedback WHERE fieldId = ? AND status <> 'false' ORDER BY feedbackId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
 
     private static final String CHECK_FEED_BACK_ID = "SELECT feedbackId FROM tblFeedback WHERE feedbackId = ?";
     private static final String CHECK_CAN_FEED_BACK = "SELECT bo.userId FROM tblBooking bo LEFT JOIN tblBookingDetail bd ON bo.bookingId = bd.bookingId WHERE bo.userId = ? AND bd.fieldId = ?";
@@ -163,7 +163,7 @@ public class FeedbackDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(PRINT_ALL_FEEDBACK_BY_FIELD);
                 ptm.setString(1, fieldId);
-                ptm.setInt(2, (index - 1) * 3);
+                ptm.setInt(2, (index - 1) * 10);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String feedbackId = rs.getString("feedbackId");
