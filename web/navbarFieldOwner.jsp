@@ -80,7 +80,7 @@ Chat box End
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p><strong>[Role: Administrator]</strong></p>
+            <p><strong>[Role: Manager]</strong></p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
