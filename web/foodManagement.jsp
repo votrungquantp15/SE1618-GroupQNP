@@ -155,7 +155,7 @@
             </div>
         </c:if>
         <c:if test="${sessionScope.LOGIN_USER.role.roleId eq 'AD'}">
-            <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
+            <jsp:include page="navbarAdmin.jsp"></jsp:include>
                 <div class="content-body">
                     <div class="col-12">
                         <div class="card">

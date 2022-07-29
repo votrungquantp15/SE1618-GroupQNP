@@ -51,11 +51,8 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
-            <c:redirect url="login.jsp"></c:redirect>
-        </c:if>
-
-        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
+        <c:if test="${sessionScope.LOGIN_USER.role.roleId eq 'MA'}">
+            <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
 
             <br/>
             <br/>
@@ -112,6 +109,66 @@
 
 
         </div>
+        </c:if>
+        <c:if test="${sessionScope.LOGIN_USER.role.roleId eq 'AD'}">
+            <jsp:include page="navbarAdmin.jsp"></jsp:include>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+
+                <form action="MainController" method="POST">
+                    <div class="card">
+                        <div class="card-header">
+                            <h4 class="card-title">Create Food</h4>
+                        </div>
+                        <div class="card-body">
+                            <div class="basic-form">
+                                <form>
+
+                                    <div class="form-row">
+                                        <div class="form-group col-md-6">
+                                            <label>Food Name</label><label class="ml-1" style="color:red">(*)</label>
+                                            <input type="text" class="form-control" name="foodName" required=""/>
+                                        </div>
+
+                                        <div class="form-group col-md-6">
+                                            <label>Category</label><label class="ml-1" style="color:red">(*)</label>
+                                            <select class="form-control " name="categoryFoodId">
+
+                                                <option value="">Show all</option>
+                                            <c:forEach var="foodCateName" items="${requestScope.FOOD_CATEGORY_NAME}">
+                                                <option value="${foodCateName.foodCateId}">${foodCateName.foodCateName}</option>
+                                            </c:forEach>
+
+
+                                        </select>
+                                    </div>
+                                    <div class="form-group col-md-6">
+                                        <label>Image</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="text" class="form-control" name="image" required=""/>
+                                    </div>
+
+                                </div>                                       
+                                <button type="submit" name="action" class="btn btn-primary" value="CreateFood"/>Create</button>
+                                <a class="btn btn-warning mt ml-1" href="MainController?action=ViewFoodList&index=1">Back</a>
+                                <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                <p style="color: red">${requestScope.CREATE_FAIL} </p>
+                            </form>
+                        </div>
+                    </div>
+                </div>                                
+            </form>
+
+
+
+        </div>
+        </c:if>
     </main>
     <script
         src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
