@@ -18,8 +18,8 @@ public class DBUtils{
     public static Connection getConnection() throws ClassNotFoundException, SQLException {
         Connection conn = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-        String url="jdbc:sqlserver://localhost:51926;databaseName=FootballBookingManagement1";
-        conn = DriverManager.getConnection(url, "sa", "quan");
+        String url="jdbc:sqlserver://localhost:1433;databaseName=FootballBookingManagement1";
+        conn = DriverManager.getConnection(url, "sa", "Balabolo1");
         return conn;
     }
 }
