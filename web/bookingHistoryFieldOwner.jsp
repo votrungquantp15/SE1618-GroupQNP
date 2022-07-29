@@ -63,7 +63,7 @@
                                         <h4 style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></h4> 
                                     </div>
                                     <div class="card-body">
-                                        <form action="MainController" method="GET">
+                                        <form action="MainController" method="POST">
                                             <div class="form-group">
                                                 <div class="row">
                                                     <div class="col-sm-3">    
@@ -84,6 +84,7 @@
                                                             <option value="Canceled" <c:if test="${param.status eq 'Canceled'}">selected</c:if>>Canceled</option>
                                                             </select>
                                                         </div>
+                                                            <input type="hidden" name="index" value="${param.index}">
                                                         <div class ="col-sm-2 d-flex justify-content-between">
                                                             <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchBooking"><i class="fa fa-search "></i></button>
                                                         </div>

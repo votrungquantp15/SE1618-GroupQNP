@@ -1,59 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.BookingDAO;
+import dao.FeedbackDAO;
+import dto.Feedback;
+import dto.User;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-/**
- *
- * @author NITRO 5
- */
-public class DeleteBookingController extends HttpServlet {
+public class SearchFeedbackController extends HttpServlet {
 
-    private static final String PLAYED = "Played";
-    private static final String CANCELED = "Canceled";
-    private static final String DELETE = "Delete";
+    private static final String OWNER_PAGE = "ownerFeedbackManagement.jsp";
+    private static final String USER_PAGE = "userFeedbackManagement.jsp";
+    private static final String ERROR = "ownerFeedbackManagement.jsp";
     
-    private static final String SUCCESS = "SearchBookingController";
-    private static final String ERROR = "SearchBookingController";
-
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String bookingID = request.getParameter("bookingID");
-        String bookingStatus = request.getParameter("bookingStatus");
         try {
-            if (!DELETE.equals(bookingStatus)) {
-                BookingDAO bookingDAO = new BookingDAO();
-                boolean check = bookingDAO.deleteBookingByID(bookingID, bookingStatus);
-                if (check == true) {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
-                    } else {
-                        request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
-                    }
-                    url = SUCCESS;
+            HttpSession session = request.getSession();
+            User user = (User) session.getAttribute("LOGIN_USER");
+            String search = request.getParameter("searchFeedback");
+            String status = request.getParameter("status");
+            FeedbackDAO feedbackDao = new FeedbackDAO();
+            List<Feedback> listFeedback = null;
+            String userId = user.getUserID();
+            if (user.getRole().getRoleId().equals("MA")) {
+                listFeedback = feedbackDao.searchFeedbackByOwner(search, status, userId);
+                url = OWNER_PAGE;
+                if (!listFeedback.isEmpty()) {
+                    request.setAttribute("LIST_FEED_BACK", listFeedback);
                 } else {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
-                    } else {
-                        request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
-                    }
+                    request.setAttribute("SEARCH_FEEDBACK_ERROR", "Couldn't find any feedback");
                 }
-            } else {
-                request.setAttribute("DELETE_UNSUCCESS", "Can't delete a booking with status Delete");
+            } else if (user.getRole().getRoleId().equals("US")) {
+                listFeedback = feedbackDao.searchFeedbackByCustomer(search, status, userId);
+                url = USER_PAGE;
+                if (!listFeedback.isEmpty()) {
+                    request.setAttribute("LIST_FEED_BACK", listFeedback);
+                } else {
+                    request.setAttribute("SEARCH_FEEDBACK_ERROR", "Couldn't find any feedback");
+                }
             }
         } catch (Exception e) {
-            log("Error at DeleteBookingController: " + e.toString());
+            log("Error at SearchFieldByAdminController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

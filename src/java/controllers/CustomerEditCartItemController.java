@@ -5,9 +5,11 @@
  */
 package controllers;
 
+import dao.BookingDetailDAO;
 import dto.BookingDetail;
 import dto.Cart;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -37,13 +39,22 @@ public class CustomerEditCartItemController extends HttpServlet {
                 if (cart != null) {
                     if (cart.getCart().containsKey(bookingDetailID)) {
                         BookingDetail bookingDetail = cart.getCart().get(bookingDetailID);
-                        String fieldName = bookingDetail.getField().getFieldName();
-                        bookingDetail.getSlotDetail().setSlotDetailID(slotDetailID);
-                        bookingDetail.setPlayDate(playDate);
-                        cart.edit(bookingDetailID, bookingDetail);
-                        request.setAttribute("EDIT_SUCCESS", "Cập nhật " + fieldName + " trong giỏ hàng thành công");
-                        
-                        url = SUCCESS;
+                        String fieldID = bookingDetail.getField().getFieldId();
+
+                        BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
+
+                        List<BookingDetail> existedListDetail = bookingDetailDAO.getListBookingDetailByID(fieldID, playDate, slotDetailID);
+                        if (!existedListDetail.isEmpty()) {
+                            request.setAttribute("ADD_FAIL", "Đã có người đặt! Vui lòng chọn ngày hoặc thời gian khác");
+                        } else {
+                            String fieldName = bookingDetail.getField().getFieldName();
+                            bookingDetail.getSlotDetail().setSlotDetailID(slotDetailID);
+                            bookingDetail.setPlayDate(playDate);
+                            cart.edit(bookingDetailID, bookingDetail);
+                            request.setAttribute("EDIT_SUCCESS", "Cập nhật " + fieldName + " trong giỏ hàng thành công");
+
+                            url = SUCCESS;
+                        }
                     }
                 }
             }

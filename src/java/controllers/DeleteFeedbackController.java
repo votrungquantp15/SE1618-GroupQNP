@@ -1,59 +1,33 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.BookingDAO;
+import dao.FeedbackDAO;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author NITRO 5
- */
-public class DeleteBookingController extends HttpServlet {
+public class DeleteFeedbackController extends HttpServlet {
 
-    private static final String PLAYED = "Played";
-    private static final String CANCELED = "Canceled";
-    private static final String DELETE = "Delete";
-    
-    private static final String SUCCESS = "SearchBookingController";
-    private static final String ERROR = "SearchBookingController";
+    private static final String ERROR = "PrintFeedbackController";
+    private static final String SUCCESS = "PrintFeedbackController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String bookingID = request.getParameter("bookingID");
-        String bookingStatus = request.getParameter("bookingStatus");
         try {
-            if (!DELETE.equals(bookingStatus)) {
-                BookingDAO bookingDAO = new BookingDAO();
-                boolean check = bookingDAO.deleteBookingByID(bookingID, bookingStatus);
-                if (check == true) {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
-                    } else {
-                        request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
-                    }
-                    url = SUCCESS;
-                } else {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
-                    } else {
-                        request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
-                    }
-                }
+            String feedbackId = request.getParameter("feedbackId");
+            FeedbackDAO feedbackDao = new FeedbackDAO();
+            boolean check = feedbackDao.deleteFeedback(feedbackId);
+            if (check) {
+                url = SUCCESS;
+                request.setAttribute("DELETE_SUCCESS", "Delete feedback success!");
             } else {
-                request.setAttribute("DELETE_UNSUCCESS", "Can't delete a booking with status Delete");
+                request.setAttribute("DELETE_UNSUCCESS", "Delete feedback unsuccess! Please try again!");
             }
         } catch (Exception e) {
-            log("Error at DeleteBookingController: " + e.toString());
+            log("Error at DeleteFeedbackController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

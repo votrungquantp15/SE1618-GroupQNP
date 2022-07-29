@@ -9,12 +9,22 @@ import javax.servlet.http.HttpServletResponse;
 public class MainController extends HttpServlet {
 
     private static final String ERROR = "error.jsp";
+    
+    //Login Page
+    private static final String LOGIN_TAG = "LoginPage";
+    private static final String LOGIN_PAGE = "login.jsp";
     //Login 
     private static final String LOGIN = "Login";
     private static final String LOGIN_CONTROLLER = "LoginController";
     //Booking field
     private static final String BOOKING = "Booking";
     private static final String BOOKING_CONTROLLER = "CustomerBookingController";
+    //Check out 
+    private static final String CHECK_OUT = "CheckOut";
+    private static final String CHECK_OUT_CONTROLLER = "checkOut.jsp";
+    //Confirm Payment
+    private static final String CONFIRM = "Confirm";
+    private static final String CONFIRM_CONTROLLER = "CustomerConfirmController";
     //add to cart
     private static final String ADD_CART = "AddCart";
     private static final String ADD_CART_CONTROLLER = "CustomerAddCartController";
@@ -250,6 +260,30 @@ public class MainController extends HttpServlet {
     //Payment
     private  static final String USER_PAYMENT = "Payment";
     private static final String USER_PAYMENT_CONTROLLER = "UserPaymentController";
+    
+    //Create Feedback
+    private  static final String CREATE_FEEDBACK = "CreateFeedback";
+    private static final String CREATE_FEEDBACK_CONTROLLER = "CreateFeedbackController";
+    
+    //Print Feedback
+    private  static final String PRINT_FEEDBACK = "PrintFeedback";
+    private static final String PRINT_FEEDBACK_CONTROLLER = "PrintFeedbackController";
+    
+    //Update Feedback
+    private  static final String UPDATE_FEEDBACK = "UpdateFeedback";
+    private static final String UPDATE_FEEDBACK_CONTROLLER = "UpdateFeedbackController";
+    
+    //Delete Feedback
+    private  static final String DELETE_FEEDBACK = "DeleteFeedback";
+    private static final String DELETE_FEEDBACK_CONTROLLER = "DeleteFeedbackController";
+    
+    //Search Feedback
+    private  static final String SEARCH_FEEDBACK = "SearchFeedback";
+    private static final String SEARCH_FEEDBACK_CONTROLLER = "SearchFeedbackController";
+    
+    //Add Slot To Field
+    private  static final String ADD_SLOT_TO_FIELD = "AddSlotToField";
+    private static final String ADD_SLOT_TO_FIELD_CONTROLLER = "AddSlotToFieldController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -259,6 +293,9 @@ public class MainController extends HttpServlet {
             String action = request.getParameter("action");
 
             switch (action) {
+                case LOGIN_TAG:
+                    url = LOGIN_PAGE;
+                    break;
                 case LOGIN:
                     url = LOGIN_CONTROLLER;
                     break;
@@ -267,6 +304,12 @@ public class MainController extends HttpServlet {
                     break;
                 case BOOKING:
                     url = BOOKING_CONTROLLER;
+                    break;
+                case CHECK_OUT:
+                    url = CHECK_OUT_CONTROLLER;
+                    break;
+                case CONFIRM:
+                    url = CONFIRM_CONTROLLER;
                     break;
                 case EDIT_CART_ITEM:
                     url = EDIT_CART_ITEM_CONTROLLER;
@@ -450,6 +493,24 @@ public class MainController extends HttpServlet {
                     break;
                 case USER_PAYMENT:
                     url = USER_PAYMENT_CONTROLLER;
+                    break;    
+                case CREATE_FEEDBACK:
+                    url = CREATE_FEEDBACK_CONTROLLER;
+                    break;    
+                case PRINT_FEEDBACK:
+                    url = PRINT_FEEDBACK_CONTROLLER;
+                    break;    
+                case UPDATE_FEEDBACK:
+                    url = UPDATE_FEEDBACK_CONTROLLER;
+                    break;    
+                case DELETE_FEEDBACK:
+                    url = DELETE_FEEDBACK_CONTROLLER;
+                    break;    
+                case SEARCH_FEEDBACK:
+                    url = SEARCH_FEEDBACK_CONTROLLER;
+                    break;    
+                case ADD_SLOT_TO_FIELD:
+                    url = ADD_SLOT_TO_FIELD_CONTROLLER;
                     break;    
             }
         } catch (Exception e) {

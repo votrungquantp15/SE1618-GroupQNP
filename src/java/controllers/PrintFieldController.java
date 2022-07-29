@@ -59,19 +59,20 @@ public class PrintFieldController extends HttpServlet {
                 List<Field> listField = fieldDao.getListOwnerField(index, userId);
                 if (listField.size() > 0) {
                     request.setAttribute("LIST_FIELD", listField);
-                    url = OWNER_PAGE;
+                    
                 }
                 endPage = count / 5;
                 if (count % 5 != 0) {
                     endPage++;
                 }
+                url = OWNER_PAGE;
                 request.setAttribute("END_PAGE", endPage);
             } else {
-                List<Field> listField = fieldDao.getListField(index);
-                if (listField.size() > 0) {
                     if (user.getRole().getRoleId().equals("US")) {
-                        listField = fieldDao.getListFieldByUser(index);
+                        List<Field> listField = fieldDao.getListFieldByUser(index);
+                        if (listField.size() > 0) {
                         request.setAttribute("FIELD", listField);
+                        }
                         count = fieldDao.countTotalFieldbyUser();
                         endPage = count / 9;
                         if (count % 9 != 0) {
@@ -80,7 +81,10 @@ public class PrintFieldController extends HttpServlet {
                         request.setAttribute("END_PAGE", endPage);
                         url = USER_PAGE;
                     } else if (user.getRole().getRoleId().equals("AD")) {
+                        List<Field> listField = fieldDao.getListField(index);
+                        if (listField.size() > 0) {
                         request.setAttribute("LIST_FIELD", listField);
+                        }
                         count = fieldDao.countTotalFieldByAdmin();
                         endPage = count / 5;
                         if (count % 5 != 0) {
@@ -89,11 +93,10 @@ public class PrintFieldController extends HttpServlet {
                         request.setAttribute("END_PAGE", endPage);
                         url = ADMIN_PAGE;
                     }
-                }
             }
             session.setAttribute("ACTION_FIELD", "Print");
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at PrintFieldController: " + e.toString());
         } finally {
             try {
                 request.getRequestDispatcher(url).forward(request, response);

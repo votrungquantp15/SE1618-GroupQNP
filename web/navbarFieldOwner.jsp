@@ -80,7 +80,7 @@ Chat box End
                 <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p class="email">${sessionScope.LOGIN_USER.email}</p>
+            <p><strong>[Role: Field Owner]</strong></p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
@@ -91,6 +91,7 @@ Chat box End
                     <li><a href="MainController?action=Print&index=1">Field</a></li>
                     <li><a href="MainController?action=PrintFieldCate&index=1">Field Category</a></li>
                     <li><a href="MainController?action=PrintLocation&index=1">Location</a></li>
+                    <li><a href="MainController?action=PrintFeedback&index=1">Feedback</a></li>
                 </ul>
             </li>
             <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>

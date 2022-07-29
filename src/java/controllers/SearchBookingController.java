@@ -63,12 +63,12 @@ public class SearchBookingController extends HttpServlet {
             int index = Integer.parseInt(indexPage);
 
             if (ADMIN.equals(roleID)) {
-                String UserID = loginUser.getUserID();
+                String UserID = "U";
                 int count = 0;
-                if (datefilter == null) {
-                    count = dao.getTotalListBooking(UserID, status);
+                if (datefilter == null || datefilter.isEmpty()) {
+                    count = dao.getTotalListBookingAdmin(UserID, status);
                 } else {
-                    count = dao.getTotalBooking(UserID, startDate, endDate, status);
+                    count = dao.getTotalBookingAdmin(UserID, startDate, endDate, status);
                 }
 
                 int endPage = count / 10;
@@ -78,10 +78,10 @@ public class SearchBookingController extends HttpServlet {
                     endPage++;
                 }
                 List<Booking> list = new ArrayList<>();
-                if (datefilter == null) {
-                    list = dao.getListBooking(UserID, index, status);
+                if (datefilter == null || datefilter.isEmpty()) {
+                    list = dao.getListBookingAdmin(UserID, index, status);
                 } else {
-                    list = dao.getListBookingByID(UserID, startDate, endDate, status, index);
+                    list = dao.getListBookingByIDAdmin(UserID, startDate, endDate, status, index);
                 }
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
@@ -90,9 +90,9 @@ public class SearchBookingController extends HttpServlet {
                 String UserID = loginUser.getUserID();
                 int count = 0;
                 if (datefilter == null || datefilter.isEmpty()) {
-                    count = dao.getTotalListBooking(UserID, status);
+                    count = dao.getTotalListBookingAdmin(UserID, status);
                 } else {
-                    count = dao.getTotalBooking(UserID, startDate, endDate, status);
+                    count = dao.getTotalBookingAdmin(UserID, startDate, endDate, status);
                 }
                 int endPage = count / 10;
                 if (endPage == 0) {
@@ -103,9 +103,9 @@ public class SearchBookingController extends HttpServlet {
 
                 List<Booking> list = new ArrayList<>();
                 if (datefilter == null || datefilter.isEmpty()) {
-                    list = dao.getListBooking(UserID, index, status);
+                    list = dao.getListBookingAdmin(UserID, index, status);
                 } else {
-                    list = dao.getListBookingByID(UserID, startDate, endDate, status, index);
+                    list = dao.getListBookingByIDAdmin(UserID, startDate, endDate, status, index);
                 }
                 request.setAttribute("LIST_BOOKING_HISTORY", list);
                 request.setAttribute("END_PAGE", endPage);
@@ -121,13 +121,13 @@ public class SearchBookingController extends HttpServlet {
                 if (!listField.isEmpty()) {
                     if (listField.size() > 0) {
                         for (Field field : listField) {
-                            List<BookingDetail> listBookingDetail = bookingDetailDAO.getListBookingDetailByID(field.getFieldId());
+                            List<BookingDetail> listBookingDetail = bookingDetailDAO.getListBookingDetailByFieldID(field.getFieldId());
                             if (!listBookingDetail.isEmpty()) {
                                 if (listBookingDetail.size() > 0) {
                                     for (BookingDetail bookingDetail : listBookingDetail) {
                                         List<Booking> listBooking = new ArrayList<>();
-                                        if (datefilter == null) {
-                                            listBooking = dao.getListBookingManager(bookingDetail.getBooking().getBookingId(), index);
+                                        if (datefilter == null || datefilter.isEmpty()) {
+                                            listBooking = dao.getListBookingManager(bookingDetail.getBooking().getBookingId(), search, index);
                                         } else {
                                             listBooking = dao.getListBookingByBookingID(bookingDetail.getBooking().getBookingId(), search, startDate, endDate, status, index);
                                         }

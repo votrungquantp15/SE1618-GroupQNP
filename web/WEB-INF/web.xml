@@ -165,8 +165,40 @@
         <servlet-class>controllers.CustomerEditCartItemPageController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UserPaymentController</servlet-name>
-        <servlet-class>controllers.UserPaymentController</servlet-class>
+        <servlet-name>CustomerCheckoutController</servlet-name>
+        <servlet-class>controllers.CustomerCheckoutController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerConfirmController</servlet-name>
+        <servlet-class>controllers.CustomerConfirmController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CreateFeedbackController</servlet-name>
+        <servlet-class>controllers.CreateFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PrintFeedbackController</servlet-name>
+        <servlet-class>controllers.PrintFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateFeedbackController</servlet-name>
+        <servlet-class>controllers.UpdateFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <servlet-class>controllers.DeleteFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SearchFeedbackController</servlet-name>
+        <servlet-class>controllers.SearchFeedbackController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>HomeShowFieldController</servlet-name>
+        <servlet-class>controllers.HomeShowFieldController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddSlotToFieldController</servlet-name>
+        <servlet-class>controllers.AddSlotToFieldController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
@@ -337,8 +369,40 @@
         <url-pattern>/CustomerEditCartItemPageController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
-        <servlet-name>UserPaymentController</servlet-name>
-        <url-pattern>/UserPaymentController</url-pattern>
+        <servlet-name>CustomerCheckoutController</servlet-name>
+        <url-pattern>/CustomerCheckoutController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerConfirmController</servlet-name>
+        <url-pattern>/CustomerConfirmController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CreateFeedbackController</servlet-name>
+        <url-pattern>/CreateFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintFeedbackController</servlet-name>
+        <url-pattern>/PrintFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateFeedbackController</servlet-name>
+        <url-pattern>/UpdateFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteFeedbackController</servlet-name>
+        <url-pattern>/DeleteFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchFeedbackController</servlet-name>
+        <url-pattern>/SearchFeedbackController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>HomeShowFieldController</servlet-name>
+        <url-pattern>/HomeShowFieldController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddSlotToFieldController</servlet-name>
+        <url-pattern>/AddSlotToFieldController</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

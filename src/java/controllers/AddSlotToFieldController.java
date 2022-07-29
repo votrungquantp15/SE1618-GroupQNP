@@ -1,59 +1,53 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package controllers;
 
-import dao.BookingDAO;
+import dao.FieldDAO;
+import dao.SlotDAO;
+import dao.SlotDetailDAO;
+import dto.Field;
+import dto.Slot;
+import dto.SlotDetail;
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/**
- *
- * @author NITRO 5
- */
-public class DeleteBookingController extends HttpServlet {
+public class AddSlotToFieldController extends HttpServlet {
 
-    private static final String PLAYED = "Played";
-    private static final String CANCELED = "Canceled";
-    private static final String DELETE = "Delete";
-    
-    private static final String SUCCESS = "SearchBookingController";
-    private static final String ERROR = "SearchBookingController";
+    private static final String ERROR = "PrintFieldDetailController";
+    private static final String SUCCESS = "PrintFieldDetailController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
-        String bookingID = request.getParameter("bookingID");
-        String bookingStatus = request.getParameter("bookingStatus");
         try {
-            if (!DELETE.equals(bookingStatus)) {
-                BookingDAO bookingDAO = new BookingDAO();
-                boolean check = bookingDAO.deleteBookingByID(bookingID, bookingStatus);
-                if (check == true) {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_SUCCESS", "Delete Booking " + bookingID + " Successfully");
-                    } else {
-                        request.setAttribute("DELETE_SUCCESS", "Cancel Booking " + bookingID + " Successfully");
-                    }
+            SlotDetailDAO slotDetailDao = new SlotDetailDAO();
+            String slotDetailId = slotDetailDao.createSlotDetailId();
+            String slotId = request.getParameter("idSlot");
+            SlotDAO slotDao = new SlotDAO();
+            Slot slot = slotDao.getSlotByID(slotId);
+
+            String fieldId = request.getParameter("fieldId");
+            FieldDAO fieldDao = new FieldDAO();
+            Field field = fieldDao.getFieldByID(fieldId);
+
+            SlotDetail slotDetail = new SlotDetail(slotDetailId, slot, field, null);
+            boolean checkDuplicate = slotDetailDao.checkSlotId(slotId);
+            if (checkDuplicate) {
+                request.setAttribute("ADD_SLOT_UNSUCCESS", "Slot has already exist! Add slot unsuccess!");
+            } else {
+                boolean checkCreate = slotDetailDao.createSlotDetail(slotDetail);
+                if (checkCreate) {
+                    request.setAttribute("ADD_SLOT_SUCCESS", "Add slot success!");
                     url = SUCCESS;
                 } else {
-                    if (PLAYED.equals(bookingStatus) || CANCELED.equals(bookingStatus)) {
-                        request.setAttribute("DELETE_UNSUCCESS", "Delete Booking " + bookingID + " Failed");
-                    } else {
-                        request.setAttribute("DELETE_UNSUCCESS", "Cancel Booking " + bookingID + " Failed");
-                    }
+                    request.setAttribute("ADD_SLOT_UNSUCCESS", "Add slot unsuccess!");
                 }
-            } else {
-                request.setAttribute("DELETE_UNSUCCESS", "Can't delete a booking with status Delete");
             }
+            request.setAttribute("SHOW_MODAL", "2");
         } catch (Exception e) {
-            log("Error at DeleteBookingController: " + e.toString());
+            log("Error at AddSlotToFieldController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

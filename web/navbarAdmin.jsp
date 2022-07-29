@@ -56,11 +56,11 @@ Chat box End
                     <div class="dropdown-menu dropdown-menu-right">
                         <a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="dropdown-item ai-icon">
                             <svg id="icon-user1" xmlns="http://www.w3.org/2000/svg" class="text-primary" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg>
-                            <span class="ml-2">Profile </span>
+                            <span class="ml-2">Hồ sơ</span>
                         </a>
                         <a href="MainController?action=Logout" class="dropdown-item ai-icon">
                             <svg id="icon-logout" xmlns="http://www.w3.org/2000/svg" class="text-danger" width="18" height="18" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                            <span class="ml-2">Logout </span>
+                            <span class="ml-2">Đăng xuất</span>
                         </a>
                     </div>
                 </li>
@@ -88,7 +88,7 @@ Chat box End
                 <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
             </div>
             <h5 class="name"><span class="font-w400">Hello, </span>${sessionScope.LOGIN_USER.fullName}</h5>
-            <p class="email">${sessionScope.LOGIN_USER.email}</p>
+            <p><strong>[Role: Administrator]</strong></p>
         </div>
         <ul class="metismenu" id="menu">
             <li class="nav-label first">Main Menu</li>
@@ -103,11 +103,10 @@ Chat box End
                     <li><a href="MainController?action=PrintLocation&index=1">Location</a></li>
                 </ul>
             </li>
-            <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
-            <li class="active"><a href="MainController?action=SearchBooking&index=1">Booking report</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome">Income report</a></li>
+            <li class="active"><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
+            <li class="active"><a href="MainController?action=SearchBooking&index=1&status=">Booking report</a></li>
             <li><a href="MainController?action=ViewFoodList&index=1">Food Management</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome&index=1">Income report</a></li
+            <li><a href="AdminIncomeManagement?action=GetAllIncome&index=1">Income report</a></li>
         </ul>
     </div>
 </div>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package dao;
 
 import dto.Field;
@@ -16,10 +11,6 @@ import java.util.ArrayList;
 import java.util.List;
 import utils.DBUtils;
 
-/**
- *
- * @author NITRO 5
- */
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldID = ? ";
@@ -28,8 +19,13 @@ public class SlotDetailDAO {
     private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldId = ? ";
     
-            private static final String GET_SLOT_DETAIL_ID = "SELECT slotDetailID "
+    private static final String GET_SLOT_DETAIL_ID = "SELECT slotDetailID "
             + "FROM tblSlotDetail WHERE slotDetailID = ? ";
+    
+    private static final String CHECK_SLOT_ID = "SELECT slotID "
+            + "FROM tblSlotDetail WHERE slotID = ? ";
+    
+    private static final String CREATE_SLOT_DETAIL = "INSERT INTO tblSlotDetail(slotDetailID, slotID, fieldID) VALUES(?, ?, ?)";
     
     public SlotDetail getSlotDetailByID(String slotDetailID) throws SQLException{
         SlotDetail slotDetail = null;
@@ -157,13 +153,51 @@ public class SlotDetailDAO {
         return arr;
     }
     
-    public String createSlotDetailID(){
+    public String handleSlotDetailID(){
         int max = 999999;
         int min = 1;
         int random_double = (int) (Math.random() * (max - min + 1) + min);
         String s = String.valueOf(random_double);
         return "SD" + s;
     }
+
+    public String createSlotDetailId() throws SQLException {
+        String slotDetailID = handleSlotDetailID();
+        boolean check = false;
+        do {
+            check = checkDuplicate(slotDetailID);
+            if (check == false) {
+                slotDetailID = handleSlotDetailID();
+            }
+        } while (check);
+        return slotDetailID;
+    }
+
+    public boolean createSlotDetail(SlotDetail slotDetail) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CREATE_SLOT_DETAIL);
+                ptm.setString(1, slotDetail.getSlotDetailID());
+                ptm.setString(2, slotDetail.getSlot().getSlotId());
+                ptm.setString(3, slotDetail.getField().getFieldId());
+                check = ptm.executeUpdate() > 0 ? true : false;
+            }
+        } catch (Exception e) {
+        } finally {
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
     public boolean checkDuplicate(String slotDetailID) throws SQLException {
         boolean check = false;
         Connection conn = null;
@@ -174,6 +208,37 @@ public class SlotDetailDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(GET_SLOT_DETAIL_ID);
                 ptm.setString(1, slotDetailID);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    check = true;
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return check;
+    }
+    
+    public boolean checkSlotId(String slotId) throws SQLException {
+        boolean check = false;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(CHECK_SLOT_ID);
+                ptm.setString(1, slotId);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     check = true;
