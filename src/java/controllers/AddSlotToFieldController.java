@@ -33,7 +33,7 @@ public class AddSlotToFieldController extends HttpServlet {
             Field field = fieldDao.getFieldByID(fieldId);
 
             SlotDetail slotDetail = new SlotDetail(slotDetailId, slot, field, null);
-            boolean checkDuplicate = slotDetailDao.checkSlotId(slotId);
+            boolean checkDuplicate = slotDetailDao.checkSlotId(slotId, fieldId);
             if (checkDuplicate) {
                 request.setAttribute("ADD_SLOT_UNSUCCESS", "Slot has already exist! Add slot unsuccess!");
             } else {
