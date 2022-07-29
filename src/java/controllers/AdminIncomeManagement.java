@@ -44,7 +44,6 @@ public class AdminIncomeManagement extends HttpServlet {
                 case SEARCHINCOME:
 
                     String fieldID = request.getParameter("fieldID");
-                    String datefilter = request.getParameter("datefilter");
 
                     bookingDetails = bookingDetailDao.getListBookingDetailByFieldID(fieldID);
 

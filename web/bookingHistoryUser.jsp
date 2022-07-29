@@ -13,7 +13,6 @@
         <link rel="stylesheet" href="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.css">
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-        <link rel="stylesheet" href="css/homestyles.css">
         <link rel="stylesheet" href="css/homestyle.css">
 
         <link href="css/style.css" rel="stylesheet">
@@ -94,7 +93,7 @@
                                                     </div>
 
                                                     <div class="col-sm-4">
-                                                        <select class="form-control" name="status">
+                                                        <select class="form-control pb-1" name="status">
                                                             <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all</option>
                                                             <option value="On-Going" <c:if test="${param.status eq 'On-Going'}">selected</c:if>>On-Going</option>
                                                             <option value="Played" <c:if test="${param.status eq 'Played'}">selected</c:if>>Played</option>

@@ -20,7 +20,7 @@ public class BookingDAO {
     private static final String ON_GOING_STATUS = "On-Going";
     private static final String CANCELED_STATUS = "Canceled";
     private static final String DELETE_STATUS = "Delete";
-
+    
     private static final String INSERT_BOOKING = "INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES (?, ?, ?, ?, 'On-Going')";
 
     private static final String GET_BOOKING_BY_BOOKING_ID = "SELECT bookingID, bookingDate, userID, totalPrice, status "
@@ -648,7 +648,7 @@ public class BookingDAO {
         String s = String.valueOf(random_double);
         return "BO" + s;
     }
-
+ 
     public boolean checkDuplicate(String bookingID) throws SQLException {
         boolean check = false;
         Connection conn = null;
