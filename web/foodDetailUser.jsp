@@ -127,55 +127,14 @@
                     </div>
                 </c:forEach>
             </div>
-            <c:choose>
-                <c:when test="${(sessionScope.LOGIN_USER == null)}">
-                    <ul class="pagination justify-content-center mt-2">
-                        <c:choose>
-                            <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
-                                <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a href="HomeShowFieldController?index=${i}" class="page-link">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </c:when>
-                            <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
-                                <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise></c:otherwise>
-                        </c:choose>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${(requestScope.FIELD != null)}">
                             <ul class="pagination justify-content-center mt-2">
-                                <c:choose>
-                                    <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
-                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
-                                            </li>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
-                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
-                                            </li>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise></c:otherwise>
-                                </c:choose>
+                                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
+                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
+                                    </li>
+                                </c:forEach>
                             </ul>
-                        </c:when>
-                        <c:otherwise></c:otherwise>
-                    </c:choose>
-                </c:otherwise>
-            </c:choose>
+                        
         </div>
     </section>
     <!--================ Accomodation Area  =================-->

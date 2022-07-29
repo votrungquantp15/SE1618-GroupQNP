@@ -48,8 +48,8 @@ public class ViewFoodOfFieldController extends HttpServlet {
             FoodDAO dao = new FoodDAO();
             FoodDetailDAO fdao = new FoodDetailDAO();
             int count = dao.getTotalFoodEach(fieldId);
-            int endPage = count / 5;
-            if (count % 5 != 0) {
+            int endPage = count / 9;
+            if (count % 9 != 0) {
                 endPage++;
             }
                        
