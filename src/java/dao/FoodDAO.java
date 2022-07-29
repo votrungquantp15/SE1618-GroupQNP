@@ -23,7 +23,7 @@ public class FoodDAO {
     private static final String SEARCH_FOOD_BY_NAME_ON_EACH_FIELD = "SELECT a.foodId, a.foodName, a.image, a.categoryFoodId, b.status FROM tblFoods a, tblFoodDetail b WHERE a.foodName LIKE ? and b.fieldId = ? and a.status = 1 and b.foodId = a.foodId ORDER BY b.status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String SEARCH_FOOD_BY_ID_FOR_MANAGER = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods WHERE foodId LIKE ? ";
     private static final String DELETE_FOOD = "UPDATE tblFoods SET status = 0 WHERE foodId = ?";
-    private static final String DELETE_FOOD_ON_FIELD = "UPDATE tblFoodDetail SET status = 0 WHERE foodId = ? and fieldId = ?";
+    private static final String DELETE_FOOD_ON_FIELD = "DELETE FROM tblFoodDetail WHERE foodId = ? and fieldId = ?";
     private static final String VIEW_FOOD_LIST = "SELECT foodId, foodName, image, categoryFoodId, status FROM tblFoods ORDER BY status DESC";
     private static final String UPDATE_FOOD = "UPDATE tblFoods SET foodName = ?, image = ?, categoryFoodId = ?, status = ? WHERE foodId = ?";
     private static final String CREATE = "INSERT INTO tblFoods(foodId, foodName, image, categoryFoodId, status) VALUES (? ,?, ?, ?, ?)";
@@ -309,7 +309,7 @@ public class FoodDAO {
                     String foodCate = rs.getString("categoryFoodId");
                     FoodCategoryDAO fCate = new FoodCategoryDAO();
                     FoodCategory fCateId = fCate.getFoodCategoryByID(foodCate);
-                    String status = rs.getString("status");                   
+                    String status = rs.getString("status");
                     if (status.equals("1")) {
                         status = "Active";
                     } else {

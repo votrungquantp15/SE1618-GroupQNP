@@ -68,10 +68,10 @@
                                             <div class="form-group col-md-6">
                                                 <label><strong>Search user by name</strong></label>
                                                 <div class="row">
-                                                    <div class ="col-md-6">
+                                                    <div class ="col-md-5">
                                                         <input name="searchAccountByAdmin" type="text" class="form-control" placeholder="Type here to search" value="${param.searchAccountByAdmin}">                                                                                             
                                                 </div>
-                                                <div class ="col-md-6">
+                                                <div class ="col-md-7">
                                                     <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchAccountByAdmin">Search</button>
                                                     <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateManagerAccount"><span class="btn-icon-left text-success"><i class="fa fa-plus color-info"></i>
                                                         </span>Add new Manager</button>

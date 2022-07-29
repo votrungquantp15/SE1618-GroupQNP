@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 @WebServlet(name = "SearchFoodByManagerController", urlPatterns = {"/SearchFoodByManagerController"})
-public class SearchFoodByManager extends HttpServlet {
+public class SearchFoodByManagerController extends HttpServlet {
 
     private static final String ERROR = "foodManagement.jsp";
     private static final String SUCCESS = "foodManagement.jsp";
