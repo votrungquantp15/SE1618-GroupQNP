@@ -6,8 +6,10 @@
 package controllers;
 
 import dao.FoodDAO;
+import dao.FoodDetailDAO;
 import dao.UserDAO;
 import dto.Food;
+import dto.FoodDetail;
 import dto.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -27,7 +29,8 @@ import javax.servlet.http.HttpSession;
 public class ViewFoodOfFieldController extends HttpServlet {
 
     private static final String ERROR = "foodManagementEach.jsp";
-    private static final String SUCCESS = "foodManagementEach.jsp";
+    private static final String MANAGER = "foodManagementEach.jsp";
+    private static final String USER = "foodDetailUser.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -35,6 +38,7 @@ public class ViewFoodOfFieldController extends HttpServlet {
         String url = ERROR;
         try {
             HttpSession session = request.getSession();       
+            User user = (User) session.getAttribute("LOGIN_USER");
             String fieldId = request.getParameter("fieldId");
             String indexPage = request.getParameter("index");            
             if (indexPage == null) {
@@ -42,17 +46,23 @@ public class ViewFoodOfFieldController extends HttpServlet {
             }
             int index = Integer.parseInt(indexPage);
             FoodDAO dao = new FoodDAO();
+            FoodDetailDAO fdao = new FoodDetailDAO();
             int count = dao.getTotalFoodEach(fieldId);
-            int endPage = count / 5;
-            if (count % 5 != 0) {
+            int endPage = count / 9;
+            if (count % 9 != 0) {
                 endPage++;
             }
                        
             List<Food> list = dao.viewFoodListEach(fieldId, index);
-            session.setAttribute("FIELD_ID", fieldId);
+            session.setAttribute("FIELD_ID", fieldId);          
             request.setAttribute("VIEW_FOOD_EACH", list);
+            ;
             request.setAttribute("END_PAGE_EACH", endPage);
-            url = SUCCESS;
+            if (user.getRole().getRoleId().equals("MA")) {
+                url = MANAGER;
+            } else {
+                url = USER;
+            }
         } catch (Exception e) {
             log("Error at ViewFoodOfFieldController: " + e.toString());
         } finally {

@@ -59,17 +59,17 @@
                                             <div class="form-group col-md-6">
                                                 <label><strong>Field</strong></label>
                                                 <div class="row">
-                                                    <div class ="col-md-2"> 
+                                                    <div class ="col-md-5"> 
                                                         <input type="text" class="form-control" name="fieldId" value="${sessionScope.FIELD_ID}" readonly=""/><br/>
                                                 </div>
                                             </div>
                                             <label><strong>Search food by name</strong></label>
                                             <div class="row">
-                                                <div class ="col-md-6">                                               
+                                                <div class ="col-md-5">                                               
                                                     <input name="searchFoodOfField" type="text" class="form-control" placeholder="Type here to search" value="${param.searchFoodOfField}">
                                                 </div>
 
-                                                <div class ="col-md-6">
+                                                <div class ="col-md-7">
                                                     <button type="submit" name="action" class="btn btn-rounded btn-warning" value="SearchFoodOfField">SEARCH</button>
 
                                                     <button type="submit" class="btn btn-rounded btn-success" name = "action" value="CreateFoodOnField"><span class="btn-icon-left text-success "><i class="fa fa-plus color-info"></i>
@@ -107,7 +107,7 @@
                                                         <td>${food.foodId}</td>
                                                         <td>${food.foodName}</td>
                                                         <td>
-                                                            <img width="200" height="auto" src="${food.image}">
+                                                            <img width="200" height="190" src="${food.image}">
                                                         </td>
                                                         <td>${food.foodCate.foodCateName}</td>
                                                         <td>${food.status}</td>
@@ -117,7 +117,6 @@
 
                                                                 <a href="MainController?action=UpdateFoodByManager&foodId=${food.foodId}&fieldId=${sessionScope.FIELD_ID}" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-pencil"></i></a>
                                                                 <a href="MainController?action=DeleteFoodByManagerOnField&foodId=${food.foodId}&fieldId=${sessionScope.FIELD_ID}" class="btn btn-danger shadow btn-xs sharp ml-1"><i class="fa fa-trash"></i></a>
-                                                                <a href="MainController?action=ActiveFoodByManager&foodId=${food.foodId}&fieldId=${sessionScope.FIELD_ID}" class="btn btn-success shadow btn-xs sharp ml-1"><i class="fa fa-check-square"></i></a>
 
                                                             </div>
                                                         </td>
@@ -145,7 +144,7 @@
 
                                     </div>
                                 </div>
-                            </div>fo
+                            </div>
                         </div>
                     </div>
                 </div>

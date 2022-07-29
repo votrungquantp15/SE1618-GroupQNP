@@ -6,7 +6,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link rel="icon" href="data:image/png;base64,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">
-    <title>Home Detail</title>
+    <title>Home</title>
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="vendors/linericon/style.css">
@@ -59,14 +59,13 @@
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
+                                    <a href="login.jsp" class="nav-link">Đăng nhập</a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
-                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Giỏ hàng</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
                                         <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
@@ -91,122 +90,53 @@
                         <c:when test="${sessionScope.LOGIN_USER == null}">
                             <li><a href="HomeShowFieldController?index=1">Trang chủ</a></li>
                             </c:when>
-                            <c:otherwise>
-                            <li><a href="MainController?action=Print&index=1">Trang chủ</a></li>
-                            </c:otherwise>
                         </c:choose>
 
-                    <li class="active">Chi tiết</li>
-                </ol> 
+                    <li class="active">Dịch vụ</li>
+                </ol>
             </div>
         </div>
     </section>
+    <!--================Breadcrumb Area =================-->
 
     <!--================ Accomodation Area  =================-->
+    <!--================Booking Tabel Area  =================-->
+    <!--================ Accomodation Area  =================-->
+    <section class="accomodation_area section_gap">
+        <div class="container">
+            <div class="section_title text-center">
+                <h2 class="title_color">Dịch vụ</h2>
+                <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
+            </div>
+            <div class="row accomodation_two">
+                <c:forEach var="food" items="${requestScope.VIEW_FOOD_EACH}">
+                    <div class="col-lg-4 col-sm-6">
+                        <div class="accomodation_item text-center">
+                            <div class="hotel_img">
+                                <img width="300" height="auto" src="${food.image}">
+                                <form action="MainController" method="POST">
+                                    <input name="foodId" value="${food.foodId}" type="hidden">
+                                    <input name="foodName" value="${food.foodName}" type="hidden">
 
-    <div class="content-body">
-        <div class="container-fluid">
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card">
-                        <div class="card-body">
-                            <div class="row">
-                                <c:if test="${requestScope.FIELD_DETAIL == null}">
-                                    <strong>Không có kết quả</strong>
-                                </c:if>
-                                <c:if test="${requestScope.FIELD_DETAIL != null}">
-                                    <c:if test="${not empty requestScope.FIELD_DETAIL}">
-                                        <div class="col-xl-6 col-lg-6  col-md-6 col-xxl-5 ">
-                                            <img class="img-fluid" src="${requestScope.FIELD_DETAIL.image}" alt="">
-                                        </div>
+                                </form>
 
-                                        <div class="col-xl-6 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
-                                            <div class="product-detail-content">
-                                                <!--Product details-->
-                                                <div style="color: black" class="new-arrival-content pr row">
-                                                    <div class="col-12 col-md-12">
-                                                        <div class="card-header">
-                                                            <h3><strong>Sân bóng</strong></h3>
-                                                        </div>
-                                                        <div class="table">
-                                                            <table>
-                                                                <tr>
-                                                                    <th>Tên sân:</th>
-                                                                    <th class="col-10"><p>${requestScope.FIELD_DETAIL.fieldName}</p></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Mô tả:</th>
-                                                                    <th><p>${requestScope.FIELD_DETAIL.description}</p></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Loại sân:</th>
-                                                                    <th><p>${requestScope.FIELD_DETAIL.fieldCate.fieldCateName}</p></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Chủ sân:</th>
-                                                                    <th><p>${requestScope.FIELD_DETAIL.user.fullName}</p></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Địa chỉ:</th>
-                                                                    <th><p>${requestScope.FIELD_DETAIL.location.locationName}</p></th>
-                                                                </tr>
-                                                                <tr>
-                                                                    <th>Dịch vụ:</th>
-                                                                    <th><p><a href="MainController?action=ViewFoodOfField&fieldId=${requestScope.FIELD_DETAIL.fieldId}&index=1">Nhấp chuột để xem</a></p></th>
-                                                                </tr>
-                                                            </table>
-                                                        </div>
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-xl-6 col-lg-6  col-md-6 mt-10 border">
-                                            <h2 style="color: black">Đánh giá</h2>
-                                            <c:if test="${not empty requestScope.LIST_FEEDBACK}">
-                                                <c:forEach var="feedback" items="${requestScope.LIST_FEEDBACK}" varStatus="counter">
-                                                    <div class="card-body border border-dark mb-1">
-                                                        <div class="row">
-                                                            <h4 style="font-weight: bold; color: black" class="col-12">${feedback.user.fullName}</h4>
-                                                        </div>
-                                                        <p>${feedback.content}</p>
-                                                    </div>
-                                                </c:forEach>
-                                            </c:if>
-                                            <form action="MainController" method="POST">
-                                                <div class="card border border-dark mb-2 mt-1">
-                                                    <h4 class="card-header" style="color: black">Nội dung:</h4>
-                                                    <textarea class="form-control" id="exampleFormControlTextarea4" name="content" rows="3" placeholder="Nhập nội dung đánh giá ở đây..." required=""></textarea>
-                                                    <p style="color: red">${requestScope.CREATE_CONTENT_ERROR}</p>
-                                                    <div class="d-flex justify-content-end">
-                                                        <c:choose>
-                                                            <c:when test="${sessionScope.LOGIN_USER == null}">
-                                                                <button type="submit" name="action" value="LoginPage" class="btn btn-info mr-2">Gửi feedback</button>
-                                                            </c:when>
-                                                            <c:otherwise>
-                                                                <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
-                                                                <input type="hidden" name="action" value="CreateFeedback"/>
-                                                                <button type="submit" class="btn btn-info mr-2">Gửi feedback</button>
-                                                            </c:otherwise>
-                                                        </c:choose>
-                                                    </div>
-                                                    <div class="ml-2">
-                                                        <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
-                                                        <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
-                                                    </div>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
+                            <h4>${food.foodName}</h4>
+                            <h6>${food.foodCate.foodCateName}</h6>
                         </div>
                     </div>
-                </c:if>
-            </c:if> 
+                </c:forEach>
+            </div>
+                            <ul class="pagination justify-content-center mt-2">
+                                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
+                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
+                                    </li>
+                                </c:forEach>
+                            </ul>
+                        
         </div>
-    </div>
-
+    </section>
     <!--================ Accomodation Area  =================-->
     <!--================ start footer Area  =================-->	
     <footer class="footer-area section_gap">

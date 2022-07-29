@@ -66,8 +66,8 @@ public class AdminIncomeManagement extends HttpServlet {
                     } else if (user.getRole().getRoleId().equals("AD")) {
                         url = "incomeReportAdmin.jsp";
                     }
-                    endPage = count / 5;
-                    if (count % 5 != 0) {
+                    endPage = count / 10;
+                    if (count % 10 != 0) {
                         endPage++;
                     }
                     request.setAttribute("END_PAGE", endPage);
