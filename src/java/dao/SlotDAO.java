@@ -22,6 +22,9 @@ public class SlotDAO {
 
     private static final String GET_ALL_INFO = "SELECT slotID, timeStart, timeEnd, status FROM tblSlots WHERE slotID like ?";
     
+    private static final String GET_LIST_SLOT = "SELECT slotID, timeStart, timeEnd, status FROM tblSlots";
+    private static final String GET_LIST_SLOT_BY_FIELD = "SELECT * FROM tblSlots sl LEFT JOIN tblSlotDetail sd ON sl.slotId = sd.slotId WHERE fieldId = ?";
+    
     private static final String COUNT_ALL_SLOT = "SELECT COUNT(*) as totalSlot FROM tblSlots WHERE slotID like ? ";
 
     private static final String PAGING_LIST_BOOKING = "SELECT * FROM tblSlots WHERE slotID like ? ORDER BY slotID OFFSET ? ROWS FETCH NEXT 12 ROWS ONLY ";
@@ -83,6 +86,75 @@ public class SlotDAO {
                     } else {
                         status = "False";
                     }
+                    list.add(new Slot(getSlotID, timeStart, timeEnd, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<Slot> getAllSlot() throws SQLException {
+        List<Slot> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIST_SLOT);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getSlotID = rs.getString("slotID");
+                    String timeStart = rs.getString("timeStart");
+                    String timeEnd = rs.getString("timeEnd");
+                    String status = rs.getString("status");
+                    list.add(new Slot(getSlotID, timeStart, timeEnd, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return list;
+    }
+    
+    public List<Slot> getAllSlotByFieldId(String fieldId) throws SQLException {
+        List<Slot> list = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_LIST_SLOT_BY_FIELD);
+                ptm.setString(1, fieldId);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getSlotID = rs.getString("slotID");
+                    String timeStart = rs.getString("timeStart");
+                    String timeEnd = rs.getString("timeEnd");
+                    String status = rs.getString("status");
                     list.add(new Slot(getSlotID, timeStart, timeEnd, status));
                 }
             }

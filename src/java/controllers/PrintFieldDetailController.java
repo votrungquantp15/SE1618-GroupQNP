@@ -4,10 +4,12 @@ import dao.DistrictDAO;
 import dao.FieldCategoryDAO;
 import dao.FieldDAO;
 import dao.LocationDAO;
+import dao.SlotDAO;
 import dto.District;
 import dto.Field;
 import dto.FieldCategory;
 import dto.Location;
+import dto.Slot;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -31,24 +33,30 @@ public class PrintFieldDetailController extends HttpServlet {
             HttpSession session = request.getSession();
             User user = (User) session.getAttribute("LOGIN_USER");
             request.setAttribute("USER_ID", user.getUserID());
-            
+
             String id_of_field = request.getParameter("fieldId");
             FieldDAO fieldDao = new FieldDAO();
             Field listField = fieldDao.getFieldByID(id_of_field);
             request.setAttribute("FIELD_DETAIL", listField);
-            
+
             FieldCategoryDAO cateDao = new FieldCategoryDAO();
             List<FieldCategory> listCate = cateDao.getAllFieldCategory();
             request.setAttribute("LIST_CATEGORY", listCate);
-            
+
             DistrictDAO districtDao = new DistrictDAO();
             List<District> listDistrict = districtDao.getAllDistrict();
             request.setAttribute("LIST_DISTRICT", listDistrict);
-            
+
             LocationDAO locationDao = new LocationDAO();
             List<Location> listLocation = locationDao.getAllLocation();
             request.setAttribute("LIST_LOCATION", listLocation);
-            
+
+            SlotDAO slotDao = new SlotDAO();
+            List<Slot> listSlot = slotDao.getAllSlot();
+            List<Slot> listSlotOfField = slotDao.getAllSlotByFieldId(id_of_field);
+            request.setAttribute("LIST_SLOT", listSlot);
+            request.setAttribute("LIST_SLOT_OF_FIELD", listSlotOfField);
+
             if (user.getRole().getRoleId().equals("MA")) {
                 url = OWNER_PAGE;
             } else if (user.getRole().getRoleId().equals("AD")) {

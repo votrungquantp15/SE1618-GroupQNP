@@ -1,8 +1,9 @@
 package controllers;
 
-import dao.FeedbackDAO;
-import dto.Feedback;
-import dto.User;
+import dao.DistrictDAO;
+import dao.FieldDAO;
+import dto.District;
+import dto.Field;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -11,58 +12,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class PrintFeedbackController extends HttpServlet {
+public class HomeShowFieldController extends HttpServlet {
 
-    private static final String USER_PAGE = "userFeedbackManagement.jsp";
-    private static final String OWNER_PAGE = "ownerFeedbackManagement.jsp";
+    private static final String HOME_PAGE = "home.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String url = USER_PAGE;
+        String url = HOME_PAGE;
         try {
             int count = 0;
             HttpSession session = request.getSession();
-            User user = (User) session.getAttribute("LOGIN_USER");
-            request.setAttribute("USER_NAME", user.getFullName());
 
-            FeedbackDAO daoFeedback = new FeedbackDAO();
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("LIST_DISTRICT", listDistrict);
+
+            FieldDAO fieldDao = new FieldDAO();
             String indexPage = request.getParameter("index");
             if (indexPage == null) {
                 indexPage = "1";
             }
             int index = Integer.parseInt(indexPage);
             int endPage = 0;
-            if (user.getRole().getRoleId().equals("US")) {
-                String userId = user.getUserID();
-                List<Feedback> listFeedback = daoFeedback.getFeedbackByUserId(index, userId);
-                if (listFeedback.size() > 0) {
-                    request.setAttribute("LIST_FEED_BACK", listFeedback);
-                    url = USER_PAGE;
-                }
-                count = daoFeedback.countTotalFeedbackByUser(userId);
-                endPage = count / 5;
-                if (count % 5 != 0) {
-                    endPage++;
-                }
-                request.setAttribute("END_PAGE", endPage);
-            } else if (user.getRole().getRoleId().equals("MA")) {
-                String userId = user.getUserID();
-                List<Feedback> listFeedback = daoFeedback.getAllFeedbackByFieldOwner(userId, index);
-                if (listFeedback.size() > 0) {
-                    request.setAttribute("LIST_FEED_BACK", listFeedback);
-                }
-                count = daoFeedback.countTotalFeedbackByOwner(userId);
-                endPage = count / 5;
-                if (count % 5 != 0) {
-                    endPage++;
-                }
-                request.setAttribute("END_PAGE", endPage);
-                url = OWNER_PAGE;
-                session.setAttribute("ACTION_FEEDBACK", "Print");
+
+            List<Field> listField = fieldDao.getListFieldByUser(index);
+            if (listField.size() > 0) {
+                request.setAttribute("FIELD", listField);
             }
+            count = fieldDao.countTotalFieldbyUser();
+            endPage = count / 9;
+            if (count % 9 != 0) {
+                endPage++;
+            }
+            request.setAttribute("END_PAGE", endPage);
+            url = HOME_PAGE;
+            session.setAttribute("ACTION_FIELD", "Print");
         } catch (Exception e) {
-            log("Error at PrintFeedbackController: " + e.toString());
+            log("Error at HomeShowFieldController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

@@ -40,7 +40,7 @@
                             <li class="nav-item submenu dropdown">
                                 <c:choose>
                                     <c:when test="${sessionScope.LOGIN_USER == null}">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
@@ -100,8 +100,8 @@
                                                                 <c:if test="${LIST_SLOT_DETAIL != null}">
                                                                     <c:if test="${not empty LIST_SLOT_DETAIL}">
 
-                                                                        <h4 class="m-b-15">Select time</h4>
-                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        <h3>Select time</h3>
+                                                                        <div data-toggle="buttons">
                                                                             <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
                                                                                 <label class="btn btn-outline-primary light btn-sm">
                                                                                     <input type="radio" class="position-absolute invisible" min="2022-14-07" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}</label>
@@ -126,13 +126,13 @@
                                     </c:if>
                                     <input type="hidden" name="fieldID" value="${FIELD.fieldId}"/>
                                     <input type="hidden" name="fieldPrice" value="${FIELD.price}"/>
-                                    <div class="shopping-cart mt-3 float-right">
+                                    <div>
+                                        <div class="shopping-cart mt-3 float-right">
 
-                                        <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Đặt sân</button>
-                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Quay lại</a>                                       
+                                            <button class="btn btn-primary btn-lg" type="submit" name="action" value="AddCart"><i class="fa fa-shopping-basket mr-2"></i>Đặt sân</button>
+                                            <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg" >Quay lại</a>                                       
+                                        </div>
                                     </div>
-
-
                                 </div>
                             </div>
                         </form>

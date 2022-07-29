@@ -115,6 +115,10 @@
                                                                                         <th>${requestScope.FIELD_DETAIL.status}</th>
                                                                                     </tr>
                                                                                     <tr>
+                                                                                        <th style="color: black">Slot of field:</th>
+                                                                                        <th><a title="Click here to view slot of field" href="#" class="btn btn-xs sharp btn-danger shadow" data-toggle="modal" data-target="#addSlotOfField"><i class="fa fa-calendar-check-o"></i></a></th>
+                                                                                    </tr>
+                                                                                    <tr>
                                                                                         <th style="color: black">Food Service:</th>
                                                                                         <th><a href="MainController?action=ViewFoodOfField&fieldId=${requestScope.FIELD_DETAIL.fieldId}&index=1" class="btn btn-warning shadow btn-xs sharp"><i class="fa fa-clipboard"></i></a></th>
                                                                                     </tr>
@@ -175,7 +179,6 @@
                 <div class="modal fade" id="updateField" tabindex="-1" aria-labelledby="updateField" aria-hidden="true">
                     <div class="modal-dialog modal-xl modal-dialog-scrollable">
                         <div class="modal-content">
-
                             <div class="modal-header">
                                 <h5 class="modal-title" id="exampleModalLabel">Update field</h5>
                                 <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
@@ -273,6 +276,62 @@
                     </div>
                 </div>
             </form>
+            <form action="MainController" method="POST" accept-charset="utf-8"> 
+                <div class="modal fade" id="addSlotOfField" tabindex="-1" aria-labelledby="addSlotOfField" aria-hidden="true">
+                    <div class="modal-dialog modal-lg modal-dialog-scrollable">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLabel">Slot of field:</h5>
+                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body" style="margin-top: -20px">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <div class="product-detail-content">
+                                            <div class="new-arrival-content pr row">
+                                                <div class="col-12 col-sm-12">
+                                                    <div class="card-body">
+                                                        <div class="table row">
+                                                            <table class="col-12">
+                                                                <tr>
+                                                                    <th style="position: relative; top: 15px;">Add Slot:</th>
+                                                                    <th>
+                                                                        <select name ="idSlot" class="form-control" >
+                                                                            <c:forEach var="listSlot" items="${requestScope.LIST_SLOT}">
+                                                                                <option value="${listSlot.slotId}">${listSlot.timeStart} - ${listSlot.timeEnd}</option>
+                                                                            </c:forEach>
+                                                                        </select>
+                                                                    </th>
+                                                                </tr>
+                                                                <tr>
+                                                                <div data-toggle="buttons">
+                                                                    <c:forEach var="listSlotByField" items="${requestScope.LIST_SLOT_OF_FIELD}">
+                                                                        <label class="btn btn-outline-primary light btn-sm">
+                                                                            <input class="position-absolute invisible" name="slot" disabled=""> ${listSlotByField.timeStart} - ${listSlotByField.timeEnd}</label>
+                                                                        </c:forEach>
+                                                                </div>
+                                                                </tr>
+                                                            </table>
+                                                            <p style="color: green">${requestScope.ADD_SLOT_SUCCESS} </p>
+                                                            <p style="color: red">${requestScope.ADD_SLOT_UNSUCCESS} </p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                                <input type="hidden" name="action" value="AddSlotToField"/>
+                                <input style="color: white" class="btn btn-primary" title="Click here to add slot" type="submit" value="Add Slot"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
     <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
@@ -283,12 +342,22 @@
     <script src="js/custom.min.js"></script>
     <script src="js/deznav-init.js"></script>
     <script src="js/demo.js"></script>
-    <c:if test = "${requestScope.SHOW_MODAL == '1'}">
-        <script type="text/javascript">
-            $(document).ready(() => {
-                $('#updateField').modal('show');
-            });
-        </script>
-    </c:if>
+    <c:choose>
+        <c:when test= "${requestScope.SHOW_MODAL == '1'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                    $('#updateField').modal('show');
+                });
+            </script>
+        </c:when>
+        <c:when test= "${requestScope.SHOW_MODAL == '2'}">
+            <script type="text/javascript">
+                $(document).ready(() => {
+                    $('#addSlotOfField').modal('show');
+                });
+            </script>
+        </c:when>
+        <c:otherwise></c:otherwise>
+    </c:choose>
 </body>
 </html>

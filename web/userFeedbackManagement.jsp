@@ -49,16 +49,15 @@
     ***********************************-->
     <div id="main-wrapper">
 
-        <jsp:include page="navbarFieldOwner.jsp"></jsp:include>
+        <jsp:include page="navbarUser.jsp"></jsp:include>
             <div class="content-body">
                 <div class="col-12">
                     <div class="card">
-
                         <div class="row">
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Feedback Management</h4>
+                                        <h4 class="card-title">User Feedback Management</h4>
                                     </div>
                                     <div class="card-body">
                                         <div class="row">
@@ -69,21 +68,20 @@
                                                             <button class="btn btn-primary disabled" type="button">Status</button>
                                                             <select name="status">
                                                                 <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                            <option value="In-Active" <c:if test="${param.status eq 'In-Active'}">selected</c:if>>In-Active</option>
-                                                            <option value="Active" <c:if test="${param.status eq 'Active'}">selected</c:if>>Active</option>
+                                                                <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
+                                                                <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
                                                             </select>
                                                         </div>
-                                                        <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here">
+                                                        <div class="input-group-prepend">
+                                                            <button class="btn btn-primary disabled" type="button">Search By Field's Name</button>
+                                                        </div>
+                                                        <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here...">
                                                     <div class="input-group-append">
                                                         <button class="btn btn-primary btn-sm-3" type="submit" name="action" value="SearchFeedback">Search</button>
                                                     </div>
                                                 </div>
                                             </form>
-                                            <p style="color: red"> ${requestScope.SEARCH_FIELD_CATE_ERROR} </p>
-                                            <p style="color: green"> ${requestScope.CREATE_SUCCESS} </p>
-                                            <p style="color: green">${requestScope.UPDATE_SUCCESS} </p>
-                                            <p style="color: green">${requestScope.DELETE_SUCCESS} </p>
-                                            <p style="color: red">${requestScope.DELETE_UNSUCCESS} </p>
+                                            <p style="color: red"> ${requestScope.SEARCH_FEEDBACK_ERROR} </p>
                                         </div>
                                     </div>
                                     <form action="MainController" method="POST" accept-charset="utf-8">
@@ -96,7 +94,6 @@
                                                         <th><strong>Field</strong></th>
                                                         <th><strong>Content</strong></th>
                                                         <th><strong>Status</strong></th>
-                                                        <th><strong>Action</strong></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -110,70 +107,6 @@
                                                             <td>${feedback.field.fieldName}</td>
                                                             <td>${feedback.content}</td>
                                                             <td>${feedback.status}</td>
-                                                            <td>
-                                                                <a href="#" class="btn btn-warning shadow btn-xs sharp" data-toggle="modal" data-target="#updateFeedback${counter}"><i class="fa fa-pencil"></i></a>
-                                                                    <c:url var="delete" value="MainController">
-                                                                        <c:param name="action" value="DeleteFeedback"></c:param>
-                                                                        <c:param name="index" value="1"></c:param>
-                                                                        <c:param name="feedbackId" value="${feedback.feedbackId}"></c:param>
-                                                                    </c:url>
-                                                                <a title="Click here to delete feedback" href="#" class="btn btn-danger btn-xs shadow sharp ml-1" data-toggle="modal" data-target="#deleteConfirm${counter}"><i class="fa fa-trash"></i></a>
-                                                                <div class="modal fade" id="deleteConfirm${counter}" tabindex="-1" aria-labelledby="deleteConfirm" aria-hidden="true">
-                                                                    <div class="modal-dialog">
-                                                                        <div class="modal-content">
-                                                                            <div class="modal-header">
-                                                                                <h5 class="modal-title" id="exampleModalLabel">Delete Confirm</h5>
-                                                                                <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                                                                            </div>
-                                                                            <div class="modal-body">
-                                                                                Do you really want to delete?
-                                                                            </div>
-                                                                            <div class="modal-footer">
-                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                <a class="btn btn-primary" href="${delete}">Accept</a>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                            <td> 
-                                                                <form action="MainController" method="POST" accept-charset="utf-8"> 
-                                                                    <div class="modal fade" id="updateFeedback${counter}" tabindex="-1" aria-labelledby="updateFeedback" aria-hidden="true">
-                                                                        <div class="modal-dialog modal-dialog-scrollable">
-                                                                            <div class="modal-content">
-                                                                                <div class="modal-header">
-                                                                                    <h5 class="modal-title" id="exampleModalLabel">Update field</h5>
-                                                                                    <button type="button" class="close" aria-label="Close" data-dismiss="modal">&times;</button>
-                                                                                </div>
-                                                                                <div class="modal-body" style="margin-top: -20px">
-                                                                                    <div class="row">
-                                                                                        <div class="card-body">
-                                                                                            <div class="table row">
-                                                                                                <table class="col-12">
-                                                                                                    <tr>
-                                                                                                        <th style="position: relative; top: 15px;">Status:</th>
-                                                                                                        <th>
-                                                                                                            <select class="form-control" name ="status">
-                                                                                                                <option value="1">Active</option>
-                                                                                                                <option value="0">In-Active</option>
-                                                                                                            </select>
-                                                                                                        </th>
-                                                                                                    </tr>
-                                                                                                </table>
-                                                                                            </div>
-                                                                                        </div>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="modal-footer">
-                                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                                    <input style="color: white" class="btn btn-primary" title="Click here to update feedback" type="submit" name="action" value="UpdateFeedback"/>
-                                                                                    <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </form>
-                                                            </td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tr>
@@ -185,7 +118,7 @@
                                                 <ul class="pagination">
                                                     <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                         <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                            <a href="MainController?action=PrintFeedbackController&index=${i}" class="page-link">${i}</a>
+                                                            <a href="MainController?action=PrintFeedback&index=${i}" class="page-link">${i}</a>
                                                         </li>
                                                     </c:forEach>
                                                 </ul>

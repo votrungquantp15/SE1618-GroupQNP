@@ -108,7 +108,7 @@ CREATE TABLE tblFeedback
 	content nvarchar(500) NOT NULL,
 	userId varchar(10) FOREIGN KEY REFERENCES tblUsers(userId),
 	fieldId varchar(10) FOREIGN KEY REFERENCES tblFields(fieldId),
-	[status] varchar(10) default 'Request'
+	[status] [bit] default '1'
 )
 
 CREATE TABLE tblBooking
@@ -340,14 +340,14 @@ INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slot
 
 INSERT INTO tblFeedback(feedbackId, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 'Active')
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE02', N'Sân bóng không mới', 'U03', 'FI03', 'Active')
+VALUES	('FB02', N'Sân bóng không mới', 'U04', 'FI03', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE03', N'Sân bóng tệ', 'U05', 'FI01', 'Active')
+VALUES	('FB03',N'Sân bóng tệ', 'U05', 'FI01', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE04', N'Sân bóng mới', 'U03', 'FI03', 'Active')
+VALUES	('FB04', N'Sân bóng mới', 'U04', 'FI03', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE05', N'Sân bóng phục vụ tốt', 'U05', 'FI07', 'Active')
+VALUES	('FB05', N'Sân bóng phục vụ tốt', 'U05', 'FI07', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE06', N'phục vụ không tốt', 'U07', 'FI07', 'Active')
+VALUES	('FB06', N'phục vụ không tố', 'U04', 'FI07', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
-VALUES	('FE07', N'sân dơ', 'U01', 'FI01', 'Active')
+VALUES	('FB07', N'sân dơ', 'U04', 'FI08', 1)

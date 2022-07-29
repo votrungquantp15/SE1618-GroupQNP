@@ -24,7 +24,14 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                <c:choose>
+                    <c:when test="${sessionScope.LOGIN_USER == null}">
+                        <a class="navbar-brand logo_h" href="HomeShowFieldController?index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                        </c:when>
+                        <c:otherwise>
+                        <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                        </c:otherwise>
+                    </c:choose>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -33,8 +40,22 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
-                        <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt (<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
+                        <c:choose>
+                            <c:when test="${sessionScope.LOGIN_USER == null}">
+                                <li class="nav-item active"><a class="nav-link" href="HomeShowFieldController?index=1">Trang chủ</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${sessionScope.LOGIN_USER == null}">
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ hàng</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
@@ -141,10 +162,17 @@
                                 <img class="img_field" src="${field.image}" alt="">
                                 <form action="MainController" method="POST">
                                     <input name="fieldID" value="${field.fieldId}" type="hidden">
-                                    
-                                    <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+
+                                    <c:choose>
+                                        <c:when test="${sessionScope.LOGIN_USER == null}">
+                                            <button type="submit" name="action" value="LoginPage" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                            </c:when>
+                                            <c:otherwise>
+                                            <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                            </c:otherwise>
+                                        </c:choose>
                                 </form>
-                                
+
                             </div>
                             <a href="MainController?action=UserPrintFieldDetail&fieldId=${field.fieldId}"><h4 class="sec_h4">${field.fieldName}</h4></a>
                             <h6>${field.district.districtName}</h6>
@@ -154,13 +182,13 @@
                 </c:forEach>
             </div>
             <c:choose>
-                <c:when test="${(requestScope.FIELD != null)}">
+                <c:when test="${(sessionScope.LOGIN_USER == null)}">
                     <ul class="pagination justify-content-center mt-2">
                         <c:choose>
                             <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
                                 <c:forEach var="i" begin="1" end="${END_PAGE}">
                                     <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                        <a href="HomeShowFieldController?index=${i}" class="page-link">${i}</a>
                                     </li>
                                 </c:forEach>
                             </c:when>
@@ -175,7 +203,32 @@
                         </c:choose>
                     </ul>
                 </c:when>
-                <c:otherwise></c:otherwise>
+                <c:otherwise>
+                    <c:choose>
+                        <c:when test="${(requestScope.FIELD != null)}">
+                            <ul class="pagination justify-content-center mt-2">
+                                <c:choose>
+                                    <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
+                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
+                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                                <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
+                                            </li>
+                                        </c:forEach>
+                                    </c:when>
+                                    <c:otherwise></c:otherwise>
+                                </c:choose>
+                            </ul>
+                        </c:when>
+                        <c:otherwise></c:otherwise>
+                    </c:choose>
+                </c:otherwise>
             </c:choose>
         </div>
     </section>

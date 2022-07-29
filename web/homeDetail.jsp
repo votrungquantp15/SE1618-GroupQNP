@@ -24,7 +24,14 @@
         <div class="container">
             <nav class="navbar navbar-expand-lg navbar-light">
                 <!-- Brand and toggle get grouped for better mobile display -->
-                <a class="navbar-brand logo_h" href="MainController?action=Print"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                <c:choose>
+                    <c:when test="${sessionScope.LOGIN_USER == null}">
+                        <a class="navbar-brand logo_h" href="HomeShowFieldController?index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                        </c:when>
+                        <c:otherwise>
+                        <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                        </c:otherwise>
+                    </c:choose>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
@@ -33,20 +40,34 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto">
-                        <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+                        <c:choose>
+                            <c:when test="${sessionScope.LOGIN_USER == null}">
+                                <li class="nav-item active"><a class="nav-link" href="HomeShowFieldController?index=1">Trang chủ</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                                </c:otherwise>
+                            </c:choose>
+                            <c:choose>
+                                <c:when test="${sessionScope.LOGIN_USER == null}">
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ hàng</a></li>
+                                </c:when>
+                                <c:otherwise>
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
+                                </c:otherwise>
+                            </c:choose>
                         <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
-                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Cart</a></li>
-                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Giỏ hàng</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
                             </c:choose>
@@ -66,8 +87,16 @@
                 <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
                 <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
                 <ol class="breadcrumb">
-                    <li><a href="MainController?action=Print&index=1">Home</a></li>
-                    <li class="active">Accomodation</li>
+                    <c:choose>
+                        <c:when test="${sessionScope.LOGIN_USER == null}">
+                            <li><a href="HomeShowFieldController?index=1">Trang chủ</a></li>
+                            </c:when>
+                            <c:otherwise>
+                            <li><a href="MainController?action=Print&index=1">Trang chủ</a></li>
+                            </c:otherwise>
+                        </c:choose>
+
+                    <li class="active">Chi tiết</li>
                 </ol> 
             </div>
         </div>
@@ -123,7 +152,14 @@
                                                                 </tr>
                                                             </table>
                                                         </div>
+                                                        <c:choose>
+                                                            <c:when test="${sessionScope.LOGIN_USER == null}">
+                                                                <a href="MainController?action=LoginPage" class="btn theme_btn button_hover rounded">Đặt ngay</a>
+                                                            </c:when>
+                                                            <c:otherwise>
                                                                 <a href="MainController?action=Booking&fieldID=${requestScope.FIELD_DETAIL.fieldId}" class="btn theme_btn button_hover rounded">Đặt ngay</a>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
                                                 </div>
                                             </div>
@@ -146,12 +182,21 @@
                                                     <textarea class="form-control" id="exampleFormControlTextarea4" name="content" rows="3" placeholder="Nhập nội dung đánh giá ở đây..." required=""></textarea>
                                                     <p style="color: red">${requestScope.CREATE_CONTENT_ERROR}</p>
                                                     <div class="d-flex justify-content-end">
-                                                        <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
-                                                        <input type="hidden" name="action" value="CreateFeedback"/>
-                                                        <button type="submit" class="btn btn-info">Gửi feedback</button>
+                                                        <c:choose>
+                                                            <c:when test="${sessionScope.LOGIN_USER == null}">
+                                                                <button type="submit" name="action" value="LoginPage" class="btn btn-info mr-2">Gửi feedback</button>
+                                                            </c:when>
+                                                            <c:otherwise>
+                                                                <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
+                                                                <input type="hidden" name="action" value="CreateFeedback"/>
+                                                                <button type="submit" class="btn btn-info mr-2">Gửi feedback</button>
+                                                            </c:otherwise>
+                                                        </c:choose>
                                                     </div>
-                                                    <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
-                                                    <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
+                                                    <div class="ml-2">
+                                                        <p style="color: green">${requestScope.CREATE_SUCCESS} </p>
+                                                        <p style="color: red">${requestScope.CREATE_UNSUCCESS} </p>
+                                                    </div>
                                                 </div>
                                             </form>
                                         </div>
