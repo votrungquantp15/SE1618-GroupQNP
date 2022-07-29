@@ -31,7 +31,7 @@ public class FoodDAO {
     private static final String FOOD_LIST_EACH = "select tblFoods.foodId, tblFoods.foodName, tblFoods.image, tblFoods.categoryFoodId, tblFoodDetail.status\n" 
                                                  + "from tblFoods, tblFoodDetail\n" 
                                                  + "where fieldId = ? and tblFoods.status = 1 and tblFoods.foodId = tblFoodDetail.foodId\n"
-                                                 + "ORDER BY tblFoodDetail.status DESC OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+                                                 + "ORDER BY tblFoodDetail.status DESC OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
     private static final String ACTIVE_FOOD = "UPDATE tblFoods SET status = 1 WHERE foodId = ?";
     
 
@@ -300,7 +300,7 @@ public class FoodDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(FOOD_LIST_EACH);
                 ptm.setString(1, fieldId);
-                ptm.setInt(2, (index - 1) * 5);
+                ptm.setInt(2, (index - 1) * 9);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String foodId = rs.getString("foodId");
