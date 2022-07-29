@@ -17,10 +17,10 @@
 
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="css/responsive.css">
-        <title>Check Out</title>
+        <title>Checkout Page</title>
+
     </head>
     <body>
-
         <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'US'}">
             <c:redirect url="login.jsp"></c:redirect>
         </c:if>
@@ -71,74 +71,31 @@
             </div>
         </div>
         <div id="main-wrapper">
-                <div class="content-body">
-                    <div class="col-12">
-                        <div class="card">
-                            <div class="row">
-                                <div class="col-lg-12">
-                                    <div class="card">
-                                        <div class="card-body">
-                                            <h4 class="text-center text-danger">${ADD_FAIL}</h4>
-                                        <div class="table-responsive">
-                                            <table class="table">
-                                                <thead class="bg-warning">
-                                                    <tr>
-                                                        <th></th>
-                                                        <th><strong>Field Name</strong></th>
-                                                        <th><strong>Time</strong></th>
-                                                        <th><strong>Price</strong></th>
-                                                        <th><strong>Play Date</strong></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <c:set var="total" value="0"/>
-                                                    <c:forEach var="cart" items="${CART.getCart().values()}">
-                                                        <c:set var="total" value="${total + cart.field.price}"/>
-                                                        <tr>
-                                                            <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
-                                                            <td>${cart.field.fieldName}</td>
-                                                            <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
-                                                            <td>${cart.field.price}$</td>
-                                                            <td>${cart.playDate}</td>
-                                                        </tr>
-                                                    </c:forEach>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                        <div class="row">
-                                            <div class="col-lg-4 col-sm-5"> </div>
-                                            <div class="col-lg-4 col-sm-5 ml-auto">
-                                                <c:if test="${CART != null}">
-                                                    <h3 class="float-right mr-5"><strong>Total: $${total}</strong></h3>
-                                                </c:if>
-                                                <div class="float-right">   
-                                                    <c:if test="${CART != null}">
-                                                        <a href="MainController?action=Confirm&total=${total}" class="btn btn-primary btn-lg"><i class="fa fa-check-circle mr-2"></i>Confirm</a>
-                                                        <a href="MainController?action=ViewCart" class="btn btn-primary btn-lg"><i class="fa fa-shopping-cart mr-2"></i>Back To Cart</a>
-                                                    </c:if>
-                                                    <c:if test="${CART == null}">
-                                                        <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-2"></i>Home</a>
-                                                    </c:if>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+            <div class="content-body">
+
+                <div class="card">
+                    <div class="card-body">
+                        <img class="rounded mx-auto d-block mb-4" height="100px" src="Images/successBooking.png" alt="success booking"/>
+                        <h3 class="text-center text-success mb-4">Đặt sân thành công</h3>
+                        <h3 class="text-center mb-4">Cám ơn quý khách đã sử dụng dịch vụ của chúng tôi</h3>
+                        <h3 class="text-center mb-4">Quý khách có thể quay trở về <span class="text-success">Trang chủ</span> để tiếp tục đặt sân hoặc có thể kiểm tra sân đã đặt trong <span class="text-success">Lịch sử đặt</span></h3>
+                        <div class="text-center"> 
+                            <a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=&index=1" class="btn btn-primary btn-lg mr-3"><i class="fa fa-clock-o mr-1"></i>Lịch sử đặt</a>
+                            <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-1"></i>Trang chủ</a>
                         </div>
                     </div>
                 </div>
 
+
             </div>
         </div>
-    </div>
-    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-    <!-- Datatable -->
-    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-    <script src="js/plugins-init/datatables.init.js"></script>
-    <script src="js/custom.min.js"></script>
-    <script src="js/deznav-init.js"></script>
-    <script src="js/demo.js"></script>
-</body>
+        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+        <!-- Datatable -->
+        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+        <script src="js/plugins-init/datatables.init.js"></script>
+        <script src="js/custom.min.js"></script>
+        <script src="js/deznav-init.js"></script>
+        <script src="js/demo.js"></script>
+    </body>
 </html>
