@@ -31,21 +31,6 @@
     <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-
-
     <!--**********************************
         Main wrapper start
     ***********************************-->
@@ -59,14 +44,14 @@
                             <div class="col-lg-12">
                                 <div class="card">
                                     <div class="card-header">
-                                        <h4 class="card-title">Boooking History
-                                            <p style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></p> 
-                                        <p style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></p> 
-                                        <p style="color: #17e379"><strong>${UPDATE_SUCCESS}</strong></p> 
-                                        <p style="color: #ff2457"><strong>${UPDATE_UNSUCCESS}</strong></p> 
-                                    </h4>
-                                </div>
-                                <div class="card-body">
+                                        <h4 class="card-title">Lich sử đặt</h4>
+                                    </div>
+                                    <div class="card-body">
+
+                                        <h4 class="text-success"><strong>${DELETE_SUCCESS}</strong></h4> 
+                                    <h4 class="text-danger"><strong>${DELETE_UNSUCCESS}</strong></h4>  
+                                    <h4 class="text-success"><strong>${UPDATE_SUCCESS}</strong></h4> 
+                                    <h4 class="text-danger"><strong>${UPDATE_UNSUCCESS}</strong></h4> 
                                     <form action="MainController" method="POST">
                                         <div class="form-group">
                                             <div class="row">
@@ -121,7 +106,7 @@
                                                                         <c:param name="action" value="SearchBookingDetail"></c:param>
                                                                         <c:param name="bookingID" value="${booking.bookingId}"></c:param>
                                                                     </c:url>
-                                                                    <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
+                                                                    <td><strong><a class="text-info" href="${BookingDetail}">${booking.bookingId}</a></strong></td>
                                                                     <td>${booking.bookingDate}</td>
                                                                     <td>${booking.user.fullName}</td>
                                                                     <td>${booking.totalPrice}</td>
@@ -150,7 +135,8 @@
                                                                                             <form action="MainController" method="POST">
                                                                                                 <input type="hidden" name="bookingID" value="${booking.bookingId}">
                                                                                                 <input type="hidden" name="index" value="${param.index}">
-
+                                                                                                <input type="hidden" name="status" value="${param.status}">
+                                                                                                <input type="hidden" name="datefilter" value="${param.datefilter}">
                                                                                                 <div class="form-row">
                                                                                                     <div class="col-sm-3">
                                                                                                         <h3>Select</h3>
@@ -227,7 +213,6 @@
                                                         </c:if>
                                                     </c:if>
                                                 </tbody>
-
                                             </table>
                                         </c:if>
                                     </div>
@@ -243,62 +228,45 @@
                         </div>
                     </div>
                 </div>
-                <!--**********************************
-                    Footer end
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button start
-                ***********************************-->
-
-                <!--**********************************
-                   Support ticket button end
-                ***********************************-->
             </div>
-
         </div>
-        <!--**********************************
-            Main wrapper end
-        ***********************************-->
+    </div>
 
-        <!--**********************************
-            Scripts
-        ***********************************-->
-        <!-- Required vendors -->
-        <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
-        <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
-        <!-- Datatable -->
-        <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
-        <script src="js/plugins-init/datatables.init.js"></script>
-        <script src="js/custom.min.js"></script>
-        <script src="js/deznav-init.js"></script>
-        <script src="js/demo.js"></script>
+    <!-- Required vendors -->
+    <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
+    <script src="vendor/bootstrap-select/dist/js/bootstrap-select.min.js"></script>
+    <!-- Datatable -->
+    <script src="vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script src="js/plugins-init/datatables.init.js"></script>
+    <script src="js/custom.min.js"></script>
+    <script src="js/deznav-init.js"></script>
+    <script src="js/demo.js"></script>
 
-        <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
+    <!--<script type="text/javascript" src="https://cdn.jsdelivr.net/jquery/latest/jquery.min.js"></script>-->
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/momentjs/latest/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 
-        <script type="text/javascript">
-            $(function () {
+    <script type="text/javascript">
+        $(function () {
 
-                $('input[name="datefilter"]').daterangepicker({
-                    autoUpdateInput: false,
-                    locale: {
-                        cancelLabel: 'Clear'
-                    }
-                });
-
-                $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
-                    $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
-                });
-
-                $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
-                    $(this).val('');
-                });
-
+            $('input[name="datefilter"]').daterangepicker({
+                autoUpdateInput: false,
+                locale: {
+                    cancelLabel: 'Clear'
+                }
             });
-        </script>
+
+            $('input[name="datefilter"]').on('apply.daterangepicker', function (ev, picker) {
+                $(this).val(picker.startDate.format('MM/DD/YYYY') + ' - ' + picker.endDate.format('MM/DD/YYYY'));
+            });
+
+            $('input[name="datefilter"]').on('cancel.daterangepicker', function (ev, picker) {
+                $(this).val('');
+            });
+
+        });
+    </script>
 
 </body>
 </html>

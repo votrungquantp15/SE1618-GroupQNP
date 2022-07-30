@@ -6,9 +6,12 @@
 package controllers;
 
 import dao.BookingDetailDAO;
+import dao.SlotDetailDAO;
 import dto.BookingDetail;
 import dto.Cart;
+import dto.SlotDetail;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,6 +36,8 @@ public class CustomerEditCartItemController extends HttpServlet {
             String bookingDetailID = request.getParameter("bookingDetailID");
             String playDate = request.getParameter("playDate");
             String slotDetailID = request.getParameter("slotDetailID");
+            boolean checkDB = false;
+            boolean checkCart = false;
             HttpSession session = request.getSession();
             if (session != null) {
                 Cart cart = (Cart) session.getAttribute("CART");
@@ -45,14 +50,42 @@ public class CustomerEditCartItemController extends HttpServlet {
 
                         List<BookingDetail> existedListDetail = bookingDetailDAO.getListBookingDetailByID(fieldID, playDate, slotDetailID);
                         if (!existedListDetail.isEmpty()) {
-                            request.setAttribute("ADD_FAIL", "Đã có người đặt! Vui lòng chọn ngày hoặc thời gian khác");
+                            request.setAttribute("EDIT_FAIL", "Đã có người đặt! Vui lòng chọn ngày hoặc thời gian khác");
                         } else {
+                            checkDB = true;
+                        }
+                        if (checkDB == true) {
+                            List<BookingDetail> listBookingCart = new ArrayList<>();
+                            List<String> keys = new ArrayList<>();
+                            for (String key : cart.getCart().keySet()) {
+                                keys.add(key);
+                            }
+                            for (String key : keys) {
+                                listBookingCart.add(cart.getCart().get(key));
+                            }
+                            for (BookingDetail detail2 : listBookingCart) {
+                                if (detail2.getField().getFieldId().equals(fieldID) && detail2.getPlayDate().equals(playDate) && detail2.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
+                                    request.setAttribute("EDIT_FAIL", "Đã tồn tại trong giỏ! Vui lòng chọn ngày hoặc thời gian khác");
+                                    checkCart = false;
+                                    break;
+                                } else {
+                                    checkCart = true;
+                                }
+                            }
+                        }
+                        if (checkDB == true && checkCart == true) {
                             String fieldName = bookingDetail.getField().getFieldName();
-                            bookingDetail.getSlotDetail().setSlotDetailID(slotDetailID);
+                            SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+                            if (slotDetailID == null || slotDetailID.isEmpty()) {
+                                slotDetailID = cart.getCart().get(bookingDetailID).getSlotDetail().getSlotDetailID();
+                            }
+                            SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
+
+                            bookingDetail.setSlotDetail(slotDetail);
                             bookingDetail.setPlayDate(playDate);
                             cart.edit(bookingDetailID, bookingDetail);
                             request.setAttribute("EDIT_SUCCESS", "Cập nhật " + fieldName + " trong giỏ hàng thành công");
-
+                            request.setAttribute("CART", cart);
                             url = SUCCESS;
                         }
                     }
@@ -65,7 +98,7 @@ public class CustomerEditCartItemController extends HttpServlet {
         }
     }
 
-    // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
+// <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.
      *

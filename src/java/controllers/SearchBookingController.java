@@ -6,11 +6,7 @@
 package controllers;
 
 import dao.BookingDAO;
-import dao.BookingDetailDAO;
-import dao.FieldDAO;
 import dto.Booking;
-import dto.BookingDetail;
-import dto.Field;
 import dto.User;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,6 +59,10 @@ public class SearchBookingController extends HttpServlet {
             int index = Integer.parseInt(indexPage);
 
             if (ADMIN.equals(roleID)) {
+                List<String> listPlayDate = dao.getDateBookingDetailAdminAndOwner();
+                if (listPlayDate.size() > 0 || !listPlayDate.isEmpty()) {
+                    dao.autoUpdateBookingPlayedStatus(listPlayDate);
+                }
                 int count = 0;
                 if (datefilter == null || datefilter.isEmpty()) {
                     count = dao.getTotalBookingAdmin(status);
@@ -87,6 +87,10 @@ public class SearchBookingController extends HttpServlet {
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 String UserID = loginUser.getUserID();
+                List<String> listPlayDate = dao.getDateBookingDetailCustomer(UserID);
+                if (listPlayDate.size() > 0 || !listPlayDate.isEmpty()) {
+                    dao.autoUpdateBookingPlayedStatus(listPlayDate);
+                }
                 int count = 0;
                 if (datefilter == null || datefilter.isEmpty()) {
                     count = dao.getTotalBooking(UserID, status);
@@ -110,6 +114,10 @@ public class SearchBookingController extends HttpServlet {
                 request.setAttribute("END_PAGE", endPage);
                 url = SUCCESS_USER;
             } else if (MANAGER.equals(roleID)) {
+                List<String> listPlayDate = dao.getDateBookingDetailAdminAndOwner();
+                if (listPlayDate.size() > 0 || !listPlayDate.isEmpty()) {
+                    dao.autoUpdateBookingPlayedStatus(listPlayDate);
+                }
                 int count = 0;
                 String userID = loginUser.getUserID();
                 if (datefilter == null || datefilter.isEmpty()) {
@@ -119,7 +127,7 @@ public class SearchBookingController extends HttpServlet {
                 }
 
                 int endPage = count / 10;
-                if (endPage== 0) {
+                if (endPage == 0) {
                     endPage = 1;
                 } else if (count
                         % 10 != 0) {
