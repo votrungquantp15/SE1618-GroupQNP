@@ -38,18 +38,18 @@
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                         <ul class="nav navbar-nav menu_nav ml-auto">
-                            <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Home</a></li>
-                            <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Cart</a></li>
-                            <li class="nav-item submenu dropdown">
+                            <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                            <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
+                                <li class="nav-item submenu dropdown">
                                 <c:choose>
                                     <c:when test="${sessionScope.LOGIN_USER == null}">
-                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
+                                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Đăng nhập</a>
                                     </c:when>
                                     <c:otherwise>
                                         <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                         <ul class="dropdown-menu">
-                                            <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Profile</a></li>
-                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Booking history</a></li>
+                                            <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                            <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Lịch sử đặt</a></li>
                                             <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Log out</a></li>
                                         </ul>
                                     </c:otherwise>
@@ -103,17 +103,21 @@
                                                                     <c:if test="${not empty LIST_SLOT_DETAIL}">
                                                                         <h3 class="m-b-15">Select time</h3>
                                                                         <div class="btn-group" data-toggle="buttons">
-                                                                            <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
-                                                                                <c:if test="${param.slotDetailID ne list.slotDetailID}">
-                                                                                    <label class="btn btn-outline-primary light btn-sm">
-                                                                                        <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
-                                                                                    </label>
-                                                                                </c:if>    
-                                                                                <c:if test="${param.slotDetailID eq list.slotDetailID}">
-                                                                                    <label class="border-dark btn light btn-sm disabled bg-success btn-outline-light">
-                                                                                        <input type="radio" class="position-absolute" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
-                                                                                    </label>
-                                                                                </c:if>    
+
+
+                                                                                <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
+                                                                                    <c:if test="${param.slotDetailID ne list.slotDetailID}">
+                                                                                        <label class="btn btn-outline-primary light btn-sm">
+                                                                                            <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                        </label>
+                                                                                    </c:if>
+
+                                                                                    <c:if test="${param.slotDetailID eq list.slotDetailID}">
+                                                                                        <label class="border-dark btn light btn-sm disabled bg-success btn-outline-light">
+                                                                                            <input type="radio" class="position-absolute" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                        </label>
+                                                                                    </c:if>    
+
                                                                             </c:forEach>
                                                                         </c:if> 
                                                                     </c:if> 
@@ -130,6 +134,7 @@
                                             </div>
                                         </div>
                                     </c:if>
+                                    <input type="hidden" name="fieldID" value="${FIELD.fieldId}">
                                     <input type="hidden" name="bookingDetailID" value="${param.bookingDetailID}">
                                     <div class="shopping-cart mt-3 float-right">
                                         <button class="btn btn-primary btn-lg" type="submit" name="action" value="EditCartItem"><i class="fa fa-shopping-basket mr-2"></i>Edit</button>

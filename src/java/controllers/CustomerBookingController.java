@@ -7,7 +7,6 @@ package controllers;
 
 import dao.FieldDAO;
 import dao.SlotDetailDAO;
-import dto.Cart;
 import dto.Field;
 import dto.SlotDetail;
 import java.io.IOException;
@@ -32,46 +31,16 @@ public class CustomerBookingController extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            String action = request.getParameter("action");
-            
-            
-            
-            HttpSession session = request.getSession();
-            String indexPage = request.getParameter("index");
+
             String fieldID = request.getParameter("fieldID");
-            String playDate = request.getParameter("playDate");
-            String slotID = request.getParameter("slotID");
             FieldDAO fieldDAO = new FieldDAO();
             Field field = fieldDAO.getFieldByID(fieldID);
-            
-            
-            if(action.equals("Booking")){
-                
 
-                Cart cart = (Cart) session.getAttribute("CART");
-
-            if (cart == null) {
-                SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
-                List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
-                
-
-                request.setAttribute("LIST_SLOT_DETAIL", list);
-                request.setAttribute("FIELD", field);
-            }
-            else{
-                SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
-                List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
-                request.setAttribute("LIST_SLOT_DETAIL", list);
-                request.setAttribute("FIELD", field);
-            }
-            }
-            else{
             SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
-                List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
-                
+            List<SlotDetail> list = slotDetailDAO.getListSlotDetailByID(field.getFieldId());
+            request.setAttribute("LIST_SLOT_DETAIL", list);
+            request.setAttribute("FIELD", field);
 
-                request.setAttribute("LIST_SLOT_DETAIL", list);
-                request.setAttribute("FIELD", field);}            
             url = SUCCESS;
         } catch (Exception e) {
             log("Error at CustomerBookingController: " + e.toString());

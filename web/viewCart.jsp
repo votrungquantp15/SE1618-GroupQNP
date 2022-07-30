@@ -86,6 +86,7 @@
                                             <h4 class="text-danger text-center"><strong>${DELETE_ITEM_FAIL}</strong></h4>
                                             <h4 class="text-success text-center"><strong>${DELETE_ITEM_SUCCESS}</strong></h4>
                                             <h4 class="text-success text-center"><strong>${EDIT_SUCCESS}</strong></h4>
+                                            <h4 class="text-danger text-center"><strong>${EDIT_FAIL}</strong></h4>
                                             <table class="table table-responsive-sm">
                                                 <c:if test="${empty CART}">
                                                     <h2 class="text-center bold text-danger">Chưa có sân</h2> 
@@ -128,26 +129,8 @@
                                                                     <td>${cart.field.price}$</td>
                                                                     <td>${cart.playDate}</td>
                                                                     <td>
-                                                                        <a href="#modalDelete${counter}" data-toggle="modal" data-target="#modalDelete${counter}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash mr-2"></i>Delete</a>
-                                                                        <div class="modal fade" id="modalDelete${counter}">
-                                                                            <div class="modal-dialog" role="document">
-                                                                                <div class="modal-content">
-                                                                                    <div class="modal-header bg-warning">
-                                                                                        <h3 class="modal-title">Xóa ${cart.field.fieldName}</h3>
-                                                                                        <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
-                                                                                        </button>
-                                                                                    </div>
-                                                                                    <div class="modal-body" style="background-color: #f7f3e6">
-                                                                                        <h3>Quý khách thực sự muốn xóa<span class="text-danger"> ${cart.field.fieldName} </span>khỏi giỏ sân đặt?</h3>
-                                                                                    </div>
-                                                                                    <div class="modal-footer" style="background-color: #f7f3e6">
-                                                                                        <button type="button" class="btn btn-danger" data-dismiss="modal">Cancel</button>
-                                                                                        <a href="${RemoveCartItem}" type="button" class="btn btn-success">Confirm</a>
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-
+                                                                        <a href="${RemoveCartItem}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash mr-2"></i>Delete</a>
+                                                                       
                                                                         <a href="${EditCartItemPage}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil mr-2"></i>Edit</a> 
                                                                     </td>
                                                                 </tr>

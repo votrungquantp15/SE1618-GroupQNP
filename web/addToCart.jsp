@@ -104,7 +104,7 @@
                                                                         <div data-toggle="buttons">
                                                                             <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
                                                                                 <label class="btn btn-outline-primary light btn-sm">
-                                                                                    <input type="radio" class="position-absolute invisible" min="2022-14-07" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}</label>
+                                                                                    <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}</label>
                                                                                 </c:forEach>
                                                                             </c:if> 
                                                                         </c:if> 
