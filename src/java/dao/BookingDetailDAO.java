@@ -162,13 +162,18 @@ public class BookingDetailDAO {
         }
 
         if (ON_GOING.equals(bookingStatus)) {
-            if (currentDate.isBefore(playDate) || currentDate.isEqual(playDate)) {
+            if(currentDate.isBefore(playDate)){
+                check = true;
+            }
+            if (currentDate.isEqual(playDate)) {
                 if (localHour < timeEndHour) {
                     check = true;
                 }
             }
         } else if (PLAYED.equals(bookingStatus)) {
-            if (currentDate.isAfter(playDate) || currentDate.isEqual(playDate)) {
+            if(currentDate.isAfter(playDate)){
+                check = true;
+            } else if (currentDate.isEqual(playDate)) {
                 if (localHour > timeEndHour) {
                     check = true;
                 }

@@ -26,9 +26,9 @@
         </c:if>
         <div class="jumbotron-fluid">
             <nav class="navbar navbar-expand-lg navbar-light fixed-top">
-                <!-- Brand and toggle get grouped for better mobile display -->
+
                 <a class="navbar-brand logo_h ml-5" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" height="85px"></a>
-                <!-- Collect the nav links, forms, and other content for toggling -->
+
                 <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
                     <ul class="nav navbar-nav menu_nav ml-auto pr-5">
                         <li class="nav-item"><a class="nav-link" href="MainController?action=Print">Trang chủ</a></li>
@@ -137,7 +137,7 @@
                                                                             <c:param name="action" value="SearchBookingDetail"></c:param>
                                                                             <c:param name="bookingID" value="${booking.bookingId}"></c:param>
                                                                         </c:url>
-                                                                        <td><a href="${BookingDetail}">${booking.bookingId}</a></td>
+                                                                        <td><strong><a class="text-info" href="${BookingDetail}">${booking.bookingId}</a></strong></td>
                                                                         <td>${booking.bookingDate}</td>
                                                                         <td>${booking.user.fullName}</td>
                                                                         <td>${booking.totalPrice}$</td>
@@ -146,7 +146,6 @@
                                                                             <c:param name="action" value="DeleteBooking"></c:param>
                                                                             <c:param name="bookingID" value="${booking.bookingId}"></c:param>
                                                                             <c:param name="bookingStatus" value="${booking.status}"></c:param>
-                                                                            <c:param name="search" value="${param.search}"></c:param>
                                                                             <c:param name="status" value="${param.status}"></c:param>
                                                                             <c:param name="index" value="${param.index}"></c:param>
                                                                         </c:url>

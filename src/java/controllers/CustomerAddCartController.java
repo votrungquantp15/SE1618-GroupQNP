@@ -67,7 +67,7 @@ public class CustomerAddCartController extends HttpServlet {
                 if (cart.getCart() == null) {
                     List<BookingDetail> existedListDetail = bookingDetailDAO.getListBookingDetailByID(fieldID, playDate, slotDetailID);
                     if (!existedListDetail.isEmpty()) {
-                        request.setAttribute("ADD_FAIL", "Đã có người đặt");
+                        request.setAttribute("ADD_FAIL", "Đã có người đặt! Vui lòng chọn ngày hoặc thời gian khác");
                     } else {
                         cart.add(bookingDetail);
                         session.setAttribute("CART", cart);
@@ -93,7 +93,7 @@ public class CustomerAddCartController extends HttpServlet {
                         }
                         for (BookingDetail detail2 : listBookingCart) {
                             if (detail2.getField().getFieldId().equals(fieldID) && detail2.getPlayDate().equals(playDate) && detail2.getSlotDetail().getSlotDetailID().equals(slotDetailID)) {
-                                request.setAttribute("ADD_FAIL", "Đã tồn tại trong giỏ hàng");
+                                request.setAttribute("ADD_FAIL", "Đã tồn tại trong giỏ! Vui lòng chọn ngày hoặc thời gian khác");
                                 checkCart = false;
                                 break;
                             } else {
