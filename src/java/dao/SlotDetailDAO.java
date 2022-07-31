@@ -23,7 +23,7 @@ public class SlotDetailDAO {
             + "FROM tblSlotDetail WHERE slotDetailID = ? ";
     
     private static final String CHECK_SLOT_ID = "SELECT slotID "
-            + "FROM tblSlotDetail WHERE slotID = ? ";
+            + "FROM tblSlotDetail WHERE slotID = ? AND fieldID = ?";
     
     private static final String CREATE_SLOT_DETAIL = "INSERT INTO tblSlotDetail(slotDetailID, slotID, fieldID) VALUES(?, ?, ?)";
     
@@ -229,7 +229,7 @@ public class SlotDetailDAO {
         return check;
     }
     
-    public boolean checkSlotId(String slotId) throws SQLException {
+    public boolean checkSlotId(String slotId, String fieldId) throws SQLException {
         boolean check = false;
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -239,6 +239,7 @@ public class SlotDetailDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(CHECK_SLOT_ID);
                 ptm.setString(1, slotId);
+                ptm.setString(2, fieldId);
                 rs = ptm.executeQuery();
                 if (rs.next()) {
                     check = true;

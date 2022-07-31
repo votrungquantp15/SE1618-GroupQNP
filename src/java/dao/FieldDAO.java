@@ -27,7 +27,6 @@ public class FieldDAO {
     private static final String COUNT_ALL_FIELD_BY_OWNER = "SELECT COUNT(*) as totalField FROM tblFields WHERE userId = ?";
     private static final String COUNT_ALL_FIELD_BY_USER = "SELECT COUNT(*) as totalField FROM tblFields WHERE status <> 'In-Active' AND status <> 'Request'";
 
-    private static final String PRINT_ALL_OWNER_FIELD = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userID like ? ";
     private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String PRINT_ALL_FIELD_BY_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userId = ? ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
     private static final String PRINT_ALL_FIELD_BY_USER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE status <> 'In-Active' AND status <> 'Request' ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
@@ -339,58 +338,6 @@ public class FieldDAO {
                     District districtID = district.getDistrictByID(id_of_district);
                     String status = rs.getString("status");
                     listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status));
-                }
-            }
-        } catch (Exception e) {
-        } finally {
-            if (rs != null) {
-                rs.close();
-            }
-            if (ptm != null) {
-                ptm.close();
-            }
-            if (conn != null) {
-                conn.close();
-            }
-        }
-        return listField;
-    }
-
-    public List<Field> getListFieldByUserID(String userID) throws SQLException {
-        List<Field> listField = new ArrayList<>();
-        Connection conn = null;
-        PreparedStatement ptm = null;
-        ResultSet rs = null;
-        try {
-            conn = DBUtils.getConnection();
-            if (conn != null) {
-                ptm = conn.prepareStatement(PRINT_ALL_OWNER_FIELD);
-                ptm.setString(1, userID);
-                rs = ptm.executeQuery();
-                while (rs.next()) {
-                    String fieldId = rs.getString("fieldId");
-                    String fieldName = rs.getString("fieldName");
-                    String description = rs.getString("description");
-                    String image = rs.getString("image");
-                    String id_of_field_category = rs.getString("categoryFieldId");
-                    FieldCategoryDAO fieldCate = new FieldCategoryDAO();
-                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
-
-                    double price = rs.getDouble("price");
-                    String getUserID = rs.getString("userID");
-                    UserDAO userDAO = new UserDAO();
-                    User user = userDAO.getUserByID(getUserID);
-
-                    String id_of_location = rs.getString("locationId");
-                    LocationDAO location = new LocationDAO();
-                    Location locationID = location.getLocationByID(id_of_location);
-
-                    String id_of_district = rs.getString("districtId");
-                    DistrictDAO district = new DistrictDAO();
-                    District districtID = district.getDistrictByID(id_of_district);
-
-                    String status = rs.getString("status");
-                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, user, locationID, districtID, status));
                 }
             }
         } catch (Exception e) {

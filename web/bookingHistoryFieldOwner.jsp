@@ -30,20 +30,9 @@
         <link href="css/style.css" rel="stylesheet">
     </head>
     <body>
-        <!--*******************
-                Preloader start
-            ********************-->
-        <div id="preloader">
-            <div class="sk-three-bounce">
-                <div class="sk-child sk-bounce1"></div>
-                <div class="sk-child sk-bounce2"></div>
-                <div class="sk-child sk-bounce3"></div>
-            </div>
-        </div>
-        <!--*******************
-            Preloader end
-        ********************-->
-
+        <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'MA'}">
+            <c:redirect url="login.jsp"></c:redirect>
+        </c:if>
 
         <!--**********************************
             Main wrapper start
@@ -94,8 +83,8 @@
 
                                             <div class="table-responsive">
                                                 <table class="table table-responsive-sm">
-                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY == null}">
-                                                    <strong>No Result</strong>
+                                                <c:if test="${requestScope.LIST_BOOKING_HISTORY == null or empty requestScope.LIST_BOOKING_HISTORY}">
+                                                    <h4 class="text-center text-danger"><strong>No Result</strong></h4>
                                                 </c:if>
                                                 <thead style="background-color: #fcd15b">
                                                     <tr>
@@ -110,7 +99,7 @@
                                                 <tbody>
                                                     <c:if test="${requestScope.LIST_BOOKING_HISTORY != null}">
                                                         <c:if test="${not empty requestScope.LIST_BOOKING_HISTORY}">
-                                                            <c:set var="counter" scope="page" value="0"/>
+                                                            <c:set var="counter" scope="page" value="${param.index * 10 - 10}"/>
                                                             <c:forEach var="booking" items="${requestScope.LIST_BOOKING_HISTORY}">
                                                                 <c:set var="counter" scope="page" value="${counter + 1}"/>
                                                                 <tr>
@@ -130,7 +119,7 @@
                                         <ul class="pagination">
                                             <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                 <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                    <a href="MainController?action=SearchBooking&index=${i}<c:if test="${param.datefilter != null}">&search=${param.search}&status=${param.status}&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
+                                                    <a href="MainController?action=SearchBooking&index=${i}&search=${param.search}&status=${param.status}<c:if test="${param.datefilter != null}">&datefilter=${param.datefilter}</c:if>" class="page-link">${i}</a>
                                                     </li>
                                             </c:forEach>
                                         </ul>

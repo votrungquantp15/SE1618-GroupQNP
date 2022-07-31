@@ -21,8 +21,7 @@ import javax.servlet.http.HttpServletResponse;
  */
 public class UpdateBookingController extends HttpServlet {
 
-    private static final String SUCCESS = "SearchBookingController";
-    private static final String ERROR = "SearchBookingController";
+    private static final String ERROR = "MainController?action=SearchBooking&index=1&status=";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -30,7 +29,9 @@ public class UpdateBookingController extends HttpServlet {
         String url = ERROR;
         String bookingID = request.getParameter("bookingID");
         String bookingStatus = request.getParameter("bookingStatus");
-
+        int index = Integer.parseInt(request.getParameter("index"));
+        String status = request.getParameter("status");
+        String datefilter = request.getParameter("datefilter");
         try {
             BookingDAO bookingDAO = new BookingDAO();
             Booking booking = bookingDAO.getBookingByID(bookingID);
@@ -43,7 +44,12 @@ public class UpdateBookingController extends HttpServlet {
                     boolean check = bookingDAO.updateBookingStatusByID(booking.getBookingId(), bookingStatus);
                     if (check == true) {
                         request.setAttribute("UPDATE_SUCCESS", "Update Booking " + booking.getBookingId() + " Status from " + booking.getStatus() + " to " + bookingStatus + " Successfully");
-                        url = SUCCESS;
+                        if(datefilter == null || datefilter.isEmpty()){
+                            url = "MainController?action=SearchBooking&index=" + index + "&status=" + status;
+                        } else {
+                            url = "MainController?action=SearchBooking&datefilter=" + datefilter + "&index=" + index + "&status=" + status;
+                        }
+                        
                     } else {
                         request.setAttribute("UPDATE_UNSUCCESS", "Update Booking " + booking.getBookingId() + " Status from " + booking.getStatus() + " to " + bookingStatus + " Failed");
                     }

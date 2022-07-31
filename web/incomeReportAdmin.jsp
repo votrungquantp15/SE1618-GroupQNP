@@ -156,7 +156,7 @@
                                             <ul class="pagination">
                                                 <c:forEach var="i" begin="1" end="${END_PAGE}">
                                                     <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                        <a href="MainController?action=GetAllIncome&index=${i}" class="page-link">${i}</a>
+                                                        <a href="AdminIncomeManagement?action=GetAllIncome&index=${i}" class="page-link">${i}</a>
                                                     </li>
                                                 </c:forEach>
                                             </ul>

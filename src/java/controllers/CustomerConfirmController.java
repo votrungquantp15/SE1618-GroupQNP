@@ -25,11 +25,11 @@ import javax.servlet.http.HttpSession;
  * @author NITRO 5
  */
 public class CustomerConfirmController extends HttpServlet {
-
+    
     private static final String STATUS = "On-Going";
     private static final String ERROR = "checkOut.jsp";
-    private static final String SUCCESS = "checkOut.jsp";
-
+    private static final String SUCCESS = "checkoutSuccess.jsp";
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -42,7 +42,7 @@ public class CustomerConfirmController extends HttpServlet {
             Cart cart = (Cart) session.getAttribute("CART");
             if (cart != null && loginUser != null) {
                 BookingDetailDAO bookingDetailDAO = new BookingDetailDAO();
-
+                
                 for (BookingDetail detail : cart.getCart().values()) {
                     checkDB = false;
                     String fieldID = detail.getField().getFieldId();
@@ -63,10 +63,10 @@ public class CustomerConfirmController extends HttpServlet {
                     //Insert Booking Table
                     Date todayDate = new Date();
                     java.sql.Date sqlDate = new java.sql.Date(todayDate.getTime());
-
+                    
                     BookingDAO bookingDAO = new BookingDAO();
                     String bookingID = bookingDAO.createBookingID();
-
+                    
                     while (bookingDAO.checkDuplicate(bookingID)) {
                         bookingID = bookingDAO.createBookingID();
                     }
@@ -75,16 +75,14 @@ public class CustomerConfirmController extends HttpServlet {
                     if (checkBooking) {
                         //Insert BookingDetail Table
                         boolean checkDetail = false;
-
+                        
                         for (BookingDetail bookingDetail : cart.getCart().values()) {
                             bookingDetail.setBooking(booking);
                             checkDetail = bookingDetailDAO.insertBookingDetailTable(bookingDetail);
                         }
                         if (checkDetail) {
-                            request.setAttribute("ADD_SUCCESS", "Đặt sân thành công");
                             url = SUCCESS;
                             session.removeAttribute("CART");
-                            request.setAttribute("CONFIRM_SUCCES", "Đặt sân thành công");
                         }
                     }
                 }
@@ -92,7 +90,12 @@ public class CustomerConfirmController extends HttpServlet {
         } catch (Exception e) {
             log("Error at CustomerConfirmController: " + e.toString());
         } finally {
-            request.getRequestDispatcher(url).forward(request, response);
+            if (url.equals(ERROR)) {
+                request.getRequestDispatcher(url).forward(request, response);
+            } else {
+                response.sendRedirect(url);
+            }
+            
         }
     }
 

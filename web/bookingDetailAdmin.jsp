@@ -27,22 +27,6 @@
     <c:if test="${sessionScope.LOGIN_USER == null or sessionScope.LOGIN_USER.role.roleId ne 'AD'}">
         <c:redirect url="login.jsp"></c:redirect>
     </c:if>
-    <!--*******************
-        Preloader start
-    ********************-->
-    <div id="preloader">
-        <div class="sk-three-bounce">
-            <div class="sk-child sk-bounce1"></div>
-            <div class="sk-child sk-bounce2"></div>
-            <div class="sk-child sk-bounce3"></div>
-        </div>
-    </div>
-    <!--*******************
-        Preloader end
-    ********************-->
-    <!--**********************************
-        Main wrapper start
-    ***********************************-->
     <div id="main-wrapper">
 
         <jsp:include page="navbarAdmin.jsp"></jsp:include>
@@ -52,10 +36,10 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                    <div class="row">
-                                    <c:if test="${requestScope.BOOKING_DETAIL == null}">
-                                        <strong>No Result</strong>
-                                    </c:if>
+                                <c:if test="${requestScope.BOOKING_DETAIL == null}">
+                                    <h3 class="text-center text-danger"><strong>No Result</strong></h3>
+                                </c:if>
+                                <div class="row">
                                     <c:if test="${requestScope.BOOKING_DETAIL != null}">
                                         <c:if test="${not empty requestScope.BOOKING_DETAIL}">
                                             <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
@@ -71,64 +55,44 @@
                                                         <div class="col-12 col-md-6">
                                                             <div class="card">
                                                                 <div class="card-header">
-                                                                    <h3><strong>Booking</strong></h3>
+                                                                    <h3><strong>Thông tin đặt</strong></h3>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <p>Booking ID: ${requestScope.BOOKING_DETAIL.booking.bookingId}</p>
-                                                                    <p>Booking Date: ${requestScope.BOOKING_DETAIL.booking.bookingDate}</p>
-                                                                    <p>Booker: ${requestScope.BOOKING_DETAIL.booking.user.fullName}</p>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card-header">
-                                                                <h3><strong>Field</strong></h3>
-                                                            </div>
-                                                            <div class="card-body">
-                                                                <p>Field Name: ${requestScope.BOOKING_DETAIL.field.fieldName}</p>
-                                                                <p>Description: ${requestScope.BOOKING_DETAIL.field.description}</p>
-                                                                <p>Field Cate: ${requestScope.BOOKING_DETAIL.field.fieldCate.fieldCateName}</p>
-                                                                <p>Field Owner: ${requestScope.BOOKING_DETAIL.field.user.fullName}</p>
-                                                                <p>Address: ${requestScope.BOOKING_DETAIL.field.location.locationName}</p>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                    <div class="new-arrival-content pr row">
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h3><strong>Time</strong></h3>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <p>Time Start: ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeStart}</p>
-                                                                    <p>Time End: ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeEnd}</p>
-                                                                    <p>Creating Date: ${requestScope.BOOKING_DETAIL.booking.bookingDate}</p>
-                                                                    <p>Play Date: ${requestScope.BOOKING_DETAIL.playDate}</p>
+                                                                    <p><strong>Mã đặt sân</strong>: ${requestScope.BOOKING_DETAIL.booking.bookingId}</p>
+                                                                    <p><strong>Ngày đặt</strong>: ${requestScope.BOOKING_DETAIL.booking.bookingDate}</p>
+                                                                    <p><strong>Người đặt</strong>: ${requestScope.BOOKING_DETAIL.booking.user.fullName}</p>
+                                                                    <p><strong>Giờ chơi</strong>: ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeStart} - ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeEnd}</p>
+                                                                    <p><strong>Ngày chơi</strong>: ${requestScope.BOOKING_DETAIL.playDate}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                         <div class="col-12 col-md-6">
                                                             <div class="card">
                                                                 <div class="card-header">
-                                                                    <h3><strong>Food</strong></h3>
+                                                                    <h3><strong>Thông tin sân</strong></h3>
                                                                 </div>
                                                                 <div class="card-body">
-                                                                    <p>Food Name: ${requestScope.BOOKING_DETAIL.foodDetail.food.foodName}</p>
-                                                                    <p>Food Total Price: ${requestScope.BOOKING_DETAIL.foodTotalPrice}</p>
-                                                                    <p>Food Total Quantity: ${requestScope.BOOKING_DETAIL.foodTotalQuantity}</p>
+                                                                    <p><strong>Tên sân</strong>: ${requestScope.BOOKING_DETAIL.field.fieldName}</p>
+                                                                    <p><strong>Mô tả</strong>: ${requestScope.BOOKING_DETAIL.field.description}</p>
+                                                                    <p><strong>Loại sân</strong>: ${requestScope.BOOKING_DETAIL.field.fieldCate.fieldCateName}</p>
+                                                                    <p><strong>Chủ sân</strong>: ${requestScope.BOOKING_DETAIL.field.user.fullName}</p>
+                                                                    <p><strong>Đại chỉ</strong>: ${requestScope.BOOKING_DETAIL.field.location.locationName}</p>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
+                                        </c:if>
+                                    </c:if>            
+                                </div>
+                                <div class="float-right">
+                                    <a class="btn btn-warning btn-lg" href="MainController?action=SearchBooking&index=1&status=">Back</a>
                                 </div>
                             </div>
                         </div>
-                    </c:if>
-                </c:if> 
+                    </div>
+                </div>
             </div>
         </div>
     </div>

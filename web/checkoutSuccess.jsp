@@ -17,7 +17,7 @@
 
         <link href="css/style.css" rel="stylesheet">
         <link rel="stylesheet" href="css/responsive.css">
-        <title>Giỏ sân đặt</title>
+        <title>Checkout Page</title>
 
     </head>
     <body>
@@ -33,7 +33,7 @@
                     <ul class="nav navbar-nav menu_nav ml-auto pr-5">
                         <li class="nav-item active"><a class="nav-link" href="MainController?action=Print">Trang chủ</a></li>
                         <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
-                            <li class="nav-item submenu dropdown">
+                        <li class="nav-item submenu dropdown">
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login</a>
@@ -42,7 +42,7 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
+                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=&index=1" class="nav-link">Lịch sử đặt</a></li>
                                         <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
                                 </c:otherwise>
@@ -65,100 +65,28 @@
                     <li class="nav-label first">Menu</li>
                     <li><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}">Hồ sơ</a></li>
                     <li><a href="MainController?action=PrintFeedback&index=1">Phản hồi</a></li>
-                    <li><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Lịch sử đặt</a></li>
-                    <li><a href="MainController?action=ViewCart">Giỏ sân đặt</a></li>
+                    <li class="active"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=">Lịch sử đặt</a></li>
+                    <li class="active"><a href="MainController?action=ViewCart">Giỏ sân đặt</a></li>
                 </ul>
             </div>
         </div>
-
         <div id="main-wrapper">
             <div class="content-body">
-                <div class="col-12">
-                    <div class="card">
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="card">
-                                    <div class="card-header bg-warning">
-                                        <h4 class="card-title"><strong>Sân đang chờ xác nhận</strong></h4>
-                                    </div>
-                                    <div class="card-body">
-                                        <div class="table-responsive">
-                                            <h4 class="text-danger text-center"><strong>${DELETE_ITEM_FAIL}</strong></h4>
-                                            <h4 class="text-success text-center"><strong>${DELETE_ITEM_SUCCESS}</strong></h4>
-                                            <h4 class="text-success text-center"><strong>${EDIT_SUCCESS}</strong></h4>
-                                            <h4 class="text-danger text-center"><strong>${EDIT_FAIL}</strong></h4>
-                                            <table class="table table-responsive-sm">
-                                                <c:if test="${empty CART}">
-                                                    <h2 class="text-center bold text-danger">Chưa có sân</h2> 
-                                                </c:if>
-                                                <c:if test="${sessionScope.CART != null}">
-                                                    <c:if test="${not empty sessionScope.CART}">
-                                                        <thead>
-                                                            <tr>                                                
-                                                                <th></th>
-                                                                <th><strong>Field Name</strong></th>
-                                                                <th><strong>Time</strong></th>
-                                                                <th><strong>Price</strong></th>
-                                                                <th><strong>Play Date</strong></th>
-                                                                <th><strong>Actions</strong></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <c:set var="total" value="0"/>
-                                                            <c:set var="counter" value="0"/>
-                                                            <c:forEach var="cart" items="${sessionScope.CART.getCart().values()}">  
-                                                                <c:set var="counter" value="${counter + 1}"/>
-                                                                <c:set var="total" value="${total + cart.field.price}"/>
-                                                                <c:url var="RemoveCartItem" value="MainController">                              
-                                                                    <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>
-                                                                    <c:param name="action" value="RemoveCartItem"></c:param>
-                                                                </c:url>
 
-                                                                <c:url var="EditCartItemPage" value="MainController">                              
-                                                                    <c:param name="fieldID" value="${cart.field.fieldId}"></c:param>
-                                                                    <c:param name="slotDetailID" value="${cart.slotDetail.slotDetailID}"></c:param>
-                                                                    <c:param name="bookingDetailID" value="${cart.bookingDetailID}"></c:param>            
-                                                                    <c:param name="playDate" value="${cart.playDate}"></c:param>
-                                                                    <c:param name="action" value="EditCartItemPage"></c:param>
-                                                                </c:url>
-
-                                                                <tr>
-                                                                    <td><img src="${cart.field.image}" height="200px" width="280px"/></td>
-                                                                    <td>${cart.field.fieldName}</td>
-                                                                    <td>${cart.slotDetail.slot.timeStart} - ${cart.slotDetail.slot.timeEnd}</td>
-                                                                    <td>${cart.field.price}$</td>
-                                                                    <td>${cart.playDate}</td>
-                                                                    <td>
-                                                                        <a href="${RemoveCartItem}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-trash mr-2"></i>Delete</a>
-                                                                       
-                                                                        <a href="${EditCartItemPage}" type="button" class="btn btn-primary btn-sm"><i class="fa fa-pencil mr-2"></i>Edit</a> 
-                                                                    </td>
-                                                                </tr>
-                                                            </c:forEach>
-
-                                                        </c:if>
-                                                    </c:if>
-                                                </tbody>
-                                            </table>
-                                            <form action="MainController" method="POST">
-                                                <div class="float-right">
-
-                                                    <c:if test="${CART != null}">
-                                                        <c:if test="${not empty CART}">
-                                                            <button class="btn btn-primary btn-lg" type="submit" name="action" value="CheckOut"><i class="fa fa-credit-card mr-2"></i>Check Out</button>
-                                                        </c:if>
-                                                    </c:if>
-                                                    <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-2"></i>Home</a>
-                                                </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                <div class="card">
+                    <div class="card-body">
+                        <img class="rounded mx-auto d-block mb-4" height="100px" src="Images/successBooking.png" alt="success booking"/>
+                        <h3 class="text-center text-success mb-4">Đặt sân thành công</h3>
+                        <h3 class="text-center mb-4">Cám ơn quý khách đã sử dụng dịch vụ của chúng tôi</h3>
+                        <h3 class="text-center mb-4">Quý khách có thể quay trở về <span class="text-success">Trang chủ</span> để tiếp tục đặt sân hoặc có thể kiểm tra sân đã đặt trong <span class="text-success">Lịch sử đặt</span></h3>
+                        <div class="text-center"> 
+                            <a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=&index=1" class="btn btn-primary btn-lg mr-3"><i class="fa fa-clock-o mr-1"></i>Lịch sử đặt</a>
+                            <a href="MainController?action=Print&index=1" class="btn btn-primary btn-lg"><i class="fa fa-home mr-1"></i>Trang chủ</a>
                         </div>
                     </div>
-
                 </div>
+
+
             </div>
         </div>
         <script data-cfasync="false" src="../cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="vendor/global/global.min.js"></script>
