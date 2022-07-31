@@ -94,7 +94,7 @@
 
     <section class="hotel_booking_area">
 
-        <div class="row hotel_booking_table">
+        <div class="hotel_booking_table">
             <div class="container">
                 <div class="row">
                 <div class="col-md-3">
