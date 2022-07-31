@@ -28,7 +28,8 @@ public class FieldDAO {
     private static final String COUNT_ALL_FIELD_BY_USER = "SELECT COUNT(*) as totalField FROM tblFields WHERE status <> 'In-Active' AND status <> 'Request'";
 
     private static final String PRINT_ALL_FIELD_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
-    private static final String PRINT_ALL_FIELD_BY_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userId = ? ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    private static final String PRINT_ALL_FIELD_BY_OWNER_PAGING = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userId = ? ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
+    private static final String PRINT_ALL_FIELD_BY_OWNER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE userId = ?";
     private static final String PRINT_ALL_FIELD_BY_USER = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE status <> 'In-Active' AND status <> 'Request' ORDER BY fieldId OFFSET ? ROWS FETCH NEXT 9 ROWS ONLY";
     private static final String PRINT_FIELD_DETAIL_BY_ADMIN = "SELECT fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId, status FROM tblFields WHERE fieldId like ?";
     private static final String UPDATE_STATUS_FIELD_BY_ADMIN = "UPDATE tblFields SET [status] = ? WHERE fieldId = ?";
@@ -160,7 +161,56 @@ public class FieldDAO {
         return listField;
     }
 
-    public List<Field> getListOwnerField(int index, String userId) throws SQLException {
+    public List<Field> getListOwnerFieldPaging(int index, String userId) throws SQLException {
+        List<Field> listField = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(PRINT_ALL_FIELD_BY_OWNER_PAGING);
+                ptm.setString(1, userId);
+                ptm.setInt(2, (index - 1) * 5);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String fieldId = rs.getString("fieldId");
+                    String fieldName = rs.getString("fieldName");
+                    String description = rs.getString("description");
+                    String image = rs.getString("image");
+                    String id_of_field_category = rs.getString("categoryFieldId");
+                    FieldCategoryDAO fieldCate = new FieldCategoryDAO();
+                    FieldCategory categoryFieldID = fieldCate.getFieldCategoryByID(id_of_field_category);
+                    double price = rs.getDouble("price");
+                    String id_of_user = rs.getString("userId");
+                    UserDAO user = new UserDAO();
+                    User userID = user.getUserByID(id_of_user);
+                    String id_of_location = rs.getString("locationId");
+                    LocationDAO location = new LocationDAO();
+                    Location locationID = location.getLocationByID(id_of_location);
+                    String id_of_district = rs.getString("districtId");
+                    DistrictDAO district = new DistrictDAO();
+                    District districtID = district.getDistrictByID(id_of_district);
+                    String status = rs.getString("status");
+                    listField.add(new Field(fieldId, fieldName, description, image, categoryFieldID, price, userID, locationID, districtID, status));
+                }
+            }
+        } catch (Exception e) {
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listField;
+    }
+    
+    public List<Field> getListOwnerField(String userId) throws SQLException {
         List<Field> listField = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -170,7 +220,6 @@ public class FieldDAO {
             if (conn != null) {
                 ptm = conn.prepareStatement(PRINT_ALL_FIELD_BY_OWNER);
                 ptm.setString(1, userId);
-                ptm.setInt(2, (index - 1) * 5);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String fieldId = rs.getString("fieldId");

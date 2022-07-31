@@ -14,8 +14,12 @@ import utils.DBUtils;
 public class SlotDetailDAO {
     private static final String GET_ALL_INFO = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldID = ? ";
+    private static final String GET_ALL_INFO_BY_CUSTOMER = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE fieldID = ? AND status <> 'false'";
     private static final String GET_SLOT_DETAIL_BY_ID = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE slotDetailID = ? ";
+    private static final String GET_SLOT_DETAIL_BY_SLOTID_FIELDID = "SELECT slotDetailID, slotID, fieldID, status "
+            + "FROM tblSlotDetail WHERE slotID = ? AND fieldID = ?";
     private static final String GET_SLOT_BY_FIELD_ID = "SELECT slotDetailID, slotID, fieldID, status "
             + "FROM tblSlotDetail WHERE fieldId = ? ";
     
@@ -70,6 +74,50 @@ public class SlotDetailDAO {
         return slotDetail;
     }
     
+    public SlotDetail getSlotDetailBySlotIdAndFieldId(String slotId, String fieldId) throws SQLException{
+        SlotDetail slotDetail = null;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_SLOT_DETAIL_BY_SLOTID_FIELDID);
+                ptm.setString(1, slotId);
+                ptm.setString(2, fieldId);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    String getSlotDetailID = rs.getString("slotDetailID");
+                    
+                    String slotID = rs.getString("slotID");
+                    SlotDAO slotDAO = new SlotDAO();
+                    Slot slot = slotDAO.getSlotByID(slotID);
+                    
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+                    
+                    String status = rs.getString("status");
+
+                    slotDetail = new SlotDetail(getSlotDetailID, slot, field, status);
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return slotDetail;
+    }
+    
     public List<SlotDetail> getListSlotDetailByID(String fieldID) throws SQLException{
         List<SlotDetail> list = new ArrayList<>();
         Connection conn = null;
@@ -78,7 +126,7 @@ public class SlotDetailDAO {
         try {
             conn = DBUtils.getConnection();
             if (conn != null) {
-                ptm = conn.prepareStatement(GET_ALL_INFO);
+                ptm = conn.prepareStatement(GET_ALL_INFO_BY_CUSTOMER);
                 ptm.setString(1, fieldID);
                 rs = ptm.executeQuery();
                 while (rs.next()) {

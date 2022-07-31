@@ -56,7 +56,7 @@
             <div class="deznav-scroll pt-4">
                 <div class="main-profile">
                     <div class="image-bx">
-                        <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
+                        <img src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" alt="">
                     </div>
                     <h5 class="name"><span class="font-w400">Hello, ${sessionScope.LOGIN_USER.fullName}</span></h5>
                     <p><strong>[Role: User]</strong></p>

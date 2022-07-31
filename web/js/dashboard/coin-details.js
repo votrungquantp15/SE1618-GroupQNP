@@ -29,7 +29,7 @@
 		},
         xaxis: {
           type: 'Week',
-          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 010"],
+          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 10"],
 		   labels:{
 			    show: true,
 				style:{
@@ -87,7 +87,7 @@
         },
         xaxis: {
           type: 'Week',
-          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 010"],
+          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 10"],
 		  labels:{
 			    show: true,
 				style:{
@@ -145,7 +145,7 @@
 		},
         xaxis: {
           type: 'Week',
-          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 010"],
+          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 10"],
 		  labels:{
 			    show: true,
 				style:{
@@ -207,7 +207,7 @@
 		},
         xaxis: {
           type: 'Week',
-          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 010"],
+          categories: ["Week 01", "Week 02", "Week 03", "Week 04", "Week 05", "Week 06", "Week 07","Week 08","Week 09","Week 10"],
 		  labels:{
 			    show: true,
 				style:{

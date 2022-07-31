@@ -1,51 +1,58 @@
 package controllers;
 
-import dao.LocationDAO;
-import dto.Location;
+import dao.FieldDAO;
+import dao.SlotDAO;
+import dto.Field;
+import dto.Slot;
+import dto.User;
 import java.io.IOException;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-public class CreateLocationController extends HttpServlet {
+public class PrintSlotController extends HttpServlet {
 
-    private static final String ERROR = "PrintLocationController";
-    private static final String SUCCESS = "PrintLocationController";
+    private static final String ERROR = "ownerSlotManagement.jsp";
+    private static final String OWNER_PAGE = "ownerSlotManagement.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String url = ERROR;
         try {
-            LocationDAO locationDao = new LocationDAO();
-            String locationID = locationDao.createLocationId();
-            String locationName = request.getParameter("locationName");
-            locationName = URLEncoder.encode(locationName, "ISO-8859-1");
-            locationName = URLDecoder.decode(locationName, "UTF-8");
-            boolean checkValidation = true;
-            if (locationName.trim().length() == 0) {
-                request.setAttribute("CREATE_ERROR", "Location name cannot be left blank");
-                checkValidation = false;
-            } else if (locationDao.checkLocationName(locationName)) {
-                request.setAttribute("CREATE_ERROR", "Location name is already exist");
-                checkValidation = false;
+            HttpSession session = request.getSession();
+            SlotDAO slotDao = new SlotDAO();
+            FieldDAO fieldDao = new FieldDAO();
+            
+            String fieldId = request.getParameter("fieldId");
+            String indexPage = request.getParameter("index");
+            if (indexPage == null) {
+                indexPage = "1";
             }
-            if (checkValidation) {
-                Location location = new Location(locationID, locationName, null);
-                boolean checkCreate = locationDao.createLocation(location);
-                if (checkCreate) {
-                    url = SUCCESS;
-                }
-                request.setAttribute("CREATE_SUCCESS", "Create location success!");
-            } else {
-                request.setAttribute("CREATE_UNSUCCESS", "Create location unsuccess! Please try again!");
-                request.setAttribute("SHOW_MODAL", "Create");
+            int index = Integer.parseInt(indexPage);
+            int endPage = 0;
+            
+            int count = slotDao.countTotalSlotByField(fieldId);
+            
+            List<Slot> listSlot = slotDao.getSlotByFieldPaging(fieldId, index);
+            Field field = fieldDao.getFieldByID(fieldId);
+            
+            if (listSlot.size() > 0) {
+                request.setAttribute("LIST_SLOT", listSlot);
+                request.setAttribute("FIELD", field);
+                url = OWNER_PAGE;
             }
+            endPage = count / 5;
+            if (count % 5 != 0) {
+                endPage++;
+            }
+            request.setAttribute("END_PAGE", endPage);
+            session.setAttribute("ACTION_SLOT", "Print");
         } catch (Exception e) {
-            log("Error at CreateLocationController: " + e.toString());
+            log("Error at PrintSlotController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

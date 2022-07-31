@@ -102,7 +102,7 @@
                                                                 <c:if test="${LIST_SLOT_DETAIL != null}">
                                                                     <c:if test="${not empty LIST_SLOT_DETAIL}">
                                                                         <h3 class="m-b-15">Select time</h3>
-                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        <div data-toggle="buttons">
 
 
                                                                                 <c:forEach var="list" items="${LIST_SLOT_DETAIL}">

@@ -53,7 +53,7 @@
                                 <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ hàng</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
                                 </c:otherwise>
                             </c:choose>
                         <li class="nav-item submenu dropdown">
@@ -65,7 +65,6 @@
                                     <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
                                     <ul class="dropdown-menu">
                                         <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
-                                        <li class="nav-item"><a href="MainController?action=ViewCart" class="nav-link">Giỏ hàng</a></li>
                                         <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&search=&status=" class="nav-link">Lịch sử đặt</a></li>
                                         <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
                                     </ul>
