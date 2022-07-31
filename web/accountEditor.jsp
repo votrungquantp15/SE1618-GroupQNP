@@ -81,7 +81,7 @@
                                         <div class="form-group col-md-6">
                                             <label>User ID</label>
                                             <input type="text" class="form-control" name="userID" value="${user.userID}" readonly=""/>
-                                            
+
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Full Name</label>
@@ -95,9 +95,14 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>District</label>
-                                            <input type="text" class="form-control" name="districtId" value="${user.district.districtId}" required=""/>
+                                            <select class="form-control " name="districtId">
+
+                                                <option value="${user.district.districtId}">${user.district.districtName}</option>
+                                                <c:forEach var="districtName" items="${requestScope.LIST_DISTRICT}">
+                                                    <option value="${districtName.districtId}">${districtName.districtName}</option>
+                                                </c:forEach>
+                                            </select>
                                             <p style="color : red">${requestScope.DISTRICT_ERROR}</p>
-                                            
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Birthday</label>
@@ -126,7 +131,13 @@
                                         </div>
                                         <div class="form-group col-md-6">
                                             <label>Role</label>
-                                            <input type="text" class="form-control" name="roleId" value="${user.role.roleId}" required=""/>
+                                            <select class="form-control " name="roleId">
+
+                                                <option value="${user.role.roleId}">${user.role.roleId}</option>
+                                                <c:forEach var="roleName" items="${requestScope.LIST_ROLE}">
+                                                    <option value="${roleName.roleId}">${roleName.roleId}</option>
+                                                </c:forEach>
+                                            </select>
                                             <p style="color : red">${requestScope.ROLE_ERROR}</p>
                                         </div>
                                         <div class="form-group col-md-6">

@@ -74,70 +74,50 @@
                 </div> 
             </nav>
     </header>
-    <!--================Header Area =================-->
 
-    <!--================Breadcrumb Area =================-->
-    <section class="breadcrumb_area">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-        <div class="container">
-            <div class="page-cover breadcrumb-text text-center">
-                <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
-                <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
-                <ol class="breadcrumb">
-                    <c:choose>
-                        <c:when test="${sessionScope.LOGIN_USER == null}">
-                            <li><a href="HomeShowFieldController?index=1">Trang chủ</a></li>
-                            </c:when>
-                        </c:choose>
-
-                    <li class="active">Dịch vụ</li>
-                </ol>
-            </div>
-        </div>
-    </section>
-    <!--================Breadcrumb Area =================-->
-
-    <!--================ Accomodation Area  =================-->
-    <!--================Booking Tabel Area  =================-->
-    <!--================ Accomodation Area  =================-->
     <section class="accomodation_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Dịch vụ</h2>
-                <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
-            </div>
-            <div class="row accomodation_two">
-                <c:forEach var="food" items="${requestScope.VIEW_FOOD_EACH}">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img width="300" height="auto" src="${food.image}">
-                                <form action="MainController" method="POST">
-                                    <input name="foodId" value="${food.foodId}" type="hidden">
-                                    <input name="foodName" value="${food.foodName}" type="hidden">
+        <div>
+            <section class="site-section fight-card">
+                <div class="container moreone">
+                    <br/>
+                    <br/>
+                    <h2 class="section-header section-header-events">Chính sách</h2>
+                    <br>
+                    Chính sách bảo mật này đã được biên soạn để phục vụ cho những người quan tâm đến cách thức mà thông tin của họ được sử dụng tại trang web của chúng tôi. Vui lòng đọc kỹ chính sách bảo mật của chúng tôi để hiểu rõ về cách chúng tôi thu thập, sử dụng, bảo vệ hoặc xử lý thông tin cá nhân của bạn.<br>
+                    <br>
+                    <h3>Chúng tôi thu thập thông tin cá nhân nào từ những người truy cập trang web hoặc ứng dụng của chúng tôi?</h3>
+                    Khi đặt sân trên ứng dụng của chúng tôi, bạn có thể được yêu cầu nhập tên, địa chỉ email hoặc các chi tiết khác để giúp bạn trải nghiệm dịch vụ một cách tốt hơn.<br>
+                    <br>
+                    <h3>Chúng tôi thu thập thông tin của bạn khi nào?</h3>
+                    Chúng tôi thu thập thông tin từ bạn khi bạn đặt hàng hoặc nhập thông tin trên ứng dụng của chúng tôi.<br>
+                    <br>
+                    <h3>Chúng tôi sử dụng thông tin cá nhân của bạn như thế nào?</h3>
+                    Chúng tôi có thể sử dụng thông tin chúng tôi thu thập từ bạn khi bạn mua hàng, trả lời khảo sát hoặc giao tiếp tiếp thị, duyệt trang web hoặc ứng dụng hoặc sử dụng một số tính năng của trang web / ứng dụng khác vì mục đích:<br><br>
+                    <b>•</b> Cải thiện trang web và ứng dụng của chúng tôi nhằm phục vụ bạn tốt hơn.<br>
+                    <b>•</b> Cho phép chúng tôi phục vụ bạn tốt hơn trong việc đáp ứng các yêu cầu dịch vụ khách hàng của bạn.<br>
+                    <b>•</b> Nhanh chóng xử lý các giao dịch của bạn.<br>
+                    <br>
+                    <h3>Chúng tôi bảo vệ thông tin cá nhân của bạn như thế nào?</h3>
+                    Trang web của chúng tôi được quét thường xuyên để tìm các lỗ hổng bảo mật và các lỗ hổng bảo mật đã biết để giúp bạn truy cập trang web của chúng tôi an toàn nhất có thể.<br>
+                    Chúng tôi liên tục sử dụng Malware Scanning.<br>
+                    Thông tin cá nhân của bạn được chứa trong các mạng bảo mật và chỉ một số hạn chế người có quyền truy cập đặc biệt vào các hệ thống đó mới có thể truy cập được và được yêu cầu giữ bí mật thông tin. Ngoài ra, tất cả thông tin nhạy cảm / thẻ tín dụng mà bạn cung cấp đều được mã hóa thông qua công nghệ Lớp cổng bảo mật (SSL). <br>
+                    Chúng tôi thực hiện nhiều biện pháp bảo mật khi người dùng đặt hàng, nhập, gửi hoặc truy cập thông tin của họ để duy trì sự an toàn cho thông tin cá nhân của bạn.<br>
+                    Tất cả các giao dịch được xử lý thông qua nhà cung cấp cổng và không được lưu trữ hoặc xử lý trên máy chủ của chúng tôi. <br>
+                    <br>
+                    <h3>Thay đổi</h3>
+                    Chúng tôi có thể cập nhật chính sách bảo mật này theo thời gian để phản ánh, ví dụ: những thay đổi đối với hoạt động của chúng tôi hoặc vì các lý do hoạt động, pháp lý hoặc quy định khác.<br>
+                    Bạn sẽ được thông báo về bất kỳ thay đổi Chính sách Quyền riêng tư nào trên trang 'Chính sách'.<br>                   
+                    <br>                   
+                    FBS<br>
+                    Chỉnh sửa lần cuối vào ngày 10 tháng 7 năm 2022
+                    <br/>
+                    <br/>
+                </div>
+            </section>
 
-                                </form>
-
-                            </div>
-                            <h4>${food.foodName}</h4>
-                            <h6>${food.foodCate.foodCateName}</h6>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-                            <ul class="pagination justify-content-center mt-2">
-                                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        
-        </div>
-    </section>
-    <!--================ Accomodation Area  =================-->
-    <!--================ start footer Area  =================-->	
-    <footer class="footer-area section_gap">
+            <!--================ Accomodation Area  =================-->
+            <!--================ start footer Area  =================-->	
+            <footer class="footer-area section_gap">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3  col-md-6 col-sm-6">
@@ -177,21 +157,21 @@
                     </div>
                 </div>
             </footer>
-    <!--================ End footer Area  =================-->
+            <!--================ End footer Area  =================-->
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
-    <script src="js/mail-script.js"></script>
-    <script src="js/stellar.js"></script>
-    <script src="vendors/lightbox/simpleLightbox.min.js"></script>
-    <script src="js/custom.js"></script>
-</body>
-</html>
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="js/jquery-3.2.1.min.js"></script>
+            <script src="js/popper.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+            <script src="js/jquery.ajaxchimp.min.js"></script>
+            <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+            <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
+            <script src="js/mail-script.js"></script>
+            <script src="js/stellar.js"></script>
+            <script src="vendors/lightbox/simpleLightbox.min.js"></script>
+            <script src="js/custom.js"></script>
+            </body>
+            </html>

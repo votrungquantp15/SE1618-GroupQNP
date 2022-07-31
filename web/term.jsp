@@ -74,70 +74,59 @@
                 </div> 
             </nav>
     </header>
-    <!--================Header Area =================-->
 
-    <!--================Breadcrumb Area =================-->
-    <section class="breadcrumb_area">
-        <div class="overlay bg-parallax" data-stellar-ratio="0.8" data-stellar-vertical-offset="0" data-background=""></div>
-        <div class="container">
-            <div class="page-cover breadcrumb-text text-center">
-                <h2 class="page-cover-tittle">CHÀO MỪNG BẠN ĐẾN VỚI FBS</h2>
-                <h3 style="color: wheat;">Khám phá sân bóng yêu thích của bạn với chúng tôi!</h3>
-                <ol class="breadcrumb">
-                    <c:choose>
-                        <c:when test="${sessionScope.LOGIN_USER == null}">
-                            <li><a href="HomeShowFieldController?index=1">Trang chủ</a></li>
-                            </c:when>
-                        </c:choose>
-
-                    <li class="active">Dịch vụ</li>
-                </ol>
-            </div>
-        </div>
-    </section>
-    <!--================Breadcrumb Area =================-->
-
-    <!--================ Accomodation Area  =================-->
-    <!--================Booking Tabel Area  =================-->
-    <!--================ Accomodation Area  =================-->
     <section class="accomodation_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Dịch vụ</h2>
-                <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
-            </div>
-            <div class="row accomodation_two">
-                <c:forEach var="food" items="${requestScope.VIEW_FOOD_EACH}">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img width="300" height="auto" src="${food.image}">
-                                <form action="MainController" method="POST">
-                                    <input name="foodId" value="${food.foodId}" type="hidden">
-                                    <input name="foodName" value="${food.foodName}" type="hidden">
+        <div>
+            <section class="site-section fight-card">
+                <div class="container moreone">
+                    <br/>
+                    <br/>
+                    <h2 class="section-header section-header-events">ĐIỀU KHOẢN SỬ DỤNG</h2>
+                    <br>
+                    Đây là các điều khoản và điều kiện (“Điều kiện”), áp dụng cho việc bạn (“Người dùng”) sử dụng Trang web và Ứng dụng. Bằng cách truy cập vào bất kỳ phần nào (bao gồm các miền phụ) của Trang web, Ứng dụng hoặc bất kỳ trang web nào khác mà chúng tôi sở hữu và / hoặc đã đăng ký trên Trang web, bạn đồng ý bị ràng buộc bởi Điều kiện và Chính sách quyền riêng tư của chúng tôi và được coi là đã chấp nhận và hiểu tất cả các điều kiện.
+                    <br>
+                    Trang web và Ứng dụng được cung cấp vì lợi ích của Người dùng từ 18 tuổi trở lên. Nếu bạn không trên 18 tuổi hoặc không đồng ý bị ràng buộc bởi các Điều kiện, bạn không được sử dụng Trang web và Ứng dụng và chúng tôi sẽ có quyền hạn chế hoặc ngăn chặn quyền truy cập của bạn vào Trang web / Ứng dụng.
+                    <br>
+                    Vui lòng đọc kỹ Điều kiện và nếu bạn không chấp nhận Điều kiện, không được sử dụng Trang web và Ứng dụng.
+                    <br>
+                    Tham chiếu đến "bạn", "của bạn" hoặc "người dùng" / "Người dùng" là tham chiếu đến bất kỳ người nào sử dụng Trang web / Ứng dụng hoặc Dịch vụ của FBS.
+                    <br>
+                    <br>
+                    <h3>ĐỐI TƯỢNG PHỤC VỤ</h3><br>
+                    FBS cung cấp quyền truy cập vào nội dung cao cấp do dịch vụ của chúng tôi tạo ra thông qua Trang web và Ứng dụng dành cho thiết bị di động. Quyền truy cập dựa trên một mô hình đăng ký. Nội dung cao cấp bao gồm các dự đoán về các sự kiện thể thao trong tương lai và lời khuyên (mẹo) về cách thức và địa điểm đặt cược để giành chiến thắng.<br>
+                    Thuật toán độc đáo của chúng tôi tạo ra nội dung dựa trên thống kê và phân tích tin tức.<br>
+                    FBS không lấy tiền bằng cách đánh bạc. FBS không chấp nhận bất kỳ hình thức cờ bạc, cá cược hay đặt cược nào.<br>
+                    FBS chỉ là một dịch vụ tư vấn. Mọi thông tin do FBS công bố chỉ nhằm mục đích cung cấp thông tin và giải trí.<br>
+                    FBS không chịu trách nhiệm về bất kỳ chiến thắng, thua lỗ hoặc thiệt hại nào cho người dùng, dù trực tiếp hay gián tiếp, do sử dụng thông tin này để đánh bạc hoặc cá cược. <br>
+                    <br>                   
+                    <h3>TRUY CẬP ĐỊNH KỲ</h3>
+                    Đăng ký của bạn sẽ tự động được kéo dài vào ngày cuối cùng của mỗi giai đoạn đăng ký. Bạn có thể chấm dứt gói đăng ký của mình bất kỳ lúc nào có hiệu lực khi kết thúc thời hạn đăng ký - trong trường hợp này, gói đăng ký của bạn sẽ không được kéo dài thêm nữa, bạn sẽ mất quyền truy cập vào nội dung cao cấp sau khi kết thúc thời gian đăng ký và chúng tôi sẽ không tính phí cho thời gian đăng ký mới. Để chấm dứt đăng ký của bạn, vui lòng đăng nhập vào tài khoản Cửa hàng Google Play hoặc Apple App Store, chọn “Tài khoản”, nhấp vào “Đăng ký”, chọn liên kết Đăng ký và “Hủy đăng ký”. <br>
+                    Trong trường hợp đến ngày gia hạn đăng ký của bạn, chúng tôi không thể tính phí bạn do không đủ số tiền trong tài khoản hoặc thẻ tín dụng của bạn, chúng tôi sẽ cố gắng tính phí lại cho bạn trong 3 ngày tiếp theo và nếu chúng tôi vẫn không thể tính phí cho bạn, việc gia hạn đăng ký của bạn sẽ bị hủy bỏ (bạn không có nghĩa vụ phải trả tiền cho việc kéo dài đó). <br>
+                    Người dùng có 14 ngày theo lịch để yêu cầu hoàn lại toàn bộ tiền kể từ ngày họ mua đăng ký. Điều này chỉ áp dụng cho đăng ký lần đầu tiên. <br>
+                    Bất kỳ phần nào chưa sử dụng trong thời gian dùng thử miễn phí, nếu được cung cấp, sẽ bị mất khi bạn mua đăng ký ấn phẩm đó, nếu có. <br>
+                    <br>
+                    <h3> NGHĨA VỤ CỦA NGƯỜI DÙNG </h3>
+                    <br>
+                    Người dùng phải đọc, đồng ý và chấp nhận tất cả các Điều kiện và Chính sách Bảo mật trước khi trở thành Người dùng của FBS. <br>
+                    Người dùng sẽ không: <br>
+                    <b> i. </b> sử dụng Trang web / Ứng dụng (hoặc bất kỳ phần nào của nó) cho bất kỳ mục đích bất hợp pháp nào và đồng ý sử dụng nó theo tất cả các luật có liên quan; <br>
+                    <b> ii. </b> tải lên hoặc truyền qua Trang web (i) bất kỳ vi rút máy tính nào, vi rút macro, trojan, sâu hoặc bất kỳ thứ gì khác được thiết kế để can thiệp, làm gián đoạn hoặc phá vỡ quy trình hoạt động bình thường của một máy tính hoặc (ii) bất kỳ tài liệu nào có tính chất phỉ báng, xúc phạm, hoặc có tính chất khiêu dâm hoặc đe dọa, hoặc có thể gây khó chịu, bất tiện hoặc lo lắng không cần thiết; <br>
+                    <b> iii. </b> sử dụng Trang web / Ứng dụng theo cách (i) có thể khiến Trang web / Ứng dụng bị gián đoạn, hư hỏng, hiển thị kém hiệu quả hơn hoặc ảnh hưởng đến hiệu quả hoặc chức năng của Trang web / Ứng dụng bị suy giảm theo bất kỳ cách nào hoặc (ii) vi phạm hoặc vi phạm quyền của bất kỳ cá nhân, công ty hoặc công ty nào (bao gồm nhưng không giới hạn ở quyền sở hữu trí tuệ, quyền bảo mật hoặc quyền riêng tư); <br>
+                    <b> iv. </b> tạo hoặc xuất bản liên kết siêu văn bản tới bất kỳ phần nào của Trang web hoặc cố gắng truy cập trái phép bất kỳ phần nào hoặc thành phần nào của Trang web. <br>
+                    <b> v. </b> sao chép, nhân bản, sao chép, bán, bán lại hoặc khai thác bất kỳ phần nào của Trang web hoặc Ứng dụng mà không có sự cho phép rõ ràng bằng văn bản của FBS. <br>
+                    <br>
+                    Người dùng phải cung cấp tên hợp pháp, địa chỉ email hợp lệ và bất kỳ thông tin nào khác cần thiết để hoàn tất giao dịch mua và có trách nhiệm bảo mật mật khẩu của họ. FBS không thể và sẽ không chịu trách nhiệm về bất kỳ tổn thất hoặc thiệt hại nào do bạn không duy trì tính bảo mật của tài khoản và mật khẩu của mình. <br>
+                    Người dùng không được phép chia sẻ hoặc tái tạo thông tin đã mua với bất kỳ ai. <br>
+                    <br>
+                    Chỉnh sửa lần cuối vào ngày 10 tháng 7 năm 2022
+                    <br/>
+                    <br/>
+                </div>
+            </section>
 
-                                </form>
-
-                            </div>
-                            <h4>${food.foodName}</h4>
-                            <h6>${food.foodCate.foodCateName}</h6>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-                            <ul class="pagination justify-content-center mt-2">
-                                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        
-        </div>
-    </section>
-    <!--================ Accomodation Area  =================-->
-    <!--================ start footer Area  =================-->	
-    <footer class="footer-area section_gap">
+            <!--================ Accomodation Area  =================-->
+            <!--================ start footer Area  =================-->	
+            <footer class="footer-area section_gap">
                 <div class="container">
                     <div class="row">
                         <div class="col-lg-3  col-md-6 col-sm-6">
@@ -177,21 +166,21 @@
                     </div>
                 </div>
             </footer>
-    <!--================ End footer Area  =================-->
+            <!--================ End footer Area  =================-->
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
-    <script src="js/mail-script.js"></script>
-    <script src="js/stellar.js"></script>
-    <script src="vendors/lightbox/simpleLightbox.min.js"></script>
-    <script src="js/custom.js"></script>
-</body>
-</html>
+            <!-- Optional JavaScript -->
+            <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+            <script src="js/jquery-3.2.1.min.js"></script>
+            <script src="js/popper.js"></script>
+            <script src="js/bootstrap.min.js"></script>
+            <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+            <script src="js/jquery.ajaxchimp.min.js"></script>
+            <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+            <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
+            <script src="js/mail-script.js"></script>
+            <script src="js/stellar.js"></script>
+            <script src="vendors/lightbox/simpleLightbox.min.js"></script>
+            <script src="js/custom.js"></script>
+            </body>
+            </html>

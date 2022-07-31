@@ -102,7 +102,13 @@
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Category</label>
-                                                <input type="text" class="form-control" name="categoryFoodId" value="${food.foodCate.foodCateId}" required=""/>
+                                                <select class="form-control " name="categoryFoodId">
+
+                                                    <option value="${food.foodCate.foodCateId}">${food.foodCate.foodCateName}</option>
+                                                    <c:forEach var="foodCateName" items="${requestScope.LIST_CATEGORY}">
+                                                        <option value="${foodCateName.foodCateId}">${foodCateName.foodCateName}</option>
+                                                    </c:forEach>
+                                                </select>
                                             </div>
                                             <div class="form-group col-md-6">
                                                 <label>Status</label>
