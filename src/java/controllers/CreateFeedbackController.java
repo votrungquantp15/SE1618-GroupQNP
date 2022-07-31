@@ -45,23 +45,28 @@ public class CreateFeedbackController extends HttpServlet {
                 checkCanFeedback = true;
             }
             if (checkCanFeedback) {
-                if (content.trim().length() == 0) {
-                    request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
-                    checkValidation = false;
-                }
-                if (content.length() > 500) {
-                    request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
-                    checkValidation = false;
-                }
-                if (checkValidation) {
-                    Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
-                    boolean checkCreate = feedbackDao.createFeedback(feedback);
-                    if (checkCreate) {
-                        url = SUCCESS;
-                        request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
+                int count = feedbackDao.countLimitFeedback(userId, fieldId);
+                if (count <= 3) {
+                    if (content.trim().length() == 0) {
+                        request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được để trống");
+                        checkValidation = false;
+                    }
+                    if (content.length() > 500) {
+                        request.setAttribute("CREATE_CONTENT_ERROR", "Nội dung không được dài quá 500 kí tự");
+                        checkValidation = false;
+                    }
+                    if (checkValidation) {
+                        Feedback feedback = new Feedback(fieldCateId, content, user, field, null);
+                        boolean checkCreate = feedbackDao.createFeedback(feedback);
+                        if (checkCreate) {
+                            url = SUCCESS;
+                            request.setAttribute("CREATE_SUCCESS", "Gửi đánh giá thành công");
+                        }
+                    } else {
+                        request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
                     }
                 } else {
-                    request.setAttribute("CREATE_UNSUCCESS", "Gửi đánh giá không thành công! Xin hãy thử lại");
+                    request.setAttribute("CREATE_UNSUCCESS", "Bạn không thể gửi đánh giá hơn 3 lần!");
                 }
             } else {
                 request.setAttribute("CREATE_UNSUCCESS", "Hãy đặt sân rồi mới có thể đánh giá!");

@@ -1,7 +1,7 @@
-﻿DROP DATABASE FootballBookingManagement
+﻿DROP DATABASE FootballBookingManagement1
 
-CREATE DATABASE FootballBookingManagement
-USE FootballBookingManagement
+CREATE DATABASE FootballBookingManagement1
+USE FootballBookingManagement1
 
 
 CREATE TABLE tblRoles
@@ -253,18 +253,54 @@ INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL22', '21:0
 INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL23', '22:00', '23:00', 1)
 INSERT INTO tblSlots(slotId, timeStart, timeEnd, [status]) VALUES ('SL24', '23:00', '00:00', 1)
 
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD01', 'SL01', 'FI01', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD02', 'SL01', 'FI02', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD03', 'SL01', 'FI03', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD04', 'SL01', 'FI04', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD05', 'SL02', 'FI01', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD06', 'SL02', 'FI02', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD07', 'SL03', 'FI03', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD08', 'SL03', 'FI04', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD09', 'SL03', 'FI01', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD10', 'SL03', 'FI02', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD11', 'SL03', 'FI03', 1)
-INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD12', 'SL02', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD01', 'SL08', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD02', 'SL09', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD03', 'SL10', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD04', 'SL12', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD05', 'SL13', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD06', 'SL14', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD07', 'SL15', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD08', 'SL16', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD09', 'SL17', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD10', 'SL18', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD11', 'SL19', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD12', 'SL20', 'FI01', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD13', 'SL08', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD14', 'SL09', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD15', 'SL10', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD16', 'SL12', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD17', 'SL13', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD18', 'SL14', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD19', 'SL15', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD20', 'SL16', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD21', 'SL17', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD22', 'SL18', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD23', 'SL19', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD24', 'SL20', 'FI02', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD25', 'SL08', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD26', 'SL09', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD27', 'SL10', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD28', 'SL12', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD29', 'SL13', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD30', 'SL14', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD31', 'SL15', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD32', 'SL16', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD33', 'SL17', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD34', 'SL18', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD35', 'SL19', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD36', 'SL20', 'FI03', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD37', 'SL08', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD38', 'SL09', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD39', 'SL10', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD40', 'SL12', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD41', 'SL13', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD42', 'SL14', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD43', 'SL15', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD44', 'SL16', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD45', 'SL17', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD46', 'SL18', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD47', 'SL19', 'FI04', 1)
+INSERT INTO tblSlotDetail(slotDetailId, slotId, fieldId, [status]) VALUES ('SD48', 'SL20', 'FI04', 1)
 
 INSERT INTO tblFoodCategory(categoryFoodId, categoryFoodName, [status]) VALUES ('OC01', N'Đồ ăn', 1)
 INSERT INTO tblFoodCategory(categoryFoodId, categoryFoodName, [status]) VALUES ('OC02', N'Đồ uống', 1)
@@ -277,7 +313,7 @@ INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES
 					, 'OC01', 1)
 INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO04', N'Bánh snack mực lăn', 'https://cdn.tgdd.vn/Products/Images/3364/193601/bhx/snack-muc-lan-muoi-ot-poca-goi-37g-201911061537386523.jpg'
 					, 'OC01', 1)
-INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO05', N'Nước suối', 'https://hoangquanhangnhat.com/wp-content/uploads/2020/09/n%C6%B0%E1%BB%9Bc-su%E1%BB%91i.png'
+INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO05', N'Nước suối', 'https://bizweb.dktcdn.net/thumb/1024x1024/100/361/770/products/nuoc-suoi-aquafina-500ml-09b27a2f-6dee-409c-b420-0800c46994e2.jpg?v=1573875543373'
 					, 'OC02', 1)
 INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO06', N'Nước chanh muối', 'https://toplist.vn/images/800px/nuoc-chanh-muoi-7up-revive-640852.jpg'
 					, 'OC02', 1)
@@ -287,7 +323,7 @@ INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES
 					, 'OC02', 1)
 INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO09', N'Trà sữa', 'https://toplist.vn/images/800px/tra-sua-506831.jpg'
 					, 'OC02', 1)
-INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO10', N'Trà sữa', 'https://toplist.vn/images/800px/tra-sua-506831.jpg'
+INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO10', N'Trà vải', 'https://st.quantrimang.com/photos/image/2021/06/08/tra-vai-4.jpg'
 					, 'OC02', 1)
 INSERT INTO tblFoods(foodId, foodName, [image], categoryFoodId, [status]) VALUES ('FO11', N'Trà đào', 'https://toplist.vn/images/800px/tra-dao-4170.jpg'
 					, 'OC02', 1)
@@ -306,14 +342,14 @@ INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD04', 'FO01', 'FI02', '24', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD05', 'FO03', 'FI02', '6', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD06', 'FO04', 'FI02', '5', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD07', 'FO011', 'FI07', '15', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD07', 'FO11', 'FI07', '15', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD08', 'FO09', 'FI05', '10', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD09', 'FO08', 'FI010', '9', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD09', 'FO08', 'FI10', '9', 1)
 INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD10', 'FO07', 'FI02', '11', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD11', 'FO09', 'FI010', '15', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD12', 'FO010', 'FI05', '2', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD13', 'FO06', 'FI011', '5', 1)
-INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD14', 'FO015', 'FI02', '12', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD11', 'FO09', 'FI10', '15', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD12', 'FO10', 'FI05', '2', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD13', 'FO06', 'FI11', '5', 1)
+INSERT INTO tblFoodDetail(foodDetailId, foodId, fieldId, price, [status]) VALUES ('FD14', 'FO15', 'FI02', '12', 1)
 
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO01', '2022-01-24', 'U04', '50', 'On-Going')
 INSERT INTO tblBooking(bookingId, bookingDate, userId, totalprice, [status]) VALUES ('BO02', '2022-03-12', 'U05', '12', 'On-Going')
@@ -338,7 +374,7 @@ INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slot
 INSERT INTO tblBookingDetail(bookingDetailId, bookingId, fieldId, playDate, slotDetailId, fieldPrice, [status]) VALUES ('BD08', 'BO08', 'FI08', '2022-09-20', 'SD01', '10', 1)
 
 
-INSERT INTO tblFeedback(feedbackId, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 'Active')
+INSERT INTO tblFeedback(feedbackId, content, userId, fieldId, [status]) VALUES ('FB01', N'Sân bóng này được đặt ở nơi thuận tiện cho việc qua lại, sân cỏ tốt, thoáng mát, sạch sẽ.', 'U04', 'FI01', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])
 VALUES	('FB02', N'Sân bóng không mới', 'U04', 'FI03', 1)
 INSERT INTO [dbo].[tblFeedback] ([feedbackId],[content],[userId],[fieldId],[status])

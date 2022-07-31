@@ -38,7 +38,7 @@ public class SearchFeedbackController extends HttpServlet {
                     request.setAttribute("SEARCH_FEEDBACK_ERROR", "Couldn't find any feedback");
                 }
             } else if (user.getRole().getRoleId().equals("US")) {
-                listFeedback = feedbackDao.searchFeedbackByCustomer(search, status, userId);
+                listFeedback = feedbackDao.searchFeedbackByCustomer(search, userId);
                 url = USER_PAGE;
                 if (!listFeedback.isEmpty()) {
                     request.setAttribute("LIST_FEED_BACK", listFeedback);

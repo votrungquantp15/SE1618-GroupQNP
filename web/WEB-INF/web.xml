@@ -77,10 +77,6 @@
         <servlet-class>controllers.DeleteSlotController</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>UpdateSlotController</servlet-name>
-        <servlet-class>controllers.UpdateSlotController</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
         <servlet-class>controllers.UserPrintFieldDetailController</servlet-class>
     </servlet>
@@ -200,6 +196,14 @@
         <servlet-name>AddSlotToFieldController</servlet-name>
         <servlet-class>controllers.AddSlotToFieldController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>PrintSlotController</servlet-name>
+        <servlet-class>controllers.PrintSlotController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <servlet-class>controllers.UpdateSlotController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>LoginController</servlet-name>
         <url-pattern>/LoginController</url-pattern>
@@ -275,10 +279,6 @@
     <servlet-mapping>
         <servlet-name>DeleteSlotController</servlet-name>
         <url-pattern>/DeleteSlotController</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>UpdateSlotController</servlet-name>
-        <url-pattern>/UpdateSlotController</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>UserPrintFieldDetailController</servlet-name>
@@ -404,12 +404,20 @@
         <servlet-name>AddSlotToFieldController</servlet-name>
         <url-pattern>/AddSlotToFieldController</url-pattern>
     </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PrintSlotController</servlet-name>
+        <url-pattern>/PrintSlotController</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateSlotController</servlet-name>
+        <url-pattern>/UpdateSlotController</url-pattern>
+    </servlet-mapping>
     <session-config>
         <session-timeout>
             60
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <welcome-file>PrintFieldController</welcome-file>
+        <welcome-file>login.jsp</welcome-file>
     </welcome-file-list>
 </web-app>

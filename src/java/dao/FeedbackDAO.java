@@ -20,17 +20,18 @@ public class FeedbackDAO {
     private static final String PRINT_ALL_FEEDBACK_BY_FIELD = "SELECT feedbackId, content, userId, fieldId, status FROM tblFeedback WHERE fieldId = ? AND status <> 'false' ORDER BY feedbackId OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
 
     private static final String CHECK_FEED_BACK_ID = "SELECT feedbackId FROM tblFeedback WHERE feedbackId = ?";
-    private static final String CHECK_CAN_FEED_BACK = "SELECT bo.userId FROM tblBooking bo LEFT JOIN tblBookingDetail bd ON bo.bookingId = bd.bookingId WHERE bo.userId = ? AND bd.fieldId = ?";
+    private static final String CHECK_CAN_FEED_BACK = "SELECT bo.userId FROM tblBooking bo LEFT JOIN tblBookingDetail bd ON bo.bookingId = bd.bookingId WHERE bo.userId = ? AND bd.fieldId = ? AND bo.status = 'Played'";
     private static final String CREATE_FEED_BACK = "INSERT INTO tblFeedback(feedbackId, content, userId, fieldId) VALUES(?, ?, ?, ?)";
 
     private static final String COUNT_ALL_FEEDBACK = "SELECT COUNT(*) as totalFeedback FROM tblFeedback";
     private static final String COUNT_ALL_FEEDBACK_BY_OWNER = "SELECT COUNT(*) as totalFeedback FROM tblFeedback fe LEFT JOIN tblFields f ON f.fieldId = fe.fieldId LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.userId = ?";
     private static final String COUNT_ALL_FEEDBACK_BY_USER = "SELECT COUNT(*) as totalFeedback FROM tblFeedback WHERE userId = ?";
+    private static final String COUNT_LIMIT_FEEDBACK = "SELECT COUNT(*) as totalFeedback FROM tblFeedback WHERE userId = ? AND fieldId = ?";
 
     private static final String UPDATE_STATUS_FEEDBACK = "UPDATE tblFeedback SET [status] = ? WHERE feedbackId = ?";
     private static final String DELETE_FEEDBACK = "UPDATE tblFeedback SET [status] = 'false' WHERE feedbackId = ?";
     private static final String SEARCH_FEEDBACK_BY_FIELD_NAME = "SELECT feedbackId, content, fe.userId, fe.fieldId, fe.status FROM tblFeedback fe LEFT JOIN tblFields f ON f.fieldId = fe.fieldId LEFT JOIN tblUsers us ON f.userId = us.userId WHERE us.userId = ? AND f.fieldName like ? AND fe.status like ?";
-    private static final String SEARCH_FEEDBACK_CUSTOMER_BY_FIELD_NAME = "SELECT feedbackId, content, fe.userId, fe.fieldId, fe.status FROM tblFeedback fe LEFT JOIN tblFields f ON f.fieldId = fe.fieldId LEFT JOIN tblUsers us ON fe.userId = us.userId WHERE us.userId = ? AND f.fieldName like ? AND fe.status like ?";
+    private static final String SEARCH_FEEDBACK_CUSTOMER_BY_FIELD_NAME = "SELECT feedbackId, content, fe.userId, fe.fieldId, fe.status FROM tblFeedback fe LEFT JOIN tblFields f ON f.fieldId = fe.fieldId LEFT JOIN tblUsers us ON fe.userId = us.userId WHERE us.userId = ? AND f.fieldName like ?";
 
     public List<Feedback> getAllFeedback(int index) throws SQLException {
         List<Feedback> listFeedback = new ArrayList<>();
@@ -328,6 +329,39 @@ public class FeedbackDAO {
         }
         return index;
     }
+    
+    public int countLimitFeedback(String userId, String fieldId) throws SQLException {
+        int count = 0;
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(COUNT_LIMIT_FEEDBACK);
+                ptm.setString(1, userId);
+                ptm.setString(2, fieldId);
+                rs = ptm.executeQuery();
+                if (rs.next()) {
+                    count = rs.getInt("totalFeedback");
+                }
+
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return count;
+    }
 
     public boolean checkFeedbackId(String feedbackId) throws SQLException {
         boolean check = false;
@@ -528,7 +562,7 @@ public class FeedbackDAO {
         return listFeedback;
     }
     
-    public List<Feedback> searchFeedbackByCustomer(String search, String feedbackStatus, String userId) throws SQLException {
+    public List<Feedback> searchFeedbackByCustomer(String search, String userId) throws SQLException {
         List<Feedback> listFeedback = new ArrayList<>();
         Connection conn = null;
         PreparedStatement ptm = null;
@@ -539,7 +573,6 @@ public class FeedbackDAO {
                     ptm = conn.prepareStatement(SEARCH_FEEDBACK_CUSTOMER_BY_FIELD_NAME);
                     ptm.setString(1, userId);
                     ptm.setString(2, "%" + search + "%");
-                    ptm.setString(3, "%" + feedbackStatus + "%");
                     rs = ptm.executeQuery();
                     while (rs.next()) {
                         String feedbackId = rs.getString("feedbackId");

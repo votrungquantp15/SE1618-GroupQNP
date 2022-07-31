@@ -25,7 +25,7 @@
 					datasets: [
 						{
 							label: "My First dataset",
-							data: [65, 59, 80, 81, 56, 55, 40],
+							data: [0, 0, 10, 15, 25, 5, 0],
 							borderColor: 'rgba(235, 129, 83, 1)',
 							borderWidth: "0",
 							backgroundColor: 'rgba(235, 129, 83, 1)'
