@@ -22,6 +22,7 @@
     <!--================Header Area =================-->
     <header class="header_area">
             <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <c:choose>
                     <c:when test="${sessionScope.LOGIN_USER == null}">
@@ -71,7 +72,8 @@
                             </c:choose>
                         </li> 
                     </ul>
-                </div> 
+                </div>
+                </div>
             </nav>
     </header>
     <!--================Header Area =================-->

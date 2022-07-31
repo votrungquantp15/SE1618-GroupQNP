@@ -28,8 +28,9 @@
             <c:redirect url="login.jsp"></c:redirect>
         </c:if>
         <header>
-            <div class="container">
+            
                 <nav class="navbar navbar-expand-lg navbar-light">
+                    <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
                     <!-- Collect the nav links, forms, and other content for toggling -->
@@ -54,8 +55,9 @@
                             </li> 
                         </ul>
                     </div> 
+                            </div>
                 </nav>
-            </div>
+            
         </header>
 
         <div>        
