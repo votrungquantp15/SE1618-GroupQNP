@@ -168,5 +168,38 @@ public class RoleDAO {
         }
         return listRole;
     }
+    
+    public List<Role> getAllRoleForList() throws SQLException {
+        List<Role> listRole = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_ROLE);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getRoleId = rs.getString("roleId");
+                    String roleName = rs.getString("roleName");
+                    String status = rs.getString("status");
+                    listRole.add(new Role(getRoleId, roleName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listRole;
+    }
 
 }

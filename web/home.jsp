@@ -21,8 +21,8 @@
 <body>
     <!--================Header Area =================-->
     <header class="header_area">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
                 <!-- Brand and toggle get grouped for better mobile display -->
                 <c:choose>
                     <c:when test="${sessionScope.LOGIN_USER == null}">
@@ -72,9 +72,9 @@
                             </c:choose>
                         </li> 
                     </ul>
-                </div> 
-            </nav>
-        </div>
+                </div>
+            </div>
+        </nav>
     </header>
     <!--================Header Area =================-->
 
@@ -93,10 +93,13 @@
     <!--================ Accomodation Area  =================-->
 
     <section class="hotel_booking_area">
-        <div class="container">
-            <div class="row hotel_booking_table">
+
+        <div class="hotel_booking_table">
+            <div class="container">
+                <div class="row">
                 <div class="col-md-3">
-                    <h2>TÌM<br> SÂN BÓNG</h2>
+                    <br>
+                    <h2>TÌM SÂN BÓNG</h2>
                 </div>
 
                 <div class="col-md-9">
@@ -131,167 +134,167 @@
                                     <div class="book_tabel_item">
                                         <!-- <a class="book_now_btn button_hover" href="#">Search</a> -->
                                         <div class="form-field w-100 justify-content-center d-flex">
+                                            <br>
                                             <input type="hidden" name="index" value="1"/>
                                             <input type="hidden" name="action" value="SearchFieldByUser"/>
-                                            <input type="submit" value="Tìm kiếm" class="align-self-stretch form-control btn btn-primary">
+                                            
                                         </div>
+                                        <input type="submit" value="Tìm kiếm" class="align-self-stretch form-control btn btn-primary">
                                     </div>
                                 </div>
                             </div>
                         </form>
                     </div>
                 </div>
-
             </div>
+
         </div>
-    </section>
-    <!--================Booking Tabel Area  =================-->
-    <!--================ Accomodation Area  =================-->
-    <section class="accomodation_area section_gap">
-        <div class="container">
-            <div class="section_title text-center">
-                <h2 class="title_color">Sân bóng đá</h2>
-                <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
-            </div>
-            <div class="row accomodation_two">
-                <h4 style="color: red"> ${requestScope.FIELD_NOT_FOUND} </h4>
-                <c:forEach var="field" items="${requestScope.FIELD}">
-                    <div class="col-lg-4 col-sm-6">
-                        <div class="accomodation_item text-center">
-                            <div class="hotel_img">
-                                <img class="img_field" src="${field.image}" alt="">
-                                <form action="MainController" method="POST">
-                                    <input name="fieldID" value="${field.fieldId}" type="hidden">
+    </div>
+</section>
+<!--================Booking Tabel Area  =================-->
+<!--================ Accomodation Area  =================-->
+<section class="accomodation_area section_gap">
+    <div class="container">
+        <div class="section_title text-center">
+            <h2 class="title_color">Sân bóng đá</h2>
+            <p>"Chọn đúng thời gian, sự bền bỉ và mười năm nỗ lực rồi cuối cùng sẽ khiến bạn có vẻ như thành công chỉ trong một đêm"</p>
+        </div>
+        <div class="row accomodation_two">
+            <h4 style="color: red"> ${requestScope.FIELD_NOT_FOUND} </h4>
+            <c:forEach var="field" items="${requestScope.FIELD}">
+                <div class="col-lg-4 col-sm-6">
+                    <div class="accomodation_item text-center">
+                        <div class="hotel_img">
+                            <img class="img_field" src="${field.image}" alt="">
+                            <form action="MainController" method="POST">
+                                <input name="fieldID" value="${field.fieldId}" type="hidden">
 
-                                    <c:choose>
-                                        <c:when test="${sessionScope.LOGIN_USER == null}">
-                                            <button type="submit" name="action" value="LoginPage" class="btn theme_btn button_hover rounded">Đặt ngay</button>
-                                            </c:when>
-                                            <c:otherwise>
-                                            <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
-                                            </c:otherwise>
-                                        </c:choose>
-                                </form>
-
-                            </div>
-                            <a href="MainController?action=UserPrintFieldDetail&fieldId=${field.fieldId}"><h4 class="sec_h4">${field.fieldName}</h4></a>
-                            <h6>${field.district.districtName}</h6>
-                            <h5>${field.price}00<small> vnd/h</small></h5>
-                        </div>
-                    </div>
-                </c:forEach>
-            </div>
-            <c:choose>
-                <c:when test="${(sessionScope.LOGIN_USER == null)}">
-                    <ul class="pagination justify-content-center mt-2">
-                        <c:choose>
-                            <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
-                                <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a href="HomeShowFieldController?index=${i}" class="page-link">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </c:when>
-                            <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
-                                <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
-                                    </li>
-                                </c:forEach>
-                            </c:when>
-                            <c:otherwise></c:otherwise>
-                        </c:choose>
-                    </ul>
-                </c:when>
-                <c:otherwise>
-                    <c:choose>
-                        <c:when test="${(requestScope.FIELD != null)}">
-                            <ul class="pagination justify-content-center mt-2">
                                 <c:choose>
-                                    <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
-                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
-                                            </li>
-                                        </c:forEach>
+                                    <c:when test="${sessionScope.LOGIN_USER == null}">
+                                        <button type="submit" name="action" value="LoginPage" class="btn theme_btn button_hover rounded">Đặt ngay</button>
                                     </c:when>
-                                    <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
-                                        <c:forEach var="i" begin="1" end="${END_PAGE}">
-                                            <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                                <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
-                                            </li>
-                                        </c:forEach>
-                                    </c:when>
-                                    <c:otherwise></c:otherwise>
+                                    <c:otherwise>
+                                        <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                    </c:otherwise>
                                 </c:choose>
-                            </ul>
+                            </form>
+
+                        </div>
+                        <a href="MainController?action=UserPrintFieldDetail&fieldId=${field.fieldId}"><h4 class="sec_h4">${field.fieldName}</h4></a>
+                        <h6>${field.district.districtName}</h6>
+                        <h5>${field.price}00<small> vnd/h</small></h5>
+                    </div>
+                </div>
+            </c:forEach>
+        </div>
+        <c:choose>
+            <c:when test="${(sessionScope.LOGIN_USER == null)}">
+                <ul class="pagination justify-content-center mt-2">
+                    <c:choose>
+                        <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
+                            <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                    <a href="HomeShowFieldController?index=${i}" class="page-link">${i}</a>
+                                </li>
+                            </c:forEach>
+                        </c:when>
+                        <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
+                            <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                    <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
+                                </li>
+                            </c:forEach>
                         </c:when>
                         <c:otherwise></c:otherwise>
                     </c:choose>
-                </c:otherwise>
-            </c:choose>
-        </div>
-    </section>
-    <!--================ Accomodation Area  =================-->
-    <!--================ start footer Area  =================-->	
-    <footer class="footer-area section_gap">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-3  col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">About Agency</h6>
-                        <p>The world has become so fast paced that people don't want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
-                    </div>
-                </div>					
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <ul>
-                        <li><span class="icon fa fa-map-marker"></span><span class="text"> 203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                        <li><a href="#"><span class="icon fa fa-phone"></span><span class="text"> +2 392 3929 210</span></a></li>
-                        <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text"> info@yourdomain.com</span></a></li>
-                    </ul>
-                </div>	
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">Newsletter</h6>
-                        <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>		
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-                                <div class="input-group d-flex flex-row">
-                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>		
-                                </div>									
-                                <div class="mt-10 info"></div>
-                            </form>
-                        </div>
-                    </div>
-                </div>				
-            </div>
-            <div class="border_line"></div>
-            <div class="row footer-bottom d-flex justify-content-between align-items-center">
-                <p class="col-lg-8 col-sm-12 footer-text m-0"></p>
-                <div class="col-lg-4 col-sm-12 footer-social">
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                    <a href="#"><i class="fa fa-instagram"></i></a>
+                </ul>
+            </c:when>
+            <c:otherwise>
+                <c:choose>
+                    <c:when test="${(requestScope.FIELD != null)}">
+                        <ul class="pagination justify-content-center mt-2">
+                            <c:choose>
+                                <c:when test="${sessionScope.ACTION_FIELD == 'Print'}">
+                                    <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                        <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                            <a href="MainController?action=Print&index=${i}" class="page-link">${i}</a>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:when test="${sessionScope.ACTION_FIELD == 'Search'}">
+                                    <c:forEach var="i" begin="1" end="${END_PAGE}">
+                                        <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                                            <a href="MainController?action=SearchFieldByUser&index=${i}&fieldName=${requestScope.FIELD_NAME}&districtId=${requestScope.DISTRICT_ID}" class="page-link">${i}</a>
+                                        </li>
+                                    </c:forEach>
+                                </c:when>
+                                <c:otherwise></c:otherwise>
+                            </c:choose>
+                        </ul>
+                    </c:when>
+                    <c:otherwise></c:otherwise>
+                </c:choose>
+            </c:otherwise>
+        </c:choose>
+    </div>
+</section>
+<!--================ Accomodation Area  =================-->
+<!--================ start footer Area  =================-->	
+<footer class="footer-area section_gap">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3  col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                    <h6 class="footer_title">Về chúng tôi</h6>
+                    <p>Chúng tôi mong muốn mang đến cho bạn một trải nghiệm tuyệt vời nhất bằng tất cả khả năng.</p>
                 </div>
             </div>
+            <div class="col-lg-3  col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                    <h6 class="footer_title">Chính sách</h6>
+                    <p><a href="policy.jsp">Nhấp chuột để xem</a></p>
+                </div>
+            </div>
+            <div class="col-lg-3  col-md-6 col-sm-6">
+                <div class="single-footer-widget">
+                    <h6 class="footer_title">Điều khoản</h6>
+                    <p><a href="term.jsp">Nhấp chuột để xem</a></p>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-6 col-sm-6">
+                <ul>
+                    <li><span class="icon fa fa-map-marker"></span><span class="text"> Lô E2a-7, Đường D1, Khu Công nghệ cao, P.Long Thạnh Mỹ, Tp. Thủ Đức, TP.HCM.</span></li>
+                    <li><a href="#"><span class="icon fa fa-phone"></span><span class="text"> +84 938 736 555</span></a></li>
+                    <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text"> DN1@gmail.com</span></a></li>
+                </ul>
+            </div>				
         </div>
-    </footer>
-    <!--================ End footer Area  =================-->
+        <div class="border_line"></div>
+        <div class="row footer-bottom d-flex justify-content-between align-items-center">
+            <p class="col-lg-8 col-sm-12 footer-text m-0"></p>
+            <div class="col-lg-4 col-sm-12 footer-social">
+                <a href="#"><i class="fa fa-facebook"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-instagram"></i></a>
+            </div>
+        </div>
+    </div>
+</footer>
+<!--================ End footer Area  =================-->
 
 
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="js/jquery-3.2.1.min.js"></script>
-    <script src="js/popper.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="vendors/owl-carousel/owl.carousel.min.js"></script>
-    <script src="js/jquery.ajaxchimp.min.js"></script>
-    <script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
-    <script src="vendors/nice-select/js/jquery.nice-select.js"></script>
-    <script src="js/mail-script.js"></script>
-    <script src="js/stellar.js"></script>
-    <script src="vendors/lightbox/simpleLightbox.min.js"></script>
-    <script src="js/custom.js"></script>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="js/jquery-3.2.1.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="vendors/owl-carousel/owl.carousel.min.js"></script>
+<script src="js/jquery.ajaxchimp.min.js"></script>
+<script src="vendors/bootstrap-datepicker/bootstrap-datetimepicker.min.js"></script>
+<script src="vendors/nice-select/js/jquery.nice-select.js"></script>
+<script src="js/mail-script.js"></script>
+<script src="js/stellar.js"></script>
+<script src="vendors/lightbox/simpleLightbox.min.js"></script>
+<script src="js/custom.js"></script>
 </body>
 </html>

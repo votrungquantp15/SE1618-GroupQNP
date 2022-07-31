@@ -21,60 +21,60 @@
 <body>
     <!--================Header Area =================-->
     <header class="header_area">
-        <div class="container">
-            <nav class="navbar navbar-expand-lg navbar-light">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <c:choose>
-                    <c:when test="${sessionScope.LOGIN_USER == null}">
-                        <a class="navbar-brand logo_h" href="HomeShowFieldController?index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
-                        </c:when>
-                        <c:otherwise>
-                        <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
-                        </c:otherwise>
-                    </c:choose>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
-                    <ul class="nav navbar-nav menu_nav ml-auto">
+        <nav class="navbar navbar-expand-lg navbar-light">
+            <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <c:choose>
+                <c:when test="${sessionScope.LOGIN_USER == null}">
+                    <a class="navbar-brand logo_h" href="HomeShowFieldController?index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                    </c:when>
+                    <c:otherwise>
+                    <a class="navbar-brand logo_h" href="MainController?action=Print&index=1"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
+                    </c:otherwise>
+                </c:choose>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse offset" id="navbarSupportedContent">
+                <ul class="nav navbar-nav menu_nav ml-auto">
+                    <c:choose>
+                        <c:when test="${sessionScope.LOGIN_USER == null}">
+                            <li class="nav-item active"><a class="nav-link" href="HomeShowFieldController?index=1">Trang chủ</a></li>
+                            </c:when>
+                            <c:otherwise>
+                            <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
+                            </c:otherwise>
+                        </c:choose>
                         <c:choose>
                             <c:when test="${sessionScope.LOGIN_USER == null}">
-                                <li class="nav-item active"><a class="nav-link" href="HomeShowFieldController?index=1">Trang chủ</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                <li class="nav-item active"><a class="nav-link" href="MainController?action=Print&index=1">Trang chủ</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                            <c:choose>
-                                <c:when test="${sessionScope.LOGIN_USER == null}">
-                                <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ hàng</a></li>
-                                </c:when>
-                                <c:otherwise>
-                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
-                                </c:otherwise>
-                            </c:choose>
-                        <li class="nav-item submenu dropdown">
-                            <c:choose>
-                                <c:when test="${sessionScope.LOGIN_USER == null}">
-                                    <a href="login.jsp" class="nav-link">Đăng nhập</a>
-                                </c:when>
-                                <c:otherwise>
-                                    <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
-                                    <ul class="dropdown-menu">
-                                        <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
-                                        <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
-                                        <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
-                                    </ul>
-                                </c:otherwise>
-                            </c:choose>
-                        </li> 
-                    </ul>
-                </div> 
-            </nav>
-        </div>
+                            <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ sân đặt</a></li>
+                            </c:when>
+                            <c:otherwise>
+                            <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
+                            </c:otherwise>
+                        </c:choose>
+                    <li class="nav-item submenu dropdown">
+                        <c:choose>
+                            <c:when test="${sessionScope.LOGIN_USER == null}">
+                                <a href="login.jsp" class="nav-link">Đăng nhập</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">${sessionScope.LOGIN_USER.fullName}</a>
+                                <ul class="dropdown-menu">
+                                    <li class="nav-item"><a href="MainController?action=ProfileUser&id=${sessionScope.LOGIN_USER.userID}" class="nav-link">Hồ sơ</a></li>
+                                    <li class="nav-item"><a href="MainController?action=SearchBooking&userID=${sessionScope.LOGIN_USER.userID}&index=1&status=" class="nav-link">Lịch sử đặt</a></li>
+                                    <li class="nav-item"><a href="MainController?action=Logout" class="nav-link">Đăng xuất</a></li>
+                                </ul>
+                            </c:otherwise>
+                        </c:choose>
+                    </li> 
+                </ul>
+            </div> 
+            </div>
+        </nav>
     </header>
     <!--================Header Area =================-->
 
@@ -127,14 +127,14 @@
                     </div>
                 </c:forEach>
             </div>
-                            <ul class="pagination justify-content-center mt-2">
-                                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
-                                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
-                                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
-                                    </li>
-                                </c:forEach>
-                            </ul>
-                        
+            <ul class="pagination justify-content-center mt-2">
+                <c:forEach var="i" begin="1" end="${END_PAGE_EACH}">
+                    <li class="page-item <c:if test="${param.index eq i}"> active </c:if>">
+                        <a class="page-link" href="MainController?action=ViewFoodOfField&fieldId=${sessionScope.FIELD_ID}&index=${i}">${i}</a> 
+                    </li>
+                </c:forEach>
+            </ul>
+
         </div>
     </section>
     <!--================ Accomodation Area  =================-->
@@ -144,31 +144,28 @@
             <div class="row">
                 <div class="col-lg-3  col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <h6 class="footer_title">About Agency</h6>
-                        <p>The world has become so fast paced that people don't want to stand by reading a page of information, they would much rather look at a presentation and understand the message. It has come to a point </p>
+                        <h6 class="footer_title">Về chúng tôi</h6>
+                        <p>Chúng tôi mong muốn mang đến cho bạn một trải nghiệm tuyệt vời nhất bằng tất cả khả năng.</p>
                     </div>
-                </div>					
+                </div>
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6 class="footer_title">Chính sách</h6>
+                        <p><a href="policy.jsp">Nhấp chuột để xem</a></p>
+                    </div>
+                </div>
+                <div class="col-lg-3  col-md-6 col-sm-6">
+                    <div class="single-footer-widget">
+                        <h6 class="footer_title">Điều khoản</h6>
+                        <p><a href="term.jsp">Nhấp chuột để xem</a></p>
+                    </div>
+                </div>
                 <div class="col-lg-3 col-md-6 col-sm-6">
                     <ul>
-                        <li><span class="icon fa fa-map-marker"></span><span class="text"> 203 Fake St. Mountain View, San Francisco, California, USA</span></li>
-                        <li><a href="#"><span class="icon fa fa-phone"></span><span class="text"> +2 392 3929 210</span></a></li>
-                        <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text"> info@yourdomain.com</span></a></li>
+                        <li><span class="icon fa fa-map-marker"></span><span class="text"> Lô E2a-7, Đường D1, Khu Công nghệ cao, P.Long Thạnh Mỹ, Tp. Thủ Đức, TP.HCM.</span></li>
+                        <li><a href="#"><span class="icon fa fa-phone"></span><span class="text"> +84 938 736 555</span></a></li>
+                        <li><a href="#"><span class="icon fa fa-paper-plane"></span><span class="text"> DN1@gmail.com</span></a></li>
                     </ul>
-                </div>	
-                <div class="col-lg-3 col-md-6 col-sm-6">
-                    <div class="single-footer-widget">
-                        <h6 class="footer_title">Newsletter</h6>
-                        <p>For business professionals caught between high OEM price and mediocre print and graphic output, </p>		
-                        <div id="mc_embed_signup">
-                            <form target="_blank" action="https://spondonit.us12.list-manage.com/subscribe/post?u=1462626880ade1ac87bd9c93a&amp;id=92a4423d01" method="get" class="subscribe_form relative">
-                                <div class="input-group d-flex flex-row">
-                                    <input name="EMAIL" placeholder="Email Address" onfocus="this.placeholder = ''" onblur="this.placeholder = 'Email Address '" required="" type="email">
-                                    <button class="btn sub-btn"><span class="lnr lnr-location"></span></button>		
-                                </div>									
-                                <div class="mt-10 info"></div>
-                            </form>
-                        </div>
-                    </div>
                 </div>				
             </div>
             <div class="border_line"></div>

@@ -1,6 +1,10 @@
 package controllers;
 
+import dao.DistrictDAO;
+import dao.RoleDAO;
 import dao.UserDAO;
+import dto.District;
+import dto.Role;
 import dto.User;
 import java.io.IOException;
 import java.util.List;
@@ -23,6 +27,14 @@ public class AccountEditorController extends HttpServlet {
             String id_of_user = request.getParameter("userID");
             
             UserDAO dao = new UserDAO();
+            DistrictDAO districtDao = new DistrictDAO();
+            List<District> listDistrict = districtDao.getAllDistrict();
+            request.setAttribute("LIST_DISTRICT", listDistrict);
+            
+            RoleDAO roleDao = new RoleDAO();
+            List<Role> listRole = roleDao.getAllRoleForList();
+            request.setAttribute("LIST_ROLE", listRole);
+            
             List<User> listUser = dao.searchAccountByIDForAdmin(id_of_user);
             if (listUser.size() > 0) {
                 request.setAttribute("VIEW_ACCOUNT", listUser);

@@ -56,7 +56,8 @@ public class FieldDAO {
 
     private static final String CHECK_FIELD_ID = "SELECT fieldId FROM tblFields WHERE fieldId = ?";
     private static final String CREATE_FIELD = "INSERT INTO tblFields(fieldId, fieldName, description, image, categoryFieldId, price, userId, locationId, districtId) VALUES(?, ?, ?,?, ?, ?, ?, ?, ?)";
-
+    private static final String GET_ALL_FIELD = "SELECT fieldId, fieldName, [description], [image], categoryFieldId, price, locationId, districtId, status FROM tblFields where userId = ? ";
+   
     public Field getFieldByID(String fieldID) throws SQLException {
         Field field = new Field();
         Connection conn = null;
@@ -110,6 +111,56 @@ public class FieldDAO {
             }
         }
         return field;
+    }
+    
+    public List<Field> getAllField(String userId) throws SQLException {
+    List<Field> listField = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_FIELD);
+                ptm.setString(1, userId);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String fieldId = rs.getString("fieldId");
+                    String fieldName = rs.getString("fieldName");
+                    String description = rs.getString("description");
+                    String image = rs.getString("image");
+                    String categoryFieldID = rs.getString("categoryFieldId");
+                    FieldCategoryDAO fieldCategoryDAO = new FieldCategoryDAO();
+                    FieldCategory fieldCategory = fieldCategoryDAO.getFieldCategoryByID(categoryFieldID);
+                    UserDAO udao = new UserDAO();
+                    User user = udao.getUserByID(userId);
+                    double price = rs.getDouble("price");                    
+                    String locationID = rs.getString("locationId");
+                    LocationDAO locationDAO = new LocationDAO();
+                    Location location = locationDAO.getLocationByID(locationID);
+                    String districtID = rs.getString("districtId");
+                    DistrictDAO districtDAO = new DistrictDAO();
+                    District district = districtDAO.getDistrictByID(districtID);
+                    String status = rs.getString("status");
+                    listField.add(new Field(fieldId, fieldName, description, image, fieldCategory, price, user, location, district, status));
+                    
+                    
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listField;
     }
 
     public List<Field> getListField(int index) throws SQLException {
