@@ -10,7 +10,9 @@ import dao.FoodDetailDAO;
 import dto.Field;
 import dto.Food;
 import dto.FoodDetail;
+import dto.User;
 import java.io.IOException;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,6 +40,12 @@ public class AddFoodToFieldController extends HttpServlet {
             FoodDetailDAO fdao = new FoodDetailDAO();
             String foodDetailId = fdao.foodDetailIDForManager();
 
+            FieldDAO fieldDao = new FieldDAO();
+            User user = (User)session.getAttribute("LOGIN_USER");
+            String userId = user.getUserID();
+            List<Field> listField = fieldDao.getAllField(userId);
+            request.setAttribute("FIELD_LIST", listField);
+            
             String foodId = request.getParameter("foodId");
             FoodDAO foodDAO = new FoodDAO();
             Food food = foodDAO.getFoodByID(foodId);
@@ -49,6 +57,10 @@ public class AddFoodToFieldController extends HttpServlet {
             double price = Double.parseDouble(request.getParameter("price"));
             boolean check = true;                     
 
+            
+            
+            
+            
             if (check) {
                 FoodDetail fFood = new FoodDetail(foodDetailId, food, field, price, "1");
                 boolean checkInsertFieldId = fdao.insertFieldIdOfFood(fFood);

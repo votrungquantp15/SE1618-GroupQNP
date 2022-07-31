@@ -67,25 +67,34 @@
             <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
 
                 <form action="MainController" method="POST">
+                    
                     <div class="card">
                         <div class="form-group col-md-6">
                             <div class="card-header">
                                 <h4 class="card-title">Add Food</h4>                               
-                        </div>
-                        <div class="card-body">
-                            <div class="basic-form">
-                                <div class="form-row">                                       
-                                    <div class="form-group col-md-6">
-                                        <label>Food ID</label>
-                                        <input type="text" class="form-control" name="foodId" value="${param.foodId}"  readonly=""/>
+                            </div>
+                            <div class="card-body">
+                                <div class="basic-form">
+                                    <div class="form-row">                                       
+                                        <div class="form-group col-md-6">
+                                            <label>Food ID</label><label class="ml-1" style="color:red">(*)</label>                                           
+                                            <input type="text" class="form-control" name="foodId" value="${param.foodId}" readonly=""/>
+                                        
+                                        
+                                    </div>
+                                    <div class="form-group col-md-6">                                       
+                                        
+                                        <label>Field</label><label class="ml-1" style="color:red">(*)</label>
+                                        <select class="form-control " name="fieldId">                                           
+                                            <option value="">None</option>                                            
+                                            <c:forEach var="fieldName" items="${requestScope.FIELD_LIST}">
+                                                <option value="${fieldName.fieldId}">${fieldName.fieldName}</option>
+                                            </c:forEach>
+                                        </select>
                                     </div>
                                     <div class="form-group col-md-6">
-                                        <label>Field ID</label>
-                                        <input type="text" class="form-control" name="fieldId"  required=""/>
-                                    </div>
-                                    <div class="form-group col-md-6">
-                                        <label>Price</label>
-                                        <input type="text" class="form-control" name="price"  required=""/>
+                                        <label>Price</label><label class="ml-1" style="color:red">(*)</label>
+                                        <input type="text" class="form-control" name="price"  value="${param.price}" required=""/>
                                     </div>
 
                                 </div>                                       

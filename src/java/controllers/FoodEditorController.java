@@ -30,6 +30,9 @@ public class FoodEditorController extends HttpServlet {
             String foodId = request.getParameter("foodId");
             String fieldId = request.getParameter("fieldId");           
             FoodDAO dao = new FoodDAO();
+            FoodCategoryDAO fCateDao = new FoodCategoryDAO();
+            List<FoodCategory> listCate = fCateDao.getAllFoodCategoryForList();
+            request.setAttribute("LIST_CATEGORY", listCate);
             FoodDetailDAO fdao = new FoodDetailDAO();
             List<Food> listFood = dao.searchFoodByIdForManager(foodId);
             List<FoodDetail> listFoodDetail = fdao.getFoodDetailIdByFoodIdAndFieldId(foodId, fieldId);
