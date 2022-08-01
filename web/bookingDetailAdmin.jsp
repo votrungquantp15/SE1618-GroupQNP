@@ -36,53 +36,55 @@
                         <div class="col-lg-12">
                             <div class="card">
                                 <div class="card-body">
-                                <c:if test="${requestScope.BOOKING_DETAIL == null}">
-                                    <h3 class="text-center text-danger"><strong>No Result</strong></h3>
+                                <c:if test="${requestScope.LIST_BOOKING_DETAIL == null}">
+                                    <h3 class="text-center text-danger"><strong>Không tìm thấy thông tin</strong></h3>
                                 </c:if>
                                 <div class="row">
-                                    <c:if test="${requestScope.BOOKING_DETAIL != null}">
-                                        <c:if test="${not empty requestScope.BOOKING_DETAIL}">
-                                            <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
-                                                <div class="fade show active">
-                                                    <img class="img-fluid" src="${requestScope.BOOKING_DETAIL.field.image}" alt="">
+                                    <c:if test="${requestScope.LIST_BOOKING_DETAIL != null}">
+                                        <c:if test="${not empty requestScope.LIST_BOOKING_DETAIL}">
+                                            <c:forEach var="list" items="${LIST_BOOKING_DETAIL}">
+                                                <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
+                                                    <div class="fade show active">
+                                                        <img class="img-fluid" src="${list.field.image}" alt="">
+                                                    </div>
                                                 </div>
-                                            </div>
 
-                                            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
-                                                <div class="product-detail-content">
-                                                    <!--Product details-->
-                                                    <div class="new-arrival-content pr row">
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h3><strong>Thông tin đặt</strong></h3>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <p><strong>Mã đặt sân</strong>: ${requestScope.BOOKING_DETAIL.booking.bookingId}</p>
-                                                                    <p><strong>Ngày đặt</strong>: ${requestScope.BOOKING_DETAIL.booking.bookingDate}</p>
-                                                                    <p><strong>Người đặt</strong>: ${requestScope.BOOKING_DETAIL.booking.user.fullName}</p>
-                                                                    <p><strong>Giờ chơi</strong>: ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeStart} - ${requestScope.BOOKING_DETAIL.slotDetail.slot.timeEnd}</p>
-                                                                    <p><strong>Ngày chơi</strong>: ${requestScope.BOOKING_DETAIL.playDate}</p>
+                                                <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                                                    <div class="product-detail-content">
+                                                        <!--Product details-->
+                                                        <div class="new-arrival-content pr row">
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3><strong>Thông tin đặt</strong></h3>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p><strong>Mã đặt sân</strong>: ${list.booking.bookingId}</p>
+                                                                        <p><strong>Ngày đặt</strong>: ${list.booking.bookingDate}</p>
+                                                                        <p><strong>Người đặt</strong>: ${list.booking.user.fullName}</p>
+                                                                        <p><strong>Giờ chơi</strong>: ${list.slotDetail.slot.timeStart} - ${list.slotDetail.slot.timeEnd}</p>
+                                                                        <p><strong>Ngày chơi</strong>: ${list.playDate}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-12 col-md-6">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h3><strong>Thông tin sân</strong></h3>
-                                                                </div>
-                                                                <div class="card-body">
-                                                                    <p><strong>Tên sân</strong>: ${requestScope.BOOKING_DETAIL.field.fieldName}</p>
-                                                                    <p><strong>Mô tả</strong>: ${requestScope.BOOKING_DETAIL.field.description}</p>
-                                                                    <p><strong>Loại sân</strong>: ${requestScope.BOOKING_DETAIL.field.fieldCate.fieldCateName}</p>
-                                                                    <p><strong>Chủ sân</strong>: ${requestScope.BOOKING_DETAIL.field.user.fullName}</p>
-                                                                    <p><strong>Đại chỉ</strong>: ${requestScope.BOOKING_DETAIL.field.location.locationName}</p>
+                                                            <div class="col-12 col-md-6">
+                                                                <div class="card">
+                                                                    <div class="card-header">
+                                                                        <h3><strong>Thông tin sân</strong></h3>
+                                                                    </div>
+                                                                    <div class="card-body">
+                                                                        <p><strong>Tên sân</strong>: ${list.field.fieldName}</p>
+                                                                        <p><strong>Mô tả</strong>: ${list.field.description}</p>
+                                                                        <p><strong>Loại sân</strong>: ${list.field.fieldCate.fieldCateName}</p>
+                                                                        <p><strong>Chủ sân</strong>: ${list.field.user.fullName}</p>
+                                                                        <p><strong>Địa chỉ</strong>: ${list.field.location.locationName}</p>
+                                                                    </div>
                                                                 </div>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
+                                            </c:forEach>
                                         </c:if>
                                     </c:if>            
                                 </div>

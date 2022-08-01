@@ -55,10 +55,6 @@
                                 <div class="card">
                                     <div class="card-header">
                                         <h4 class="card-title">Slot Management
-                                            <p style="color: #17e379"><strong>${DELETE_SUCCESS}</strong></p> 
-                                        <p style="color: #ff2457"><strong>${DELETE_UNSUCCESS}</strong></p> 
-                                        <p style="color: #17e379"><strong>${UPDATE_SUCCESS}</strong></p> 
-                                        <p style="color: #ff2457"><strong>${UPDATE_UNSUCCESS}</strong></p> 
                                     </h4>
                                 </div>
                                 <div class="card-body">
@@ -111,13 +107,11 @@
                                     </div>
 
                                     <ul class="pagination">
-
                                         <c:forEach var="i" begin="1" end="${END_PAGE}">
                                             <li>
                                                 <a href="MainController?action=SearchSlot&search=${param.search}&index=${i}" class="page-link">${i}</a>
                                             </li>
                                         </c:forEach>
-
                                     </ul>    
                                 </div>
                             </div>

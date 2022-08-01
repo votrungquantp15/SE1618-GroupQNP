@@ -9,6 +9,7 @@ import dao.BookingDetailDAO;
 import dto.BookingDetail;
 import dto.User;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -30,22 +31,27 @@ public class SearchBookingDetailController extends HttpServlet {
         HttpSession session = request.getSession();
         User loginUser = (User) session.getAttribute("LOGIN_USER");
         String roleID = loginUser.getRole().getRoleId();
+        List<BookingDetail> list = new ArrayList<>();
         String url = ERROR;
         try {
             String bookingID = request.getParameter("bookingID");
             if (ADMIN.equals(roleID)) {
                 BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
+//                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
+//                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
+                list = dao.getListBookingDetailByBookingID(bookingID);
+                request.setAttribute("LIST_BOOKING_DETAIL", list);
                 url = SUCCESS_ADMIN;
             } else if (USER.equals(roleID)) {
                 BookingDetailDAO dao = new BookingDetailDAO();
-                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
-                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
+//                BookingDetail getBookingDetail = dao.getBookingDetailByID(bookingID);
+//                request.setAttribute("BOOKING_DETAIL", getBookingDetail);
+                list = dao.getListBookingDetailByBookingID(bookingID);
+                request.setAttribute("LIST_BOOKING_DETAIL", list);
                 url = SUCCESS_USER;
             }
         } catch (Exception e) {
-            log("Error at SearchController: " + e.toString());
+            log("Error at SearchBookingDetailController: " + e.toString());
         } finally {
             request.getRequestDispatcher(url).forward(request, response);
         }

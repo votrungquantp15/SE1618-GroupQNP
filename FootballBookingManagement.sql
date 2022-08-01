@@ -1,7 +1,7 @@
-﻿DROP DATABASE FootballBookingManagement1
+﻿DROP DATABASE FootballBookingManagement
 
-CREATE DATABASE FootballBookingManagement1
-USE FootballBookingManagement1
+CREATE DATABASE FootballBookingManagement
+USE FootballBookingManagement
 
 
 CREATE TABLE tblRoles
