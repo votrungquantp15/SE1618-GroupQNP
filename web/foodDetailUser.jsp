@@ -50,10 +50,10 @@
                             </c:choose>
                             <c:choose>
                                 <c:when test="${sessionScope.LOGIN_USER == null}">
-                                <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ hàng</a></li>
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=LoginPage">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
                                 </c:when>
                                 <c:otherwise>
-                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ hàng</a></li>
+                                <li class="nav-item"><a class="nav-link" href="MainController?action=ViewCart">Giỏ sân đặt(<c:if test="${CART == null or CART.getCart().size() == 0}">0</c:if><c:if test="${CART != null or CART.getCart().size() > 0}">${CART.getCart().size()}</c:if>)</a></li>
                                 </c:otherwise>
                             </c:choose>
                         <li class="nav-item submenu dropdown">

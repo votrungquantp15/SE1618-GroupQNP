@@ -91,6 +91,55 @@ public class BookingDetailDAO {
         }
         return bookingDetail;
     }
+    
+    public List<BookingDetail> getListBookingDetailByBookingID(String bookingID) throws SQLException {
+        List<BookingDetail> list = new ArrayList<>();
+        Connection connect = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            connect = DBUtils.getConnection();
+            if (connect != null) {
+                ptm = connect.prepareStatement(GET_BOOKING_DETAIL);
+                ptm.setString(1, bookingID);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String bookingDetailID = rs.getString("bookingDetailID");
+
+                    String getBookingID = rs.getString("bookingId");
+                    BookingDAO bookingDAO = new BookingDAO();
+                    Booking booking = bookingDAO.getBookingByID(getBookingID);
+
+                    String fieldID = rs.getString("fieldID");
+                    FieldDAO fieldDAO = new FieldDAO();
+                    Field field = fieldDAO.getFieldByID(fieldID);
+
+                    double fieldPrice = rs.getDouble("fieldPrice");
+
+                    String slotDetailID = rs.getString("slotDetailID");
+                    SlotDetailDAO slotDetailDAO = new SlotDetailDAO();
+                    SlotDetail slotDetail = slotDetailDAO.getSlotDetailByID(slotDetailID);
+
+                    String playDate = rs.getString("playDate");
+                    boolean status = rs.getBoolean("status");
+                    list.add(new BookingDetail(bookingDetailID, booking, field, slotDetail, fieldPrice, playDate, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (connect != null) {
+                connect.close();
+            }
+        }
+        return list;
+    }
 
     public List<BookingDetail> getListBookingDetailByFieldID(String fieldID) throws SQLException {
         List<BookingDetail> bookingDetails = new ArrayList<>();
