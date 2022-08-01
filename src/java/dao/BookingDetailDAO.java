@@ -40,7 +40,7 @@ public class BookingDetailDAO {
     private static final String GET_ALL_BOOKING_DETAIL = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status "
             + "FROM tblBookingDetail";
     private static final String COUNT_ALL_BOOKING_DETAIL = "SELECT COUNT(*) as totalBookingDetail FROM tblBookingDetail";
-    private static final String GET_ALL_BOOKING_DETAIL_PAGING = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status FROM tblBookingDetail ORDER BY bookingDetailID OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
+    private static final String GET_ALL_BOOKING_DETAIL_PAGING = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status FROM tblBookingDetail ORDER BY bookingDetailID OFFSET ? ROWS FETCH NEXT 20 ROWS ONLY";
     private static final String GET_BOOKING_DETAIL_ID = "SELECT bookingDetailI tblBookingDetail WHERE bookingDetailID like ?  ";
     
     private static final String GET_OWNER_BOOKING_DETAIL_PAGING = "SELECT bookingDetailID, bookingID, fieldID, playDate, slotDetailID, fieldPrice, status FROM tblBookingDetail Where userID = ? ORDER BY bookingDetailID OFFSET ? ROWS FETCH NEXT 10 ROWS ONLY";
@@ -418,7 +418,7 @@ public class BookingDetailDAO {
             connect = DBUtils.getConnection();
             if (connect != null) {
                 ptm = connect.prepareStatement(GET_ALL_BOOKING_DETAIL_PAGING);
-                ptm.setInt(1, (index - 1) * 10);
+                ptm.setInt(1, (index - 1) * 20);
                 rs = ptm.executeQuery();
                 while (rs.next()) {
                     String bookingDetailID = rs.getString("bookingDetailID");

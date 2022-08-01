@@ -171,10 +171,10 @@
 
                                 <c:choose>
                                     <c:when test="${sessionScope.LOGIN_USER == null}">
-                                        <button type="submit" name="action" value="LoginPage" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                        <button type="submit" name="action" value="LoginPage" class="btn theme_btn button_hover rounded">Đặt sân</button>
                                     </c:when>
                                     <c:otherwise>
-                                        <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt ngay</button>
+                                        <button type="submit" name="action" value="Booking" class="btn theme_btn button_hover rounded">Đặt sân</button>
                                     </c:otherwise>
                                 </c:choose>
                             </form>
@@ -182,7 +182,7 @@
                         </div>
                         <a href="MainController?action=UserPrintFieldDetail&fieldId=${field.fieldId}"><h4 class="sec_h4">${field.fieldName}</h4></a>
                         <h6>${field.district.districtName}</h6>
-                        <h5>${field.price}00<small> vnd/h</small></h5>
+                        <h5>${field.price}<small> $/h</small></h5>
                     </div>
                 </div>
             </c:forEach>

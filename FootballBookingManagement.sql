@@ -1,7 +1,7 @@
-﻿DROP DATABASE FootballBookingManagement
+﻿DROP DATABASE FootballBookingManagement1
 
-CREATE DATABASE FootballBookingManagement
-USE FootballBookingManagement
+CREATE DATABASE FootballBookingManagement1
+USE FootballBookingManagement1
 
 
 CREATE TABLE tblRoles
@@ -159,7 +159,7 @@ INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, 
 INSERT INTO tblUsers (userID, fullName, [address], districtId, birthday, phone, email, accName, [password], roleId, [status]) VALUES ('U05', N'Trần Hữu Phúc', N'303/22 D5', 'DI04', '2003-12-31', '091x', 'HP1@gmail.com', 'phuctran', '1', 'US', 1)
 
 INSERT INTO tblUsers([userId],[fullName],[address],[districtId],[birthday],[phone],[email],[accName],[password],[roleId],[status])
-VALUES('U06', N'Trần Lý Sơn', N'123/6 A1', 'DI07', '2003-12-31', '091x', 'HP1@gmail.com', 'phuctran', '1', 'US', 1)
+VALUES('U06', N'Trần Lý Sơn', N'123/6 A1', 'DI07', '2003-12-31', '091x', 'HP1@gmail.com', 'phucTran', '1', 'US', 1)
 INSERT INTO [dbo].[tblUsers]([userId],[fullName],[address],[districtId],[birthday],[phone],[email],[accName],[password],[roleId],[status])
 VALUES ('U07', N'Hữu Bảo Anh', N'303/22 D5', 'DI08', '2001-10-31', '091x', 'HPYY1@gmail.com', 'baoanh', '1', 'US', 1)
 INSERT INTO [dbo].[tblUsers]([userId],[fullName],[address],[districtId],[birthday],[phone],[email],[accName],[password],[roleId],[status])

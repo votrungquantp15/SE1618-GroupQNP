@@ -79,7 +79,7 @@
                                     <div class="form-row">
                                         <div class="form-group col-md-6">
                                             <label>Full Name</label><label class="ml-1" style="color:red">(*)</label>
-                                            <input type="text" class="form-control" name="fullName" value = "${param.fullName}" required=""/>
+                                            <input type="text" class="form-control" name="fullName" value = "${requestScope.FULLNAME}" required=""/>
                                         </div>
 
                                         <div class="form-group col-md-6">
@@ -96,7 +96,7 @@
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Birthday</label><label class="ml-1" style="color:red">(*)</label>
-                                        <input type="date" class="form-control" name="birthday" value = "${param.birthday}" required=""/>
+                                        <input max="2010-08-01" type="date" class="form-control" name="birthday" value = "${param.birthday}" required=""/>
                                     </div>
                                     <div class="form-group col-md-6">
                                         <label>Phone</label><label class="ml-1" style="color:red">(*)</label>

@@ -153,6 +153,9 @@
                                                                     <th>Dịch vụ:</th>
                                                                     <th><p><a href="MainController?action=ViewFoodOfField&fieldId=${requestScope.FIELD_DETAIL.fieldId}&index=1">Nhấp chuột để xem</a></p></th>
                                                                 </tr>
+                                                                <tr>
+                                                                    <th><a style="color: white" class="btn btn-lg bg-warning" href="MainController?action=Booking&fieldID=${requestScope.FIELD_DETAIL.fieldId}">Đặt sân</a></th>
+                                                                </tr>
                                                             </table>
                                                         </div>
 

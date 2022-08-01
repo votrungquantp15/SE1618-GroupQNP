@@ -35,7 +35,7 @@
                                                                                                          https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSrVkzgEMwI_NFvtWaz8gk0OerfVPnWI6sCcw&usqp=CAU
                                                                                                      </c:when>
                                                                                                  </c:choose>                  
-                    "></div>
+                                                                                                 "></div>
                 </div>
                 <div class="col-md-5 border-right">
                     <div class="p-3 py-5">

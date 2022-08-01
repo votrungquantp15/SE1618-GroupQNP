@@ -68,11 +68,8 @@
                                 </div>
                             </div>
                             <p style="color: red">${requestScope.ERROR_MESSAGE} </p>
-                            <a href="#">Forget Password</a>
                             <p>Don't have an account? <a href="MainController?action=CreateAccountForUser">Create User</a></p>
                         </form>
-                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/sg-booking-management/login-google&response_type=code
-                           &client_id=156929057174-2giaf3dbm4itufvgf7ks8hb820l765s1.apps.googleusercontent.com&approval_prompt=force">Login With Google</a> 
                     </div>
                 </div>
             </div>

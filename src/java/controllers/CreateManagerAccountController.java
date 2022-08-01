@@ -108,6 +108,7 @@ public class CreateManagerAccountController extends HttpServlet {
             } else {
                 request.setAttribute("CUSTOMER_ERROR", cusError);
             }
+            request.setAttribute("FULLNAME", fullName);
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
