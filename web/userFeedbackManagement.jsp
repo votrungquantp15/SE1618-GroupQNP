@@ -56,7 +56,7 @@
             <div class="deznav-scroll">
                 <div class="main-profile">
                     <div class="image-bx">
-                        <img src="https://i.pinimg.com/736x/89/90/48/899048ab0cc455154006fdb9676964b3.jpg" alt="">
+                        <img src="https://www.kindpng.com/picc/m/78-786207_user-avatar-png-user-avatar-icon-png-transparent.png" alt="">
                     </div>
                     <h5 class="name"><span class="font-w400">Hello, ${sessionScope.LOGIN_USER.fullName}</span></h5>
                     <p><strong>[Role: User]</strong></p>
@@ -87,14 +87,6 @@
                                                 <form class="col-12 form-inline mb-3" action="MainController">
                                                     <div class="input-group col-sm-10">
                                                         <div class="input-group-prepend">
-                                                            <button class="btn btn-primary disabled" type="button">Status</button>
-                                                            <select name="status">
-                                                                <option value="" <c:if test="${param.status == null}">selected</c:if>>Show all status</option>
-                                                                <option value="0" <c:if test="${param.status eq '0'}">selected</c:if>>In-Active</option>
-                                                                <option value="1" <c:if test="${param.status eq '1'}">selected</c:if>>Active</option>
-                                                            </select>
-                                                        </div>
-                                                        <div class="input-group-prepend">
                                                             <button class="btn btn-primary disabled" type="button">Search By Field's Name</button>
                                                         </div>
                                                         <input class="col-sm-4" type="text" class="form-control" name="searchFeedback" value="${param.searchFeedback}" placeholder="Search here...">
@@ -115,7 +107,6 @@
                                                         <th><strong>Feedback ID</strong></th>
                                                         <th><strong>Field</strong></th>
                                                         <th><strong>Content</strong></th>
-                                                        <th><strong>Status</strong></th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
@@ -128,7 +119,6 @@
                                                             <td>${feedback.feedbackId}</td>
                                                             <td>${feedback.field.fieldName}</td>
                                                             <td>${feedback.content}</td>
-                                                            <td>${feedback.status}</td>
                                                         </tr>
                                                     </c:forEach>
                                                     </tr>

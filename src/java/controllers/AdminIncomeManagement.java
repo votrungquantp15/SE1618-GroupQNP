@@ -28,6 +28,8 @@ public class AdminIncomeManagement extends HttpServlet {
     private static final String SEARCHINCOME = "SearchIncome";
 
     private static final String GET_ALL_INCOME = "GetAllIncome";
+    
+    private static final String GET_INCOME_MANAGER ="GetIncomeManager";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -48,10 +50,14 @@ public class AdminIncomeManagement extends HttpServlet {
                     bookingDetails = bookingDetailDao.getListBookingDetailByFieldID(fieldID);
 
                     request.setAttribute("BOOKING_DETAILS", bookingDetails);
-                    url = "incomeReportAdmin.jsp";
+                    if (user.getRole().getRoleId().equals("MA")) {
+                        url = "incomeReportOwner.jsp";
+                    } else if (user.getRole().getRoleId().equals("AD")) {
+                        url = "incomeReportAdmin.jsp";
+                    }
                     break;
 
-                case GET_ALL_INCOME:
+                case GET_ALL_INCOME:{
                     String indexPage = request.getParameter("index");
                     if (indexPage == null) {
                         indexPage = "1";
@@ -72,6 +78,26 @@ public class AdminIncomeManagement extends HttpServlet {
                     }
                     request.setAttribute("END_PAGE", endPage);
                     break;
+                }
+                case GET_INCOME_MANAGER:{
+                    String indexPage = request.getParameter("index");
+                    if (indexPage == null) {
+                        indexPage = "1";
+                    }
+                    
+                    int index = Integer.parseInt(indexPage);
+                    int endPage = 0;
+                    int count = bookingDetailDao.countTotalBookingDetail();
+                    bookingDetails = bookingDetailDao.getOwnerBookingDetailPaging(index, user.getUserID());
+                    request.setAttribute("BOOKING_DETAILS", bookingDetails);
+                    url = "incomeReportOwner.jsp";
+
+                    endPage = count / 10;
+                    if (count % 10 != 0) {
+                        endPage++;
+                    }
+                    request.setAttribute("END_PAGE", endPage);
+                    break;}
             }
         } catch (Exception e) {
         } finally {

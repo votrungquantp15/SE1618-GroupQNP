@@ -324,6 +324,7 @@
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <a type="button" class="btn btn-secondary" style="color: white" href="MainController?action=PrintSlot&index=1&fieldId=${requestScope.FIELD_DETAIL.fieldId}">Manage slot</a>
                                 <input type="hidden" name="fieldId" value="${requestScope.FIELD_DETAIL.fieldId}"/>
                                 <input type="hidden" name="action" value="AddSlotToField"/>
                                 <input style="color: white" class="btn btn-primary" title="Click here to add slot" type="submit" value="Add Slot"/>

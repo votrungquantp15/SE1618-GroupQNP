@@ -92,4 +92,37 @@ public class FoodCategoryDAO {
         }
         return listFoodCategory;
     }
+    
+    public List<FoodCategory> getAllFoodCategoryForList() throws SQLException {
+        List<FoodCategory> listFoodCategory = new ArrayList<>();
+        Connection conn = null;
+        PreparedStatement ptm = null;
+        ResultSet rs = null;
+        try {
+            conn = DBUtils.getConnection();
+            if (conn != null) {
+                ptm = conn.prepareStatement(GET_ALL_FOOD_CATEGORY);
+                rs = ptm.executeQuery();
+                while (rs.next()) {
+                    String getCategoryFoodId = rs.getString("categoryFoodId");
+                    String CategoryFoodName = rs.getString("categoryFoodName");
+                    String status = rs.getString("status");
+                    listFoodCategory.add(new FoodCategory(getCategoryFoodId, CategoryFoodName, status));
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (ptm != null) {
+                ptm.close();
+            }
+            if (conn != null) {
+                conn.close();
+            }
+        }
+        return listFoodCategory;
+    }
 }

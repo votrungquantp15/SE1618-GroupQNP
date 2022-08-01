@@ -284,6 +284,14 @@ public class MainController extends HttpServlet {
     //Add Slot To Field
     private  static final String ADD_SLOT_TO_FIELD = "AddSlotToField";
     private static final String ADD_SLOT_TO_FIELD_CONTROLLER = "AddSlotToFieldController";
+    
+    //Print slot
+    private  static final String PRINT_SLOT = "PrintSlot";
+    private static final String PRINT_SLOT_CONTROLLER = "PrintSlotController";
+    
+    //Update Slot
+    private  static final String UPDATE_SLOT = "UpdateSlot";
+    private static final String UPDATE_SLOT_CONTROLLER = "UpdateSlotController";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -512,6 +520,12 @@ public class MainController extends HttpServlet {
                 case ADD_SLOT_TO_FIELD:
                     url = ADD_SLOT_TO_FIELD_CONTROLLER;
                     break;    
+                case PRINT_SLOT:
+                    url = PRINT_SLOT_CONTROLLER;
+                    break;     
+                case UPDATE_SLOT:
+                    url = UPDATE_SLOT_CONTROLLER;
+                    break;     
             }
         } catch (Exception e) {
             log("Error at MainController" + e.toString());

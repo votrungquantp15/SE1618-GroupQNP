@@ -26,8 +26,9 @@
     <body>
         <!--================Header Area =================-->
         <header class="">
-            <div class="container">
-                <nav class="navbar navbar-expand-lg navbar-light">
+
+            <nav class="navbar navbar-expand-lg navbar-light">
+                <div class="container">
                     <!-- Brand and toggle get grouped for better mobile display -->
                     <a class="navbar-brand logo_h" href="MainController?action=Print"><img src="https://logopond.com/logos/18c31fb8cfe3ce15b964939a13c369a5.png" alt=""></a>
                     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -57,8 +58,9 @@
                             </li> 
                         </ul>
                     </div> 
-                </nav>
-            </div>
+                </div>
+            </nav>
+
         </header>
 
         <div>        
@@ -102,21 +104,21 @@
                                                                 <c:if test="${LIST_SLOT_DETAIL != null}">
                                                                     <c:if test="${not empty LIST_SLOT_DETAIL}">
                                                                         <h3 class="m-b-15">Select time</h3>
-                                                                        <div class="btn-group" data-toggle="buttons">
+                                                                        <div data-toggle="buttons">
 
 
-                                                                                <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
-                                                                                    <c:if test="${param.slotDetailID ne list.slotDetailID}">
-                                                                                        <label class="btn btn-outline-primary light btn-sm">
-                                                                                            <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
-                                                                                        </label>
-                                                                                    </c:if>
+                                                                            <c:forEach var="list" items="${LIST_SLOT_DETAIL}">
+                                                                                <c:if test="${param.slotDetailID ne list.slotDetailID}">
+                                                                                    <label class="btn btn-outline-primary light btn-sm">
+                                                                                        <input type="radio" class="position-absolute invisible" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                    </label>
+                                                                                </c:if>
 
-                                                                                    <c:if test="${param.slotDetailID eq list.slotDetailID}">
-                                                                                        <label class="border-dark btn light btn-sm disabled bg-success btn-outline-light">
-                                                                                            <input type="radio" class="position-absolute" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
-                                                                                        </label>
-                                                                                    </c:if>    
+                                                                                <c:if test="${param.slotDetailID eq list.slotDetailID}">
+                                                                                    <label class="border-dark btn light btn-sm disabled bg-success btn-outline-light">
+                                                                                        <input type="radio" class="position-absolute" name="slotDetailID" value="${list.slotDetailID}"> ${list.slot.timeStart} - ${list.slot.timeEnd}
+                                                                                    </label>
+                                                                                </c:if>    
 
                                                                             </c:forEach>
                                                                         </c:if> 

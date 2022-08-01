@@ -94,9 +94,8 @@ Chat box End
                     <li><a href="MainController?action=PrintFeedback&index=1">Feedback</a></li>
                 </ul>
             </li>
-            <li><a href="MainController?action=SearchSlot&search=">Slots Management</a></li>
             <li><a href="MainController?action=SearchBooking&search=&status=&index=1">Booking report</a></li>
-            <li><a href="AdminIncomeManagement?action=GetAllIncome&index=1">Income report</a></li>
+            <li><a href="AdminIncomeManagement?action=GetIncomeManager&index=1">Income report</a></li>
             <li><a href="MainController?action=ViewFoodList&index=1">Food Management</a></li>
         </ul>
     </div>

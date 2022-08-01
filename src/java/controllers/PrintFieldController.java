@@ -56,7 +56,7 @@ public class PrintFieldController extends HttpServlet {
             if (user.getRole().getRoleId().equals("MA")) {
                 String userId = user.getUserID();
                 count = fieldDao.countTotalFieldbyFieldOwner(userId);
-                List<Field> listField = fieldDao.getListOwnerField(index, userId);
+                List<Field> listField = fieldDao.getListOwnerFieldPaging(index, userId);
                 if (listField.size() > 0) {
                     request.setAttribute("LIST_FIELD", listField);
                     

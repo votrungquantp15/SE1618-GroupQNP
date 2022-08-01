@@ -21,7 +21,7 @@ public class LocationDAO {
     private static final String CHECK_EXIST_LOCATION = "SELECT locationID FROM tblFields WHERE locationID = ?";
     private static final String UPDATE_STATUS_LOCATION_BY_ADMIN = "UPDATE tblLocation SET [status] = ? WHERE locationID = ?";
     private static final String UPDATE_LOCATION_BY_OWNER = "UPDATE tblLocation SET locationName = ? WHERE locationID = ?";
-    private static final String CREATE_LOCATION = "INSERT INTO tblLocation(locationID, locationName, status) VALUES(?, ?, ?)";
+    private static final String CREATE_LOCATION = "INSERT INTO tblLocation(locationID, locationName) VALUES(?, ?)";
 
     private static final String COUNT_ALL_LOCATION = "SELECT COUNT(*) as totalLocation FROM tblLocation";
     private static final String GET_ALL_LOCATION_PAGING = "SELECT locationID, locationName, status FROM tblLocation ORDER BY locationID OFFSET ? ROWS FETCH NEXT 5 ROWS ONLY";
@@ -358,7 +358,6 @@ public class LocationDAO {
                 ptm = conn.prepareStatement(CREATE_LOCATION);
                 ptm.setString(1, location.getLocationId());
                 ptm.setString(2, location.getLocationName());
-                ptm.setString(3, location.getStatus());
                 check = ptm.executeUpdate()>0?true:false;
             }
         } catch (Exception e) {
